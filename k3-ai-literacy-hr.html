@@ -6,59 +6,864 @@
 <title>AI Literacy cho HR · PeopleOS by TaHien</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS ─────────────────────────────────────────────── */
 :root{
-  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--navy4:#143350;
-  --cyan:#22D3EE;--teal:#06B6D4;--cyan2:#67E8F9;
-  --gold:#F0C040;--gold2:#FDE68A;--gold3:#d97706;
+  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;
+  --cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--gold3:#d97706;
+  --green:#22c55e;--red:#ef4444;--purple:#a78bfa;
   --text:#F0F6FF;--muted:#94A3B8;--subtle:#4A7A94;
   --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);
   --border:rgba(34,211,238,0.14);--border2:rgba(34,211,238,0.28);
   --r:14px;--r-sm:9px;
 }
-/* ── RESET ──────────────────────────────────────────────── */
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Be Vietnam Pro',system-ui,sans-serif;background:var(--navy);
-  color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.6}
-/* ── ATMOSPHERE ─────────────────────────────────────────── */
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--navy);color:var(--text);line-height:1.6;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:
-    radial-gradient(ellipse 90% 55% at 15% -5%,rgba(6,182,212,.09) 0%,transparent 55%),
-    radial-gradient(ellipse 65% 45% at 85% 105%,rgba(240,192,64,.06) 0%,transparent 55%)}
-body::after{content:'水';position:fixed;right:-50px;top:50%;
-  transform:translateY(-50%) rotate(-8deg);font-size:340px;line-height:1;
-  color:rgba(34,211,238,.022);pointer-events:none;z-index:0;
-  font-family:'Playfair Display',serif}
-/* ── LAYOUT ─────────────────────────────────────────────── */
+  background:radial-gradient(ellipse 90% 55% at 15% -5%,rgba(6,182,212,.09) 0%,transparent 55%),
+             radial-gradient(ellipse 65% 45% at 85% 105%,rgba(167,139,250,.05) 0%,transparent 55%)}
+body::after{content:'AI';position:fixed;right:-30px;top:50%;transform:translateY(-50%) rotate(-8deg);
+  font-size:280px;line-height:1;color:rgba(34,211,238,.022);pointer-events:none;z-index:0;
+  font-family:'Playfair Display',serif;letter-spacing:-10px}
 .app{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 20px 100px}
-/* ── TOPNAV ─────────────────────────────────────────────── */
-.topnav{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
-  height:58px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;position:sticky;top:0;z-index:100}
-.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);
-  text-decoration:none;transition:color .18s}
+.topnav{display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0 14px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);text-decoration:none;transition:color .18s}
 .back:hover{color:var(--cyan)}
-.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}
-.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
-.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;
-  padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;display:flex;gap:5px;align-items:center<!-- TOPNAV -->
+.logo{display:flex;align-items:center;gap:9px}
+.lmark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--teal),var(--navy3));
+  display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;
+  font-size:13px;color:var(--cyan);border:1px solid var(--border2)}
+.lname{font-size:13px;font-weight:600;color:var(--cyan);letter-spacing:.02em}
+.lsub{font-size:10px;color:var(--muted)}
+.prog-wrap{margin-bottom:24px}
+.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:7px}
+.prog-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--purple),var(--cyan));
+  transition:width .55s cubic-bezier(.4,0,.2,1)}
+.dots{display:flex;gap:7px;justify-content:center;margin-bottom:28px}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.1);
+  cursor:pointer;transition:all .22s;border:1.5px solid transparent;flex-shrink:0}
+.dot.active{background:var(--cyan);border-color:var(--cyan);transform:scale(1.4)}
+.dot.done{background:var(--teal);border-color:var(--teal)}
+/* HERO */
+.hero{position:relative;border-radius:var(--r);overflow:hidden;margin-bottom:24px;height:190px;border:1px solid var(--border)}
+.hero-bg{position:absolute;inset:0}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(135deg,#0d0a2e 0%,#081028 50%,#020B18 100%)}
+.hero-pattern{position:absolute;inset:0;opacity:.12;
+  background-image:radial-gradient(circle,var(--purple) 1px,transparent 1px);background-size:22px 22px}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(2,11,24,.92) 0%,rgba(2,11,24,.2) 65%,transparent 100%)}
+.hero-content{position:absolute;bottom:18px;left:22px;right:22px}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(167,139,250,.15);
+  border:1px solid rgba(167,139,250,.3);border-radius:20px;padding:3px 11px;font-size:11px;
+  color:var(--purple);margin-bottom:9px;font-weight:500;letter-spacing:.05em}
+.hero-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--purple)}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}
+.hero-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#fff;line-height:1.25}
+/* MODULE */
+.mv{display:none}.mv.active{display:block;animation:fadeUp .38s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+/* CONTENT */
+.lead{border-left:2.5px solid var(--purple);padding:13px 17px;background:rgba(167,139,250,.05);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;font-style:italic;color:var(--text);
+  font-size:14.5px;line-height:1.7;margin-bottom:22px}
+.body{font-size:14.5px;line-height:1.78;color:var(--text);margin-bottom:15px}
+.body b{color:var(--cyan);font-weight:600}
+.sec-title{font-size:10.5px;letter-spacing:.13em;color:var(--teal);font-weight:600;
+  text-transform:uppercase;margin:22px 0 11px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r-sm);padding:13px 15px}
+.cn{font-size:10px;color:var(--gold);font-weight:700;margin-bottom:5px;letter-spacing:.07em}
+.ct{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:4px}
+.cd{font-size:12.5px;color:var(--muted);line-height:1.5}
+.card-full{background:var(--glass);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:10px}
+.hl{background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.22);
+  border-radius:var(--r-sm);padding:14px 17px;margin-bottom:18px}
+.hl-label{font-size:10.5px;color:var(--cyan);font-weight:700;letter-spacing:.08em;margin-bottom:7px}
+.hl p{font-size:13.5px;color:var(--text);line-height:1.6}
+.ins{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);
+  border-radius:var(--r-sm);padding:13px 17px;margin-bottom:18px}
+.ins-label{font-size:10.5px;color:var(--gold);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.ins p{font-size:13px;color:var(--text);line-height:1.55}
+.warn{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);
+  border-radius:var(--r-sm);padding:13px 17px;margin-bottom:18px}
+.warn-label{font-size:10.5px;color:var(--red);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.warn p{font-size:13px;color:var(--text);line-height:1.55}
+/* EXERCISE */
+.ex{background:var(--glass2);border:1px solid var(--border2);border-radius:var(--r);padding:18px;margin-top:22px}
+.ex-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.ex-ico{width:30px;height:30px;border-radius:8px;flex-shrink:0;
+  background:rgba(240,192,64,.13);border:1px solid rgba(240,192,64,.27);
+  display:flex;align-items:center;justify-content:center;font-size:14px}
+.ex-label{font-size:12.5px;font-weight:700;color:var(--gold)}
+.ex-sub{font-size:11px;color:var(--muted)}
+/* QUIZ */
+.qq{font-size:14px;color:var(--text);margin-bottom:13px;line-height:1.58;font-weight:500}
+.qopts{display:flex;flex-direction:column;gap:7px}
+.qopt{padding:11px 14px;border-radius:var(--r-sm);border:1px solid var(--border);
+  background:var(--glass);cursor:pointer;font-size:13.5px;color:var(--text);
+  transition:all .18s;text-align:left;width:100%;display:flex;align-items:center;gap:9px;
+  font-family:'Be Vietnam Pro',sans-serif}
+.qopt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.07)}
+.qopt.correct{border-color:#22c55e!important;background:rgba(34,197,94,.09)!important;color:#86efac!important}
+.qopt.wrong{border-color:#ef4444!important;background:rgba(239,68,68,.09)!important;color:#fca5a5!important}
+.oletter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;font-size:10.5px;color:var(--muted);flex-shrink:0;font-weight:700}
+.qfb{margin-top:11px;padding:11px 13px;border-radius:var(--r-sm);font-size:13px;line-height:1.5;display:none}
+.qfb.show{display:block}
+.qfb.correct{background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.27);color:#86efac}
+.qfb.wrong{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:#fca5a5}
+/* AI SORTER */
+.sorter-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.sorter-col{background:var(--glass);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px}
+.sorter-col-title{font-size:11px;font-weight:700;letter-spacing:.08em;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.sorter-item{font-size:12.5px;color:var(--muted);padding:5px 8px;border-radius:6px;
+  cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:6px;margin-bottom:4px;
+  background:var(--glass2);border:1px solid transparent}
+.sorter-item:hover{border-color:var(--border2);color:var(--text)}
+.sorter-item.moved-ai{border-color:rgba(34,211,238,.3);color:var(--cyan);background:rgba(34,211,238,.06)}
+.sorter-item.moved-human{border-color:rgba(34,197,94,.3);color:#86efac;background:rgba(34,197,94,.06)}
+.sorter-item.moved-both{border-color:rgba(240,192,64,.3);color:#fcd34d;background:rgba(240,192,64,.06)}
+.sort-dot{width:7px;height:7px;border-radius:50%;background:var(--subtle);flex-shrink:0}
+/* PROMPT BUILDER */
+.pb-wrap{display:flex;flex-direction:column;gap:8px}
+.pb-field{display:grid;grid-template-columns:100px 1fr;gap:8px;align-items:center}
+.pb-label{font-size:11px;color:var(--muted);text-align:right;font-weight:500}
+.pb-input{background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:var(--r-sm);
+  padding:8px 11px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;
+  transition:border .18s;width:100%}
+.pb-input:focus{outline:none;border-color:var(--cyan)}
+.pb-input::placeholder{color:var(--subtle)}
+.pb-output{background:rgba(34,211,238,.05);border:1px solid var(--border2);border-radius:var(--r-sm);
+  padding:13px 15px;margin-top:10px;display:none}
+.pb-output.show{display:block}
+.pb-result{font-size:13.5px;color:var(--text);line-height:1.7;font-family:monospace;
+  white-space:pre-wrap;word-break:break-word}
+/* CHECKLIST */
+.chi{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.chi:last-child{border-bottom:none}
+.chbox{width:19px;height:19px;border-radius:5px;border:1.5px solid var(--border2);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s;margin-top:1px}
+.chbox.on{background:var(--cyan);border-color:var(--cyan)}
+.chbox.on::after{content:'✓';font-size:11px;color:var(--navy);font-weight:800}
+.chtext{font-size:13.5px;color:var(--text);line-height:1.5}
+.chtext small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+/* ETHICS SCENARIO */
+.eth-opts{display:flex;flex-direction:column;gap:8px}
+.eth-opt{padding:12px 14px;border-radius:var(--r-sm);border:1px solid var(--border);
+  background:var(--glass);cursor:pointer;transition:all .18s;font-family:'Be Vietnam Pro',sans-serif}
+.eth-opt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.07)}
+.eth-opt.ok{border-color:#22c55e!important;background:rgba(34,197,94,.09)!important}
+.eth-opt.bad{border-color:#ef4444!important;background:rgba(239,68,68,.09)!important}
+.eth-title{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:4px}
+.eth-desc{font-size:12.5px;color:var(--muted);line-height:1.5}
+/* REFLECT */
+.rinput{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:11px 13px;color:var(--text);
+  font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;resize:vertical;min-height:78px;
+  transition:border .18s;line-height:1.6}
+.rinput:focus{outline:none;border-color:var(--cyan)}
+.rinput::placeholder{color:var(--subtle)}
+.chint{font-size:11px;color:var(--subtle);margin-top:5px;text-align:right;transition:color .2s}
+/* TAKEAWAY */
+.tw{background:linear-gradient(135deg,rgba(167,139,250,.08),rgba(34,211,238,.05));
+  border:1px solid var(--border2);border-radius:var(--r);padding:18px 20px;margin-top:22px}
+.tw-label{font-size:10px;letter-spacing:.15em;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:9px}
+.tw-text{font-family:'Playfair Display',serif;font-size:16px;color:var(--text);line-height:1.65;font-style:italic}
+.tw-sig{font-size:11.5px;color:var(--muted);margin-top:9px}
+/* NAV */
+.navbtns{display:flex;align-items:center;justify-content:space-between;
+  margin-top:28px;padding-top:18px;border-top:1px solid var(--border)}
+.btnprev{padding:10px 18px;border-radius:var(--r-sm);border:1px solid var(--border);
+  background:transparent;color:var(--muted);font-family:'Be Vietnam Pro',sans-serif;
+  font-size:13.5px;cursor:pointer;transition:all .18s}
+.btnprev:hover:not(:disabled){border-color:var(--border2);color:var(--text)}
+.btnprev:disabled{opacity:.3;cursor:not-allowed}
+.btnnext{padding:11px 26px;border-radius:var(--r-sm);
+  background:linear-gradient(135deg,var(--purple),var(--cyan));
+  color:var(--navy);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;
+  font-weight:700;cursor:pointer;border:none;transition:all .2s;
+  box-shadow:0 3px 14px rgba(167,139,250,.2)}
+.btnnext:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 5px 18px rgba(167,139,250,.3)}
+.btnnext:disabled{opacity:.28;cursor:not-allowed;transform:none;box-shadow:none;background:var(--subtle);color:var(--navy)}
+.ulock{font-size:11.5px;color:var(--subtle);text-align:center;margin-top:7px}
+/* COMPLETE */
+.cscreen{text-align:center;padding:36px 16px;display:none}
+.cscreen.show{display:block;animation:fadeUp .45s ease}
+.cico{font-size:56px;margin-bottom:18px}
+.ctitle{font-family:'Playfair Display',serif;font-size:26px;color:var(--text);margin-bottom:11px}
+.csub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.certcard{background:var(--glass2);border:1px solid var(--border2);border-radius:var(--r);
+  padding:22px;margin-bottom:22px;position:relative;overflow:hidden}
+.certcard::before{content:'AI';position:absolute;right:-10px;top:50%;transform:translateY(-50%);
+  font-family:'Playfair Display',serif;font-size:80px;color:rgba(167,139,250,.06);
+  pointer-events:none;letter-spacing:-4px}
+.cert-lbl{font-size:11px;color:var(--cyan);letter-spacing:.12em;font-weight:700;margin-bottom:7px}
+.cert-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--text);margin-bottom:5px}
+.cert-course{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cert-sig{font-size:11.5px;color:var(--subtle);border-top:1px solid var(--border);padding-top:11px;line-height:1.6}
+.btncert{width:100%;padding:13px;border-radius:var(--r-sm);
+  background:linear-gradient(135deg,var(--gold3),var(--gold));color:var(--navy);
+  font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;margin-bottom:9px}
+.btnnext2{width:100%;padding:11px;border-radius:var(--r-sm);background:transparent;
+  border:1px solid var(--border2);color:var(--cyan);font-family:'Be Vietnam Pro',sans-serif;
+  font-size:13.5px;cursor:pointer;transition:background .18s}
+.btnnext2:hover{background:rgba(34,211,238,.07)}
+</style>
+</head>
+<body>
+<div class="app">
+
 <nav class="topnav">
   <a class="back" href="/">← Về Learning Hub</a>
-  <div style="display:flex;align-items:center">
-    <span class="nav-logo">PeopleOS</span>
-    <span class="nav-sub">Learning Hub &nbsp;by TaHien</span>
+  <div class="logo">
+    <div class="lmark">水</div>
+    <div><div class="lname">PeopleOS</div><div class="lsub">by TaHien</div></div>
   </div>
-  <div class="giot-pill">💧 <span id="nav-giot-display">0</span> Giọt</div>
 </nav>
 
-av{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
-  height:58px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;position:sticky;top:0;z-index:100}
-.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);
-  text-decoration:none;transition:color .18s}
-.back:hover{color:var(--cyan)}
-.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}
-.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
-.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;
-  padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;display:flex;gap:5px;align-items:center}
+<div class="prog-wrap">
+  <div class="prog-meta"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+</div>
+<div class="dots" id="dots"></div>
+
+<!-- ═══ M1 ═══ -->
+<div class="mv active" id="m1">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">AI Literacy cho HR · Cấp 1</div>
+      <div class="hero-num">Bài 1 / 6</div>
+      <div class="hero-title">AI đang thay đổi nghề HR như thế nào</div>
+    </div>
+  </div>
+
+  <div class="lead">"Năm 2023, Hiền ngồi họp với một nhóm HR Director từ các tập đoàn lớn. Câu hỏi được đặt ra: 'AI sẽ thay thế HR không?' Phân nửa phòng lo lắng. Phân nửa còn lại cười và nói 'HR là nghề của con người, AI không thay được.' Hiền không đồng ý với cả hai phía. Câu hỏi đúng không phải 'AI có thay thế HR không' — mà là 'HR dùng AI sẽ thay thế HR không dùng AI — khi nào và theo cách nào?'"</div>
+
+  <p class="body">LinkedIn Workforce Report 2026 ghi nhận: kỹ năng AI-literacy tăng <b>70% nhu cầu tuyển dụng</b> trong nhóm HR professionals cấp senior. Không phải vì AI làm thay — mà vì người biết dùng AI làm được gấp 3 lần người không biết.</p>
+
+  <div class="sec-title">5 task HR sẽ mất vào AI trong 3–5 năm tới</div>
+  <div class="grid2">
+    <div class="card" style="border-color:rgba(239,68,68,.25)">
+      <div class="cn" style="color:var(--red)">Sẽ mất</div>
+      <div class="ct">Sàng lọc CV lần đầu</div>
+      <div class="cd">AI đọc 500 CV trong 30 giây, lọc theo tiêu chí chuẩn xác hơn người đọc mệt mỏi sau CV thứ 50</div>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,.25)">
+      <div class="cn" style="color:var(--red)">Sẽ mất</div>
+      <div class="ct">Soạn thảo JD & offer letter mẫu</div>
+      <div class="cd">AI viết JD chuẩn hơn, nhanh hơn, không bị "copy-paste JD cũ và sửa tên vị trí"</div>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,.25)">
+      <div class="cn" style="color:var(--red)">Sẽ mất</div>
+      <div class="ct">Báo cáo HR định kỳ</div>
+      <div class="cd">Dashboard tự generate mỗi tuần từ HRIS. HR không cần ngồi copy số vào Excel nữa</div>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,.25)">
+      <div class="cn" style="color:var(--red)">Sẽ mất</div>
+      <div class="ct">FAQ nội bộ về chính sách</div>
+      <div class="cd">Chatbot HR trả lời "tôi có bao nhiêu ngày phép còn lại" lúc 11 giờ đêm. HR không cần làm việc đó</div>
+    </div>
+  </div>
+
+  <div class="sec-title">5 role HR sẽ NỔI LÊN vì AI</div>
+  <div class="grid2">
+    <div class="card" style="border-color:rgba(34,211,238,.3)">
+      <div class="cn" style="color:var(--cyan)">Sẽ nổi</div>
+      <div class="ct">AI Prompt Specialist cho HR</div>
+      <div class="cd">Người biết ra lệnh cho AI đúng cách để tạo ra kết quả đúng. Đây là kỹ năng mới cần học ngay</div>
+    </div>
+    <div class="card" style="border-color:rgba(34,211,238,.3)">
+      <div class="cn" style="color:var(--cyan)">Sẽ nổi</div>
+      <div class="ct">HR Data Interpreter</div>
+      <div class="cd">AI tạo ra data — nhưng cần người HR hiểu context tổ chức để đọc đúng và quyết định đúng</div>
+    </div>
+    <div class="card" style="border-color:rgba(34,211,238,.3)">
+      <div class="cn" style="color:var(--cyan)">Sẽ nổi</div>
+      <div class="ct">Employee Experience Designer</div>
+      <div class="cd">Khi AI xử lý admin, HR tập trung vào thứ AI không làm được: thiết kế trải nghiệm nhân viên có chiều sâu</div>
+    </div>
+    <div class="card" style="border-color:rgba(34,211,238,.3)">
+      <div class="cn" style="color:var(--cyan)">Sẽ nổi</div>
+      <div class="ct">HR Change Navigator</div>
+      <div class="cd">Mỗi lần tổ chức adopt AI tool mới = cần HR dẫn dắt thay đổi. Nhu cầu này sẽ tăng liên tục</div>
+    </div>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">Thông điệp cốt lõi của bài này</div>
+    <p>AI không đến để thay thế HR. AI đến để loại bỏ phần công việc HR <i>không nên</i> làm — để HR có thêm thời gian cho phần công việc chỉ <b style="color:var(--cyan)">con người mới làm được</b>: tạo dựng tin tưởng, đọc cảm xúc, đưa ra phán đoán đạo đức, xây dựng văn hóa. HR sợ AI là HR đang bảo vệ sai thứ.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🤖</div>
+      <div><div class="ex-label">AI hay Con người?</div><div class="ex-sub">Phân loại task — click để chuyển nhóm</div></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px">Click vào mỗi task để phân loại: AI làm tốt hơn / Con người làm tốt hơn / Cả hai cần phối hợp</p>
+    <div class="sorter-grid">
+      <div class="sorter-col">
+        <div class="sorter-col-title" style="color:var(--muted)">Danh sách task HR</div>
+        <div id="sorter-items"></div>
+      </div>
+      <div class="sorter-col">
+        <div class="sorter-col-title" style="color:var(--cyan)">Đã phân loại</div>
+        <div id="sorter-done" style="min-height:80px">
+          <div style="font-size:12px;color:var(--subtle);padding:8px 0">Bấm vào task bên trái để phân loại...</div>
+        </div>
+      </div>
+    </div>
+    <div class="qfb" id="qf1"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 1</div>
+    <div class="tw-text">"HR sợ AI là HR đang bảo vệ task — không phải bảo vệ giá trị. Giá trị của HR nằm ở thứ AI không bao giờ làm được: phán đoán con người trong các tình huống có chiều sâu."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" disabled>← Quay lại</button>
+    <button class="btnnext" id="n1" onclick="go(2)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h1">Phân loại ít nhất 4 task để tiếp tục</div>
+</div>
+
+<!-- ═══ M2 ═══ -->
+<div class="mv" id="m2">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">AI Literacy cho HR · Cấp 1</div>
+      <div class="hero-num">Bài 2 / 6</div>
+      <div class="hero-title">Prompt Engineering cho HR</div>
+    </div>
+  </div>
+
+  <div class="lead">"Hiền từng thấy một HR Manager dùng ChatGPT viết JD. Kết quả trả về là JD hoàn toàn generic — không khác gì tìm trên Google. Cô ấy kết luận: 'AI viết không hay bằng mình.' Hiền xem prompt cô ấy dùng: 'Viết JD cho vị trí HR Manager.' Đó không phải AI kém. Đó là người dùng chưa biết cách ra lệnh."</div>
+
+  <p class="body">Prompt engineering không phải kỹ năng kỹ thuật — đó là kỹ năng <b>giao tiếp với máy tính</b>. Và bởi vì HR giỏi giao tiếp với người — HR có lợi thế tự nhiên để học nó. Chỉ cần biết cấu trúc đúng.</p>
+
+  <div class="sec-title">Công thức RACE — 4 thành phần của prompt hiệu quả</div>
+  <div class="grid2">
+    <div class="card" style="border-color:rgba(167,139,250,.3)">
+      <div class="cn" style="color:var(--purple)">R — Role</div>
+      <div class="ct">Gán vai cho AI trước</div>
+      <div class="cd">"Bạn là CHRO có 20 năm kinh nghiệm trong ngành F&B..." — AI sẽ viết theo góc nhìn đó thay vì góc nhìn chung chung</div>
+    </div>
+    <div class="card" style="border-color:rgba(167,139,250,.3)">
+      <div class="cn" style="color:var(--purple)">A — Action</div>
+      <div class="ct">Hành động cụ thể cần làm</div>
+      <div class="cd">"Viết JD" quá chung. "Viết JD 400 từ, giọng văn thu hút, nhấn mạnh cơ hội phát triển, không dùng jargon" — cụ thể hơn nhiều</div>
+    </div>
+    <div class="card" style="border-color:rgba(167,139,250,.3)">
+      <div class="cn" style="color:var(--purple)">C — Context</div>
+      <div class="ct">Bối cảnh đủ để AI hiểu</div>
+      <div class="cd">Ngành, quy mô công ty, đối tượng ứng viên, văn hóa tổ chức, điểm khác biệt so với đối thủ tuyển dụng</div>
+    </div>
+    <div class="card" style="border-color:rgba(167,139,250,.3)">
+      <div class="cn" style="color:var(--purple)">E — Example</div>
+      <div class="ct">Ví dụ hoặc format mẫu</div>
+      <div class="cd">"Format: [Về công ty 50 từ] → [Trách nhiệm chính 5 bullet] → [Yêu cầu 4 bullet] → [Phúc lợi 3 bullet]" — AI sẽ theo đúng</div>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">✍️</div>
+      <div><div class="ex-label">Prompt Builder thực chiến</div><div class="ex-sub">Điền vào 4 ô — prompt hoàn chỉnh hiện ra</div></div>
+    </div>
+    <div class="pb-wrap">
+      <div class="pb-field">
+        <span class="pb-label">R · Vai trò AI</span>
+        <input class="pb-input" id="pb-r" placeholder="vd: CHRO 20 năm kinh nghiệm F&B chain..." oninput="buildPrompt()">
+      </div>
+      <div class="pb-field">
+        <span class="pb-label">A · Hành động</span>
+        <input class="pb-input" id="pb-a" placeholder="vd: Viết JD cho vị trí Store Manager..." oninput="buildPrompt()">
+      </div>
+      <div class="pb-field">
+        <span class="pb-label">C · Bối cảnh</span>
+        <input class="pb-input" id="pb-c" placeholder="vd: Chuỗi 50 cửa hàng, tuyển người có kinh nghiệm 3+ năm..." oninput="buildPrompt()">
+      </div>
+      <div class="pb-field">
+        <span class="pb-label">E · Format</span>
+        <input class="pb-input" id="pb-e" placeholder="vd: 300 từ, 5 bullet trách nhiệm, 4 bullet yêu cầu..." oninput="buildPrompt()">
+      </div>
+      <div class="pb-output" id="pb-out">
+        <div style="font-size:10px;color:var(--purple);font-weight:700;letter-spacing:.1em;margin-bottom:8px">PROMPT CỦA BẠN — copy và paste vào Claude/ChatGPT</div>
+        <div class="pb-result" id="pb-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ins">
+    <div class="ins-label">3 use case prompt HR dùng nhiều nhất</div>
+    <p style="margin-bottom:6px"><b style="color:var(--gold)">1. Viết JD:</b> Role=Senior Recruiter + Action=viết JD [vị trí] [từ số] + Context=[ngành, văn hóa, điểm khác biệt] + Example=[format cụ thể]</p>
+    <p style="margin-bottom:6px"><b style="color:var(--gold)">2. Soạn email khó:</b> Role=HR professional thông cảm nhưng rõ ràng + Action=viết email [thông báo gì] + Context=[người nhận là ai, tình huống] + Example=[giọng văn chuyên nghiệp, không quá 200 từ]</p>
+    <p><b style="color:var(--gold)">3. Tóm tắt exit interview:</b> Role=HR analyst + Action=tóm tắt và phân tích themes chính + Context=[paste nội dung exit interview] + Example=[3 theme chính, quote minh họa, khuyến nghị ngắn]</p>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 2</div>
+    <div class="tw-text">"AI không kém — AI thiếu context. Prompt tốt là prompt cho AI đủ context để làm đúng việc. HR giỏi giao tiếp với người — sẽ giỏi giao tiếp với AI."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(1)">← Quay lại</button>
+    <button class="btnnext" id="n2" onclick="go(3)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h2">Điền đủ 4 ô RACE để tiếp tục</div>
+</div>
+
+<!-- ═══ M3 ═══ -->
+<div class="mv" id="m3">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">AI Literacy cho HR · Cấp 1</div>
+      <div class="hero-num">Bài 3 / 6</div>
+      <div class="hero-title">AI cho Talent Acquisition</div>
+    </div>
+  </div>
+
+  <div class="lead">"Một Recruiter trong team của Hiền mất 4 giờ mỗi tuần để sàng lọc CV cho 3 vị trí đang mở. Sau khi được hướng dẫn dùng AI để tạo scorecard và pre-screen checklist, thời gian đó rút xuống còn 45 phút. Không phải vì cô ấy làm ẩu hơn — mà vì AI xử lý phần cơ học, để cô ấy tập trung vào phần cần judgment: ai thật sự phù hợp với văn hóa và team."</div>
+
+  <p class="body">AI không tuyển người thay HR. AI <b>loại bỏ việc lặp lại</b> trong quy trình tuyển — để HR có thêm thời gian cho phần quyết định thật sự.</p>
+
+  <div class="sec-title">4 điểm AI có thể hỗ trợ trong quy trình tuyển dụng</div>
+  <div class="card-full">
+    <div class="cn">Bước 1 · Viết JD và sourcing message</div>
+    <div class="ct">AI draft — HR tinh chỉnh, không viết lại từ đầu</div>
+    <div class="cd" style="margin-top:5px">Prompt mẫu: "Viết LinkedIn InMail ngắn (150 từ) tiếp cận passive candidate cho vị trí [X]. Tone: chuyên nghiệp nhưng thân thiện. Nhấn mạnh: [2 điểm khác biệt của công ty]. Không dùng template sáo rỗng."</div>
+  </div>
+  <div class="card-full">
+    <div class="cn">Bước 2 · Tạo interview question bank</div>
+    <div class="ct">AI generate theo competency — HR chọn lọc và customize</div>
+    <div class="cd" style="margin-top:5px">Prompt mẫu: "Tạo 10 câu hỏi phỏng vấn hành vi (STAR method) cho competency 'leadership under pressure' — dành cho vị trí Store Manager F&B. Mỗi câu kèm 1 follow-up question."</div>
+  </div>
+  <div class="card-full">
+    <div class="cn">Bước 3 · Tóm tắt và so sánh ứng viên</div>
+    <div class="ct">Sau phỏng vấn — AI tổng hợp notes, HR ra quyết định</div>
+    <div class="cd" style="margin-top:5px">Prompt mẫu: "Tôi có notes phỏng vấn 3 ứng viên sau đây [paste]. Tóm tắt điểm mạnh/yếu mỗi người theo 4 tiêu chí: leadership, execution, culture fit, growth potential. Format: bảng so sánh ngắn."</div>
+  </div>
+  <div class="card-full" style="margin-bottom:18px">
+    <div class="cn">Bước 4 · Viết offer letter và rejection email</div>
+    <div class="ct">Cá nhân hóa bằng AI — không phải template cứng nhắc</div>
+    <div class="cd" style="margin-top:5px">Prompt mẫu: "Viết email từ chối ứng viên [tên] đã đến vòng cuối nhưng không được chọn. Lý do chính: [X]. Tone: chân thành, không sáo rỗng. Gợi ý giữ kết nối cho tương lai."</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎯</div>
+      <div><div class="ex-label">Kiểm tra nhanh</div><div class="ex-sub">AI nên và không nên làm gì trong tuyển dụng</div></div>
+    </div>
+    <div class="qq">Công ty đang tuyển gấp 20 nhân viên bán hàng. Recruiter muốn dùng AI để tăng tốc. Phương án nào SAI về đạo đức và hiệu quả?</div>
+    <div class="qopts" id="q3opts">
+      <button class="qopt" onclick="AQ(3,this,'A')"><span class="oletter">A</span>Dùng AI viết 20 phiên bản sourcing message cá nhân hóa cho từng ứng viên LinkedIn</button>
+      <button class="qopt" onclick="AQ(3,this,'B')"><span class="oletter">B</span>Để AI tự động reject CV không đạt mà không có HR xem lại bất kỳ trường hợp nào</button>
+      <button class="qopt" onclick="AQ(3,this,'C')"><span class="oletter">C</span>Dùng AI tạo scorecard đánh giá CV theo tiêu chí đã định, HR xem lại danh sách cuối</button>
+      <button class="qopt" onclick="AQ(3,this,'D')"><span class="oletter">D</span>AI draft câu hỏi phỏng vấn, HR chọn lọc và customize trước khi dùng</button>
+    </div>
+    <div class="qfb" id="qf3"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 3</div>
+    <div class="tw-text">"AI trong tuyển dụng là cái lưới lọc thô — HR vẫn phải là người quyết định cuối cùng. Không có AI nào đọc được 'người này có phù hợp với văn hóa team không'."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(2)">← Quay lại</button>
+    <button class="btnnext" id="n3" onclick="go(4)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h3">Trả lời câu hỏi để tiếp tục</div>
+</div>
+
+<!-- ═══ M4 ═══ -->
+<div class="mv" id="m4">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">AI Literacy cho HR · Cấp 1</div>
+      <div class="hero-num">Bài 4 / 6</div>
+      <div class="hero-title">AI cho L&D — thiết kế bài giảng nhanh gấp 5 lần</div>
+    </div>
+  </div>
+
+  <div class="lead">"Team L&D của Hiền từng mất 3 tuần để xây một module training 90 phút — từ TNA đến slide đến quiz. Sau khi adopt AI vào workflow, con số đó xuống còn 4–5 ngày với chất lượng tương đương. Không phải vì AI làm thay. Mà vì AI xử lý phần content generation — để L&D specialist tập trung vào phần quan trọng hơn: pedagogical design và context adaptation."</div>
+
+  <p class="body">L&D là lĩnh vực HR hưởng lợi nhiều nhất từ AI — vì L&D liên quan đến <b>xử lý ngôn ngữ</b>, và đó chính xác là thứ AI giỏi nhất.</p>
+
+  <div class="sec-title">5 việc AI hỗ trợ L&D hiệu quả nhất</div>
+  <div class="grid2">
+    <div class="card"><div class="cn">01</div><div class="ct">Chuyển tài liệu dài → microlearning</div><div class="cd">Paste policy 20 trang vào AI → nhận 5 lesson cards 5 phút mỗi cái, kèm key takeaway và 1 quiz question</div></div>
+    <div class="card"><div class="cn">02</div><div class="ct">Tạo quiz bank từ nội dung</div><div class="cd">Prompt: "Từ nội dung sau, tạo 10 câu hỏi trắc nghiệm 4 lựa chọn, mức độ: 40% easy, 40% medium, 20% hard"</div></div>
+    <div class="card"><div class="cn">03</div><div class="ct">Viết scenario-based case study</div><div class="cd">Prompt: "Viết tình huống thực tế (300 từ) về [topic] xảy ra tại chuỗi F&B, có nhân vật cụ thể, có diễn biến, có điểm quyết định"</div></div>
+    <div class="card"><div class="cn">04</div><div class="ct">Dịch & bản địa hóa nội dung</div><div class="cd">Dịch training material từ tiếng Anh sang tiếng Việt với context phù hợp ngành F&B — AI làm trong 2 phút, HR review</div></div>
+    <div class="card"><div class="cn">05</div><div class="ct">Tạo facilitator guide</div><div class="cd">Prompt: "Từ slide sau, viết facilitator guide: mở đầu 5 phút, hoạt động nhóm 15 phút, debrief 10 phút. Kèm timing và câu hỏi dẫn dắt"</div></div>
+    <div class="card"><div class="cn">Không nên</div><div class="ct">Để AI quyết định curriculum</div><div class="cd">AI không biết organization context, culture, hay learning gap thực sự. TNA và curriculum design vẫn cần human judgment</div></div>
+  </div>
+
+  <div class="ins">
+    <div class="ins-label">Workflow L&D với AI — từ brief đến module hoàn chỉnh</div>
+    <p style="margin-bottom:6px"><b style="color:var(--gold)">Bước 1:</b> HR xác định learning objective (AI không làm được — cần context tổ chức)</p>
+    <p style="margin-bottom:6px"><b style="color:var(--gold)">Bước 2:</b> Prompt AI tạo content draft theo objective đã xác định</p>
+    <p style="margin-bottom:6px"><b style="color:var(--gold)">Bước 3:</b> HR review, chỉnh ngữ cảnh, thêm ví dụ thật từ tổ chức</p>
+    <p><b style="color:var(--gold)">Bước 4:</b> Prompt AI tạo quiz, scenario, facilitator guide từ content đã chỉnh</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎓</div>
+      <div><div class="ex-label">Phản chiếu thực hành</div><div class="ex-sub">Một module training bạn đang cần xây</div></div>
+    </div>
+    <label style="font-size:13px;color:var(--muted);margin-bottom:7px;display:block">Mô tả ngắn module training bạn đang cần xây (hoặc đang gặp khó khăn khi xây) — AI sẽ hỗ trợ phần nào trong workflow?</label>
+    <textarea class="rinput" id="r4" placeholder="vd: Cần xây module customer service cho nhân viên mới, nhưng chưa có thời gian viết scenario thực tế..." oninput="CR4()"></textarea>
+    <div class="chint" id="rh4">Nhập ít nhất 20 ký tự để tiếp tục</div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 4</div>
+    <div class="tw-text">"AI không thay thế L&D specialist — AI giải phóng L&D specialist khỏi công việc tạo content để tập trung vào công việc thiết kế trải nghiệm học tập. Đó là công việc giá trị hơn."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(3)">← Quay lại</button>
+    <button class="btnnext" id="n4" onclick="go(5)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h4">Chia sẻ để tiếp tục (tối thiểu 20 ký tự)</div>
+</div>
+
+<!-- ═══ M5 ═══ -->
+<div class="mv" id="m5">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">AI Literacy cho HR · Cấp 1</div>
+      <div class="hero-num">Bài 5 / 6</div>
+      <div class="hero-title">Tự động hóa task lặp lại — không cần code</div>
+    </div>
+  </div>
+
+  <div class="lead">"Mỗi tháng một HR Generalist trong team của Hiền mất 6 giờ chỉ để copy thông tin từ form onboarding vào HRIS, gửi welcome email, và tạo account các hệ thống. Sau khi set up một workflow automation đơn giản bằng n8n — không cần một dòng code — toàn bộ quy trình đó chạy tự động. 6 giờ đó cô ấy dùng để làm 1:1 với nhân viên mới trong tháng đầu. Đó mới là công việc của HR."</div>
+
+  <p class="body">Automation không phải cho IT. Các tool no-code hiện nay cho phép HR tự set up workflow đơn giản mà không cần kỹ năng lập trình. Chỉ cần <b>hiểu logic</b>: nếu X xảy ra → thì làm Y.</p>
+
+  <div class="sec-title">5 HR workflow có thể tự động hóa ngay hôm nay</div>
+  <div class="grid2">
+    <div class="card"><div class="cn">Workflow 1</div><div class="ct">Onboarding checklist tự động</div><div class="cd">Khi form onboarding được submit → tự động tạo task checklist, gửi welcome email, tạo Slack channel cho người mới</div></div>
+    <div class="card"><div class="cn">Workflow 2</div><div class="ct">Nhắc nhở deadline tự động</div><div class="cd">Đến ngày thử việc 85 ngày → tự động nhắc manager làm đánh giá thử việc + gửi form đánh giá cho nhân viên</div></div>
+    <div class="card"><div class="cn">Workflow 3</div><div class="ct">Tổng hợp exit interview</div><div class="cd">Mỗi tuần → tự động collect responses từ exit form, tổng hợp vào spreadsheet, gửi summary cho HR Manager</div></div>
+    <div class="card"><div class="cn">Workflow 4</div><div class="ct">Birthday & anniversary alert</div><div class="cd">Mỗi sáng → check danh sách, tự động gửi slack message cho manager nếu có nhân viên sinh nhật hoặc kỷ niệm</div></div>
+  </div>
+
+  <div class="sec-title">3 tool no-code HR nên biết</div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--purple)">n8n — Miễn phí, self-hosted</div>
+    <div class="ct">Mạnh nhất, linh hoạt nhất, có thể kết nối với mọi hệ thống qua API</div>
+    <div class="cd" style="margin-top:5px">Phù hợp khi: tổ chức có IT support, muốn control data, cần automation phức tạp hơn. Learning curve: 2–3 ngày để tạo được workflow đầu tiên.</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--cyan)">Make (Integromat) — Freemium</div>
+    <div class="ct">Visual drag-and-drop, dễ học nhất, phù hợp HR không có IT background</div>
+    <div class="cd" style="margin-top:5px">Phù hợp khi: muốn bắt đầu nhanh, workflow đơn giản đến trung bình. Free tier đủ cho 1,000 operations/tháng.</div>
+  </div>
+  <div class="card-full" style="margin-bottom:18px">
+    <div class="cn" style="color:var(--gold)">Zapier — Dễ nhất, đắt nhất</div>
+    <div class="ct">5,000+ integrations, setup trong vài phút, support tốt</div>
+    <div class="cd" style="margin-top:5px">Phù hợp khi: tổ chức sẵn sàng trả tiền cho sự tiện lợi, cần connect các SaaS tools phổ biến (Gmail, Slack, Airtable, Notion). Không phù hợp với hệ thống nội bộ custom.</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">⚙️</div>
+      <div><div class="ex-label">Chọn workflow phù hợp</div><div class="ex-sub">Xác định task lặp lại của bạn</div></div>
+    </div>
+    <div class="qq">HR Generalist mất 2 giờ mỗi tháng để manually gửi email nhắc manager submit performance review trước deadline. Workflow automation nào phù hợp nhất?</div>
+    <div class="qopts" id="q5opts">
+      <button class="qopt" onclick="AQ(5,this,'A')"><span class="oletter">A</span>Dùng AI viết email nhắc hay hơn — gửi tay nhưng nhanh hơn</button>
+      <button class="qopt" onclick="AQ(5,this,'B')"><span class="oletter">B</span>Scheduled trigger: mỗi tháng vào ngày D-7 → tự động gửi email nhắc cho toàn bộ manager trong danh sách</button>
+      <button class="qopt" onclick="AQ(5,this,'C')"><span class="oletter">C</span>Nhờ IT build hệ thống nhắc nhở riêng — đảm bảo chuyên nghiệp hơn</button>
+      <button class="qopt" onclick="AQ(5,this,'D')"><span class="oletter">D</span>Đặt reminder cá nhân trong Google Calendar để không quên gửi</button>
+    </div>
+    <div class="qfb" id="qf5"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 5</div>
+    <div class="tw-text">"Mỗi task lặp lại HR đang làm tay là 1 task HR có thể tự động hóa — và dùng thời gian đó cho việc chỉ con người làm được. Bắt đầu từ task tốn nhất thời gian và ít cần judgment nhất."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(4)">← Quay lại</button>
+    <button class="btnnext" id="n5" onclick="go(6)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h5">Trả lời câu hỏi để tiếp tục</div>
+</div>
+
+<!-- ═══ M6 ═══ -->
+<div class="mv" id="m6">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">AI Literacy cho HR · Bài cuối</div>
+      <div class="hero-num">Bài 6 / 6</div>
+      <div class="hero-title">Data safety & đạo đức khi dùng AI trong HR</div>
+    </div>
+  </div>
+
+  <div class="lead">"Một HR Director chia sẻ với Hiền: 'Chúng tôi paste toàn bộ kết quả đánh giá nhân viên vào ChatGPT để phân tích.' Hiền hỏi: 'Nhân viên có được thông báo data của họ được gửi lên server của OpenAI không?' — Im lặng. Đó là vấn đề pháp lý, không chỉ là vấn đề đạo đức."</div>
+
+  <p class="body">Dùng AI trong HR kéo theo trách nhiệm với <b>dữ liệu nhân viên</b> — loại dữ liệu nhạy cảm nhất trong tổ chức. HR cần biết ranh giới rõ ràng: cái gì được làm, cái gì không được làm.</p>
+
+  <div class="sec-title">3 loại dữ liệu HR KHÔNG được paste vào AI public</div>
+  <div class="grid2">
+    <div class="card" style="border-color:rgba(239,68,68,.3)">
+      <div class="cn" style="color:var(--red)">Tuyệt đối không</div>
+      <div class="ct">Thông tin định danh cá nhân (PII)</div>
+      <div class="cd">Họ tên, CCCD, địa chỉ, số điện thoại, email cá nhân của nhân viên. Không bao giờ — kể cả để phân tích</div>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,.3)">
+      <div class="cn" style="color:var(--red)">Tuyệt đối không</div>
+      <div class="ct">Kết quả đánh giá hiệu suất cá nhân</div>
+      <div class="cd">Rating, nhận xét về cá nhân cụ thể, disciplinary records. Nếu muốn phân tích — anonymize hoàn toàn trước</div>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,.3)">
+      <div class="cn" style="color:var(--red)">Thận trọng</div>
+      <div class="ct">Thông tin lương thưởng</div>
+      <div class="cd">Dữ liệu tổng hợp (bình quân lương theo band) có thể được — nhưng phải anonymize và không kèm tên người</div>
+    </div>
+    <div class="card" style="border-color:rgba(34,197,94,.3)">
+      <div class="cn" style="color:var(--green)">An toàn</div>
+      <div class="ct">Nội dung công khai & chung chung</div>
+      <div class="cd">JD, policy text, training content, template email chung. Không chứa thông tin cá nhân = không có rủi ro</div>
+    </div>
+  </div>
+
+  <div class="warn">
+    <div class="warn-label">Lưu ý pháp lý tại Việt Nam · Nghị định 13/2023/NĐ-CP</div>
+    <p>Việt Nam có quy định về bảo vệ dữ liệu cá nhân từ 2023. Dữ liệu nhân viên là <b style="color:var(--red)">dữ liệu cá nhân có điều kiện</b> — tổ chức cần có chính sách xử lý dữ liệu rõ ràng và không được chia sẻ cho bên thứ ba (kể cả AI tools) mà không có sự đồng ý của nhân viên hoặc cơ sở pháp lý rõ ràng.</p>
+  </div>
+
+  <div class="sec-title">Nguyên tắc "Anonymize first"</div>
+  <p class="body">Trước khi paste bất kỳ HR data nào vào AI: xóa tên, mã nhân viên, phòng ban cụ thể. Thay bằng "nhân viên A", "bộ phận X". Nếu vẫn còn thông tin đủ để nhận dạng cá nhân — không paste.</p>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🛡️</div>
+      <div><div class="ex-label">Tình huống đạo đức AI</div><div class="ex-sub">Chọn phương án đúng nhất</div></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--text);margin-bottom:13px;line-height:1.6"><b>Tình huống:</b> HR cần phân tích 50 exit interview để tìm themes chính. Muốn dùng AI để tăng tốc. Phương án nào đúng nhất?</p>
+    <div class="eth-opts" id="eth6">
+      <button class="eth-opt" onclick="ETH(this,'bad')">
+        <div class="eth-title">A — Paste toàn bộ 50 interview trực tiếp vào ChatGPT</div>
+        <div class="eth-desc">Nhanh nhất — chỉ mất 5 phút để có kết quả phân tích</div>
+      </button>
+      <button class="eth-opt" onclick="ETH(this,'bad')">
+        <div class="eth-title">B — Dùng AI của công ty (đã được IT approve) mà không anonymize</div>
+        <div class="eth-desc">AI nội bộ nên không có vấn đề gì về data leak ra ngoài</div>
+      </button>
+      <button class="eth-opt" onclick="ETH(this,'ok')">
+        <div class="eth-title">C — Anonymize toàn bộ interview (xóa tên, phòng ban, mã NV) rồi paste vào AI enterprise có BAA</div>
+        <div class="eth-desc">Mất thêm 30 phút anonymize nhưng đảm bảo tuân thủ và nhân viên được bảo vệ</div>
+      </button>
+      <button class="eth-opt" onclick="ETH(this,'bad')">
+        <div class="eth-title">D — Không dùng AI — viết tay report cho chắc ăn</div>
+        <div class="eth-desc">An toàn nhất về data — nhưng mất 3 ngày làm thủ công</div>
+      </button>
+    </div>
+    <div class="qfb" id="qf6"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Toàn khóa</div>
+    <div class="tw-text">"Dùng AI trong HR không phải chỉ là kỹ năng kỹ thuật — đó là trách nhiệm đạo đức. HR là người giữ dữ liệu nhạy cảm nhất của tổ chức. Dùng AI sai cách là phản bội niềm tin đó."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group · PeopleOS Community 2026</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(5)">← Quay lại</button>
+    <button class="btnnext" id="n6" onclick="done()" disabled>Hoàn thành khóa học ✓</button>
+  </div>
+  <div class="ulock" id="h6">Chọn đáp án để hoàn thành</div>
+</div>
+
+<!-- COMPLETE -->
+<div class="cscreen" id="complete">
+  <div class="cico">🤖</div>
+  <div class="ctitle">Hoàn thành xuất sắc!</div>
+  <div class="csub">Bạn đã hoàn thành khóa <b>AI Literacy cho HR</b>.<br>6 bài học · 120 XP đã được ghi nhận.</div>
+  <div class="certcard">
+    <div class="cert-lbl">Chứng chỉ hoàn thành · PeopleOS</div>
+    <div class="cert-name">AI Literacy cho HR</div>
+    <div class="cert-course">Cấp 1 — HR Staff & Specialist · 6 modules · ~20 phút</div>
+    <div class="cert-sig">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+  </div>
+  <button class="btncert" onclick="alert('Tính năng xuất PDF sẽ có trong phiên bản đầy đủ!')">Tải chứng chỉ PDF</button>
+  <button class="btnnext2" onclick="window.location.href='/k4-hr-ops-thuc-chien'">Học tiếp → K4: HR Ops Thực Chiến</button>
+</div>
+
+</div>
+<script>
+var cur=1,tot=6,dm={};
+
+/* ── SORTER DATA M1 ── */
+var tasks=[
+  {text:'Sàng lọc CV vòng đầu theo tiêu chí cứng',type:'ai'},
+  {text:'Phỏng vấn văn hóa và culture fit',type:'human'},
+  {text:'Viết JD draft đầu tiên',type:'ai'},
+  {text:'Quyết định offer hay không offer ứng viên',type:'human'},
+  {text:'Tổng hợp exit interview tìm themes',type:'both'},
+  {text:'Coaching nhân viên đang gặp khó khăn',type:'human'},
+  {text:'Tạo câu hỏi phỏng vấn theo competency',type:'ai'},
+  {text:'Giải quyết xung đột nội bộ phức tạp',type:'human'},
+];
+var sorted=0;
+
+function initSorter(){
+  var c=document.getElementById('sorter-items');
+  c.innerHTML='';
+  tasks.forEach(function(t,i){
+    var d=document.createElement('div');
+    d.className='sorter-item';
+    d.id='si'+i;
+    d.innerHTML='<div class="sort-dot"></div><span>'+t.text+'</span>';
+    d.onclick=(function(idx,type){
+      return function(){moveSorter(idx,type)};
+    })(i,t.type);
+    c.appendChild(d);
+  });
+}
+
+function moveSorter(idx,type){
+  var el=document.getElementById('si'+idx);
+  if(el.classList.contains('moved-ai')||el.classList.contains('moved-human')||el.classList.contains('moved-both'))return;
+  var cls=type==='ai'?'moved-ai':type==='human'?'moved-human':'moved-both';
+  var label=type==='ai'?'AI':'type'==='human'?'Con người':'Cả hai';
+  el.classList.add(cls);
+  var done=document.getElementById('sorter-done');
+  if(done.children[0]&&done.children[0].textContent.includes('Bấm'))done.innerHTML='';
+  var d=document.createElement('div');
+  d.className='sorter-item '+cls;
+  var lbl=type==='ai'?'AI làm tốt':type==='human'?'Con người':' Cả hai';
+  d.innerHTML='<div class="sort-dot"></div><span>'+el.querySelector('span').textContent+' → <b>'+lbl+'</b></span>';
+  done.appendChild(d);
+  sorted++;
+  if(sorted>=4){
+    var fb=document.getElementById('qf1');
+    fb.className='qfb show correct';
+    fb.textContent='Tốt! Phân loại đúng hướng. AI làm tốt: task có pattern rõ, lặp lại, dựa trên text. Con người cần làm: task cần judgment, empathy, context tổ chức. Nhiều task cần cả hai — AI draft, người review.';
+    unlock('n1','h1');
+  }
+}
+
+/* ── PROMPT BUILDER M2 ── */
+function buildPrompt(){
+  var r=document.getElementById('pb-r').value.trim();
+  var a=document.getElementById('pb-a').value.trim();
+  var c=document.getElementById('pb-c').value.trim();
+  var e=document.getElementById('pb-e').value.trim();
+  var out=document.getElementById('pb-out');
+  var res=document.getElementById('pb-result');
+  if(r.length>4&&a.length>4&&c.length>4&&e.length>4){
+    out.className='pb-output show';
+    res.textContent='[Vai trò] Bạn là '+r+'.\n\n[Hành động] '+a+'.\n\n[Bối cảnh] '+c+'.\n\n[Format yêu cầu] '+e+'.';
+    unlock('n2','h2');
+  } else {out.className='pb-output';}
+}
+
+/* ── QUIZ M3, M5 ── */
+function AQ(m,el,ans){
+  var correct={3:'B',5:'B'};
+  document.querySelectorAll('#q'+m+'opts .qopt').forEach(function(o){o.disabled=true});
+  var fb=document.getElementById('qf'+m);
+  if(ans===correct[m]){
+    el.classList.add('correct');fb.className='qfb show correct';
+    if(m===3)fb.textContent='Đúng! Để AI tự động reject CV mà không có HR xem lại là sai về đạo đức (bias trong AI, ứng viên không có cơ hội giải thích) và pháp lý (nhiều quốc gia yêu cầu human oversight trong quyết định tuyển dụng). AI sàng lọc → HR xem lại → HR quyết định.';
+    if(m===5)fb.textContent='Đúng! Scheduled trigger là automation chính xác cho case này: set once, chạy tự động mỗi tháng đúng ngày. Không cần viết code, chỉ cần Make hoặc Zapier và Google Sheets danh sách manager.';
+    unlock('n'+m,'h'+m);
+  } else {
+    el.classList.add('wrong');
+    var ci={3:1,5:1}[m];
+    document.querySelectorAll('#q'+m+'opts .qopt')[ci].classList.add('correct');
+    fb.className='qfb show wrong';
+    if(m===3)fb.textContent='Chưa đúng. AI viết hay (A) không giải quyết vấn đề automation. IT build hệ thống (C) overkill và mất thời gian. Calendar reminder (D) vẫn là manual. Đáp án B: Scheduled automation chạy tự động, không cần HR làm gì hàng tháng.';
+    if(m===5)fb.textContent='Chưa đúng. Đáp án B. Để AI tự reject mà không HR review (A) có vấn đề đạo đức. AI nội bộ vẫn cần anonymize (B sai). Không dùng AI (D) bỏ qua cơ hội tăng hiệu quả. Đúng nhất: anonymize → AI nội bộ có BAA → HR kiểm tra kết quả.';
+    setTimeout(function(){unlock('n'+m,'h'+m);},1600);
+  }
+}
+
+/* ── REFLECT M4 ── */
+function CR4(){
+  var t=document.getElementById('r4').value;
+  var h=document.getElementById('rh4');
+  if(t.length>=20){h.textContent='Ghi nhận ✓';h.style.color='var(--cyan)';unlock('n4','h4');}
+  else{h.textContent='Còn '+Math.max(0,20-t.length)+' ký tự';h.style.color='var(--subtle)';}
+}
+
+/* ── ETHICS M6 ── */
+function ETH(el,type){
+  document.querySelectorAll('#eth6 .eth-opt').forEach(function(o){o.disabled=true});
+  var fb=document.getElementById('qf6');
+  if(type==='ok'){
+    el.classList.add('ok');fb.className='qfb show correct';
+    fb.textContent='Đúng! Anonymize trước khi dùng AI là bước bắt buộc. Enterprise AI với BAA (Business Associate Agreement) đảm bảo data không được dùng để train model. Mất thêm 30 phút anonymize là chi phí xứng đáng để bảo vệ quyền riêng tư nhân viên.';
+    unlock('n6','h6');
+  } else {
+    el.classList.add('bad');
+    document.querySelectorAll('#eth6 .eth-opt')[2].classList.add('ok');
+    fb.className='qfb show wrong';
+    if(el===document.querySelectorAll('#eth6 .eth-opt')[0])fb.textContent='Sai. Paste dữ liệu nhân viên vào ChatGPT public vi phạm privacy policy và Nghị định 13/2023 VN. Data nhân viên có thể được dùng để train model hoặc lưu trữ trên server nước ngoài.';
+    else if(el===document.querySelectorAll('#eth6 .eth-opt')[1])fb.textContent='Chưa đúng. Dù dùng AI nội bộ, vẫn cần anonymize — vì kết quả phân tích sẽ được document và có thể leaked. Ngoài ra, không anonymize tạo risk nếu AI system bị breach.';
+    else fb.textContent='Không sai nhưng không tối ưu. Không dùng AI là cách an toàn nhưng bỏ qua cơ hội tăng hiệu quả. Có cách dùng AI an toàn: anonymize + AI enterprise có BAA. Đáp án C đúng nhất.';
+    setTimeout(function(){unlock('n6','h6');},1600);
+  }
+}
+
+/* ── CORE ── */
+function buildDots(){
+  var c=document.getElementById('dots');c.innerHTML='';
+  for(var i=1;i<=tot;i++){
+    var d=document.createElement('div');
+    d.className='dot'+(i===cur?' active':(dm[i]?' done':''));
+    (function(n){d.onclick=function(){if(n<=cur||dm[n-1])go(n);};})(i);
+    c.appendChild(d);
+  }
+}
+function updP(){
+  var p=Math.round(((cur-1)/tot)*100);
+  document.getElementById('pfill').style.width=p+'%';
+  document.getElementById('ppct').textContent=p+'%';
+  document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;
+}
+function go(n){
+  document.getElementById('m'+cur).classList.remove('active');
+  dm[cur]=true;cur=n;
+  var el=document.getElementById('m'+cur);
+  if(el)el.classList.add('active');
+  buildDots();updP();window.scrollTo({top:0,behavior:'smooth'});
+}
+function unlock(b,h){
+  var bn=document.getElementById(b);if(bn)bn.disabled=false;
+  var hn=document.getElementById(h);if(hn)hn.style.display='none';
+}
+function done(){
+  document.getElementById('m6').style.display='none';
+  document.getElementById('complete').classList.add('show');
+  dm[6]=true;cur=7;
+  document.getElementById('pfill').style.width='100%';
+  document.getElementById('ppct').textContent='100%';
+  document.getElementById('plabel').textContent='Hoàn thành!';
+  buildDots();window.scrollTo({top:0,behavior:'smooth'});
+  localStorage.setItem('peopleos_k3_done','true');
+}
+buildDots();updP();initSorter();
+</script>
+</body>
+</html>
