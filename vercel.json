@@ -2,16 +2,29 @@
   "framework": null,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/k1-eq-selfmastery", "destination": "/k1-eq-selfmastery.html" },
-    { "source": "/k2-giao-tiep-anh-huong", "destination": "/k2-giao-tiep-anh-huong.html" },
-    { "source": "/k3-ai-literacy-hr", "destination": "/k3-ai-literacy-hr.html" },
-    { "source": "/k4-hr-ops-thuc-chien", "destination": "/k4-hr-ops-thuc-chien.html" },
-    { "source": "/k5-recruiting-co-ban", "destination": "/k5-recruiting-co-ban.html" },
-    { "source": "/k6-ld-thuc-chien", "destination": "/k6-ld-thuc-chien.html" }
-  ],
-  "functions": {
-    "api/*.js": {
-      "runtime": "nodejs20.x"
+    {
+      "source": "/k1-eq-selfmastery",
+      "destination": "/k1-eq-selfmastery.html"
+    },
+    {
+      "source": "/k2-giao-tiep-anh-huong",
+      "destination": "/k2-giao-tiep-anh-huong.html"
+    },
+    {
+      "source": "/k3-ai-literacy-hr",
+      "destination": "/k3-ai-literacy-hr.html"
+    },
+    {
+      "source": "/k4-hr-ops-thuc-chien",
+      "destination": "/k4-hr-ops-thuc-chien.html"
+    },
+    {
+      "source": "/k5-recruiting-co-ban",
+      "destination": "/k5-recruiting-co-ban.html"
+    },
+    {
+      "source": "/k6-ld-thuc-chien",
+      "destination": "/k6-ld-thuc-chien.html"
     }
-  }
+  ]
 }
