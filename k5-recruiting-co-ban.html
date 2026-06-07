@@ -1,3 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recruiting Cơ Bản · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ─────────────────────────────────────────────── */
+:root{
+  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--navy4:#143350;
+  --cyan:#22D3EE;--teal:#06B6D4;--cyan2:#67E8F9;
+  --gold:#F0C040;--gold2:#FDE68A;--gold3:#d97706;
+  --text:#F0F6FF;--muted:#94A3B8;--subtle:#4A7A94;
+  --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);
+  --border:rgba(34,211,238,0.14);--border2:rgba(34,211,238,0.28);
+  --r:14px;--r-sm:9px;
+}
+/* ── RESET ──────────────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;background:var(--navy);
+  color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.6}
+/* ── ATMOSPHERE ─────────────────────────────────────────── */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 90% 55% at 15% -5%,rgba(6,182,212,.09) 0%,transparent 55%),
+    radial-gradient(ellipse 65% 45% at 85% 105%,rgba(240,192,64,.06) 0%,transparent 55%)}
+body::after{content:'水';position:fixed;right:-50px;top:50%;
+  transform:translateY(-50%) rotate(-8deg);font-size:340px;line-height:1;
+  color:rgba(34,211,238,.022);pointer-events:none;z-index:0;
+  font-family:'Playfair Display',serif}
+/* ── LAYOUT ─────────────────────────────────────────────── */
+.app{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 20px 100px}
+/* ── TOPNAV ─────────────────────────────────────────────── */
 .topnav{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
   height:58px;display:flex;align-items:center;justify-content:space-between;
   padding:0 24px;position:sticky;top:0;z-index:100}
