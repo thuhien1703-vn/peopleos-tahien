@@ -1,41 +1,17 @@
 # PeopleOS Learning Hub
 
-**by TaHien — CHCO Golden Gate Group**  
-*Biên soạn cho cộng đồng HR Vietnam. PeopleOS Community · 2026.*
+Platform học HR miễn phí · biên soạn bởi TaHien (CHCO · Golden Gate Group)
 
----
+## Khóa học live
+
+- K1: EQ & Self-Mastery → /k1-eq-selfmastery
+- K2: Giao Tiếp & Ảnh Hưởng → /k2-giao-tiep-anh-huong
+- K3: AI Literacy Cho HR → /k3-ai-literacy-hr
+- K4: HR Ops Thực Chiến → /k4-hr-ops-thuc-chien
+- K5: Recruiting Cơ Bản → /k5-recruiting-co-ban
+- K6: L&D Thực Chiến → /k6-ld-thuc-chien
 
 ## Stack
-- **Framework**: Next.js 14
-- **Hosting**: Vercel
-- **State**: localStorage (client-side)
-- **Design**: Hành Thủy — navy/cyan/gold, Playfair Display + Be Vietnam Pro
+Pure static HTML · Vercel · framework: null
 
-## Deploy lên Vercel
-
-1. Push repo lên GitHub
-2. Vào [vercel.com](https://vercel.com) → Import Git Repository
-3. Chọn repo này → Deploy (tự detect Next.js, không cần config)
-
-## Local dev
-
-```bash
-npm install
-npm run dev
-# → http://localhost:3000
-```
-
-## Cấu trúc
-
-```
-peopleos-hub/
-├── pages/
-│   ├── _app.js          # Global styles + Head
-│   ├── _document.js     # Google Fonts, meta tags
-│   └── index.js         # Entry point
-├── components/
-│   └── PeopleOSHub.jsx  # Main app component
-├── public/              # Static assets
-├── vercel.json
-└── package.json
-```
+PeopleOS Community · 2026
