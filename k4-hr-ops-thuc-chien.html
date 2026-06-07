@@ -163,6 +163,53 @@ body::after{content:'律';position:fixed;right:-40px;top:50%;transform:translate
 .btncert{width:100%;padding:13px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--gold3),var(--gold));color:var(--navy);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;margin-bottom:9px}
 .btnnext2{width:100%;padding:11px;border-radius:var(--r-sm);background:transparent;border:1px solid rgba(249,115,22,.3);color:var(--orange);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;cursor:pointer;transition:background .18s}
 .btnnext2:hover{background:rgba(249,115,22,.07)}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);
+  padding:10px 24px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border)}
+.breadcrumb a{color:var(--cyan);text-decoration:none}.breadcrumb a:hover{text-decoration:underline}
+.breadcrumb .sep{opacity:.4}
+/* ── OUTCOMES BOX ── */
+.outcomes-box{background:rgba(34,211,238,.05);border:1px solid rgba(34,211,238,.18);
+  border-radius:12px;padding:16px 18px;margin:0 0 18px}
+.outcomes-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:8px}
+.outcomes-list{list-style:none;padding:0;margin:0}
+.outcomes-list li{font-size:13px;color:var(--text);padding:3px 0;display:flex;
+  align-items:flex-start;gap:8px;line-height:1.5}
+.outcomes-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
+/* ── MODULE TIME ── */
+.module-time{font-size:12px;color:var(--muted);margin-top:3px}
+/* ── DOT TOOLTIP ── */
+.dot{position:relative}
+.dot-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#0d2a42;border:1px solid var(--border);border-radius:6px;
+  padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:120px;text-align:center}
+.dot-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:4px solid transparent;border-top-color:#0d2a42}
+.dot:hover .dot-tip,.dot.active:hover .dot-tip{opacity:1}
+/* ── RESUME BANNER ── */
+.resume-banner{background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.2);
+  border-radius:12px;padding:12px 18px;display:flex;align-items:center;
+  justify-content:space-between;margin-bottom:18px;animation:fadeUp .3s ease;gap:12px}
+.resume-text{font-size:13px;color:var(--text)}.resume-text strong{color:var(--cyan)}
+.resume-btn{background:var(--cyan);color:var(--navy);border:none;border-radius:8px;
+  padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:'Be Vietnam Pro',sans-serif;white-space:nowrap;transition:all .2s}
+.resume-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(34,211,238,.3)}
+/* ── MICRO TASK ── */
+.micro-task{background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.22);
+  border-radius:12px;padding:14px 16px;margin-top:14px}
+.micro-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:6px}
+.micro-text{font-size:13px;color:var(--text);line-height:1.6}
+/* ── PROG DETAIL ── */
+.prog-detail{font-size:11px;color:var(--muted);padding:3px 24px 6px;text-align:right}
+/* ── QUIZ HINT FADE ── */
+#nav-hint{opacity:0;transition:opacity .5s;font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
+#nav-hint.vis{opacity:1}
+
 </style>
 </head>
 <body>
@@ -175,6 +222,11 @@ body::after{content:'律';position:fixed;right:-40px;top:50%;transform:translate
   </div>
   <div class="giot-pill">💧 <span id="nav-giot-display">0</span> Giọt</div>
 </nav>
+<div class="breadcrumb">
+  <a href="/">Learning Hub</a><span class="sep">›</span>
+  <span>Foundation 🌱</span><span class="sep">›</span>
+  <span>HR Ops Thực Chiến</span>
+</div>
 <div class="prog-wrap">
   <div class="prog-meta"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div>
   <div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
@@ -189,10 +241,12 @@ body::after{content:'律';position:fixed;right:-40px;top:50%;transform:translate
     <div class="hero-content">
       <div class="hero-badge">HR Ops Thực Chiến ★ · Cấp 1</div>
       <div class="hero-num">Bài 1 / 6</div>
+      <div class="module-time">⏱ ~3 phút đọc</div>
       <div class="hero-title">10 điều khoản hay sai nhất trong HĐLĐ Việt Nam</div>
     </div>
   </div>
 
+  <div class="outcomes-box"><div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div><ul class="outcomes-list"><li>Xác định được 3 điểm rủi ro trong quy trình HR hiện tại</li><li>Tính đúng thuế TNCN cho 5 tình huống phổ biến nhất</li><li>Viết được 1 SOP mà nhân viên mới đọc là hiểu và làm được</li></ul></div>
   <div class="lead">"Hiền từng thanh tra một công ty chuỗi F&B 200 nhân viên. Trong 3 giờ đầu, đội kiểm tra tìm thấy 11 lỗi hợp đồng có thể bị phạt — tổng mức phạt tiềm năng trên 400 triệu đồng. HR Manager ở đó không hề biết có lỗi. Cô ấy dùng template hợp đồng từ 2018 và không ai update theo luật mới. Sai không phải vì cô ấy không cẩn thận — mà vì không biết cần cẩn thận điều gì."</div>
 
   <p class="body">Bộ Luật Lao Động 2019 và các nghị định hướng dẫn tạo ra nhiều thay đổi mà phần lớn HR không cập nhật kịp. Dưới đây là <b>10 điều khoản hay sai nhất</b> — sai theo nghĩa có thể bị xử phạt hoặc vô hiệu hóa điều khoản.</p>
@@ -272,6 +326,7 @@ body::after{content:'律';position:fixed;right:-40px;top:50%;transform:translate
     <div class="hero-content">
       <div class="hero-badge">HR Ops Thực Chiến ★ · Cấp 1</div>
       <div class="hero-num">Bài 2 / 6</div>
+      <div class="module-time">⏱ ~4 phút đọc</div>
       <div class="hero-title">Onboarding 30-60-90 — từ ngày 1 đến khi "vào việc thật sự"</div>
     </div>
   </div>
@@ -371,6 +426,7 @@ body::after{content:'律';position:fixed;right:-40px;top:50%;transform:translate
     <div class="hero-content">
       <div class="hero-badge">HR Ops Thực Chiến ★ · Cấp 1</div>
       <div class="hero-num">Bài 3 / 6</div>
+      <div class="module-time">⏱ ~5 phút đọc</div>
       <div class="hero-title">C&B cơ bản — lương, BHXH, thuế TNCN đúng luật</div>
     </div>
   </div>
@@ -823,6 +879,94 @@ function done(){
   localStorage.setItem('peopleos_k4_done','true');
 }
 buildDots();updP();
+</script>
+<script>
+/* ── PEOPLEOS UX v2 — k4-hr-ops-thuc-chien ── */
+window.MODULE_TITLES = ["HR Ops l\u00e0 g\u00ec \u2014 n\u1ec1n t\u1ea3ng c\u1ee7a m\u1ecdi th\u1ee9", "Thi\u1ebft k\u1ebf quy tr\u00ecnh nh\u00e2n s\u1ef1 kh\u00f4ng leak", "Payroll & thu\u1ebf TNCN: sai m\u1ed9t ly \u0111i m\u1ed9t d\u1eb7m", "HRIS v\u00e0 automation: l\u00e0m \u00edt h\u01a1n ki\u1ec3m so\u00e1t nhi\u1ec1u h\u01a1n", "Compliance trong F&B: 10 l\u1ed7i ph\u1ed5 bi\u1ebfn nh\u1ea5t", "SOP vi\u1ebft \u0111\u1ec3 ng\u01b0\u1eddi ta th\u1eadt s\u1ef1 d\u00f9ng"];
+window.MODULE_TIMES  = [3, 4, 5, 4, 4, 3];
+window.MICRO_TASKS   = ["V\u1ebd flowchart onboarding hi\u1ec7n t\u1ea1i \u2014 \u0111\u00e1nh d\u1ea5u ch\u1ed7 n\u00e0o hay b\u1ecb leak.", "L\u1ea5y 1 payroll th\u00e1ng tr\u01b0\u1edbc \u2014 t\u1ef1 t\u00ednh l\u1ea1i thu\u1ebf TNCN cho 3 nh\u00e2n vi\u00ean.", "Li\u1ec7t k\u00ea 3 task HR \u0111ang l\u00e0m th\u1ee7 c\u00f4ng c\u00f3 th\u1ec3 automate \u0111\u01b0\u1ee3c.", "T\u00ecm 1 compliance gap trong quy tr\u00ecnh \u2014 \u0111\u00e1nh gi\u00e1 m\u1ee9c \u0111\u1ed9 r\u1ee7i ro.", "L\u1ea5y 1 SOP hi\u1ec7n c\u00f3 \u2014 \u0111\u1ecdc v\u1edbi m\u1eaft ng\u01b0\u1eddi m\u1edbi. H\u1ecd c\u00f3 th\u1ec3 l\u00e0m \u0111\u01b0\u1ee3c kh\u00f4ng?", "Vi\u1ebft 1 SOP ng\u1eafn cho 1 quy tr\u00ecnh b\u1ea1n \u0111ang gi\u1eef trong \u0111\u1ea7u."];
+
+document.addEventListener('DOMContentLoaded', function() {
+  var SLUG = 'k4-hr-ops-thuc-chien';
+  var lastKey = 'resume_' + SLUG;
+  var lastSaved = parseInt(localStorage.getItem(lastKey) || '0');
+
+  /* 1. RESUME BANNER */
+  if (lastSaved > 1 && lastSaved <= (window.tot||6)) {
+    var rb = document.createElement('div');
+    rb.className = 'resume-banner'; rb.id = 'rb';
+    rb.innerHTML = '<div class="resume-text">Lần trước bạn học đến <strong>Bài ' + lastSaved + '</strong> · Tiếp tục?</div>' +
+      '<button class="resume-btn" onclick="doResume()">Tiếp tục Bài ' + lastSaved + ' →</button>';
+    var wrap = document.querySelector('.wrap') || document.querySelector('.container') || document.body;
+    var m1 = document.getElementById('m1');
+    if (m1) m1.parentNode.insertBefore(rb, m1);
+  }
+  window.doResume = function() {
+    var n = parseInt(localStorage.getItem(lastKey)||'1');
+    var el = document.getElementById('rb'); if(el) el.remove();
+    if(window.go) window.go(n);
+  };
+
+  /* 2. SAVE POSITION — patch go() */
+  var _go = window.go;
+  window.go = function(n) { if(_go) _go(n); localStorage.setItem(lastKey, n); };
+
+  /* 3. DOT TOOLTIPS — patch buildDots() */
+  var _bd = window.buildDots;
+  window.buildDots = function() {
+    if(_bd) _bd();
+    setTimeout(function() {
+      document.querySelectorAll('.dot').forEach(function(d, i) {
+        if (!d.querySelector('.dot-tip') && MODULE_TITLES[i]) {
+          var t = document.createElement('div');
+          t.className = 'dot-tip';
+          t.textContent = 'Bài ' + (i+1) + ': ' + MODULE_TITLES[i];
+          d.appendChild(t);
+        }
+      });
+    }, 30);
+  };
+
+  /* 4. PROGRESS DETAIL */
+  var _up = window.updProg;
+  window.updProg = function() {
+    if(_up) _up();
+    var el = document.getElementById('prog-detail');
+    if(!el) return;
+    var done = Object.keys(window.doneM||{}).length;
+    var tot = window.tot || 6;
+    var doneMin = (window.doneM ? Object.keys(window.doneM).reduce(function(a,k){return a+(MODULE_TIMES[k-1]||3);},0) : 0);
+    var totMin = MODULE_TIMES.reduce(function(a,b){return a+b;},0);
+    el.textContent = done + '/' + tot + ' bài · ~' + doneMin + '/' + totMin + ' phút';
+  };
+
+  /* 5. QUIZ HINT REVEAL ON SCROLL */
+  var hint = document.getElementById('nav-hint');
+  if(hint) {
+    var quiz = document.querySelector('.ex');
+    if(quiz) {
+      var obs = new IntersectionObserver(function(e) { 
+        if(e[0].isIntersecting) { hint.classList.add('vis'); obs.disconnect(); }
+      }, {threshold:0.3});
+      obs.observe(quiz);
+    }
+  }
+
+  /* 6. MICRO TASK INJECT — vào sau .takeaway của mỗi module */
+  document.querySelectorAll('.takeaway').forEach(function(tw, i) {
+    if(MICRO_TASKS[i]) {
+      var mt = document.createElement('div');
+      mt.className = 'micro-task';
+      mt.innerHTML = '<div class="micro-label">⚡ Áp dụng ngay · Bài ' + (i+1) + '</div>' +
+        '<div class="micro-text">' + MICRO_TASKS[i] + '</div>';
+      tw.parentNode.insertBefore(mt, tw.nextSibling);
+    }
+  });
+
+  /* 7. INITIAL CALLS */
+  if(window.buildDots) window.buildDots();
+  if(window.updProg) window.updProg();
+});
 </script>
 </body>
 </html>
