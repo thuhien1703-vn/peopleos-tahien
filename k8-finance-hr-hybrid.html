@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance-HR Hybrid · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--accent:#F59E0B;--accent2:#FCD34D;--text:#E8F4F8;--muted:#8BB8CC;--subtle:#4A7A94;--border:rgba(34,211,238,0.15);--glass:rgba(255,255,255,0.04)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--navy);color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100vh;line-height:1.7}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(245,158,11,0.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(34,211,238,0.05) 0%,transparent 50%);pointer-events:none;z-index:0}
+.topnav{position:sticky;top:0;height:58px;background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100;white-space:nowrap}
+.back{color:var(--muted);text-decoration:none;font-size:13px;transition:color .2s}.back:hover{color:var(--cyan)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}
+.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
+.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;display:flex;gap:5px;align-items:center;white-space:nowrap}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);padding:10px 24px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border)}
+.breadcrumb a{color:var(--cyan);text-decoration:none}
+.breadcrumb .sep{opacity:.4}
+.progress-bar{padding:10px 24px;background:rgba(0,0,0,.15)}
+.progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px}
+.progress-track{height:3px;background:var(--navy2);border-radius:2px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width .4s}
+.prog-detail{font-size:11px;color:var(--muted);text-align:right;margin-top:3px}
+.dots{display:flex;justify-content:center;gap:10px;padding:16px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--navy2);border:1px solid var(--border);cursor:pointer;transition:all .2s;position:relative}
+.dot.active{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,158,11,.2)}
+.dot.done{background:var(--teal);border-color:var(--teal)}
+.dot-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#0d2a42;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:120px;text-align:center}
+.dot-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:#0d2a42}
+.dot:hover .dot-tip{opacity:1}
+.module{display:none;max-width:760px;margin:0 auto;padding:0 20px 100px}
+.module.active{display:block}
+.hero{background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(245,158,11,.05));border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:28px 28px 24px;margin-bottom:24px;position:relative;overflow:hidden}
+.hero::before{content:'₫';position:absolute;right:20px;top:10px;font-size:80px;opacity:.08;color:var(--accent2);font-family:serif}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--accent2);font-weight:600;margin-bottom:10px}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}
+.hero-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--text);line-height:1.3}
+.module-time{font-size:12px;color:var(--muted);margin-top:4px}
+.outcomes-box{background:rgba(34,211,238,.05);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:16px 18px;margin:0 0 18px}
+.outcomes-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);text-transform:uppercase;margin-bottom:8px}
+.outcomes-list{list-style:none;padding:0;margin:0}
+.outcomes-list li{font-size:13px;color:var(--text);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.outcomes-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
+.lead{border-left:3px solid var(--accent);background:rgba(245,158,11,.06);border-radius:0 10px 10px 0;padding:14px 18px;margin:0 0 20px;font-style:italic;color:var(--muted);font-size:14px;line-height:1.7}
+.body{font-size:14px;line-height:1.8;color:var(--text);margin-bottom:16px}
+.body b{color:var(--accent2)}
+.sec-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--accent2);margin:24px 0 12px}
+.hl{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:12px;padding:16px 18px;margin:16px 0}
+.hl-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--accent2);text-transform:uppercase;margin-bottom:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.card{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:16px}
+.cn{font-size:11px;color:var(--accent2);font-weight:700;margin-bottom:4px}
+.ct{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.cd{font-size:12px;color:var(--muted);line-height:1.5}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+.tw{background:linear-gradient(135deg,rgba(240,192,64,.1),rgba(240,192,64,.04));border:1px solid rgba(240,192,64,.25);border-radius:14px;padding:20px 22px;margin:24px 0}
+.tw-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.tw-text{font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--text);line-height:1.6;margin-bottom:8px}
+.tw-sig{font-size:11px;color:var(--muted)}
+.micro-task{background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.22);border-radius:12px;padding:14px 16px;margin-top:14px}
+.micro-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.micro-text{font-size:13px;color:var(--text);line-height:1.6}
+.ex{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:20px;margin:20px 0}
+.ex-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.ex-ico{font-size:22px}
+.ex-label{font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:.06em}
+.ex-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.qq{font-size:14px;color:var(--text);margin-bottom:13px;line-height:1.58;font-weight:500}
+.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px 15px;text-align:left;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px}
+.qopt:hover:not(:disabled){border-color:var(--accent);background:rgba(245,158,11,.08)}
+.qopt.correct{border-color:var(--teal);background:rgba(6,182,212,.1);color:var(--teal)}
+.qopt.wrong{border-color:#EF4444;background:rgba(239,68,68,.1);color:#FCA5A5}
+.oletter{width:24px;height:24px;border-radius:50%;background:var(--navy2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.qfb{display:none;border-radius:10px;padding:12px 15px;font-size:13px;margin-top:10px;line-height:1.6}
+.qfb.show{display:block}
+.qfb.correct{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.25);color:var(--teal)}
+.qfb.wrong{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#FCA5A5}
+/* Calculator */
+.calc-box{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:18px;margin:16px 0}
+.calc-title{font-size:13px;font-weight:700;color:var(--accent2);margin-bottom:12px}
+.calc-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.calc-label{font-size:12px;color:var(--muted);min-width:200px}
+.calc-input{background:var(--navy2);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:13px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;width:130px;outline:none;transition:border .2s}
+.calc-input:focus{border-color:var(--accent)}
+.calc-result{background:rgba(240,192,64,.1);border:1px solid rgba(240,192,64,.25);border-radius:10px;padding:14px 16px;margin-top:12px}
+.calc-result-title{font-size:11px;color:var(--gold);font-weight:700;margin-bottom:6px;text-transform:uppercase}
+.calc-result-value{font-size:22px;font-weight:800;color:var(--accent2)}
+.calc-result-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.btn-calc{background:var(--accent);color:#020B18;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;margin-top:4px}
+/* Reflect */
+.reflect-prompt{font-size:13px;color:var(--muted);margin-bottom:10px;line-height:1.6}
+.reflect-input{width:100%;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100px;resize:vertical;outline:none;transition:border .2s}
+.reflect-input:focus{border-color:var(--accent)}
+.reflect-count{font-size:11px;color:var(--subtle);margin-top:6px;text-align:right}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+.btn-prev{background:none;border:1px solid var(--border);color:var(--muted);padding:10px 20px;border-radius:10px;font-size:13px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}
+.btn-prev:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-next{background:linear-gradient(135deg,var(--accent),#E88D00);color:#020B18;border:none;padding:11px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}
+.btn-next:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,158,11,.35)}
+.btn-next:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+.nav-hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px;opacity:0;transition:opacity .5s}
+.nav-hint.vis{opacity:1}
+#complete{display:none;max-width:600px;margin:60px auto;padding:0 20px;text-align:center}
+#complete.active{display:block}
+.cert-icon{font-size:64px;margin-bottom:20px}
+.cert-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--accent2);margin-bottom:12px}
+.cert-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:28px}
+.cert-box{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(245,158,11,.04));border:1px solid rgba(245,158,11,.25);border-radius:16px;padding:28px;margin-bottom:24px}
+.cert-name-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.cert-name{font-family:'Playfair Display',serif;font-size:22px;color:var(--text);margin-bottom:16px}
+.cert-course{font-size:14px;color:var(--accent2);font-weight:600}
+.cert-sig{font-size:12px;color:var(--muted);margin-top:12px}
+.btn-hub{background:linear-gradient(135deg,var(--accent),#E88D00);color:#020B18;border:none;padding:13px 28px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;text-decoration:none;display:inline-block;margin-top:8px}
+.attribution{text-align:center;padding:40px 20px;font-size:11px;color:var(--subtle);border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <a class="back" href="/">← Về Learning Hub</a>
+  <div style="display:flex;align-items:center"><span class="nav-logo">PeopleOS</span><span class="nav-sub">Learning Hub &nbsp;by TaHien</span></div>
+  <div class="giot-pill">💧 <span id="nav-giot">0</span> Giọt</div>
+</nav>
+<div class="breadcrumb">
+  <a href="/">Learning Hub</a><span class="sep">›</span>
+  <span>Growth 🌿</span><span class="sep">›</span>
+  <span>Finance-HR Hybrid</span>
+</div>
+<div class="progress-bar">
+  <div class="progress-label"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div>
+  <div class="progress-track"><div class="progress-fill" id="pfill" style="width:0%"></div></div>
+  <div class="prog-detail" id="prog-detail"></div>
+</div>
+<div class="dots" id="dots"></div>
+
+<!-- MODULE 1 -->
+<div class="module active" id="m1">
+  <div class="hero">
+    <div class="hero-badge">● Finance-HR Hybrid · Cấp 2 · FLAGSHIP</div>
+    <div class="hero-num">Bài 1 / 6</div>
+    <div class="hero-title">Tại Sao HR Nói Chuyện Với CEO Như Người Ngoài Hành Tinh</div>
+    <div class="module-time">⏱ ~5 phút đọc</div>
+  </div>
+
+  <div class="outcomes-box">
+    <div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div>
+    <ul class="outcomes-list">
+      <li>Đọc và phân tích P&L statement — link chi phí nhân sự với kết quả kinh doanh cụ thể</li>
+      <li>Tính và trình bày RevPAMH (Revenue Per Available Man-Hour) cho CEO/CFO</li>
+      <li>Thiết kế workforce cost model đơn giản cho chuỗi F&B 10–50 cửa hàng</li>
+    </ul>
+  </div>
+
+  <div class="lead">"Năm 2018, Hiền ngồi trong một cuộc họp board. CFO trình bày: labor cost tăng 2.3 điểm % so với cùng kỳ, ảnh hưởng EBITDA giảm 4.1 tỷ. Tất cả người trong phòng gật đầu — trừ HR Director. Cô ấy sau đó hỏi Hiền: 'EBITDA là gì?' — Hiền không trả lời được ngay vì lúc đó Hiền cũng không chắc nó tính thế nào. Đó là khoảnh khắc Hiền quyết định phải học Finance."</div>
+
+  <p class="body">Đây là nghịch lý HR: <b>chi phí nhân sự chiếm 25–45% doanh thu trong F&B</b> — thường là dòng chi phí lớn nhất trong P&L — nhưng người quản lý chi phí đó (HR) thường ít hiểu P&L nhất trong C-suite.</p>
+
+  <p class="body">Kết quả: HR xin ngân sách training, CEO nhìn vào P&L thấy labor cost đang ở 38%, không có tiền. HR không biết tại sao bị từ chối. CEO không hiểu tại sao HR không hiểu. Hai người nói hai ngôn ngữ khác nhau.</p>
+
+  <div class="sec-title">P&L Trong F&B — HR Cần Biết Gì</div>
+  <div class="hl">
+    <div class="hl-label">Cấu trúc P&L đơn giản cho chuỗi F&B</div>
+    <p class="body">
+    <b>Revenue</b> — Doanh thu (số bàn × giá trung bình × số lượt)<br>
+    <b>Cost of Goods Sold (COGS)</b> — Chi phí nguyên vật liệu (~28–32% doanh thu trong F&B)<br>
+    <b>Labor Cost</b> — Chi phí nhân sự (<b>HR quản lý dòng này</b>) (~28–38%)<br>
+    <b>Occupancy</b> — Mặt bằng (~10–15%)<br>
+    <b>Other OpEx</b> — Vận hành khác (~5–10%)<br>
+    <b>EBITDA</b> — Lợi nhuận trước khấu hao & thuế (~5–15% là healthy)<br><br>
+    <b>Rule of thumb:</b> Khi labor cost vượt 35% trong F&B chain, CEO sẽ hỏi HR ngay — bất kể HR có chuẩn bị hay không.
+    </p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="cn">HR HIỂU</div>
+      <div class="ct">Ngôn ngữ của mình</div>
+      <div class="cd">Headcount, turnover rate, time-to-hire, engagement score, training hours</div>
+    </div>
+    <div class="card">
+      <div class="cn">CEO/CFO HIỂU</div>
+      <div class="ct">Ngôn ngữ của họ</div>
+      <div class="cd">Labor cost %, EBITDA impact, RevPAMH, cost per hire vs revenue, payroll ratio</div>
+    </div>
+  </div>
+
+  <p class="body"><b>Finance-HR Hybrid</b> là người có thể nói cả hai ngôn ngữ. Không cần bằng kế toán — cần đủ để ngồi họp với CFO và không bị mất trong conversation.</p>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎯</div>
+      <div><div class="ex-label">Kiểm tra nhanh</div><div class="ex-sub">Tình huống thực tế</div></div>
+    </div>
+    <div class="qq">CFO nói: "Labor cost tháng này là 34.2% revenue, tăng 1.8 điểm % so với target 32.4%." HR cần hiểu ngay điều gì để phản hồi hữu ích?</div>
+    <div class="qopts" id="q1-opts">
+      <button class="qopt" onclick="ansQ1(this,'A')"><span class="oletter">A</span>Tháng này có bao nhiêu nhân viên nghỉ việc</button>
+      <button class="qopt" onclick="ansQ1(this,'B')"><span class="oletter">B</span>Revenue tháng này là bao nhiêu để tính ra số tiền tuyệt đối của 1.8 điểm %</button>
+      <button class="qopt" onclick="ansQ1(this,'C')"><span class="oletter">C</span>Tỷ lệ turnover của từng bộ phận</button>
+      <button class="qopt" onclick="ansQ1(this,'D')"><span class="oletter">D</span>Kế hoạch tuyển dụng quý tới</button>
+    </div>
+    <div class="qfb" id="q1-fb"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 1</div>
+    <div class="tw-text">"Khi HR hiểu P&L, HR không còn xin ngân sách — HR đề xuất đầu tư với ROI rõ ràng. Đó là sự khác biệt giữa được nghe và không được nghe."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="micro-task">
+    <div class="micro-label">⚡ Áp dụng ngay · Bài 1</div>
+    <div class="micro-text">Hỏi Finance/Accounting bộ phận bạn: Labor cost % revenue tháng vừa rồi là bao nhiêu? So với cùng kỳ năm ngoái thế nào? Ghi lại và suy nghĩ xem HR có thể ảnh hưởng gì.</div>
+  </div>
+  <div class="nav-row">
+    <button class="btn-prev" style="visibility:hidden">← Quay lại</button>
+    <div><button class="btn-next" id="m1-next" onclick="goTo(2)" disabled>Tiếp theo →</button><div class="nav-hint" id="m1-hint">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+  </div>
+</div>
+
+<!-- MODULE 2 -->
+<div class="module" id="m2">
+  <div class="hero">
+    <div class="hero-badge">● Finance-HR Hybrid · Cấp 2 · FLAGSHIP</div>
+    <div class="hero-num">Bài 2 / 6</div>
+    <div class="hero-title">RevPAMH — Chỉ Số Kết Nối HR Với Doanh Thu</div>
+    <div class="module-time">⏱ ~5 phút đọc</div>
+  </div>
+
+  <div class="lead">"RevPAMH — Revenue Per Available Man-Hour — là chỉ số Hiền tự thiết kế sau nhiều năm không tìm được metric nào đủ tốt để trả lời câu hỏi: 'Đội ngũ của chúng ta đang tạo ra bao nhiêu doanh thu cho mỗi giờ lao động sẵn sàng phục vụ?' Đây là ngôn ngữ mà CEO F&B hiểu ngay."</div>
+
+  <div class="sec-title">RevPAMH — Công Thức Và Ý Nghĩa</div>
+
+  <div class="hl">
+    <div class="hl-label">Công thức RevPAMH</div>
+    <p class="body" style="text-align:center;font-size:20px;font-weight:700;color:var(--accent2);margin:12px 0">
+      RevPAMH = Doanh thu / Tổng giờ lao động sẵn có
+    </p>
+    <p class="body"><b>Doanh thu:</b> Revenue trong kỳ (ngày, tuần, tháng)<br><b>Tổng giờ lao động sẵn có:</b> Tổng số giờ nhân viên có mặt sẵn sàng phục vụ (không phải giờ làm thực tế — mà giờ scheduled/available)</p>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">Ví dụ thực tế — 1 cửa hàng F&B</div>
+    <p class="body">
+    Cửa hàng A: Doanh thu tháng 5 = <b>800 triệu VND</b><br>
+    Tổng giờ lao động available: 30 nhân viên × 26 ngày × 8 giờ = <b>6,240 giờ</b><br>
+    RevPAMH = 800,000,000 / 6,240 = <b>128,205 VND/giờ</b><br><br>
+    Cửa hàng B cùng chuỗi: Doanh thu = 650 triệu, nhân viên tương đương<br>
+    RevPAMH = 650,000,000 / 6,240 = <b>104,167 VND/giờ</b><br><br>
+    <b>Câu hỏi HR cần hỏi:</b> Tại sao cùng số người, cùng mặt bằng, RevPAMH lại khác nhau 23%? Câu trả lời thường nằm ở scheduling, training, và management quality — cả 3 đều là HR.
+    </p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🧮</div>
+      <div><div class="ex-label">Tính RevPAMH của bạn</div><div class="ex-sub">Nhập số liệu để tính kết quả</div></div>
+    </div>
+    <div class="calc-box">
+      <div class="calc-title">RevPAMH Calculator</div>
+      <div class="calc-row">
+        <span class="calc-label">Doanh thu tháng (triệu VND):</span>
+        <input class="calc-input" id="c-rev" type="number" placeholder="800">
+      </div>
+      <div class="calc-row">
+        <span class="calc-label">Số nhân viên:</span>
+        <input class="calc-input" id="c-emp" type="number" placeholder="30">
+      </div>
+      <div class="calc-row">
+        <span class="calc-label">Số ngày làm việc/tháng:</span>
+        <input class="calc-input" id="c-days" type="number" placeholder="26">
+      </div>
+      <div class="calc-row">
+        <span class="calc-label">Giờ/ca trung bình:</span>
+        <input class="calc-input" id="c-hours" type="number" placeholder="8">
+      </div>
+      <button class="btn-calc" onclick="calcRevPAMH()">Tính RevPAMH →</button>
+      <div class="calc-result" id="calc-result" style="display:none">
+        <div class="calc-result-title">RevPAMH của bạn</div>
+        <div class="calc-result-value" id="calc-value"></div>
+        <div class="calc-result-sub" id="calc-sub"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 2</div>
+    <div class="tw-text">"RevPAMH là câu hỏi CEO muốn hỏi nhưng không biết hỏi thế nào — HR biết trả lời câu đó sẽ có ghế trong phòng C-suite."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="micro-task">
+    <div class="micro-label">⚡ Áp dụng ngay · Bài 2</div>
+    <div class="micro-text">Tính RevPAMH cho 1 đơn vị/store/phòng ban bạn có số liệu. So sánh với đơn vị hiệu suất cao nhất trong tổ chức. Khoảng cách đó là cơ hội của HR.</div>
+  </div>
+  <div class="nav-row">
+    <button class="btn-prev" onclick="goTo(1)">← Quay lại</button>
+    <div><button class="btn-next" id="m2-next" onclick="goTo(3)" disabled>Tiếp theo →</button><div class="nav-hint vis" id="m2-hint">Hoàn thành calculator để tiếp tục</div></div>
+  </div>
+</div>
+
+<!-- MODULE 3 -->
+<div class="module" id="m3">
+  <div class="hero">
+    <div class="hero-badge">● Finance-HR Hybrid · Cấp 2 · FLAGSHIP</div>
+    <div class="hero-num">Bài 3 / 6</div>
+    <div class="hero-title">Workforce Cost Model — Tính Đúng Để Quyết Đúng</div>
+    <div class="module-time">⏱ ~5 phút đọc</div>
+  </div>
+
+  <div class="lead">"Hiền gặp một HR Manager tự tin nói với CFO: 'Nếu chúng ta giảm 10 nhân viên, tiết kiệm 200 triệu/tháng.' CFO nhìn Hiền, Hiền nhìn lại — cả hai đều hiểu con số đó sai hoàn toàn. Vì HR đã quên mất: tiết kiệm lương ≠ tiết kiệm workforce cost."</div>
+
+  <div class="sec-title">True Cost of Labor — Những Gì HR Hay Quên</div>
+
+  <div class="hl">
+    <div class="hl-label">Công thức True Workforce Cost</div>
+    <p class="body">
+    <b>Total Cost = Lương cơ bản</b><br>
+    + BHXH/BHYT/BHTN (employer) ~21.5% lương<br>
+    + Phụ cấp ăn, đi lại, nhà ở<br>
+    + Chi phí đồng phục, công cụ<br>
+    + Chi phí tuyển dụng (amortized) ~0.5 tháng lương/nhân viên/năm<br>
+    + Chi phí training (amortized) ~0.3 tháng lương/nhân viên/năm<br>
+    + Quản lý overhead (giờ manager dành để supervise)<br><br>
+    <b>Rule of thumb F&B Vietnam:</b> True cost = Lương cơ bản × 1.35–1.45<br>
+    Tức là nhân viên lương 8 triệu/tháng = thực tế tốn 11–11.6 triệu/tháng cho doanh nghiệp.
+    </p>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">Cost of Turnover — Số Liệu Hay Bị Underestimate</div>
+    <p class="body">
+    Khi 1 nhân viên bếp lương 7 triệu nghỉ việc, doanh nghiệp mất:<br>
+    - <b>Chi phí tuyển:</b> 1–2 triệu (đăng tuyển, screening)<br>
+    - <b>Chi phí onboard & train:</b> 3–4 tuần năng suất thấp = ~1.5 triệu<br>
+    - <b>Lost productivity:</b> Thời gian vị trí trống (average 3 tuần) = doanh thu hụt<br>
+    - <b>Morale impact:</b> Đồng nghiệp làm thêm ca → burnout → turnover cascade<br><br>
+    <b>Tổng thiệt hại 1 turnover nhân viên bếp:</b> ~3–5 triệu VND trực tiếp + hàng chục triệu gián tiếp.<br>
+    <b>Turnover 100 nhân viên/năm</b> (không hiếm trong chuỗi F&B) = thiệt hại 300 triệu – 500 triệu.
+    </p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎯</div>
+      <div><div class="ex-label">Kiểm tra nhanh</div><div class="ex-sub">Tính toán thực tế</div></div>
+    </div>
+    <div class="qq">Chuỗi F&B 20 cửa hàng, mỗi cửa hàng trung bình 15 nhân viên, turnover rate 60%/năm. Lương trung bình 8 triệu. Chi phí turnover mỗi người ~4 triệu. Tổng thiệt hại turnover/năm là bao nhiêu?</div>
+    <div class="qopts" id="q3-opts">
+      <button class="qopt" onclick="ansQ3(this,'A')"><span class="oletter">A</span>360 triệu VND</button>
+      <button class="qopt" onclick="ansQ3(this,'B')"><span class="oletter">B</span>720 triệu VND</button>
+      <button class="qopt" onclick="ansQ3(this,'C')"><span class="oletter">C</span>1.44 tỷ VND</button>
+      <button class="qopt" onclick="ansQ3(this,'D')"><span class="oletter">D</span>2.88 tỷ VND</button>
+    </div>
+    <div class="qfb" id="q3-fb"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 3</div>
+    <div class="tw-text">"HR không xin tiền train. HR đề xuất: đầu tư 200 triệu training để giảm turnover, tiết kiệm 1.4 tỷ thiệt hại. Đó là ROI 7x — ai từ chối?"</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="micro-task">
+    <div class="micro-label">⚡ Áp dụng ngay · Bài 3</div>
+    <div class="micro-text">Tính cost of turnover cho tổ chức của bạn: số nhân viên × turnover rate × chi phí trung bình mỗi turnover. Con số đó = đạn để HR đề xuất ngân sách retention.</div>
+  </div>
+  <div class="nav-row">
+    <button class="btn-prev" onclick="goTo(2)">← Quay lại</button>
+    <div><button class="btn-next" id="m3-next" onclick="goTo(4)" disabled>Tiếp theo →</button><div class="nav-hint vis" id="m3-hint">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+  </div>
+</div>
+
+<!-- MODULE 4 -->
+<div class="module" id="m4">
+  <div class="hero">
+    <div class="hero-badge">● Finance-HR Hybrid · Cấp 2 · FLAGSHIP</div>
+    <div class="hero-num">Bài 4 / 6</div>
+    <div class="hero-title">3 Sai Lầm Finance-HR Hay Mắc Khi Trình Bày Với CFO</div>
+    <div class="module-time">⏱ ~4 phút đọc</div>
+  </div>
+
+  <div class="lead">"Hiền đã review hàng chục business case của HR trong 30 năm. Và Hiền nhận ra: 90% bị từ chối không phải vì ý tưởng tệ — mà vì cách trình bày tài chính sai. Sau đây là 3 lỗi phổ biến nhất."</div>
+
+  <div class="sec-title">Sai Lầm 1 — Dùng Chỉ Số HR Thay Vì Chỉ Số Tài Chính</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="cn">❌ SAI</div>
+      <div class="ct">Ngôn ngữ HR</div>
+      <div class="cd">"Chương trình này sẽ cải thiện engagement score từ 3.2 lên 3.8 và giảm turnover 15%"</div>
+    </div>
+    <div class="card">
+      <div class="cn">✓ ĐÚNG</div>
+      <div class="ct" style="color:var(--accent2)">Ngôn ngữ Finance</div>
+      <div class="cd">"Giảm turnover 15% = tiết kiệm 420 triệu/năm chi phí tuyển dụng và onboard. Chi phí chương trình: 80 triệu. ROI = 425%"</div>
+    </div>
+  </div>
+
+  <div class="sec-title">Sai Lầm 2 — Dự báo Optimistic Một Chiều</div>
+  <p class="body">HR hay trình bày scenario tốt nhất. CFO luôn nghĩ đến worst case. <b>Trình bày 3 scenarios: Base (most likely), Upside (tốt nhất), Downside (xấu nhất)</b>. Khi HR chủ động trình bày downside — tức là HR đã nghĩ như CFO. Trust tăng ngay lập tức.</p>
+
+  <div class="sec-title">Sai Lầm 3 — Quên Opportunity Cost</div>
+  <p class="body">Không đầu tư vào X cũng có chi phí — chi phí cơ hội. <b>"Nếu không làm chương trình này, estimated cost là Y triệu từ continued turnover"</b>. Framing "chi phí của việc không làm" thường mạnh hơn "benefit của việc làm".</p>
+
+  <div class="hl">
+    <div class="hl-label">Template Business Case 1 Trang — Chuẩn Finance-HR</div>
+    <p class="body">
+    <b>1. Problem Statement</b> (1-2 câu, có số): "Turnover tháng 11 là 8.4% — cao hơn 2.1% so với target. Estimated cost: 180 triệu."<br><br>
+    <b>2. Root Cause</b> (3 nguyên nhân chính, brief)<br><br>
+    <b>3. Proposed Solution</b> (1 dòng mô tả)<br><br>
+    <b>4. Investment Required</b>: X triệu one-time + Y triệu recurring<br><br>
+    <b>5. Expected Return</b>:<br>
+    — Base: Tiết kiệm Z triệu/năm (ROI: ___%)<br>
+    — Upside: Tiết kiệm Z+30% nếu...<br>
+    — Downside: Tiết kiệm Z-20% nếu...<br><br>
+    <b>6. Risk & Mitigation</b> (2-3 dòng)<br><br>
+    <b>7. Decision Required By</b>: [ngày] để implement từ [ngày]
+    </p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">💭</div>
+      <div><div class="ex-label">Phản tư cá nhân</div><div class="ex-sub">Tối thiểu 40 chữ</div></div>
+    </div>
+    <p class="reflect-prompt">Trong 3 sai lầm trên, bạn hay mắc phải sai lầm nào nhất? Và bạn sẽ thay đổi cách trình bày thế nào trong lần tiếp theo?</p>
+    <textarea class="reflect-input" id="r4-input" placeholder="Viết suy nghĩ của bạn..." oninput="checkReflect4()"></textarea>
+    <div class="reflect-count" id="r4-count">0 / 40 ký tự tối thiểu</div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 4</div>
+    <div class="tw-text">"CFO không từ chối ý tưởng của HR — họ từ chối business case thiếu số. Cho họ đủ số, họ sẽ đồng ý."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="micro-task">
+    <div class="micro-label">⚡ Áp dụng ngay · Bài 4</div>
+    <div class="micro-text">Lấy 1 đề xuất HR bạn đang muốn làm và viết lại theo template 1 trang: Problem (có số) → Solution → Investment → ROI 3 scenarios. Mang đến gặp CFO/Finance.</div>
+  </div>
+  <div class="nav-row">
+    <button class="btn-prev" onclick="goTo(3)">← Quay lại</button>
+    <div><button class="btn-next" id="m4-next" onclick="goTo(5)" disabled>Tiếp theo →</button><div class="nav-hint vis" id="m4-hint">Viết phản tư để mở bài tiếp theo</div></div>
+  </div>
+</div>
+
+<!-- MODULE 5 -->
+<div class="module" id="m5">
+  <div class="hero">
+    <div class="hero-badge">● Finance-HR Hybrid · Cấp 2 · FLAGSHIP</div>
+    <div class="hero-num">Bài 5 / 6</div>
+    <div class="hero-title">Workforce Planning — Lập Kế Hoạch Nhân Sự Theo Doanh Thu</div>
+    <div class="module-time">⏱ ~5 phút đọc</div>
+  </div>
+
+  <div class="lead">"Ở Golden Gate Group, mỗi năm chúng tôi mở 20–30 nhà hàng mới. Mỗi lần mở rộng, câu hỏi đầu tiên không phải 'thuê bao nhiêu người?' mà là 'với doanh thu dự báo X tỷ, labor cost target Y%, và RevPAMH benchmark Z — chúng ta cần bao nhiêu giờ lao động? Và cần bao nhiêu người cho số giờ đó?' Đó là Workforce Planning thực chiến."</div>
+
+  <div class="sec-title">Workforce Planning 3 Bước — From Revenue to Headcount</div>
+
+  <div class="hl">
+    <div class="hl-label">Bước 1 — Revenue-Based Labor Budget</div>
+    <p class="body">
+    <b>Input:</b> Revenue forecast tháng X = 1 tỷ VND<br>
+    <b>Labor cost target:</b> 32% revenue = 320 triệu<br>
+    <b>Average cost per employee/tháng</b> (all-in): 11 triệu<br>
+    <b>→ Max headcount:</b> 320 triệu / 11 triệu = <b>29 người</b>
+    </p>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">Bước 2 — RevPAMH-Based Hours Planning</div>
+    <p class="body">
+    <b>RevPAMH target:</b> 130,000 VND/giờ<br>
+    <b>Revenue forecast:</b> 1 tỷ<br>
+    <b>→ Total hours needed:</b> 1,000,000,000 / 130,000 = <b>7,692 giờ</b><br>
+    <b>Hours available per person/tháng:</b> 26 ngày × 8 giờ = 208 giờ<br>
+    <b>→ Headcount from RevPAMH:</b> 7,692 / 208 = <b>37 người</b><br><br>
+    <b>Khoảng cách:</b> Budget cho 29, RevPAMH cần 37. <b>HR phải giải quyết gap này</b> — tăng productivity, flexible scheduling, part-time strategy, hay đề nghị tăng labor budget với revenue case mạnh hơn.
+    </p>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">Bước 3 — Skill-Based Allocation</div>
+    <p class="body">Sau khi có headcount target, phân bổ theo skill pyramid F&B:<br>
+    - 40% Core operations (bếp, phục vụ, thu ngân)<br>
+    - 30% Support (setup, cleaning, kitchen prep)<br>
+    - 20% Supervisory (trưởng ca, team lead)<br>
+    - 10% Management<br><br>
+    HR lên kế hoạch tuyển, đào tạo, và schedule theo đúng tỷ lệ này.
+    </p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎯</div>
+      <div><div class="ex-label">Kiểm tra nhanh</div><div class="ex-sub">Tính workforce plan</div></div>
+    </div>
+    <div class="qq">Cửa hàng mới dự báo doanh thu 600 triệu/tháng. Labor cost target 30%. Chi phí trung bình/nhân viên 10 triệu/tháng (all-in). Headcount tối đa theo budget là bao nhiêu?</div>
+    <div class="qopts" id="q5-opts">
+      <button class="qopt" onclick="ansQ5(this,'A')"><span class="oletter">A</span>15 người</button>
+      <button class="qopt" onclick="ansQ5(this,'B')"><span class="oletter">B</span>18 người</button>
+      <button class="qopt" onclick="ansQ5(this,'C')"><span class="oletter">C</span>20 người</button>
+      <button class="qopt" onclick="ansQ5(this,'D')"><span class="oletter">D</span>24 người</button>
+    </div>
+    <div class="qfb" id="q5-fb"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 5</div>
+    <div class="tw-text">"HR lập kế hoạch từ headcount lên → mãi đi xin. HR lập kế hoạch từ doanh thu xuống → luôn được ngồi cùng bàn với CEO."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="micro-task">
+    <div class="micro-label">⚡ Áp dụng ngay · Bài 5</div>
+    <div class="micro-text">Lấy revenue forecast tháng tới của 1 đơn vị bạn biết. Tính headcount tối đa theo labor cost target. So sánh với headcount hiện tại — gap đó là conversation bạn cần có với manager.</div>
+  </div>
+  <div class="nav-row">
+    <button class="btn-prev" onclick="goTo(4)">← Quay lại</button>
+    <div><button class="btn-next" id="m5-next" onclick="goTo(6)" disabled>Tiếp theo →</button><div class="nav-hint vis" id="m5-hint">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+  </div>
+</div>
+
+<!-- MODULE 6 -->
+<div class="module" id="m6">
+  <div class="hero">
+    <div class="hero-badge">● Finance-HR Hybrid · Cấp 2 · FLAGSHIP</div>
+    <div class="hero-num">Bài 6 / 6</div>
+    <div class="hero-title">Finance-HR trong Thực Tế: Từ Báo Cáo Đến Quyết Định</div>
+    <div class="module-time">⏱ ~4 phút đọc</div>
+  </div>
+
+  <div class="lead">"Sau khi Hiền học đủ Finance để đọc P&L và nói chuyện với CFO, có một thay đổi rõ ràng: Hiền được mời vào các cuộc họp mà trước đó không có HR. Không phải vì Hiền yêu cầu — mà vì CFO thấy Hiền có thể contribute vào conversation financial, không chỉ nói về 'con người'."</div>
+
+  <div class="sec-title">Dashboard Finance-HR — 5 Chỉ Số Phải Có</div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="cn">CHỈ SỐ 1</div>
+      <div class="ct" style="color:var(--accent2)">Labor Cost %</div>
+      <div class="cd">Chi phí nhân sự / Revenue. Trend theo tháng. Alert khi vượt threshold. <b>Benchmark F&B VN: 30–36%</b></div>
+    </div>
+    <div class="card">
+      <div class="cn">CHỈ SỐ 2</div>
+      <div class="ct" style="color:var(--accent2)">RevPAMH</div>
+      <div class="cd">Revenue / Available man-hours. So sánh giữa các stores/units. <b>Khác biệt >15% giữa units = cần investigate.</b></div>
+    </div>
+    <div class="card">
+      <div class="cn">CHỈ SỐ 3</div>
+      <div class="ct" style="color:var(--accent2)">Cost of Turnover</div>
+      <div class="cd">Số người nghỉ × chi phí trung bình/người. Monthly tracking. <b>Là số HR cần mang vào mọi conversation về budget.</b></div>
+    </div>
+    <div class="card">
+      <div class="cn">CHỈ SỐ 4</div>
+      <div class="ct" style="color:var(--accent2)">Training ROI</div>
+      <div class="cd">Value created / Training cost. Đo bằng productivity change, quality score, hoặc turnover reduction. <b>Minimum target: ROI > 200%</b></div>
+    </div>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">30-60-90 Day Plan — Finance-HR Hybrid Journey</div>
+    <p class="body">
+    <b>30 ngày:</b> Biết labor cost % revenue của tổ chức bạn theo tháng. Hiểu P&L cơ bản.<br>
+    <b>60 ngày:</b> Tính RevPAMH cho các units chính. Tính cost of turnover thực tế năm qua.<br>
+    <b>90 ngày:</b> Trình bày 1 business case cho CEO/CFO dùng 5 chỉ số trên. Đề xuất 1 cải tiến với ROI rõ ràng.
+    </p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🏆</div>
+      <div><div class="ex-label">Cam kết Finance-HR</div><div class="ex-sub">Tối thiểu 50 ký tự</div></div>
+    </div>
+    <p class="reflect-prompt">Bạn sẽ áp dụng Finance-HR mindset như thế nào vào công việc trong 30 ngày tới? Hãy cụ thể: bạn sẽ track chỉ số nào, nói chuyện với ai, và trình bày gì?</p>
+    <textarea class="reflect-input" id="r6-input" placeholder="Ví dụ: Trong 30 ngày tới tôi sẽ request data labor cost % từ Finance, tính RevPAMH cho 5 stores chính..." oninput="checkReflect6()"></textarea>
+    <div class="reflect-count" id="r6-count">0 / 50 ký tự tối thiểu</div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 6</div>
+    <div class="tw-text">"Finance-HR Hybrid không phải học để thành kế toán — mà học đủ để ngồi cùng bàn với CFO và đóng góp vào quyết định kinh doanh. Đó là khi HR trở thành strategic partner thật sự."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="micro-task">
+    <div class="micro-label">⚡ Áp dụng ngay · Bài 6</div>
+    <div class="micro-text">Đặt lịch 30 phút với CFO hoặc Finance Manager tuần tới — không phải để xin gì, mà để hỏi: "Anh/chị có thể cho tôi hiểu P&L của chúng ta đang nhìn thế nào không?" Câu hỏi đó sẽ bắt đầu một mối quan hệ mới.</div>
+  </div>
+  <div class="nav-row">
+    <button class="btn-prev" onclick="goTo(5)">← Quay lại</button>
+    <div><button class="btn-next" id="m6-next" onclick="showComplete()" disabled>Hoàn thành khóa học 🎉</button><div class="nav-hint vis" id="m6-hint">Viết cam kết để hoàn thành</div></div>
+  </div>
+</div>
+
+<div id="complete">
+  <div class="cert-icon">🏆</div>
+  <div class="cert-title">Xuất sắc!</div>
+  <div class="cert-sub">Bạn đã hoàn thành khóa học flagship<br><b>K8 — Finance-HR Hybrid</b><br>Growth Track · PeopleOS Learning Hub</div>
+  <div class="cert-box">
+    <div class="cert-name-label">Cấp cho</div>
+    <div class="cert-name">HR Professional</div>
+    <div class="cert-course">K8 · Finance-HR Hybrid · Growth Track 🌿</div>
+    <div class="cert-sig">— TaHien · CHCO Golden Gate Group · PeopleOS Community 2026</div>
+  </div>
+  <a href="/" class="btn-hub">← Về Learning Hub</a>
+</div>
+<div class="attribution">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+
+<script>
+var cur=1,tot=6,doneM={};
+var TITLES=['Tại Sao HR Nói Chuyện Với CEO Như Người Ngoài Hành Tinh','RevPAMH — Chỉ Số Kết Nối HR Với Doanh Thu','Workforce Cost Model — Tính Đúng Để Quyết Đúng','3 Sai Lầm Finance-HR Hay Mắc Khi Trình Bày Với CFO','Workforce Planning — Lập Kế Hoạch Nhân Sự Theo Doanh Thu','Finance-HR trong Thực Tế: Từ Báo Cáo Đến Quyết Định'];
+var TIMES=[5,5,5,4,5,4];
+var giot=parseInt(localStorage.getItem('pos_giot')||'0');
+
+function buildDots(){
+  var c=document.getElementById('dots');c.innerHTML='';
+  for(var i=1;i<=tot;i++){
+    var d=document.createElement('div');d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));
+    var tip=document.createElement('div');tip.className='dot-tip';tip.textContent='Bài '+i+': '+TITLES[i-1];
+    d.appendChild(tip);
+    (function(n){d.onclick=function(){if(n<=cur||doneM[n-1])goTo(n);};})(i);
+    c.appendChild(d);
+  }
+}
+function updProg(){
+  var done=Object.keys(doneM).length;
+  var p=Math.round(((cur-1)/tot)*100);
+  document.getElementById('pfill').style.width=p+'%';
+  document.getElementById('ppct').textContent=p+'%';
+  document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;
+  document.getElementById('prog-detail').textContent=done+'/'+tot+' bài · ~'+TIMES.slice(0,done).reduce(function(a,b){return a+b;},0)+'/'+TIMES.reduce(function(a,b){return a+b;},0)+' phút';
+  var gv=document.getElementById('nav-giot');if(gv)gv.textContent=giot;
+}
+function goTo(n){
+  document.getElementById('m'+cur).classList.remove('active');
+  doneM[cur]=true;localStorage.setItem('peopleos_k8_m'+cur,'done');
+  cur=n;var el=document.getElementById('m'+cur);if(el)el.classList.add('active');
+  buildDots();updProg();window.scrollTo({top:0,behavior:'smooth'});
+  var hint=document.getElementById('m'+n+'-hint');if(hint){setTimeout(function(){hint.classList.add('vis');},600);}
+}
+function unlock(bid,hid){
+  var b=document.getElementById(bid);if(b)b.disabled=false;
+  var h=document.getElementById(hid);if(h)h.style.display='none';
+  giot+=20;localStorage.setItem('pos_giot',giot);
+  var gv=document.getElementById('nav-giot');if(gv)gv.textContent=giot;
+}
+function showComplete(){
+  document.getElementById('m6').classList.remove('active');
+  document.getElementById('complete').classList.add('active');
+  doneM[6]=true;localStorage.setItem('peopleos_k8_m6','done');
+  giot+=50;localStorage.setItem('pos_giot',giot);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Quiz
+function ansQ1(el,ans){
+  document.querySelectorAll('#q1-opts .qopt').forEach(function(o){o.disabled=true;});
+  var fb=document.getElementById('q1-fb');
+  if(ans==='B'){el.classList.add('correct');fb.className='qfb show correct';fb.textContent='Chính xác! 1.8 điểm % nghe có vẻ nhỏ nhưng nếu revenue là 10 tỷ thì 1.8% = 180 triệu. CFO đang nói về tiền — HR cần quy ra tiền ngay lập tức.';unlock('m1-next','m1-hint');}
+  else{el.classList.add('wrong');document.querySelectorAll('#q1-opts .qopt')[1].classList.add('correct');fb.className='qfb show wrong';fb.textContent='Chưa đúng. CFO đang nói về con số tài chính — HR cần hiểu quy mô tiền thật sự của vấn đề trước khi đề xuất giải pháp.';setTimeout(function(){unlock('m1-next','m1-hint');},1500);}
+}
+function ansQ3(el,ans){
+  document.querySelectorAll('#q3-opts .qopt').forEach(function(o){o.disabled=true;});
+  var fb=document.getElementById('q3-fb');
+  if(ans==='B'){el.classList.add('correct');fb.className='qfb show correct';fb.textContent='Đúng! 20 stores × 15 nhân viên × 60% turnover = 180 người nghỉ × 4 triệu = 720 triệu. Đây là "đạn" HR mang vào cuộc họp với CEO để xin ngân sách retention.';unlock('m3-next','m3-hint');}
+  else{el.classList.add('wrong');document.querySelectorAll('#q3-opts .qopt')[1].classList.add('correct');fb.className='qfb show wrong';fb.textContent='Chưa đúng. Tính: 20×15 = 300 nhân viên × 60% = 180 người nghỉ/năm × 4 triệu = 720 triệu VND.';setTimeout(function(){unlock('m3-next','m3-hint');},1500);}
+}
+function ansQ5(el,ans){
+  document.querySelectorAll('#q5-opts .qopt').forEach(function(o){o.disabled=true;});
+  var fb=document.getElementById('q5-fb');
+  if(ans==='B'){el.classList.add('correct');fb.className='qfb show correct';fb.textContent='Chính xác! 600 triệu × 30% = 180 triệu labor budget. 180 triệu / 10 triệu/người = 18 người. Workforce planning từ revenue xuống!';unlock('m5-next','m5-hint');}
+  else{el.classList.add('wrong');document.querySelectorAll('#q5-opts .qopt')[1].classList.add('correct');fb.className='qfb show wrong';fb.textContent='Chưa đúng. 600tr × 30% = 180tr labor budget. 180tr / 10tr = 18 người.';setTimeout(function(){unlock('m5-next','m5-hint');},1500);}
+}
+
+// Calculator RevPAMH
+function calcRevPAMH(){
+  var rev=parseFloat(document.getElementById('c-rev').value)||0;
+  var emp=parseFloat(document.getElementById('c-emp').value)||0;
+  var days=parseFloat(document.getElementById('c-days').value)||26;
+  var hours=parseFloat(document.getElementById('c-hours').value)||8;
+  if(!rev||!emp){alert('Vui lòng nhập đủ số liệu');return;}
+  var totalHours=emp*days*hours;
+  var revPAMH=(rev*1000000)/totalHours;
+  var result=document.getElementById('calc-result');
+  result.style.display='block';
+  document.getElementById('calc-value').textContent=Math.round(revPAMH).toLocaleString('vi-VN')+' VND/giờ';
+  var bench='';
+  if(revPAMH>=140000)bench='🟢 Trên benchmark xuất sắc (≥140k)';
+  else if(revPAMH>=110000)bench='🟡 Đạt benchmark trung bình (110k–140k)';
+  else bench='🔴 Dưới benchmark — cần cải thiện scheduling hoặc productivity (<110k)';
+  document.getElementById('calc-sub').textContent=bench+' | Tổng giờ lao động: '+totalHours.toLocaleString()+' giờ/tháng';
+  unlock('m2-next','m2-hint');
+}
+
+// Reflect
+function checkReflect4(){
+  var v=document.getElementById('r4-input').value.trim();
+  document.getElementById('r4-count').textContent=v.length+' / 40 ký tự tối thiểu';
+  if(v.length>=40)unlock('m4-next','m4-hint');
+}
+function checkReflect6(){
+  var v=document.getElementById('r6-input').value.trim();
+  document.getElementById('r6-count').textContent=v.length+' / 50 ký tự tối thiểu';
+  if(v.length>=50)unlock('m6-next','m6-hint');
+}
+
+// Resume
+(function(){
+  for(var i=1;i<=6;i++){if(localStorage.getItem('peopleos_k8_m'+i))doneM[i]=true;}
+  var last=0;for(var i=6;i>=1;i--){if(doneM[i]){last=i+1;break;}}
+  if(last>1&&last<=6){
+    var rb=document.createElement('div');
+    rb.style.cssText='background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:12px 20px;gap:12px;';
+    rb.innerHTML='<div style="font-size:13px;color:var(--text)">Lần trước bạn học đến <b style="color:var(--accent2)">Bài '+last+'</b></div><button onclick="goTo('+last+')" style="background:var(--accent);color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Tiếp tục →</button>';
+    var dots=document.getElementById('dots');dots.parentNode.insertBefore(rb,dots);
+  }
+})();
+
+buildDots();updProg();
+setTimeout(function(){var h=document.getElementById('m1-hint');if(h)h.classList.add('vis');},800);
+</script>
+</body>
+</html>
