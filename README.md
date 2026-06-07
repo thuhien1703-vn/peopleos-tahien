@@ -17,3 +17,5 @@ Pure static HTML · Vercel · framework: null
 PeopleOS Community · 2026
 
 <!-- deploy: 1780837898 -->
+
+<!-- auth-deploy: 1780840345 -->
