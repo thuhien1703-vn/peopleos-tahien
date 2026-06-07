@@ -927,7 +927,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   /* 6. MICRO TASK INJECT — vào sau .takeaway của mỗi module */
-  document.querySelectorAll('.takeaway').forEach(function(tw, i) {
+  document.querySelectorAll('.tw').forEach(function(tw, i) {
     if(MICRO_TASKS[i]) {
       var mt = document.createElement('div');
       mt.className = 'micro-task';
