@@ -31,7 +31,7 @@ nav{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
 .nav-links a{color:var(--muted);font-size:13px;text-decoration:none;background:none;border:none;cursor:pointer;padding:0}
 .nav-links a:hover{color:var(--cyan)}
 .nav-right{display:flex;align-items:center;gap:10px}
-.xp-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;
+.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;
   padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;display:flex;gap:5px;align-items:center}
 .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--navy2));
   display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;
@@ -61,8 +61,8 @@ h1 span{color:var(--cyan)}
 .stat-num{font-size:22px;font-weight:700;color:var(--cyan)}
 .stat-label{font-size:11px;color:var(--muted)}
 .stat-divider{width:1px;height:40px;background:var(--border);flex-shrink:0}
-.xp-bar-wrap{height:6px;background:var(--navy3);border-radius:99;overflow:hidden;margin:6px 0}
-.xp-bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--cyan));border-radius:99;transition:width .4s}
+.giot-bar-wrap{height:6px;background:var(--navy3);border-radius:99;overflow:hidden;margin:6px 0}
+.giot-bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--cyan));border-radius:99;transition:width .4s}
 
 /* STATS BAR */
 .stats-bar{background:linear-gradient(90deg,var(--teal),var(--cyan));padding:20px 24px}
@@ -314,7 +314,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
     <a href="#founder">Về chúng tôi</a>
   </div>
   <div class="nav-right">
-    <div class="xp-pill" id="nav-xp">⚡ <span id="xp-val">0</span> XP</div>
+    <div class="giot-pill" id="nav-giot">💧 <span id="giot-val">0</span> Giọt</div>
     <div class="avatar">H</div>
   </div>
 </nav>
@@ -336,14 +336,14 @@ footer{background:var(--navy);padding:40px 24px 24px}
           <div class="stat-divider"></div>
           <div class="stat-item"><div style="font-size:22px">🌱</div><div class="stat-num" style="font-size:14px;color:var(--gold)">Lv.1</div><div class="stat-label" style="color:var(--gold)">Foundation 🌱</div></div>
           <div class="stat-divider"></div>
-          <div class="stat-item"><div style="font-size:22px">⚡</div><div class="stat-num" id="hero-xp">0</div><div class="stat-label">XP hôm nay</div></div>
+          <div class="stat-item"><div style="font-size:22px">💧</div><div class="stat-num" id="hero-giot">0</div><div class="stat-label">Giọt hôm nay</div></div>
         </div>
       </div>
       <div class="stat-card">
         <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px">
-          <span>Tiến độ hôm nay</span><span style="color:var(--cyan)"><span id="xp-prog">0</span> / 500 XP</span>
+          <span>Tiến độ hôm nay</span><span style="color:var(--cyan)"><span id="giot-prog">0</span> / 500 Giọt</span>
         </div>
-        <div class="xp-bar-wrap"><div class="xp-bar-fill" id="xp-bar" style="width:0%"></div></div>
+        <div class="giot-bar-wrap"><div class="giot-bar-fill" id="giot-bar" style="width:0%"></div></div>
         <div style="font-size:11px;color:var(--muted);margin-top:8px;text-align:right"><span id="done-count">0</span> / 6 khóa Foundation</div>
       </div>
     </div>
@@ -366,8 +366,8 @@ footer{background:var(--navy);padding:40px 24px 24px}
     <h2 class="section-h2">Học như thế nào?</h2>
     <div class="how-grid">
       <div class="how-card"><div class="how-thumb">🎯</div><div class="how-body"><div class="how-num">01</div><div class="how-title">Chọn lộ trình của bạn</div><div class="how-desc">Foundation · Growth · Horizon — tìm đúng hành trình cho vị trí của bạn</div></div></div>
-      <div class="how-card"><div class="how-thumb">⚡</div><div class="how-body"><div class="how-num">02</div><div class="how-title">Bài học nhỏ 10–20 phút</div><div class="how-desc">Bài học ngắn, súc tích, thiết kế cho HR Manager bận rộn. Học mọi lúc, mọi nơi.</div></div></div>
-      <div class="how-card"><div class="how-thumb">🏆</div><div class="how-body"><div class="how-num">03</div><div class="how-title">Tích XP & lên cấp</div><div class="how-desc">Mỗi bài = XP + huy hiệu + chuỗi ngày học liên tục — và chứng chỉ khi hoàn thành.</div></div></div>
+      <div class="how-card"><div class="how-thumb">💧</div><div class="how-body"><div class="how-num">02</div><div class="how-title">Bài học nhỏ 10–20 phút</div><div class="how-desc">Bài học ngắn, súc tích, thiết kế cho HR Manager bận rộn. Học mọi lúc, mọi nơi.</div></div></div>
+      <div class="how-card"><div class="how-thumb">🏆</div><div class="how-body"><div class="how-num">03</div><div class="how-title">Tích Giọt & lên cấp</div><div class="how-desc">Mỗi bài = Giọt + huy hiệu + chuỗi ngày học liên tục — và chứng chỉ khi hoàn thành.</div></div></div>
     </div>
   </div>
 </div>
@@ -376,7 +376,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
 <div class="daily">
   <div class="wrap">
     <div class="daily-header">
-      <div><div class="daily-tag">🔥 THỬ THÁCH HÔM NAY</div><div class="daily-sub">30 giây · +20 XP</div></div>
+      <div><div class="daily-tag">🔥 THỬ THÁCH HÔM NAY</div><div class="daily-sub">30 giây · +20 Giọt</div></div>
       <div class="daily-timer">CÂU HỎI MỚI SAU <span id="timer">04:00</span></div>
     </div>
     <p class="daily-q">Theo RevPAMH framework, HR cần đo chỉ số nào để CEO hiểu đóng góp của nhân lực vào doanh thu?</p>
@@ -387,7 +387,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
       <button class="daily-opt" onclick="pickDaily(3,false)"><span class="daily-letter">D</span>Chi phí tuyển dụng trên mỗi hire thành công</button>
     </div>
     <div id="daily-fb" style="margin-top:12px;font-size:13px;color:var(--cyan);font-weight:600;display:none">
-      🎉 Chính xác! +20 XP — RevPAMH (Revenue Per Available Man-Hour) là metric HR nên report cho CEO.
+      🎉 Chính xác! +20 Giọt — RevPAMH (Revenue Per Available Man-Hour) là metric HR nên report cho CEO.
     </div>
   </div>
 </div>
@@ -459,23 +459,23 @@ footer{background:var(--navy);padding:40px 24px 24px}
   <div class="wrap">
     <div class="section-tag">BẢNG TUẦN</div>
     <h2 class="section-h2">Bảng xếp hạng live</h2>
-    <p class="section-sub">Ai đang dẫn đầu XP ngay lúc này?</p>
+    <p class="section-sub">Ai đang dẫn đầu Giọt ngay lúc này?</p>
     <div class="lb-grid">
       <div class="lb-card">
-        <div class="lb-topbar">⚡ Xếp hạng theo thời gian thực</div>
+        <div class="lb-topbar">💧 Xếp hạng theo thời gian thực</div>
         <div id="lb-rows"></div>
         <div class="lb-me-row">
           <div style="width:28px;text-align:center;font-size:13px;color:var(--muted)">96</div>
           <div class="lb-me-avatar">H</div>
           <div style="flex:1"><div class="lb-me-name">Bạn</div><div style="font-size:11px;color:var(--muted)">Foundation 🌱</div></div>
-          <div class="lb-me-xp" id="me-xp">0 XP</div>
+          <div class="lb-me-xp" id="me-xp">0 Giọt</div>
         </div>
       </div>
       <div class="prog-right">
         <div class="prog-card">
           <div style="font-size:13px;color:var(--muted);margin-bottom:4px">Lộ trình của bạn</div>
           <div style="font-size:20px;font-weight:700;color:var(--cyan);margin-bottom:12px">Foundation Track</div>
-          <div class="xp-bar-wrap"><div class="xp-bar-fill" id="path-bar" style="width:0%"></div></div>
+          <div class="giot-bar-wrap"><div class="giot-bar-fill" id="path-bar" style="width:0%"></div></div>
           <div style="font-size:12px;color:var(--muted);margin-top:6px"><span id="path-prog">0 / 6 khóa</span></div>
         </div>
         <div class="prog-card" style="text-align:center">
@@ -484,7 +484,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
         </div>
         <div class="prog-card" style="display:flex;gap:16px">
           <div><div style="font-size:20px">🏅</div><div style="font-size:13px;font-weight:600"><span id="done-badge">0</span> Hoàn thành</div><div style="font-size:11px;color:var(--muted)">khóa học</div></div>
-          <div><div style="font-size:20px">⚡</div><div style="font-size:13px;font-weight:600"><span id="total-xp-badge">0</span> XP tổng</div><div style="font-size:11px;color:var(--muted)">tích lũy</div></div>
+          <div><div style="font-size:20px">💧</div><div style="font-size:13px;font-weight:600"><span id="total-xp-badge">0</span> Giọt tổng</div><div style="font-size:11px;color:var(--muted)">tích lũy</div></div>
         </div>
       </div>
     </div>
@@ -584,77 +584,77 @@ const COURSES = [
   // ── FOUNDATION TRACK (K1–K6) — 6 khóa LIVE ──────────────────────────────
   {id:101,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"🧠",title:"EQ & Self-Mastery",
    sub:"Nền tảng cảm xúc — không thể thiếu ở mọi cấp HR",
-   dur:"~18 phút",level:"Foundation 🌱",hot:true, url:"/k1-eq-selfmastery",    xp:108,modules:6},
+   dur:"~18 phút",level:"Foundation 🌱",hot:true, url:"/k1-eq-selfmastery",    giot:108,modules:6},
 
   {id:102,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"💬",title:"Giao Tiếp & Ảnh Hưởng",
    sub:"HR nói chuyện với tất cả mọi người — từ công nhân đến CEO",
-   dur:"~18 phút",level:"Foundation 🌱",hot:true, url:"/k2-giao-tiep-anh-huong",xp:108,modules:6},
+   dur:"~18 phút",level:"Foundation 🌱",hot:true, url:"/k2-giao-tiep-anh-huong",giot:108,modules:6},
 
   {id:103,cat:"AI-First HR",       color:"#A78BFA",emoji:"🤖",title:"AI Literacy Cho HR",
    sub:"HR không dùng AI sẽ bị thay bởi HR dùng AI",
-   dur:"~20 phút",level:"Foundation 🌱",hot:true, url:"/k3-ai-literacy-hr",    xp:120,modules:6},
+   dur:"~20 phút",level:"Foundation 🌱",hot:true, url:"/k3-ai-literacy-hr",    giot:120,modules:6},
 
   {id:104,cat:"HR Operations",     color:"#F97316",emoji:"📋",title:"HR Ops Thực Chiến",
    sub:"Làm đúng từ đầu — sai một ly đi một dặm",
-   dur:"~20 phút",level:"Foundation 🌱",hot:false,url:"/k4-hr-ops-thuc-chien",  xp:120,modules:6},
+   dur:"~20 phút",level:"Foundation 🌱",hot:false,url:"/k4-hr-ops-thuc-chien",  giot:120,modules:6},
 
   {id:105,cat:"Talent",            color:"#F472B6",emoji:"🔍",title:"Recruiting Cơ Bản",
    sub:"Tuyển sai = tốn 6 tháng lương + chi phí cơ hội",
-   dur:"~20 phút",level:"Foundation 🌱",hot:false,url:"/k5-recruiting-co-ban",  xp:120,modules:6},
+   dur:"~20 phút",level:"Foundation 🌱",hot:false,url:"/k5-recruiting-co-ban",  giot:120,modules:6},
 
   {id:106,cat:"L&D",               color:"#10B981",emoji:"🎓",title:"L&D Thực Chiến",
    sub:"Training không đo được hiệu quả là chi phí, không phải đầu tư",
-   dur:"~20 phút",level:"Foundation 🌱",hot:false,url:"/k6-ld-thuc-chien",      xp:120,modules:6},
+   dur:"~20 phút",level:"Foundation 🌱",hot:false,url:"/k6-ld-thuc-chien",      giot:120,modules:6},
 
   // ── GROWTH TRACK (K7–K12) — sắp ra ─────────────────────────────────────
-  {id:201,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"⚡",title:"Leadership Không Chức Danh",
+  {id:201,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"💧",title:"Leadership Không Chức Danh",
    sub:"HRBP ảnh hưởng không có line authority — siêu năng lực của HR",
-   dur:"~20 phút",level:"Growth 🌿",  hot:true, soon:true,xp:132},
+   dur:"~20 phút",level:"Growth 🌿",  hot:true, soon:true,giot:132},
 
   {id:202,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"🧩",title:"Tư Duy Hệ Thống & Quyết Định",
    sub:"HR Manager giỏi không giải quyết triệu chứng — họ fix hệ thống",
-   dur:"~20 phút",level:"Growth 🌿",  hot:false,soon:true,xp:132},
+   dur:"~20 phút",level:"Growth 🌿",  hot:false,soon:true,giot:132},
 
   {id:203,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"🔄",title:"Quản Trị Thay Đổi & Văn Hóa",
    sub:"70% change initiatives thất bại — HR chính là lý do, và cũng là giải pháp",
-   dur:"~20 phút",level:"Growth 🌿",  hot:false,soon:true,xp:132},
+   dur:"~20 phút",level:"Growth 🌿",  hot:false,soon:true,giot:132},
 
   {id:210,cat:"Finance-HR",        color:"#F0C040",emoji:"💼",title:"HRBP Mindset",
    sub:"Từ HR chấp hành sang HR chiến lược — bước nhảy quan trọng nhất",
-   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,xp:144},
+   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,giot:144},
 
   {id:211,cat:"Finance-HR",        color:"#F0C040",emoji:"📈",title:"Performance Mgmt · RevPAMH ★",
    sub:"Đánh giá hiệu suất là công cụ quản trị mạnh nhất — nếu làm đúng",
-   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,xp:144},
+   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,giot:144},
 
   {id:212,cat:"People Analytics",  color:"#34D399",emoji:"📊",title:"HR Analytics Cơ Bản ★",
    sub:"Data không nói dối — nhưng HR hay đọc sai. Đây là cách đọc đúng",
-   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,xp:144},
+   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,giot:144},
 
   // ── HORIZON TRACK (K13–K18) — sắp ra ───────────────────────────────────
   {id:301,cat:"CHRO Mindset",      color:"#FB923C",emoji:"👑",title:"Executive Presence & Ảnh Hưởng",
    sub:"CHRO ngồi cùng bàn với CEO — cần ngôn ngữ, tư thế và tư duy khác",
-   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:156},
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,giot:156},
 
   {id:302,cat:"CHRO Mindset",      color:"#FB923C",emoji:"🌱",title:"Văn Hóa & Culture Design",
    sub:"Văn hóa không phải poster trên tường — là quyết định CEO đưa ra khi không ai nhìn",
-   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:156},
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,giot:156},
 
   {id:303,cat:"AI-First HR",       color:"#A78BFA",emoji:"🤖",title:"AI Strategy Cho CHRO",
    sub:"CHRO định hình AI trong tổ chức — không phải IT, không phải CEO, là HR",
-   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:156},
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,giot:156},
 
   {id:304,cat:"CHRO Mindset",      color:"#FB923C",emoji:"🌊",title:"Stagility & Workforce Design ★",
    sub:"Vừa stable (hệ thống) vừa agile (con người) — không mâu thuẫn",
-   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:168},
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,giot:168},
 
   {id:305,cat:"Finance-HR",        color:"#F0C040",emoji:"💰",title:"Finance-HR Hybrid ★",
    sub:"CHRO biết tài chính là CHRO không bị qua mặt — bởi CFO hay bởi CEO",
-   dur:"~25 phút",level:"Horizon 🌌", hot:true, soon:true,xp:168},
+   dur:"~25 phút",level:"Horizon 🌌", hot:true, soon:true,giot:168},
 
   {id:306,cat:"People Analytics",  color:"#34D399",emoji:"🔭",title:"People Analytics Nâng Cao · RevPAMH+ ★",
    sub:"Từ báo cáo nhìn lại sang dự báo nhìn tới — CHRO thế hệ mới",
-   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:168},
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,giot:168},
 ];
 
 const SKILLS = [
@@ -669,40 +669,40 @@ const SKILLS = [
 ];
 
 const PATHS = [
-  {key:"foundation",emoji:"🚀",name:"Foundation",color:"#22D3EE",target:"Dành cho HR Executive & HR Staff · Xây nền vững",tagline:"Foundation — Nơi hành trình bắt đầu",xp:"+696 XP",courses:6,
+  {key:"foundation",emoji:"🚀",name:"Foundation",color:"#22D3EE",target:"Dành cho HR Executive & HR Staff · Xây nền vững",tagline:"Foundation — Nơi hành trình bắt đầu",xp:"+696 Giọt",courses:6,
    tiers:[{name:"NOW-READY",cls:"now",ids:[101,102,103,104,105,106]}]},
-  {key:"finance-hr",emoji:"🌿",name:"Growth",color:"#34D399",target:"Dành cho HR Manager & Senior · Tăng tốc & dẫn dắt",tagline:"Growth — Tăng tốc & dẫn dắt",xp:"+828 XP",courses:6,
+  {key:"finance-hr",emoji:"🌿",name:"Growth",color:"#34D399",target:"Dành cho HR Manager & Senior · Tăng tốc & dẫn dắt",tagline:"Growth — Tăng tốc & dẫn dắt",xp:"+828 Giọt",courses:6,
    tiers:[{name:"NOW-READY — Sắp ra",cls:"now",ids:[201,202,203]},{name:"NOW-READY — Sắp ra",cls:"now",ids:[210,211,212]}]},
-  {key:"chro",emoji:"🌌",name:"Horizon",color:"#A855F7",target:"Dành cho CHRO, CPO & C-suite · Nhìn xa & định hướng",tagline:"Horizon — Nhìn xa · Định hướng tổ chức",xp:"+972 XP",courses:6,
+  {key:"chro",emoji:"🌌",name:"Horizon",color:"#A855F7",target:"Dành cho CHRO, CPO & C-suite · Nhìn xa & định hướng",tagline:"Horizon — Nhìn xa · Định hướng tổ chức",xp:"+972 Giọt",courses:6,
    tiers:[{name:"COMING SOON",cls:"future",ids:[301,302,303]},{name:"COMING SOON",cls:"future",ids:[304,305,306]}]},
 ];
 
 const LB = [
-  {rank:1,name:"Nguyễn Minh Châu",level:"Horizon 🌌 · RevPAMH Master",xp:2775,medal:"🥇"},
-  {rank:2,name:"Trần Thị Hoa",level:"Horizon 🌌 · Finance-HR Expert",xp:2120,medal:"🥈"},
-  {rank:3,name:"Lê Văn Đức",level:"Growth 🌿 · HRBP Strategist",xp:1895,medal:"🥉"},
-  {rank:4,name:"Phạm Thu Hằng",level:"Growth 🌿 · People Analytics",xp:1540,medal:""},
-  {rank:5,name:"Vũ Thị Lan",level:"Foundation 🌱 · HR Ops Pro",xp:1230,medal:""},
+  {rank:1,name:"Nguyễn Minh Châu",level:"Horizon 🌌 · RevPAMH Master",giot:2775,medal:"🥇"},
+  {rank:2,name:"Trần Thị Hoa",level:"Horizon 🌌 · Finance-HR Expert",giot:2120,medal:"🥈"},
+  {rank:3,name:"Lê Văn Đức",level:"Growth 🌿 · HRBP Strategist",giot:1895,medal:"🥉"},
+  {rank:4,name:"Phạm Thu Hằng",level:"Growth 🌿 · People Analytics",giot:1540,medal:""},
+  {rank:5,name:"Vũ Thị Lan",level:"Foundation 🌱 · HR Ops Pro",giot:1230,medal:""},
 ];
 
 // ── STATE ────────────────────────────────────────────────────
-let xp = 0, done = new Set(), openPath = null, openSkill = SKILLS[0].key;
+let giot = 0, done = new Set(), openPath = null, openSkill = SKILLS[0].key;
 const saved = localStorage.getItem('pos_done');
 if (saved) { JSON.parse(saved).forEach(id => done.add(id)); }
-const savedXP = parseInt(localStorage.getItem('pos_xp')||'0');
+const savedXP = parseInt(localStorage.getItem('pos_giot')||'0');
 xp = savedXP;
 
 function save() {
   localStorage.setItem('pos_done', JSON.stringify([...done]));
-  localStorage.setItem('pos_xp', xp);
+  localStorage.setItem('pos_giot', xp);
 }
 
 function updateUI() {
   const x = xp;
-  document.getElementById('xp-val').textContent = x;
-  document.getElementById('hero-xp').textContent = x;
-  document.getElementById('xp-prog').textContent = x;
-  document.getElementById('xp-bar').style.width = Math.min((x/500)*100,100)+'%';
+  document.getElementById('giot-val').textContent = x;
+  document.getElementById('hero-giot').textContent = x;
+  document.getElementById('giot-prog').textContent = x;
+  document.getElementById('giot-bar').style.width = Math.min((x/500)*100,100)+'%';
   document.getElementById('done-count').textContent = done.size;
   document.getElementById('done-badge').textContent = done.size;
   document.getElementById('total-xp-badge').textContent = x;
@@ -855,7 +855,7 @@ function openModal(id) {
   if (!c || c.soon) return;
   currentCourse = c; quizDone = false;
   document.getElementById('m-icon').textContent = c.emoji;
-  document.getElementById('m-meta').textContent = `Khóa học · ${c.dur} · +${c.xp} XP`;
+  document.getElementById('m-meta').textContent = `Khóa học · ${c.dur} · +${c.giot} XP`;
   document.getElementById('m-title').textContent = c.title;
   document.getElementById('m-sub').textContent = c.sub;
   // reset quiz
@@ -886,7 +886,7 @@ function pickModalQuiz(i, correct) {
   opts[i].classList.add(correct ? 'correct' : 'wrong');
   if (!correct) opts[1].classList.add('correct');
   if (correct && currentCourse && !done.has(currentCourse.id)) {
-    xp += currentCourse.xp;
+    giot += currentCourse.xp;
     done.add(currentCourse.id);
     save();
     updateUI();
@@ -905,7 +905,7 @@ function pickDaily(i, correct) {
   opts[i].classList.add(correct ? 'correct' : 'wrong');
   if (!correct) opts[1].classList.add('correct');
   if (correct) {
-    xp += 20; save(); updateUI();
+    giot += 20; save(); updateUI();
     document.getElementById('daily-fb').style.display = 'block';
   }
 }
