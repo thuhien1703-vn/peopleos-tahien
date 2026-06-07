@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeopleOS Learning Hub · by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#020B18;--navy2:#062040;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--gold3:#d97706;--text:#F0F6FF;--muted:#94A3B8;--subtle:#4A7A94;--glass:rgba(255,255,255,0.05);--border:rgba(34,211,238,0.15);--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Be Vietnam Pro",sans-serif;background:var(--navy);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 10% 0%,rgba(6,182,212,.08) 0%,transparent 55%),radial-gradient(ellipse 60% 40% at 90% 100%,rgba(240,192,64,.05) 0%,transparent 55%)}
+.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:28px 20px 80px}
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0 14px;border-bottom:1px solid var(--border);margin-bottom:40px}
+.logo{display:flex;align-items:center;gap:10px}
+.lmark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--teal),var(--navy2));display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;font-size:14px;color:var(--cyan);border:1px solid rgba(34,211,238,.3)}
+.lname{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;color:var(--cyan)}
+.lsub{font-size:11px;color:var(--muted);margin-left:4px}
+/* HERO */
+.hero{text-align:center;margin-bottom:48px}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.25);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--cyan);font-weight:600;letter-spacing:.06em;margin-bottom:16px}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan)}
+h1{font-family:"Playfair Display",serif;font-size:clamp(26px,4vw,42px);font-weight:800;line-height:1.2;margin-bottom:12px}
+h1 span{color:var(--cyan)}
+.sub{font-size:15px;color:var(--muted);max-width:500px;margin:0 auto 24px;line-height:1.7}
+.stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap}
+.stat-num{font-family:"Playfair Display",serif;font-size:28px;font-weight:700;color:var(--cyan);display:block}
+.stat-label{font-size:11px;color:var(--muted)}
+/* PHASE */
+.phase-title{font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin:36px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+/* COURSE GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:8px}
+/* COURSE CARD */
+.course-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;text-decoration:none;color:inherit;display:block;transition:all .2s;position:relative;overflow:hidden}
+.course-card:hover{border-color:rgba(34,211,238,.35);transform:translateY(-2px)}
+.course-card.live{border-color:rgba(34,211,238,.25)}
+.course-card.soon{opacity:.65;cursor:default}
+.cc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.cc-emoji{font-size:26px;width:42px;height:42px;background:rgba(255,255,255,.06);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cc-num{font-size:10px;color:var(--muted);margin-bottom:3px;letter-spacing:.05em}
+.cc-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
+.cc-sub{font-size:12px;color:var(--muted)}
+.cc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06)}
+.cc-dur{font-size:11px;color:var(--subtle)}
+.cc-status{font-size:11px;font-weight:600;padding:3px 9px;border-radius:8px}
+.status-live{background:rgba(34,211,238,.12);color:var(--cyan)}
+.status-soon{background:rgba(255,255,255,.06);color:var(--subtle)}
+.cc-xp{font-size:11px;color:var(--gold);font-weight:600}
+/* FOOTER */
+footer{text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--subtle);line-height:1.8}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <div class="logo">
+    <div class="lmark">水</div>
+    <span class="lname">PeopleOS</span>
+    <span class="lsub">by TaHien</span>
+  </div>
+  <div style="font-size:12px;color:var(--muted)">AI-powered · Human-centered · Always.</div>
+</nav>
+
+<div class="hero">
+  <div class="badge">PeopleOS Learning Hub · 2026</div>
+  <h1>Từ HR Manager → <span>CHRO</span><br>Không phải may mắn. Là hệ thống.</h1>
+  <p class="sub">Framework Finance-HR Hybrid giúp bạn nói chuyện được với CEO, đọc được P&L, và leo lên C-level. Biên soạn bởi TaHien — CHCO, Golden Gate Group.</p>
+  <div class="stats">
+    <div class="stat"><span class="stat-num">6</span><div class="stat-label">Khóa LIVE ngay</div></div>
+    <div class="stat"><span class="stat-num">36</span><div class="stat-label">Modules</div></div>
+    <div class="stat"><span class="stat-num">~2h</span><div class="stat-label">Học ngay hôm nay</div></div>
+  </div>
+</div>
+
+<div class="phase-title">Phase 1 — Cấp 1: HR Staff & Specialist · 6 khóa · LIVE</div>
+<div class="grid">
+  <a class="course-card live" href="/k1-eq-selfmastery">
+    <div class="cc-top"><div class="cc-emoji">🧠</div><div><div class="cc-num">K1 · EQ & Lãnh Đạo</div><div class="cc-title">EQ & Self-Mastery</div><div class="cc-sub">Nền tảng cảm xúc cho HR</div></div></div>
+    <div class="cc-footer"><span class="cc-dur">~18 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+108 XP</span></div>
+  </a>
+  <a class="course-card live" href="/k2-giao-tiep-anh-huong">
+    <div class="cc-top"><div class="cc-emoji">💬</div><div><div class="cc-num">K2 · EQ & Lãnh Đạo</div><div class="cc-title">Giao Tiếp & Ảnh Hưởng</div><div class="cc-sub">Nói để người khác hành động</div></div></div>
+    <div class="cc-footer"><span class="cc-dur">~18 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+108 XP</span></div>
+  </a>
+  <a class="course-card live" href="/k3-ai-literacy-hr">
+    <div class="cc-top"><div class="cc-emoji">🤖</div><div><div class="cc-num">K3 · AI-First HR</div><div class="cc-title">AI Literacy Cho HR</div><div class="cc-sub">Prompt · Tools · Automation</div></div></div>
+    <div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+120 XP</span></div>
+  </a>
+  <a class="course-card live" href="/k4-hr-ops-thuc-chien">
+    <div class="cc-top"><div class="cc-emoji">📋</div><div><div class="cc-num">K4 · HR Operations ★</div><div class="cc-title">HR Ops Thực Chiến</div><div class="cc-sub">Hợp đồng · C&B · HRIS VN</div></div></div>
+    <div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+120 XP</span></div>
+  </a>
+  <a class="course-card live" href="/k5-recruiting-co-ban">
+    <div class="cc-top"><div class="cc-emoji">🔍</div><div><div class="cc-num">K5 · Talent ★</div><div class="cc-title">Recruiting Cơ Bản</div><div class="cc-sub">JD · Sourcing · Phỏng vấn</div></div></div>
+    <div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+120 XP</span></div>
+  </a>
+  <a class="course-card live" href="/k6-ld-thuc-chien">
+    <div class="cc-top"><div class="cc-emoji">🎓</div><div><div class="cc-num">K6 · L&D ★</div><div class="cc-title">L&D Thực Chiến</div><div class="cc-sub">ADDIE · Kirkpatrick · ILT</div></div></div>
+    <div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+120 XP</span></div>
+  </a>
+</div>
+
+<div class="phase-title">Phase 2 — Cấp 2: HR Manager & Senior · 6 khóa · Sắp ra</div>
+<div class="grid">
+  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">⚡</div><div><div class="cc-num">K7 · EQ & Lãnh Đạo</div><div class="cc-title">Leadership Không Chức Danh</div><div class="cc-sub">Dẫn dắt bằng ảnh hưởng</div></div></div><div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+132 XP</span></div></div>
+  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">🧩</div><div><div class="cc-num">K8 · EQ & Lãnh Đạo</div><div class="cc-title">Tư Duy Hệ Thống</div><div class="cc-sub">Quyết định bằng dữ liệu</div></div></div><div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+132 XP</span></div></div>
+  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">🔄</div><div><div class="cc-num">K9 · EQ & Lãnh Đạo</div><div class="cc-title">Quản Trị Thay Đổi</div><div class="cc-sub">ADKAR · Kháng cự · Văn hóa</div></div></div><div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+132 XP</span></div></div>
+  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">💼</div><div><div class="cc-num">K10 · Finance-HR ★</div><div class="cc-title">HRBP Mindset</div><div class="cc-sub">P&L · 9-box · Business lang</div></div></div><div class="cc-footer"><span class="cc-dur">~22 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+144 XP</span></div></div>
+  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">📈</div><div><div class="cc-num">K11 · Finance-HR ★</div><div class="cc-title">Performance · RevPAMH</div><div class="cc-sub">OKR · KPI · Calibration</div></div></div><div class="cc-footer"><span class="cc-dur">~22 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+144 XP</span></div></div>
+  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">📊</div><div><div class="cc-num">K12 · People Analytics ★</div><div class="cc-title">HR Analytics Cơ Bản</div><div class="cc-sub">Attrition · Dashboard · Story</div></div></div><div class="cc-footer"><span class="cc-dur">~22 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+144 XP</span></div></div>
+</div>
+
+<div class="phase-title">Phase 3 — Cấp 3: CHRO & HR Director · 6 khóa · Sắp ra</div>
+<div class="grid">
+  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">👑</div><div><div class="cc-num">K13</div><div class="cc-title">Executive Presence</div><div class="cc-sub">Board · CEO · C-suite lang</div></div></div><div class="cc-footer"><span class="cc-dur">~25 phút</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+156 XP</span></div></div>
+  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">💰</div><div><div class="cc-num">K17 · Finance-HR ★</div><div class="cc-title">Finance-HR Hybrid</div><div class="cc-sub">Total Rewards · ESOP · IPO</div></div></div><div class="cc-footer"><span class="cc-dur">~25 phút</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+168 XP</span></div></div>
+  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">🔭</div><div><div class="cc-num">K18 · People Analytics ★</div><div class="cc-title">People Analytics Nâng Cao</div><div class="cc-sub">Predictive · RevPAMH+ · ROI</div></div></div><div class="cc-footer"><span class="cc-dur">~25 phút</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+168 XP</span></div></div>
+</div>
+
+<footer>
+  TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>
+  PeopleOS Community · 2026 · AI-powered. Human-centered. Always.
+</footer>
+</div>
+</body>
+</html>
