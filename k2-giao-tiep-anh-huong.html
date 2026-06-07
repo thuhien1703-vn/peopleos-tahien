@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giao Tiếp & Ảnh Hưởng · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;
+  --cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--gold3:#d97706;
+  --text:#F0F6FF;--muted:#94A3B8;--subtle:#4A7A94;
+  --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);
+  --border:rgba(34,211,238,0.14);--border2:rgba(34,211,238,0.28);
+  --r:14px;--r-sm:9px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--navy);color:var(--text);line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 90% 55% at 15% -5%,rgba(6,182,212,.09) 0%,transparent 55%),
+             radial-gradient(ellipse 65% 45% at 85% 105%,rgba(240,192,64,.06) 0%,transparent 55%)}
+body::after{content:'言';position:fixed;right:-50px;top:50%;transform:translateY(-50%) rotate(-8deg);
+  font-size:340px;line-height:1;color:rgba(34,211,238,.022);pointer-events:none;z-index:0;
+  font-family:'Playfair Display',serif}
+.app{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 20px 100px}
+/* NAV */
+.topnav{display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0 14px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);
+  text-decoration:none;transition:color .18s}
+.back:hover{color:var(--cyan)}
+.logo{display:flex;align-items:center;gap:9px}
+.lmark{width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--teal),var(--navy3));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:13px;color:var(--cyan);
+  border:1px solid var(--border2)}
+.lname{font-size:13px;font-weight:600;color:var(--cyan);letter-spacing:.02em}
+.lsub{font-size:10px;color:var(--muted)}
+/* PROGRESS */
+.prog-wrap{margin-bottom:24px}
+.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:7px}
+.prog-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--teal),var(--cyan));
+  transition:width .55s cubic-bezier(.4,0,.2,1)}
+/* DOTS */
+.dots{display:flex;gap:7px;justify-content:center;margin-bottom:28px}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.1);
+  cursor:pointer;transition:all .22s;border:1.5px solid transparent;flex-shrink:0}
+.dot.active{background:var(--cyan);border-color:var(--cyan);transform:scale(1.4)}
+.dot.done{background:var(--teal);border-color:var(--teal)}
+/* HERO */
+.hero{position:relative;border-radius:var(--r);overflow:hidden;margin-bottom:24px;height:190px;border:1px solid var(--border)}
+.hero-bg{position:absolute;inset:0}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(135deg,#0a2440 0%,#051830 50%,#020B18 100%)}
+.hero-pattern{position:absolute;inset:0;opacity:.15;
+  background-image:repeating-linear-gradient(-45deg,var(--teal) 0,var(--teal) 1px,transparent 0,transparent 50%);
+  background-size:20px 20px}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(2,11,24,.92) 0%,rgba(2,11,24,.2) 65%,transparent 100%)}
+.hero-content{position:absolute;bottom:18px;left:22px;right:22px}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(34,211,238,.13);
+  border:1px solid var(--border2);border-radius:20px;padding:3px 11px;font-size:11px;
+  color:var(--cyan);margin-bottom:9px;font-weight:500;letter-spacing:.05em}
+.hero-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--cyan)}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}
+.hero-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#fff;line-height:1.25}
+/* MODULE */
+.mv{display:none}.mv.active{display:block;animation:fadeUp .38s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+/* CONTENT */
+.lead{border-left:2.5px solid var(--cyan);padding:13px 17px;background:var(--glass);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;font-style:italic;color:var(--text);
+  font-size:14.5px;line-height:1.7;margin-bottom:22px}
+.body{font-size:14.5px;line-height:1.78;color:var(--text);margin-bottom:15px}
+.body b{color:var(--cyan);font-weight:600}
+.sec-title{font-size:10.5px;letter-spacing:.13em;color:var(--teal);font-weight:600;
+  text-transform:uppercase;margin:22px 0 11px}
+/* CARDS */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r-sm);padding:13px 15px}
+.cn{font-size:10px;color:var(--gold);font-weight:700;margin-bottom:5px;letter-spacing:.07em}
+.ct{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:4px}
+.cd{font-size:12.5px;color:var(--muted);line-height:1.5}
+.card-full{background:var(--glass);border:1px solid var(--border);border-radius:var(--r-sm);
+  padding:14px 16px;margin-bottom:10px}
+/* HIGHLIGHT / INSIGHT */
+.hl{background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.22);
+  border-radius:var(--r-sm);padding:14px 17px;margin-bottom:18px}
+.hl-label{font-size:10.5px;color:var(--cyan);font-weight:700;letter-spacing:.08em;margin-bottom:7px}
+.hl p{font-size:13.5px;color:var(--text);line-height:1.6}
+.ins{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);
+  border-radius:var(--r-sm);padding:13px 17px;margin-bottom:18px}
+.ins-label{font-size:10.5px;color:var(--gold);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.ins p{font-size:13px;color:var(--text);line-height:1.55}
+/* EXERCISE */
+.ex{background:var(--glass2);border:1px solid var(--border2);border-radius:var(--r);
+  padding:18px;margin-top:22px}
+.ex-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;
+  padding-bottom:12px;border-bottom:1px solid var(--border)}
+.ex-ico{width:30px;height:30px;border-radius:8px;flex-shrink:0;
+  background:rgba(240,192,64,.13);border:1px solid rgba(240,192,64,.27);
+  display:flex;align-items:center;justify-content:center;font-size:14px}
+.ex-label{font-size:12.5px;font-weight:700;color:var(--gold)}
+.ex-sub{font-size:11px;color:var(--muted)}
+/* QUIZ */
+.qq{font-size:14px;color:var(--text);margin-bottom:13px;line-height:1.58;font-weight:500}
+.qopts{display:flex;flex-direction:column;gap:7px}
+.qopt{padding:11px 14px;border-radius:var(--r-sm);border:1px solid var(--border);
+  background:var(--glass);cursor:pointer;font-size:13.5px;color:var(--text);
+  transition:all .18s;text-align:left;width:100%;display:flex;align-items:center;gap:9px;
+  font-family:'Be Vietnam Pro',sans-serif}
+.qopt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.07)}
+.qopt.correct{border-color:#22c55e!important;background:rgba(34,197,94,.09)!important;color:#86efac!important}
+.qopt.wrong{border-color:#ef4444!important;background:rgba(239,68,68,.09)!important;color:#fca5a5!important}
+.oletter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;font-size:10.5px;
+  color:var(--muted);flex-shrink:0;font-weight:700}
+.qfb{margin-top:11px;padding:11px 13px;border-radius:var(--r-sm);
+  font-size:13px;line-height:1.5;display:none}
+.qfb.show{display:block}
+.qfb.correct{background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.27);color:#86efac}
+.qfb.wrong{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:#fca5a5}
+/* REFLECT */
+.rlabel{font-size:13px;color:var(--muted);margin-bottom:7px;display:block}
+.rinput{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:11px 13px;color:var(--text);
+  font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;
+  resize:vertical;min-height:78px;transition:border .18s;line-height:1.6}
+.rinput:focus{outline:none;border-color:var(--cyan)}
+.rinput::placeholder{color:var(--subtle)}
+.chint{font-size:11px;color:var(--subtle);margin-top:5px;text-align:right;transition:color .2s}
+/* CHECKLIST */
+.chi{display:flex;align-items:flex-start;gap:11px;padding:11px 0;
+  border-bottom:1px solid var(--border);cursor:pointer}
+.chi:last-child{border-bottom:none}
+.chbox{width:19px;height:19px;border-radius:5px;border:1.5px solid var(--border2);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s;margin-top:1px}
+.chbox.on{background:var(--cyan);border-color:var(--cyan)}
+.chbox.on::after{content:'✓';font-size:11px;color:var(--navy);font-weight:800}
+.chtext{font-size:13.5px;color:var(--text);line-height:1.5}
+.chtext small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+/* REFRAME TOOL */
+.rf-tool{background:var(--glass);border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden}
+.rf-row{display:grid;grid-template-columns:1fr 32px 1fr;gap:0;align-items:stretch}
+.rf-col{padding:12px 14px}
+.rf-col:first-child{border-right:1px solid var(--border)}
+.rf-col-mid{display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--cyan);
+  border-right:1px solid var(--border);padding:0 4px}
+.rf-label{font-size:10px;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:6px}
+.rf-text{font-size:13px;color:var(--text);line-height:1.55}
+/* SCENARIO CARDS */
+.sc-cards{display:flex;flex-direction:column;gap:8px}
+.sc-card{padding:12px 14px;border-radius:var(--r-sm);border:1px solid var(--border);
+  background:var(--glass);cursor:pointer;transition:all .18s;font-family:'Be Vietnam Pro',sans-serif}
+.sc-card:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.06)}
+.sc-card.picked-ok{border-color:#22c55e;background:rgba(34,197,94,.07)}
+.sc-card.picked-bad{border-color:#ef4444;background:rgba(239,68,68,.07)}
+.sc-head{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.sc-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px}
+.sc-body{font-size:13px;color:var(--muted);line-height:1.5}
+/* TEMPLATE BUILDER */
+.tmpl{background:var(--glass2);border:1px solid var(--border2);border-radius:var(--r-sm);padding:14px 16px}
+.tmpl-title{font-size:11px;color:var(--cyan);font-weight:700;letter-spacing:.08em;margin-bottom:10px}
+.tmpl-field{margin-bottom:10px}
+.tmpl-label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block}
+.tinput{width:100%;background:rgba(0,0,0,.2);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:8px 11px;color:var(--text);
+  font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:border .18s}
+.tinput:focus{outline:none;border-color:var(--cyan)}
+.tinput::placeholder{color:var(--subtle)}
+.tmpl-output{background:rgba(34,211,238,.06);border:1px solid var(--border2);
+  border-radius:var(--r-sm);padding:13px 15px;margin-top:12px;display:none}
+.tmpl-output.show{display:block}
+.tmpl-result{font-size:14px;color:var(--text);line-height:1.7;font-style:italic}
+/* TAKEAWAY */
+.tw{background:linear-gradient(135deg,rgba(6,182,212,.09),rgba(240,192,64,.05));
+  border:1px solid var(--border2);border-radius:var(--r);padding:18px 20px;margin-top:22px}
+.tw-label{font-size:10px;letter-spacing:.15em;color:var(--gold);font-weight:700;
+  text-transform:uppercase;margin-bottom:9px}
+.tw-text{font-family:'Playfair Display',serif;font-size:16px;color:var(--text);
+  line-height:1.65;font-style:italic}
+.tw-sig{font-size:11.5px;color:var(--muted);margin-top:9px}
+/* NAV BTNS */
+.navbtns{display:flex;align-items:center;justify-content:space-between;
+  margin-top:28px;padding-top:18px;border-top:1px solid var(--border)}
+.btnprev{padding:10px 18px;border-radius:var(--r-sm);border:1px solid var(--border);
+  background:transparent;color:var(--muted);font-family:'Be Vietnam Pro',sans-serif;
+  font-size:13.5px;cursor:pointer;transition:all .18s}
+.btnprev:hover:not(:disabled){border-color:var(--border2);color:var(--text)}
+.btnprev:disabled{opacity:.3;cursor:not-allowed}
+.btnnext{padding:11px 26px;border-radius:var(--r-sm);
+  background:linear-gradient(135deg,var(--teal),var(--cyan));
+  color:var(--navy);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;
+  font-weight:700;cursor:pointer;border:none;transition:all .2s;
+  box-shadow:0 3px 14px rgba(34,211,238,.2)}
+.btnnext:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 5px 18px rgba(34,211,238,.3)}
+.btnnext:disabled{opacity:.28;cursor:not-allowed;transform:none;box-shadow:none;
+  background:var(--subtle);color:var(--navy)}
+.ulock{font-size:11.5px;color:var(--subtle);text-align:center;margin-top:7px}
+/* COMPLETE */
+.cscreen{text-align:center;padding:36px 16px;display:none}
+.cscreen.show{display:block;animation:fadeUp .45s ease}
+.cico{font-size:56px;margin-bottom:18px}
+.ctitle{font-family:'Playfair Display',serif;font-size:26px;color:var(--text);margin-bottom:11px}
+.csub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.certcard{background:var(--glass2);border:1px solid var(--border2);border-radius:var(--r);
+  padding:22px;margin-bottom:22px;position:relative;overflow:hidden}
+.certcard::before{content:'言';position:absolute;right:-20px;top:50%;
+  transform:translateY(-50%);font-family:'Playfair Display',serif;
+  font-size:90px;color:rgba(34,211,238,.04);pointer-events:none}
+.cert-lbl{font-size:11px;color:var(--cyan);letter-spacing:.12em;font-weight:700;margin-bottom:7px}
+.cert-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--text);margin-bottom:5px}
+.cert-course{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cert-sig{font-size:11.5px;color:var(--subtle);border-top:1px solid var(--border);
+  padding-top:11px;line-height:1.6}
+.btncert{width:100%;padding:13px;border-radius:var(--r-sm);
+  background:linear-gradient(135deg,var(--gold3),var(--gold));color:var(--navy);
+  font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:700;cursor:pointer;
+  border:none;margin-bottom:9px}
+.btnnext2{width:100%;padding:11px;border-radius:var(--r-sm);background:transparent;
+  border:1px solid var(--border2);color:var(--cyan);font-family:'Be Vietnam Pro',sans-serif;
+  font-size:13.5px;cursor:pointer;transition:background .18s}
+.btnnext2:hover{background:rgba(34,211,238,.07)}
+</style>
+</head>
+<body>
+<div class="app">
+
+<nav class="topnav">
+  <a class="back" href="/">← Về Learning Hub</a>
+  <div class="logo">
+    <div class="lmark">水</div>
+    <div><div class="lname">PeopleOS</div><div class="lsub">by TaHien</div></div>
+  </div>
+</nav>
+
+<div class="prog-wrap">
+  <div class="prog-meta"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+</div>
+<div class="dots" id="dots"></div>
+
+<!-- ═══ M1 ═══ -->
+<div class="mv active" id="m1">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Giao Tiếp & Ảnh Hưởng · Cấp 1</div>
+      <div class="hero-num">Bài 1 / 6</div>
+      <div class="hero-title">Tại sao người ta không nghe HR</div>
+    </div>
+  </div>
+
+  <div class="lead">"Hiền từng dự một buổi họp mà HR Manager trình bày suốt 20 phút về chính sách mới. Slide đẹp, số liệu đầy đủ, giọng rõ ràng. Nhưng khi hỏi lại phòng — không ai nhớ điểm chính. CEO nhìn điện thoại từ phút thứ 8. Vấn đề không phải nội dung. Vấn đề là HR chưa bao giờ tự hỏi: người kia đang cần nghe gì?"</div>
+
+  <p class="body">Trong tổ chức, HR nói chuyện với nhiều người nhất — nhưng thường được nghe ít nhất. Không phải vì HR kém năng lực. Mà vì có <b>5 communication gap</b> cố hữu mà hầu hết HR không nhận ra mình đang mắc phải.</p>
+
+  <div class="sec-title">5 lý do HR không được nghe — và cách fix</div>
+  <div class="grid2">
+    <div class="card"><div class="cn">Gap 1</div><div class="ct">Nói ngôn ngữ HR, không phải ngôn ngữ business</div><div class="cd">"Tỷ lệ engagement giảm 12%" → CEO nghe thấy gì? Không có gì. Fix: "Chúng ta sẽ mất 3 người giỏi trong quý này nếu không làm gì."</div></div>
+    <div class="card"><div class="cn">Gap 2</div><div class="ct">Giải pháp trước khi hiểu vấn đề</div><div class="cd">HR đề xuất training khi manager cần headcount. HR đề xuất policy khi người ta cần được nghe. Prescription trước diagnosis = không ai theo.</div></div>
+    <div class="card"><div class="cn">Gap 3</div><div class="ct">Nói nhiều, nghe ít</div><div class="cd">HR thường chuẩn bị nhiều thứ để nói — thay vì chuẩn bị câu hỏi để hỏi. Người nói nhiều hơn nghe thường hiểu ít hơn nghĩ.</div></div>
+    <div class="card"><div class="cn">Gap 4</div><div class="ct">Thiếu "what's in it for them"</div><div class="cd">Mọi quyết định đều được lọc qua câu hỏi ngầm: "Cái này có lợi gì cho tôi?" HR không trả lời câu đó → người ta không nghe tiếp.</div></div>
+  </div>
+  <div class="hl">
+    <div class="hl-label">Gap 5 — Quan trọng nhất · Không ai nói với HR</div>
+    <p>HR thường được nghe trong 2 trường hợp: khi có việc xấu xảy ra, hoặc khi có quyết định bất lợi được thông báo. <b style="color:var(--cyan)">Điều này tạo ra một association vô thức:</b> mỗi khi HR xuất hiện, người ta phòng thủ. Muốn phá vỡ pattern này — HR phải xuất hiện trong những khoảnh khắc tốt, không chỉ những khoảnh khắc khó.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎯</div>
+      <div><div class="ex-label">Nhận diện communication gap</div><div class="ex-sub">Chọn câu phát biểu thể hiện tư duy HR có ảnh hưởng cao nhất</div></div>
+    </div>
+    <div class="qq">Manager vừa phàn nàn rằng quy trình xin tăng lương của nhân viên quá phức tạp và mất nhiều thời gian. HR nên phản hồi thế nào?</div>
+    <div class="qopts" id="q1opts">
+      <button class="qopt" onclick="A(1,this,'A')"><span class="oletter">A</span>"Quy trình này được thiết kế để đảm bảo công bằng và tuân thủ chính sách công ty."</button>
+      <button class="qopt" onclick="A(1,this,'B')"><span class="oletter">B</span>"Anh đang mất bao nhiêu thời gian cho việc này mỗi tháng? Nhân viên nào đang bị ảnh hưởng nhiều nhất?"</button>
+      <button class="qopt" onclick="A(1,this,'C')"><span class="oletter">C</span>"Em sẽ gửi anh tài liệu hướng dẫn quy trình chi tiết hơn."</button>
+      <button class="qopt" onclick="A(1,this,'D')"><span class="oletter">D</span>"Quy trình này đã được ban lãnh đạo phê duyệt, hiện tại chưa có kế hoạch thay đổi."</button>
+    </div>
+    <div class="qfb" id="qf1"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 1</div>
+    <div class="tw-text">"HR được nghe không phải vì nói đúng — mà vì nói đúng thứ người kia đang cần nghe vào đúng lúc họ sẵn sàng nghe."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" disabled>← Quay lại</button>
+    <button class="btnnext" id="n1" onclick="go(2)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h1">Trả lời câu hỏi để mở bài tiếp theo</div>
+</div>
+
+<!-- ═══ M2 ═══ -->
+<div class="mv" id="m2">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Giao Tiếp & Ảnh Hưởng · Cấp 1</div>
+      <div class="hero-num">Bài 2 / 6</div>
+      <div class="hero-title">Nghệ thuật đặt câu hỏi</div>
+    </div>
+  </div>
+
+  <div class="lead">"Có một HR Generalist hỏi nhân viên: 'Anh có hài lòng với công việc không?' Nhân viên trả lời: 'Có, tốt.' Một tháng sau anh nghỉ việc. Hiền hỏi lại cô HR: 'Em đặt câu hỏi đó lúc nào, ở đâu, và sau khi hỏi em im lặng bao lâu?' — Câu hỏi đúng mà đặt sai cách thì không khác gì không hỏi."</div>
+
+  <p class="body">Câu hỏi là công cụ mạnh nhất của HR — nhưng hầu hết HR chỉ học cách <b>nói</b>, không học cách <b>hỏi</b>. Và hỏi đúng là một kỹ năng có thể học được.</p>
+
+  <div class="sec-title">3 loại câu hỏi HR cần nắm</div>
+  <div class="card-full">
+    <div class="cn">Loại 1 · Câu hỏi mở — lấy thông tin</div>
+    <div class="ct">Bắt đầu bằng: Tại sao · Như thế nào · Điều gì · Kể cho tôi nghe</div>
+    <div class="cd" style="margin-top:6px">Mục đích: khám phá, không dẫn dắt. Không bao giờ dùng "Có phải... không?" trong giai đoạn này. Ví dụ: "Điều gì đang khiến anh khó xử nhất trong tháng vừa rồi?" thay vì "Anh có đang gặp khó khăn không?"</div>
+  </div>
+  <div class="card-full">
+    <div class="cn">Loại 2 · Câu hỏi đào sâu — "Tell me more"</div>
+    <div class="ct">Bắt đầu bằng: Cụ thể hơn · Ví dụ nào · Khi nào lần cuối · Điều đó có nghĩa là gì với anh</div>
+    <div class="cd" style="margin-top:6px">Mục đích: không bỏ qua câu trả lời nước đôi. Khi nhân viên nói "Bình thường" — đó là tín hiệu cần đào sâu hơn, không phải chấp nhận. Dừng lại 3 giây sau mỗi câu trả lời trước khi hỏi tiếp.</div>
+  </div>
+  <div class="card-full" style="margin-bottom:18px">
+    <div class="cn">Loại 3 · Câu hỏi phản chiếu — tạo insight cho người kia</div>
+    <div class="ct">Bắt đầu bằng: Nếu nhìn lại · Điều gì đã khác · Anh sẽ làm gì nếu biết trước</div>
+    <div class="cd" style="margin-top:6px">Mục đích: giúp người kia tự tìm ra câu trả lời — đặc biệt hiệu quả trong coaching và exit interview. HR không phải người giải quyết vấn đề cho họ — HR giúp họ tự thấy vấn đề.</div>
+  </div>
+
+  <div class="ins">
+    <div class="ins-label">Quy tắc im lặng · Quan trọng hơn câu hỏi</div>
+    <p>Sau khi đặt câu hỏi quan trọng — <b style="color:var(--gold)">im lặng ít nhất 5–7 giây</b> trước khi nói thêm. Hầu hết HR lấp đầy khoảng lặng ngay lập tức vì không thoải mái với im lặng. Nhưng khoảng lặng đó chính là nơi người kia xử lý và bắt đầu nói thật.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🔄</div>
+      <div><div class="ex-label">Viết lại câu hỏi</div><div class="ex-sub">Chuyển câu hỏi đóng thành câu hỏi mở</div></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--text);margin-bottom:14px;line-height:1.6">Nhân viên vừa có hiệu suất giảm 2 tháng liên tiếp. Câu hỏi nào giúp HR hiểu được nguyên nhân thật sự?</p>
+    <div class="qopts" id="q2opts">
+      <button class="qopt" onclick="A(2,this,'A')"><span class="oletter">A</span>"Dạo này anh có ổn không? Có vấn đề gì cá nhân không?"</button>
+      <button class="qopt" onclick="A(2,this,'B')"><span class="oletter">B</span>"Anh có biết hiệu suất tháng này giảm so với kỳ trước không?"</button>
+      <button class="qopt" onclick="A(2,this,'C')"><span class="oletter">C</span>"Điều gì đang chiếm nhiều năng lượng nhất của anh trong 2 tháng vừa rồi?"</button>
+      <button class="qopt" onclick="A(2,this,'D')"><span class="oletter">D</span>"Anh cần hỗ trợ gì từ công ty để cải thiện hiệu suất?"</button>
+    </div>
+    <div class="qfb" id="qf2"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 2</div>
+    <div class="tw-text">"Câu hỏi tốt nhất không phải là câu hỏi thông minh nhất — mà là câu hỏi giúp người kia tự nghe thấy suy nghĩ của chính họ."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(1)">← Quay lại</button>
+    <button class="btnnext" id="n2" onclick="go(3)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h2">Trả lời câu hỏi để tiếp tục</div>
+</div>
+
+<!-- ═══ M3 ═══ -->
+<div class="mv" id="m3">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Giao Tiếp & Ảnh Hưởng · Cấp 1</div>
+      <div class="hero-num">Bài 3 / 6</div>
+      <div class="hero-title">HR Storytelling — kể chuyện để thuyết phục</div>
+    </div>
+  </div>
+
+  <div class="lead">"Hiền từng trình bày đề xuất tăng ngân sách L&D với đầy đủ số liệu, ROI calculation, benchmark ngành. Board lịch sự nghe xong rồi hỏi ngân sách khác. Năm sau, Hiền kể câu chuyện một store manager học được kỹ năng coaching từ khóa training — rồi giữ lại 3 nhân viên giỏi thay vì mất họ, tiết kiệm 450 triệu chi phí tuyển dụng. Ngân sách L&D được duyệt trong 10 phút."</div>
+
+  <p class="body">Não người không ghi nhớ số liệu — não người ghi nhớ câu chuyện. Đây là khoa học thần kinh, không phải nghệ thuật. Và đây là lý do HR cần học storytelling như một kỹ năng nghề nghiệp, không phải kỹ năng "thêm vào cho đẹp."</p>
+
+  <div class="sec-title">Cấu trúc HR Story 4 phần — áp dụng trong 5 phút</div>
+  <div class="grid2">
+    <div class="card"><div class="cn">Phần 1 · Context</div><div class="ct">Đặt bối cảnh cụ thể</div><div class="cd">Ai, ở đâu, khi nào. Không trừu tượng. "Tháng 8 năm ngoái, tại cửa hàng số 47 ở Bình Dương..." — nghe liền tưởng tượng được.</div></div>
+    <div class="card"><div class="cn">Phần 2 · Conflict</div><div class="ct">Vấn đề / căng thẳng thật</div><div class="cd">Không có conflict = không có câu chuyện. "Quản lý cửa hàng sắp mất 2 nhân viên core trong 2 tuần. Không có người thay thế được đào tạo."</div></div>
+    <div class="card"><div class="cn">Phần 3 · Action</div><div class="ct">Hành động cụ thể</div><div class="cd">Ai đã làm gì, theo cách nào. Chi tiết. Không phải "chúng tôi triển khai chương trình" — mà là "cô HR Generalist ở đó ngồi coaching trực tiếp 3 buổi."</div></div>
+    <div class="card"><div class="cn">Phần 4 · Result</div><div class="ct">Kết quả — đo được</div><div class="cd">Số hoặc trạng thái thay đổi rõ ràng. "2 nhân viên ở lại, 1 lên thành team lead. Cửa hàng đó turnover giảm 60% trong 6 tháng tiếp theo."</div></div>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">Nguyên tắc "So What" — kiểm tra story trước khi kể</div>
+    <p>Sau khi kể xong câu chuyện, tự hỏi: <b style="color:var(--cyan)">"Vậy thì sao?"</b> Nếu câu trả lời rõ ràng — story đó thuyết phục. Nếu phải giải thích thêm tại sao nó quan trọng — story đó chưa đủ mạnh. Người nghe không tự kết luận thay mình được.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">✍️</div>
+      <div><div class="ex-label">Xây HR Story của bạn</div><div class="ex-sub">Điền vào 4 phần — kết quả hiện ra tự động</div></div>
+    </div>
+    <div class="tmpl">
+      <div class="tmpl-title">TEMPLATE HR STORY · CCTX-CAXT</div>
+      <div class="tmpl-field">
+        <label class="tmpl-label">Bối cảnh (ai, ở đâu, khi nào)</label>
+        <input class="tinput" id="t3a" placeholder="vd: Tháng 3 năm nay, tại chuỗi 12 cửa hàng khu vực Hà Nội..." oninput="buildStory()">
+      </div>
+      <div class="tmpl-field">
+        <label class="tmpl-label">Vấn đề / xung đột thật sự là gì?</label>
+        <input class="tinput" id="t3b" placeholder="vd: Turnover bếp tăng đột biến, 40% nhân viên bếp mới nghỉ trong tháng đầu..." oninput="buildStory()">
+      </div>
+      <div class="tmpl-field">
+        <label class="tmpl-label">Hành động cụ thể HR đã làm</label>
+        <input class="tinput" id="t3c" placeholder="vd: Phỏng vấn exit 20 người, phát hiện vấn đề nằm ở ca đầu tiên không có buddy..." oninput="buildStory()">
+      </div>
+      <div class="tmpl-field">
+        <label class="tmpl-label">Kết quả đo được</label>
+        <input class="tinput" id="t3d" placeholder="vd: Tháng tiếp theo turnover bếp giảm 35%, tiết kiệm 80 triệu chi phí tuyển..." oninput="buildStory()">
+      </div>
+      <div class="tmpl-output" id="t3out">
+        <div class="tmpl-title" style="margin-bottom:8px">STORY CỦA BẠN</div>
+        <div class="tmpl-result" id="t3result"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 3</div>
+    <div class="tw-text">"Dữ liệu thuyết phục lý trí — câu chuyện thuyết phục trái tim. HR cần cả hai, nhưng trái tim quyết định trước."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(2)">← Quay lại</button>
+    <button class="btnnext" id="n3" onclick="go(4)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h3">Điền đủ 4 phần story để tiếp tục</div>
+</div>
+
+<!-- ═══ M4 ═══ -->
+<div class="mv" id="m4">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Giao Tiếp & Ảnh Hưởng · Cấp 1</div>
+      <div class="hero-num">Bài 4 / 6</div>
+      <div class="hero-title">Từ "biết" sang "làm" — nói để người khác hành động</div>
+    </div>
+  </div>
+
+  <div class="lead">"Sau buổi training về an toàn lao động, 95% nhân viên 'hiểu tầm quan trọng'. Một tháng sau, vi phạm an toàn vẫn xảy ra như cũ. Hiền hỏi người phụ trách: 'Trong buổi training, bao nhiêu người cam kết một hành động cụ thể họ sẽ làm khác đi ngay ngày hôm sau?' — Im lặng. Đó là lý do."</div>
+
+  <p class="body">Khoảng cách giữa "biết" và "làm" trong tổ chức không phải thiếu thông tin — mà là <b>thiếu commitment cụ thể</b>. HR có thể thu hẹp khoảng cách đó bằng ngôn ngữ chủ đích.</p>
+
+  <div class="sec-title">Kỹ thuật "Commitment Escalation" — 3 bước</div>
+  <div class="card-full">
+    <div class="cn">Bước 1 · Từ vague sang specific</div>
+    <div class="ct">"Tôi sẽ cố gắng" → "Tôi sẽ làm X vào ngày Y lúc Z"</div>
+    <div class="cd" style="margin-top:6px">Khi nhân viên nói "sẽ cố" hay "sẽ xem xét" — đó là soft commitment, xác suất thực hiện dưới 30%. HR cần hỏi: "Anh có thể cụ thể hơn — hành động đó là gì, khi nào anh bắt đầu?"</div>
+  </div>
+  <div class="card-full">
+    <div class="cn">Bước 2 · Public commitment tăng xác suất thực hiện</div>
+    <div class="ct">Nói trước nhóm = áp lực xã hội tích cực</div>
+    <div class="cd" style="margin-top:6px">Nghiên cứu tâm lý xã hội (Cialdini) cho thấy cam kết công khai tăng tỷ lệ thực hiện lên 3x so với cam kết riêng. Trong training và meeting, tạo cơ hội để mọi người nói cam kết của họ trước nhóm nhỏ.</div>
+  </div>
+  <div class="card-full" style="margin-bottom:18px">
+    <div class="cn">Bước 3 · Follow-up có cấu trúc</div>
+    <div class="ct">Check-in sau 7 ngày — không phải kiểm soát, là hỗ trợ</div>
+    <div class="cd" style="margin-top:6px">Email ngắn: "Tuần trước anh cam kết [X]. Anh đã bắt đầu chưa? Có gì cản trở không?" — Câu hỏi này không phán xét, nó nhắc nhở và mở cửa để người kia xin hỗ trợ nếu bị kẹt.</div>
+  </div>
+
+  <div class="sec-title">Ngôn ngữ thay đổi hành vi — so sánh trực tiếp</div>
+  <div class="rf-tool" style="margin-bottom:18px">
+    <div class="rf-row">
+      <div class="rf-col"><div class="rf-label">❌ HR thường nói</div><div class="rf-text">"Anh nên cố gắng giao tiếp nhiều hơn với team."</div></div>
+      <div class="rf-col-mid">→</div>
+      <div class="rf-col"><div class="rf-label">✓ HR có ảnh hưởng nói</div><div class="rf-text">"Tuần này anh sẽ có 1 buổi 1:1 với ai trong team — và khi nào?"</div></div>
+    </div>
+    <div style="height:1px;background:var(--border)"></div>
+    <div class="rf-row">
+      <div class="rf-col"><div class="rf-label">❌ Sau training</div><div class="rf-text">"Hy vọng mọi người đã học được nhiều điều hữu ích."</div></div>
+      <div class="rf-col-mid">→</div>
+      <div class="rf-col"><div class="rf-label">✓ Sau training</div><div class="rf-text">"Một hành động cụ thể bạn sẽ làm khác đi vào ngày mai — là gì?"</div></div>
+    </div>
+    <div style="height:1px;background:var(--border)"></div>
+    <div class="rf-row">
+      <div class="rf-col"><div class="rf-label">❌ Thông báo policy</div><div class="rf-text">"Chính sách mới có hiệu lực từ tháng sau, mọi người đọc kỹ nhé."</div></div>
+      <div class="rf-col-mid">→</div>
+      <div class="rf-col"><div class="rf-label">✓ Thông báo policy</div><div class="rf-text">"Điều đầu tiên anh cần làm khác đi từ tháng sau là [cụ thể]. Anh có câu hỏi gì về bước đó không?"</div></div>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🪞</div>
+      <div><div class="ex-label">Phản chiếu thực tế</div><div class="ex-sub">Chia sẻ tình huống của bạn</div></div>
+    </div>
+    <label class="rlabel">Một lần gần đây bạn thông báo hoặc yêu cầu nhân viên/manager làm gì đó — nhưng họ không làm. Tình huống đó là gì?</label>
+    <textarea class="rinput" id="r4" placeholder="Mô tả ngắn — không cần hoàn hảo. Ví dụ: Yêu cầu manager điền form đánh giá trước deadline nhưng 40% vẫn nộp trễ..." oninput="CR4()"></textarea>
+    <div class="chint" id="rh4">Nhập ít nhất 20 ký tự để tiếp tục</div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 4</div>
+    <div class="tw-text">"Buổi training kết thúc không phải lúc mọi người 'hiểu' — mà lúc mọi người nói được một hành động cụ thể họ sẽ làm khác đi vào ngày mai."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(3)">← Quay lại</button>
+    <button class="btnnext" id="n4" onclick="go(5)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h4">Chia sẻ tình huống để tiếp tục (tối thiểu 20 ký tự)</div>
+</div>
+
+<!-- ═══ M5 ═══ -->
+<div class="mv" id="m5">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Giao Tiếp & Ảnh Hưởng · Cấp 1</div>
+      <div class="hero-num">Bài 5 / 6</div>
+      <div class="hero-title">Hóa giải xung đột nội bộ</div>
+    </div>
+  </div>
+
+  <div class="lead">"Hai manager tranh luận gay gắt về việc chia sẻ nhân sự trong cao điểm. HR được gọi vào để 'phân xử'. Hiền quan sát và nhận ra: không ai trong phòng đang sai. Cả hai đều đúng — nhưng đang bảo vệ hai mục tiêu khác nhau mà tổ chức chưa bao giờ làm rõ ai được ưu tiên. Vấn đề không phải giữa hai người. Vấn đề nằm trong hệ thống."</div>
+
+  <p class="body">HR không phải thẩm phán xung đột. HR là người <b>tái định nghĩa xung đột</b> — từ "ai đúng ai sai" sang "tổ chức cần giải quyết vấn đề gì." Đây là sự khác biệt giữa HR chữa triệu chứng và HR fix hệ thống.</p>
+
+  <div class="sec-title">4 kiểu xung đột trong tổ chức — và cách HR xử lý mỗi kiểu</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="cn" style="color:#22c55e">Kiểu 1 · Xung đột thông tin</div>
+      <div class="ct">Hai người hiểu khác nhau về cùng một sự kiện</div>
+      <div class="cd">Fix: Đặt câu hỏi để mỗi bên nói lại họ hiểu tình huống như thế nào — thường tự giải quyết sau khi thông tin được làm rõ.</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--gold)">Kiểu 2 · Xung đột lợi ích</div>
+      <div class="ct">Hai người muốn những thứ cạnh tranh nhau</div>
+      <div class="cd">Fix: Tìm "underlying interest" phía sau mỗi position. Thường có giải pháp thỏa mãn cả hai nếu biết cái gì thật sự quan trọng với từng người.</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--cyan)">Kiểu 3 · Xung đột giá trị</div>
+      <div class="ct">Hai người có quan điểm khác nhau về "đúng/sai"</div>
+      <div class="cd">Fix: Không cần ai thay đổi giá trị. Cần thỏa thuận về hành vi trong công việc — tách biệt giá trị cá nhân với quy tắc nghề nghiệp.</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:#ef4444">Kiểu 4 · Xung đột cấu trúc</div>
+      <div class="ct">Hệ thống tạo ra áp lực buộc người ta xung đột</div>
+      <div class="cd">Fix: HR cần leo thang vấn đề lên cấp quản lý — không phải hòa giải hai cá nhân mà là thay đổi cơ chế. Đây là kiểu HR hay bỏ sót nhất.</div>
+    </div>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">Kỹ thuật "Reframe" — câu hỏi phá vỡ thế đối lập</div>
+    <p style="margin-bottom:8px">Khi hai bên đang ở thế "ai đúng ai sai", HR dùng câu hỏi để chuyển sang góc nhìn chung:</p>
+    <p style="margin-bottom:6px"><b style="color:var(--cyan)">"Nếu hai anh cùng ngồi xuống và tìm giải pháp tốt nhất cho công ty — không phải cho bộ phận của anh — thì giải pháp đó trông như thế nào?"</b></p>
+    <p style="font-size:12.5px;color:var(--muted)">Câu hỏi này không phán xét ai. Nó mời cả hai vào vị trí "cùng giải quyết vấn đề" thay vì "chứng minh mình đúng".</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">⚡</div>
+      <div><div class="ex-label">Phân loại xung đột</div><div class="ex-sub">Chọn kiểu xung đột phù hợp — chỉ chọn 1</div></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--text);margin-bottom:13px;line-height:1.6"><b>Tình huống:</b> Trưởng phòng Marketing muốn giữ nhân viên giỏi nhất để chạy campaign Q4. Trưởng phòng Sales muốn người đó hỗ trợ team vì cao điểm doanh thu. Cả hai đều có lý. HR được gọi vào giải quyết.</p>
+    <div class="sc-cards" id="sc5">
+      <button class="sc-card" onclick="SC5(this,'wrong')">
+        <div class="sc-head"><span class="sc-badge" style="background:rgba(34,197,94,.1);color:#86efac">Kiểu 1</span><span style="font-size:13px;font-weight:500">Xung đột thông tin</span></div>
+        <div class="sc-body">Hai bên chưa nắm rõ nhau cần gì — làm rõ thông tin là đủ</div>
+      </button>
+      <button class="sc-card" onclick="SC5(this,'ok')">
+        <div class="sc-head"><span class="sc-badge" style="background:rgba(240,192,64,.1);color:#fcd34d">Kiểu 2</span><span style="font-size:13px;font-weight:500">Xung đột lợi ích</span></div>
+        <div class="sc-body">Hai bên muốn những thứ cạnh tranh nhau — cần tìm underlying interest và giải pháp cân bằng</div>
+      </button>
+      <button class="sc-card" onclick="SC5(this,'wrong')">
+        <div class="sc-head"><span class="sc-badge" style="background:rgba(34,211,238,.1);color:var(--cyan)">Kiểu 3</span><span style="font-size:13px;font-weight:500">Xung đột giá trị</span></div>
+        <div class="sc-body">Hai bên có quan điểm đạo đức khác nhau về điều gì là đúng</div>
+      </button>
+      <button class="sc-card" onclick="SC5(this,'wrong')">
+        <div class="sc-head"><span class="sc-badge" style="background:rgba(239,68,68,.1);color:#fca5a5">Kiểu 4</span><span style="font-size:13px;font-weight:500">Xung đột cấu trúc</span></div>
+        <div class="sc-body">Hệ thống tổ chức tạo ra xung đột — cần thay đổi cơ chế, không phải hòa giải cá nhân</div>
+      </button>
+    </div>
+    <div class="qfb" id="qf5"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 5</div>
+    <div class="tw-text">"Xung đột không phải vấn đề cần giải quyết — mà là tín hiệu chỉ đến nơi tổ chức cần được làm rõ. HR giỏi đọc được tín hiệu đó."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(4)">← Quay lại</button>
+    <button class="btnnext" id="n5" onclick="go(6)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h5">Chọn kiểu xung đột để tiếp tục</div>
+</div>
+
+<!-- ═══ M6 ═══ -->
+<div class="mv" id="m6">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Giao Tiếp & Ảnh Hưởng · Bài cuối</div>
+      <div class="hero-num">Bài 6 / 6</div>
+      <div class="hero-title">3 câu template cho mọi tình huống khó</div>
+    </div>
+  </div>
+
+  <div class="lead">"Người làm HR lâu năm không cần script cho mọi tình huống — nhưng họ có 3–5 câu nền tảng mà trong bất kỳ tình huống căng thẳng nào, họ có thể bám vào. Không phải vì câu đó hoàn hảo — mà vì nó mua thêm thời gian để họ bình tĩnh lại và nghĩ tiếp."</div>
+
+  <p class="body">Dưới đây là 3 câu Hiền đã dùng hàng trăm lần trong 30 năm — trong phòng sa thải, trong meeting board, trong exit interview lúc nhân viên khóc, trong cuộc họp manager nổi giận. Chúng không giải quyết vấn đề. Nhưng chúng mở cửa để vấn đề có thể được giải quyết.</p>
+
+  <div class="sec-title">3 câu nền tảng của HR có ảnh hưởng</div>
+
+  <div class="card-full" style="border-color:rgba(34,211,238,.3)">
+    <div class="cn" style="color:var(--cyan)">Câu 1 · Khi không biết phải nói gì</div>
+    <div class="ct" style="font-size:15px;font-style:italic;color:var(--cyan)">"Điều gì quan trọng nhất với anh/chị trong tình huống này?"</div>
+    <div class="cd" style="margin-top:8px">Tại sao hiệu quả: Dịch chuyển từ cảm xúc sang nhu cầu. Người đang tức giận hoặc buồn thường không biết mình thật sự cần gì — câu hỏi này giúp họ tự tìm ra. HR không cần có câu trả lời ngay. Chỉ cần lắng nghe câu trả lời của họ.</div>
+  </div>
+  <div class="card-full" style="border-color:rgba(34,211,238,.3)">
+    <div class="cn" style="color:var(--cyan)">Câu 2 · Khi cần trao quyền kiểm soát</div>
+    <div class="ct" style="font-size:15px;font-style:italic;color:var(--cyan)">"Anh/chị muốn tôi giúp theo cách nào nhất lúc này?"</div>
+    <div class="cd" style="margin-top:8px">Tại sao hiệu quả: Người cảm thấy mất kiểm soát (bị sa thải, bị kỷ luật, bị thay đổi không mong muốn) — cần lấy lại cảm giác agency. Câu này trao lại quyền lựa chọn cho họ. Câu trả lời thường là: "Chỉ cần nghe tôi nói thôi" — và đó là điều HR nên làm tiếp theo.</div>
+  </div>
+  <div class="card-full" style="border-color:rgba(34,211,238,.3);margin-bottom:18px">
+    <div class="cn" style="color:var(--cyan)">Câu 3 · Khi nghi ngờ còn điều chưa được nói</div>
+    <div class="ct" style="font-size:15px;font-style:italic;color:var(--cyan)">"Còn điều gì anh/chị chưa nói mà muốn tôi biết không?"</div>
+    <div class="cd" style="margin-top:8px">Tại sao hiệu quả: Câu hỏi này tạo "permission" để nói thêm. Nhiều người có thứ muốn nói nhưng không chắc có được phép — câu hỏi này cho phép họ. Trong exit interview, câu này thường mang lại thông tin quan trọng nhất của cả buổi.</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">✍️</div>
+      <div><div class="ex-label">Cam kết cuối khóa</div><div class="ex-sub">Tình huống nào bạn sẽ dùng ngay tuần này?</div></div>
+    </div>
+    <div id="cl6">
+      <div class="chi" onclick="TC6(this)" data-on="false">
+        <div class="chbox"></div>
+        <div class="chtext">Trong cuộc 1:1 tiếp theo với nhân viên — tôi sẽ dùng ít nhất 1 câu hỏi mở thay vì giải thích ngay<small>Mục tiêu: nghe nhiều hơn nói trong 5 phút đầu</small></div>
+      </div>
+      <div class="chi" onclick="TC6(this)" data-on="false">
+        <div class="chbox"></div>
+        <div class="chtext">Sau buổi training hoặc meeting tiếp theo — tôi sẽ hỏi mỗi người một hành động cụ thể họ sẽ làm khác đi<small>Không kết thúc bằng "hy vọng mọi người đã học được gì đó"</small></div>
+      </div>
+      <div class="chi" onclick="TC6(this)" data-on="false">
+        <div class="chbox"></div>
+        <div class="chtext">Lần tới khi có xung đột giữa hai bên — tôi sẽ phân loại kiểu xung đột trước khi can thiệp<small>Không vội vàng "hòa giải" khi chưa hiểu vấn đề thật sự là gì</small></div>
+      </div>
+      <div class="chi" onclick="TC6(this)" data-on="false">
+        <div class="chbox"></div>
+        <div class="chtext">Tôi sẽ chuẩn bị sẵn một HR Story ngắn (4 phần) để dùng trong đề xuất tiếp theo<small>Thay vì slide số liệu, bắt đầu bằng câu chuyện thật</small></div>
+      </div>
+      <div class="chi" onclick="TC6(this)" data-on="false">
+        <div class="chbox"></div>
+        <div class="chtext">Tôi sẽ thực hành im lặng 5–7 giây sau câu hỏi quan trọng — không lấp đầy khoảng lặng<small>Khoảng lặng không phải awkward — đó là nơi câu trả lời thật hình thành</small></div>
+      </div>
+    </div>
+    <div class="qfb" id="cf6"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Toàn khóa</div>
+    <div class="tw-text">"Giao tiếp không phải thứ bạn làm với người khác — đó là thứ bạn tạo ra cùng với người khác. HR giỏi không nói hay hơn — họ lắng nghe sâu hơn."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group · PeopleOS Community 2026</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(5)">← Quay lại</button>
+    <button class="btnnext" id="n6" onclick="done()" disabled>Hoàn thành khóa học ✓</button>
+  </div>
+  <div class="ulock" id="h6">Chọn ít nhất 2 cam kết để hoàn thành</div>
+</div>
+
+<!-- COMPLETE -->
+<div class="cscreen" id="complete">
+  <div class="cico">🎉</div>
+  <div class="ctitle">Hoàn thành xuất sắc!</div>
+  <div class="csub">Bạn đã hoàn thành khóa <b>Giao Tiếp & Ảnh Hưởng</b>.<br>6 bài học · 108 XP đã được ghi nhận.</div>
+  <div class="certcard">
+    <div class="cert-lbl">Chứng chỉ hoàn thành · PeopleOS</div>
+    <div class="cert-name">Giao Tiếp & Ảnh Hưởng</div>
+    <div class="cert-course">Cấp 1 — HR Staff & Specialist · 6 modules · ~18 phút</div>
+    <div class="cert-sig">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+  </div>
+  <button class="btncert" onclick="alert('Tính năng xuất PDF sẽ có trong phiên bản đầy đủ!')">Tải chứng chỉ PDF</button>
+  <button class="btnnext2" onclick="window.location.href='/k3-ai-literacy-hr'">Học tiếp → K3: AI Literacy cho HR</button>
+</div>
+
+</div>
+<script>
+var cur=1,tot=6,dm={};
+function buildDots(){
+  var c=document.getElementById('dots');c.innerHTML='';
+  for(var i=1;i<=tot;i++){
+    var d=document.createElement('div');
+    d.className='dot'+(i===cur?' active':(dm[i]?' done':''));
+    (function(n){d.onclick=function(){if(n<=cur||dm[n-1])go(n)}})(i);
+    c.appendChild(d);
+  }
+}
+function updP(){
+  var p=Math.round(((cur-1)/tot)*100);
+  document.getElementById('pfill').style.width=p+'%';
+  document.getElementById('ppct').textContent=p+'%';
+  document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;
+}
+function go(n){
+  document.getElementById('m'+cur).classList.remove('active');
+  dm[cur]=true;cur=n;
+  var el=document.getElementById('m'+cur);
+  if(el)el.classList.add('active');
+  buildDots();updP();window.scrollTo({top:0,behavior:'smooth'});
+}
+function unlock(b,h){
+  var bn=document.getElementById(b);if(bn)bn.disabled=false;
+  var hn=document.getElementById(h);if(hn)hn.style.display='none';
+}
+/* Quiz generic */
+function A(m,el,ans){
+  var id='q'+m+'opts';
+  document.querySelectorAll('#'+id+' .qopt').forEach(function(o){o.disabled=true});
+  var fb=document.getElementById('qf'+m);
+  var correct={1:'B',2:'C'};
+  if(ans===correct[m]){
+    el.classList.add('correct');fb.className='qfb show correct';
+    if(m===1)fb.textContent='Đúng! Câu hỏi mở "bao nhiêu thời gian, ai bị ảnh hưởng" cho HR thông tin thực tế để giải quyết vấn đề — thay vì defend policy hay gửi thêm tài liệu. EQ cao là tò mò trước, giải thích sau.';
+    if(m===2)fb.textContent='Đúng! "Điều gì đang chiếm nhiều năng lượng nhất" là câu hỏi mở, không phán xét, không dẫn dắt — và cho phép nhân viên nói đến bất kỳ nguyên nhân nào (cá nhân, công việc, mối quan hệ) thay vì chỉ trả lời yes/no.';
+    unlock('n'+m,'h'+m);
+  } else {
+    el.classList.add('wrong');
+    var opts=document.querySelectorAll('#'+id+' .qopt');
+    var ci={1:1,2:2}[m];
+    opts[ci].classList.add('correct');
+    fb.className='qfb show wrong';
+    if(m===1)fb.textContent='Chưa đúng. (A) defend policy tạo thế đối lập. (C) gửi tài liệu không giải quyết vấn đề manager đang gặp. (D) đóng cửa hoàn toàn. Câu B hỏi để hiểu — đó là bước đầu tiên của mọi giải pháp tốt.';
+    if(m===2)fb.textContent='Chưa đúng. (A) câu hỏi dẫn dắt, có thể tạo cảm giác bị xâm phạm. (B) câu đóng, nhân viên chỉ cần nói có/không. (D) giả định vấn đề nằm ở company support, có thể không đúng. Câu C mở không gian để nhân viên tự nói ra điều quan trọng với họ.';
+    setTimeout(function(){unlock('n'+m,'h'+m)},1600);
+  }
+}
+/* M3 story builder */
+function buildStory(){
+  var a=document.getElementById('t3a').value.trim();
+  var b=document.getElementById('t3b').value.trim();
+  var c=document.getElementById('t3c').value.trim();
+  var d=document.getElementById('t3d').value.trim();
+  var out=document.getElementById('t3out');
+  var res=document.getElementById('t3result');
+  if(a.length>5&&b.length>5&&c.length>5&&d.length>5){
+    out.className='tmpl-output show';
+    res.textContent=a+'. Tuy nhiên, '+b+'. Vì vậy, '+c+'. Kết quả: '+d+'.';
+    unlock('n3','h3');
+  } else {out.className='tmpl-output'}
+}
+/* M4 reflect */
+function CR4(){
+  var t=document.getElementById('r4').value;
+  var h=document.getElementById('rh4');
+  if(t.length>=20){
+    h.textContent='Cảm ơn bạn đã chia sẻ thật lòng ✓';h.style.color='var(--cyan)';
+    unlock('n4','h4');
+  } else {
+    h.textContent='Còn '+Math.max(0,20-t.length)+' ký tự nữa';h.style.color='var(--subtle)';
+  }
+}
+/* M5 scenario */
+function SC5(el,type){
+  document.querySelectorAll('#sc5 .sc-card').forEach(function(c){c.disabled=true});
+  var fb=document.getElementById('qf5');
+  if(type==='ok'){
+    el.classList.add('picked-ok');fb.className='qfb show correct';
+    fb.textContent='Chính xác! Đây là xung đột lợi ích — hai manager đều muốn điều tốt cho bộ phận họ, nhưng nguồn lực có hạn. HR cần tìm underlying interest: cả hai thực sự cần gì từ nhân viên đó, và liệu có cách nào phân chia thời gian hoặc tìm giải pháp thay thế thỏa mãn cả hai không?';
+    unlock('n5','h5');
+  } else {
+    el.classList.add('picked-bad');
+    document.querySelectorAll('#sc5 .sc-card')[1].classList.add('picked-ok');
+    fb.className='qfb show wrong';
+    fb.textContent='Chưa đúng. Hai bên đều biết rõ nhau cần gì (không phải xung đột thông tin). Không có vấn đề đạo đức (không phải xung đột giá trị). Hệ thống không sai — chỉ là resource có hạn (không phải xung đột cấu trúc). Đây là xung đột lợi ích — cần tìm giải pháp thỏa mãn underlying interest của cả hai.';
+    setTimeout(function(){unlock('n5','h5')},1600);
+  }
+}
+/* M6 checklist */
+var cc6=0;
+function TC6(el){
+  var box=el.querySelector('.chbox');
+  var on=el.getAttribute('data-on')==='true';
+  if(!on){box.classList.add('on');el.setAttribute('data-on','true');cc6++}
+  else{box.classList.remove('on');el.setAttribute('data-on','false');cc6--}
+  var fb=document.getElementById('cf6');
+  if(cc6>=2){
+    fb.className='qfb show correct';
+    fb.textContent='Tốt lắm! Bạn đã cam kết '+cc6+' thực hành. Ghi vào lịch để không quên — tốt nhất là gắn với một cuộc họp cụ thể tuần này.';
+    unlock('n6','h6');
+  } else {
+    fb.className='';
+    var bn=document.getElementById('n6');if(bn)bn.disabled=true;
+    var hn=document.getElementById('h6');if(hn)hn.style.display='';
+  }
+}
+/* DONE */
+function done(){
+  document.getElementById('m6').style.display='none';
+  document.getElementById('complete').classList.add('show');
+  dm[6]=true;cur=7;
+  document.getElementById('pfill').style.width='100%';
+  document.getElementById('ppct').textContent='100%';
+  document.getElementById('plabel').textContent='Hoàn thành!';
+  buildDots();window.scrollTo({top:0,behavior:'smooth'});
+  localStorage.setItem('peopleos_k2_done','true');
+}
+buildDots();updP();
+</script>
+</body>
+</html>
