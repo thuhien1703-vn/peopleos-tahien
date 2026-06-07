@@ -1016,34 +1016,31 @@ updateUI();
 
 
 // ═══════════════════════════════════════════════════
-// AUTH SYSTEM — PeopleOS
+// AUTH SYSTEM — PeopleOS Hub
+// Không dùng giot/done/save vì hub không có các biến này
+// Chỉ dùng localStorage và fetch API
 // ═══════════════════════════════════════════════════
-(function() {
-  // --- State ---
-  let user = null;
+(function initAuth() {
+  var user = null;
 
   // Load từ sessionStorage
   try {
-    const s = sessionStorage.getItem('pos_user');
-    if (s) { user = JSON.parse(s); applyUser(); }
+    var s = sessionStorage.getItem('pos_user');
+    if (s) { user = JSON.parse(s); _applyUserUI(); }
   } catch(e) {}
 
-  // --- Public API ---
+  // Public API
   window.Auth = {
-    open: function(redirect) {
-      if (redirect) window._authRedirect = redirect;
+    open: function() {
       if (user) { _showScreen(3); }
       document.getElementById('authOverlay').classList.add('open');
     },
     close: function() {
       document.getElementById('authOverlay').classList.remove('open');
-      if (window._authRedirect) {
-        var r = window._authRedirect;
-        window._authRedirect = null;
-        window.location.href = r;
-      }
     },
-    sendOTP: async function() {
+    getUser: function() { return user; },
+
+    sendOTP: function() {
       var name = document.getElementById('aName').value.trim();
       var email = document.getElementById('aEmail').value.trim();
       var err = document.getElementById('aErr1');
@@ -1052,22 +1049,22 @@ updateUI();
       if (!name) { err.className='auth-err on'; err.textContent='Vui lòng nhập họ và tên'; return; }
       if (!email || !email.includes('@')) { err.className='auth-err on'; err.textContent='Email không hợp lệ'; return; }
       btn.disabled = true; btn.textContent = 'Đang gửi...';
-      try {
-        var res = await fetch('/api/send-otp', {
-          method:'POST', headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({email, name})
-        });
-        var data = await res.json();
-        if (!res.ok) { err.className='auth-err on'; err.textContent=data.error||'Lỗi gửi mã'; btn.disabled=false; btn.textContent='Gửi mã xác minh →'; return; }
+      fetch('/api/send-otp', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({email: email, name: name})
+      }).then(function(res) { return res.json().then(function(data) { return {ok:res.ok, data:data}; }); })
+      .then(function(r) {
+        if (!r.ok) { err.className='auth-err on'; err.textContent=r.data.error||'Lỗi gửi mã'; btn.disabled=false; btn.textContent='Gửi mã xác minh →'; return; }
         document.getElementById('aOTPEmail').textContent = 'Mã đã gửi tới ' + email;
         _showScreen(2);
-        document.getElementById('aOTP').focus();
-      } catch(e) {
+        setTimeout(function(){ document.getElementById('aOTP').focus(); }, 100);
+      }).catch(function() {
         err.className='auth-err on'; err.textContent='Lỗi kết nối. Thử lại.';
         btn.disabled=false; btn.textContent='Gửi mã xác minh →';
-      }
+      });
     },
-    verifyOTP: async function() {
+
+    verifyOTP: function() {
       var email = document.getElementById('aEmail').value.trim();
       var otp = document.getElementById('aOTP').value.trim();
       var err = document.getElementById('aErr2');
@@ -1075,103 +1072,75 @@ updateUI();
       err.className = 'auth-err';
       if (otp.length !== 6) { err.className='auth-err on'; err.textContent='Nhập đủ 6 chữ số'; return; }
       btn.disabled=true; btn.textContent='Đang xác minh...';
-      try {
-        var res = await fetch('/api/verify-otp', {
-          method:'POST', headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({email, otp})
-        });
-        var data = await res.json();
-        if (!res.ok) { err.className='auth-err on'; err.textContent=data.error||'Mã không đúng'; btn.disabled=false; btn.textContent='Xác minh →'; return; }
-        user = data.user;
+      fetch('/api/verify-otp', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({email: email, otp: otp})
+      }).then(function(res) { return res.json().then(function(data) { return {ok:res.ok, data:data}; }); })
+      .then(function(r) {
+        if (!r.ok) { err.className='auth-err on'; err.textContent=r.data.error||'Mã không đúng'; btn.disabled=false; btn.textContent='Xác minh →'; return; }
+        user = r.data.user;
         sessionStorage.setItem('pos_user', JSON.stringify(user));
-        // Merge Giọt: lấy max giữa local vs cloud
+        // Merge Giọt: lấy max local vs cloud
         var localGiot = parseInt(localStorage.getItem('pos_giot')||'0');
-        if (localGiot > (user.giot||0)) {
+        var cloudGiot = user.giot || 0;
+        if (localGiot > cloudGiot) {
+          // Sync local lên cloud
+          fetch('/api/update-giot', {method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({email:user.email, giot:localGiot, done:JSON.parse(localStorage.getItem('pos_done')||'[]'), streak:0})
+          });
           user.giot = localGiot;
-          user.done = JSON.parse(localStorage.getItem('pos_done')||'[]');
-          window._syncCloud();
         } else {
-          giot = user.giot || 0;
-          done = new Set(user.done || []);
-          save();
+          // Apply cloud xuống local
+          localStorage.setItem('pos_giot', cloudGiot);
+          localStorage.setItem('pos_done', JSON.stringify(user.done||[]));
         }
-        // Show screen 3
         document.getElementById('aWelcomeName').textContent = user.name;
         document.getElementById('aWelcomeEmail').textContent = user.email;
-        document.getElementById('aWelcomeGiot').textContent = giot;
+        document.getElementById('aWelcomeGiot').textContent = user.giot || 0;
         _showScreen(3);
-        applyUser();
-      } catch(e) {
+        _applyUserUI();
+        sessionStorage.setItem('pos_user', JSON.stringify(user));
+      }).catch(function() {
         err.className='auth-err on'; err.textContent='Lỗi kết nối.';
         btn.disabled=false; btn.textContent='Xác minh →';
-      }
+      });
     },
-    resend: async function() {
+
+    resend: function() {
       var name = document.getElementById('aName').value.trim();
       var email = document.getElementById('aEmail').value.trim();
-      await fetch('/api/send-otp', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,name})});
+      fetch('/api/send-otp', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,name:name})});
       document.getElementById('aOTPEmail').textContent = 'Mã mới đã gửi tới ' + email;
-    },
-    getUser: function() { return user; }
+    }
   };
 
-  // Legacy alias
   window.openAuthModal = function() { Auth.open(); };
 
-  // --- Sync to Firebase ---
-  window._syncCloud = async function() {
+  function _applyUserUI() {
     if (!user) return;
-    try {
-      await fetch('/api/update-giot', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({email:user.email, giot:giot, done:[...done], streak:parseInt(localStorage.getItem('pos_streak')||'0')})
-      });
-      user.giot = giot; user.done = [...done];
-      sessionStorage.setItem('pos_user', JSON.stringify(user));
-    } catch(e) {}
-  };
-
-  // --- Apply user UI ---
-  function applyUser() {
-    if (!user) return;
+    var giotLocal = parseInt(localStorage.getItem('pos_giot')||'0');
+    var g = Math.max(giotLocal, user.giot||0);
     var navRight = document.getElementById('nav-right-area');
     if (navRight) {
       navRight.innerHTML =
-        '<div class="giot-pill">💧 <span id="giot-val">' + (giot||0) + '</span> Giọt</div>' +
-        '<div class="nav-user" onclick="Auth.open()">' +
-          '<div class="nav-avatar">' + user.name.charAt(0).toUpperCase() + '</div>' +
-          '<div class="nav-uname">' + user.name.split(' ').slice(-1)[0] + '</div>' +
+        '<div class="giot-pill">💧 <span id="giot-val">' + g + '</span> Giọt</div>' +
+        '<div class="nav-user" onclick="Auth.open()" style="display:flex;align-items:center;gap:8px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.15);border-radius:20px;padding:5px 14px 5px 8px;cursor:pointer">' +
+          '<div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#06B6D4,#062040);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#F0F6FF">' + user.name.charAt(0).toUpperCase() + '</div>' +
+          '<div style="font-size:12px;color:#F0F6FF;font-weight:600;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + user.name.split(' ').slice(-1)[0] + '</div>' +
         '</div>';
     }
-    updateUI();
   }
 
-  // --- Step indicator ---
   function _showScreen(n) {
     [1,2,3].forEach(function(i) {
-      document.getElementById('aScreen'+i).style.display = i===n ? 'block' : 'none';
+      var el = document.getElementById('aScreen'+i);
+      if (el) el.style.display = i===n ? 'block' : 'none';
       var dot = document.getElementById('asd'+i);
-      if (i < n) { dot.className='auth-step-dot done'; dot.textContent='✓'; }
-      else if (i===n) { dot.className='auth-step-dot active'; dot.textContent=i; }
-      else { dot.className='auth-step-dot pending'; dot.textContent=i; }
-    });
-    [1,2].forEach(function(i) {
+      if (dot) { dot.className='auth-step-dot '+(i<n?'done':i===n?'active':'pending'); dot.textContent=i<n?'✓':i; }
       var bar = document.getElementById('asb'+i);
-      if (bar) bar.className = 'auth-step-bar' + (i<n?' done':'');
+      if (bar) bar.className='auth-step-bar'+(i<n?' done':'');
     });
   }
-
-  // --- Patch save() để auto sync ---
-  var _origSave = window.save;
-  window.save = function() {
-    localStorage.setItem('pos_done', JSON.stringify([...done]));
-    localStorage.setItem('pos_giot', giot);
-    if (user) window._syncCloud();
-    // update giot-val nếu đang đăng nhập
-    var gv = document.getElementById('giot-val');
-    if (gv) gv.textContent = giot;
-  };
-
 })();
 
 </script>>
