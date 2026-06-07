@@ -4,124 +4,870 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PeopleOS Learning Hub · by TaHien</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Từ HR Manager → CHRO. Không phải may mắn. Là hệ thống. Miễn phí · Gamified · Dành cho HR professionals Việt Nam">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#020B18;--navy2:#062040;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--gold3:#d97706;--text:#F0F6FF;--muted:#94A3B8;--subtle:#4A7A94;--glass:rgba(255,255,255,0.05);--border:rgba(34,211,238,0.15);--r:14px}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"Be Vietnam Pro",sans-serif;background:var(--navy);color:var(--text);min-height:100vh;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 10% 0%,rgba(6,182,212,.08) 0%,transparent 55%),radial-gradient(ellipse 60% 40% at 90% 100%,rgba(240,192,64,.05) 0%,transparent 55%)}
-.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:28px 20px 80px}
+:root{
+  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--navy4:#0F3A60;
+  --cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--gold2:#FDE68A;
+  --text:#F0F6FF;--muted:#94A3B8;--border:#0F3050;--border2:#1A4060;
+  --r:16px;--r-sm:10px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--navy);color:var(--text);line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 80% 50% at 10% -5%,rgba(6,182,212,.08) 0%,transparent 50%),
+             radial-gradient(ellipse 60% 40% at 90% 100%,rgba(240,192,64,.05) 0%,transparent 50%)}
+.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 24px}
+
 /* NAV */
-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0 14px;border-bottom:1px solid var(--border);margin-bottom:40px}
-.logo{display:flex;align-items:center;gap:10px}
-.lmark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--teal),var(--navy2));display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;font-size:14px;color:var(--cyan);border:1px solid rgba(34,211,238,.3)}
-.lname{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;color:var(--cyan)}
-.lsub{font-size:11px;color:var(--muted);margin-left:4px}
+nav{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
+  height:58px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;position:sticky;top:0;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}
+.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
+.nav-links{display:flex;gap:24px}
+.nav-links a{color:var(--muted);font-size:13px;text-decoration:none;background:none;border:none;cursor:pointer;padding:0}
+.nav-links a:hover{color:var(--cyan)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.xp-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;
+  padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;display:flex;gap:5px;align-items:center}
+.avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--navy2));
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;
+  border:2px solid var(--cyan);color:var(--text)}
+
 /* HERO */
-.hero{text-align:center;margin-bottom:48px}
-.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.25);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--cyan);font-weight:600;letter-spacing:.06em;margin-bottom:16px}
-.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan)}
-h1{font-family:"Playfair Display",serif;font-size:clamp(26px,4vw,42px);font-weight:800;line-height:1.2;margin-bottom:12px}
+.hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 60%,var(--navy3) 100%);
+  border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero-inner{display:flex;align-items:center;justify-content:space-between;gap:32;padding:60px 24px 48px}
+.hero-left{flex:1}
+.hero-badge-pill{display:inline-flex;align-items:center;gap:8px;background:var(--navy3);
+  border:1px solid var(--teal);border-radius:20px;padding:4px 14px;font-size:11px;
+  color:var(--cyan);font-weight:700;margin-bottom:20px;letter-spacing:.08em}
+.hero-badge-pill::before{content:'✦';font-size:9px}
+h1{font-family:'Playfair Display',serif;font-size:46px;font-weight:800;line-height:1.15;margin:0 0 6px}
 h1 span{color:var(--cyan)}
-.sub{font-size:15px;color:var(--muted);max-width:500px;margin:0 auto 24px;line-height:1.7}
-.stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap}
-.stat-num{font-family:"Playfair Display",serif;font-size:28px;font-weight:700;color:var(--cyan);display:block}
+.hero-desc{font-size:17px;color:var(--muted);margin-bottom:6px}
+.hero-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
+.btn-primary{background:linear-gradient(135deg,var(--teal),var(--cyan));color:var(--navy);
+  border:none;border-radius:28px;padding:14px 36px;font-size:15px;font-weight:700;
+  cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:transform .15s,box-shadow .15s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(34,211,238,.3)}
+.hero-right{display:flex;flex-direction:column;gap:12px;flex-shrink:0}
+.stat-card{background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:16px 20px}
+.stat-row{display:flex;gap:20px;align-items:center}
+.stat-item{text-align:center}
+.stat-num{font-size:22px;font-weight:700;color:var(--cyan)}
 .stat-label{font-size:11px;color:var(--muted)}
-/* PHASE */
-.phase-title{font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin:36px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-/* COURSE GRID */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:8px}
-/* COURSE CARD */
-.course-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;text-decoration:none;color:inherit;display:block;transition:all .2s;position:relative;overflow:hidden}
-.course-card:hover{border-color:rgba(34,211,238,.35);transform:translateY(-2px)}
-.course-card.live{border-color:rgba(34,211,238,.25)}
-.course-card.soon{opacity:.65;cursor:default}
-.cc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.cc-emoji{font-size:26px;width:42px;height:42px;background:rgba(255,255,255,.06);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cc-num{font-size:10px;color:var(--muted);margin-bottom:3px;letter-spacing:.05em}
-.cc-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
-.cc-sub{font-size:12px;color:var(--muted)}
-.cc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06)}
-.cc-dur{font-size:11px;color:var(--subtle)}
-.cc-status{font-size:11px;font-weight:600;padding:3px 9px;border-radius:8px}
-.status-live{background:rgba(34,211,238,.12);color:var(--cyan)}
-.status-soon{background:rgba(255,255,255,.06);color:var(--subtle)}
-.cc-xp{font-size:11px;color:var(--gold);font-weight:600}
+.stat-divider{width:1px;height:40px;background:var(--border);flex-shrink:0}
+.xp-bar-wrap{height:6px;background:var(--navy3);border-radius:99;overflow:hidden;margin:6px 0}
+.xp-bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--cyan));border-radius:99;transition:width .4s}
+
+/* STATS BAR */
+.stats-bar{background:linear-gradient(90deg,var(--teal),var(--cyan));padding:20px 24px}
+.stats-bar-inner{display:flex;justify-content:space-around;align-items:center;max-width:1200px;margin:0 auto}
+.stat-big{text-align:center}
+.stat-big-num{font-size:28px;font-weight:800;color:var(--navy)}
+.stat-big-label{font-size:12px;color:var(--navy);font-weight:600}
+
+/* HOW IT WORKS */
+.section{padding:56px 0}
+.section-tag{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px}
+.section-h2{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;margin-bottom:6px}
+.section-sub{font-size:14px;color:var(--muted);margin-bottom:32px}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.how-card{background:var(--navy3);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.how-thumb{height:120px;background:linear-gradient(135deg,var(--navy4),var(--navy3));
+  display:flex;align-items:flex-end;padding:12px 16px;font-size:36px}
+.how-body{padding:16px 18px}
+.how-num{font-size:22px;font-weight:800;color:var(--cyan);margin-bottom:6px}
+.how-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.how-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* DAILY CHALLENGE */
+.daily{background:linear-gradient(135deg,#2D1000,#1A0A00);border-bottom:2px solid var(--gold);padding:32px 24px}
+.daily-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.daily-tag{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:1px}
+.daily-sub{font-size:13px;color:var(--muted);margin-top:4px}
+.daily-timer{background:var(--navy);border:1px solid var(--border);border-radius:10px;
+  padding:6px 16px;font-size:13px;color:var(--gold);font-weight:700}
+.daily-q{font-size:16px;font-weight:600;margin-bottom:16px;line-height:1.6}
+.daily-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.daily-opt{background:var(--navy2);border:1px solid var(--border);border-radius:12px;
+  padding:12px 16px;text-align:left;cursor:pointer;font-size:13px;color:var(--muted);
+  display:flex;gap:10px;align-items:center;transition:all .2s;font-family:'Be Vietnam Pro',sans-serif}
+.daily-opt:hover:not(:disabled){border-color:var(--gold);color:var(--text)}
+.daily-opt.correct{background:#001A14!important;border-color:var(--teal)!important;color:var(--cyan)!important}
+.daily-opt.wrong{background:#1A0000!important;border-color:#B71C1C!important;color:#EF5350!important}
+.daily-letter{width:26px;height:26px;border-radius:50%;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+
+/* CAROUSEL SECTION */
+.carousel-section{padding:48px 0}
+.carousel-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px}
+.hot-badge{background:#EF4444;color:#fff;font-size:12px;font-weight:700;
+  padding:4px 14px;border-radius:20px;display:inline-flex;margin-bottom:10px}
+.new-badge{background:var(--navy2);border:1px solid var(--teal);color:var(--cyan);font-size:12px;font-weight:700;
+  padding:4px 14px;border-radius:20px;display:inline-flex;margin-bottom:10px}
+.section-h2-sm{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;margin:0 0 4px}
+.btn-ghost{background:none;border:1px solid var(--border);color:var(--cyan);border-radius:20px;
+  padding:8px 18px;font-size:13px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif}
+.btn-ghost:hover{border-color:var(--cyan)}
+/* course carousel */
+.carousel-wrap{position:relative}
+.carousel-scroll{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+.carousel-scroll::-webkit-scrollbar{display:none}
+.carousel-btn{position:absolute;top:40%;width:36px;height:36px;border-radius:50%;
+  background:var(--navy2);border:1px solid var(--border);color:var(--cyan);
+  font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5}
+.carousel-btn.prev{left:-18px}
+.carousel-btn.next{right:-18px}
+/* course card */
+.course-card{background:var(--navy2);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;min-width:260px;max-width:280px;flex-shrink:0;cursor:pointer;
+  transition:transform .15s,border-color .15s;position:relative}
+.course-card:hover:not(.soon){transform:translateY(-3px);border-color:var(--teal)}
+.course-card.soon{opacity:.8;cursor:default}
+.course-card.done{border-color:var(--teal)}
+.card-thumb{height:130px;background:linear-gradient(135deg,var(--navy3),var(--navy4));
+  display:flex;align-items:center;justify-content:center;font-size:52px;position:relative}
+.card-badges{position:absolute;top:10px;left:10px;display:flex;gap:6px;flex-wrap:wrap}
+.badge-cat{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;color:var(--navy)}
+.badge-hot{background:#EF4444;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
+.badge-soon{background:var(--navy3);color:var(--muted);font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;border:1px solid var(--border)}
+.badge-done{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;
+  background:var(--teal);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.card-body{padding:14px 16px}
+.card-meta{font-size:11px;color:var(--muted);margin-bottom:4px}
+.card-title{font-size:14px;font-weight:600;margin-bottom:2px;line-height:1.4}
+.card-sub{font-size:12px;color:var(--muted);margin-bottom:12px}
+.card-btn{width:100%;background:linear-gradient(135deg,var(--teal),var(--navy4));color:var(--navy);
+  border:none;border-radius:24px;padding:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif}
+.card-btn:hover:not(:disabled){filter:brightness(1.1)}
+
+/* SKILLS */
+.skills-section{background:var(--navy2);border-bottom:1px solid var(--border);padding:56px 0}
+.skill-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:24px}
+.skill-tab{background:var(--navy3);border:1px solid var(--border);border-top:3px solid transparent;
+  border-radius:14px;padding:14px 10px;cursor:pointer;text-align:center;transition:all .2s}
+.skill-tab.active{border-top-color:currentColor}
+.skill-tab-emoji{font-size:24px;margin-bottom:6px}
+.skill-tab-name{font-size:11px;font-weight:700;line-height:1.3}
+.skill-tab-count{font-size:10px;color:var(--muted);margin-top:4px}
+.skill-stat{background:var(--navy3);border:1px solid var(--border);border-radius:10px;
+  padding:10px 16px;margin-bottom:20px;font-size:12px;color:var(--gold)}
+
+/* LEARNING PATHS */
+.paths-section{background:var(--navy);border-bottom:1px solid var(--border);padding:56px 0}
+.path-accordion{display:flex;flex-direction:column;gap:12px}
+.path-item{background:var(--navy2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .2s}
+.path-item.open{border-color:currentColor}
+.path-header{width:100%;background:none;border:none;padding:20px 24px;cursor:pointer;
+  display:flex;align-items:center;gap:16px;border-left:4px solid currentColor;text-align:left}
+.path-icon{width:52px;height:52px;border-radius:50%;background:var(--navy3);
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+  border:2px solid currentColor;flex-shrink:0}
+.path-info{flex:1}
+.path-tag{font-size:11px;font-weight:700;letter-spacing:.8px;margin-bottom:2px}
+.path-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:2px}
+.path-target{font-size:13px;color:var(--muted)}
+.path-meta{display:flex;gap:12px;align-items:center}
+.path-xp{background:#1A1200;border:1px solid var(--gold);color:var(--gold);
+  font-size:12px;font-weight:700;padding:4px 12px;border-radius:10px}
+.path-courses-count{font-size:13px;color:var(--muted)}
+.path-arrow{font-size:18px;transition:transform .2s}
+.path-body{border-top:1px solid var(--border)}
+.path-tier{padding:16px 24px;border-bottom:1px solid var(--border)}
+.tier-label{font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:12px}
+.tier-label.now{color:var(--cyan)}
+.tier-label.future{color:var(--gold)}
+.tier-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tier-item{background:var(--navy3);border:1px solid var(--border);border-radius:10px;
+  padding:10px 12px;text-align:left;cursor:pointer;display:flex;gap:8px;align-items:center;
+  transition:all .2s;font-family:'Be Vietnam Pro',sans-serif;color:var(--text)}
+.tier-item:hover:not(.soon-item){border-color:var(--teal)}
+.tier-item.done-item{background:#001A14;border-color:var(--teal)}
+.tier-item.soon-item{cursor:default}
+.tier-emoji{font-size:18px;flex-shrink:0}
+.tier-title{font-size:12px;font-weight:600;line-height:1.3;flex:1}
+.path-start{padding:16px 24px}
+.btn-path{border:none;border-radius:24px;padding:10px 24px;font-size:13px;font-weight:700;
+  cursor:pointer;font-family:'Be Vietnam Pro',sans-serif}
+
+/* LEADERBOARD */
+.lb-section{background:var(--navy2);border-bottom:1px solid var(--border);padding:56px 0}
+.lb-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.lb-card{background:var(--navy3);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.lb-topbar{background:linear-gradient(135deg,var(--navy4),var(--navy3));padding:12px 20px;
+  font-size:12px;color:var(--cyan);font-weight:600;display:flex;gap:6px;align-items:center}
+.lb-row{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--border)}
+.lb-row:last-child{border-bottom:none}
+.lb-row.gold-bg{background:#0D1F0F}
+.lb-rank{width:28px;text-align:center;font-size:16px}
+.lb-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--navy3));
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.lb-name{font-size:14px;font-weight:600}
+.lb-level{font-size:11px;color:var(--muted)}
+.lb-xp{font-size:16px;font-weight:700;color:var(--cyan)}
+.lb-xp-label{font-size:10px;color:var(--muted);text-align:right}
+.lb-me-row{display:flex;align-items:center;gap:14px;padding:14px 20px;
+  background:var(--navy4);border-top:2px solid var(--cyan)}
+.lb-me-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--navy));
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;
+  border:2px solid var(--cyan)}
+.lb-me-name{font-size:14px;font-weight:600;color:var(--cyan)}
+.lb-me-xp{font-size:16px;font-weight:700;color:var(--gold)}
+.prog-right{display:flex;flex-direction:column;gap:12px}
+.prog-card{background:var(--navy3);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+
+/* FOUNDER */
+.founder-section{background:var(--navy);border-bottom:1px solid var(--border);padding:56px 0}
+.founder-inner{display:flex;gap:32px;align-items:center}
+.founder-avatar{width:100px;height:100px;border-radius:50%;
+  background:linear-gradient(135deg,var(--teal),var(--navy2));
+  display:flex;align-items:center;justify-content:center;font-size:42px;
+  border:3px solid var(--cyan);flex-shrink:0}
+.founder-tag{font-size:11px;color:var(--gold);font-weight:700;margin-bottom:4px}
+.founder-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin-bottom:4px}
+.founder-role{font-size:13px;color:var(--muted);margin-bottom:12px}
+.founder-bio{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:16px;max-width:600px}
+.founder-stats{display:flex;gap:20px}
+.founder-stat-num{font-size:22px;font-weight:700;color:var(--cyan)}
+.founder-stat-label{font-size:12px;color:var(--muted)}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,var(--navy2),var(--navy3));
+  border-bottom:1px solid var(--border);padding:56px 24px;text-align:center}
+.cta-h2{font-family:'Playfair Display',serif;font-size:30px;font-weight:800;margin-bottom:8px}
+.cta-p{font-size:15px;color:var(--muted);margin-bottom:8px}
+.cta-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.cta-row{display:flex;gap:10px;justify-content:center}
+.cta-input{background:var(--navy2);border:1px solid var(--border);border-radius:24px;
+  padding:12px 20px;font-size:14px;color:var(--text);width:260px;outline:none;font-family:'Be Vietnam Pro',sans-serif}
+.cta-input:focus{border-color:var(--cyan)}
+.cta-fine{font-size:11px;color:var(--muted);margin-top:10px}
+
 /* FOOTER */
-footer{text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--subtle);line-height:1.8}
+footer{background:var(--navy);padding:40px 24px 24px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--cyan);margin-bottom:6px}
+.footer-sub{font-size:12px;color:var(--muted);line-height:1.8}
+.footer-col-title{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px}
+.footer-link{font-size:12px;color:var(--muted);margin-bottom:8px;display:block}
+.footer-bottom{border-top:1px solid var(--border);padding-top:16px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:12px;color:var(--muted)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(2,11,24,.92);z-index:200;
+  display:flex;align-items:center;justify-content:center;padding:20px;display:none}
+.modal-overlay.open{display:flex}
+.modal{background:var(--navy2);border:1px solid var(--teal);border-radius:20px;
+  padding:28px 32px;max-width:600px;width:100%;max-height:85vh;overflow-y:auto}
+.modal-close{float:right;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer}
+.modal-icon{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--navy));
+  display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.modal-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:2px}
+.modal-meta{font-size:11px;color:var(--muted);margin-bottom:3px}
+.modal-sub{font-size:13px;color:var(--cyan)}
+.modal-content-box{background:var(--navy3);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin:16px 0}
+.modal-content-label{font-size:11px;color:var(--cyan);font-weight:700;letter-spacing:.8px;margin-bottom:8px}
+.modal-content-text{font-size:14px;color:var(--muted);line-height:1.7}
+.quiz-q{font-size:14px;font-weight:600;margin-bottom:12px;line-height:1.6}
+.quiz-opts{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{background:var(--navy);border:1px solid var(--border);border-radius:10px;
+  padding:12px 16px;text-align:left;cursor:pointer;font-size:13px;color:var(--muted);
+  display:flex;gap:10px;align-items:center;transition:all .2s;font-family:'Be Vietnam Pro',sans-serif}
+.quiz-opt:hover:not(:disabled){border-color:var(--cyan);color:var(--text)}
+.quiz-opt.correct{background:#001A14!important;border-color:var(--teal)!important;color:var(--cyan)!important}
+.quiz-opt.wrong{background:#1A0000!important;border-color:#B71C1C!important;color:#EF5350!important}
+.modal-open-btn{display:block;width:100%;padding:14px;margin-top:16px;
+  background:linear-gradient(135deg,var(--teal),var(--cyan));color:var(--navy);
+  border:none;border-radius:24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;
+  text-decoration:none;text-align:center}
+.modal-open-btn:hover{filter:brightness(1.08)}
+
+@media(max-width:768px){
+  .hero-inner{flex-direction:column}
+  .how-grid,.skill-tabs,.tier-grid,.lb-grid,.footer-grid{grid-template-columns:1fr}
+  .daily-opts{grid-template-columns:1fr}
+  .founder-inner{flex-direction:column;text-align:center}
+  .skill-tabs{grid-template-columns:repeat(3,1fr)}
+  .how-grid{grid-template-columns:1fr}
+  .stats-bar-inner{flex-wrap:wrap;gap:20px}
+  h1{font-size:32px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+
+<!-- NAV -->
 <nav>
-  <div class="logo">
-    <div class="lmark">水</div>
-    <span class="lname">PeopleOS</span>
-    <span class="lsub">by TaHien</span>
+  <div style="display:flex;align-items:center">
+    <span class="nav-logo">PeopleOS</span>
+    <span class="nav-sub">Learning Hub &nbsp;by TaHien</span>
   </div>
-  <div style="font-size:12px;color:var(--muted)">AI-powered · Human-centered · Always.</div>
+  <div class="nav-links">
+    <a href="#paths">Chương trình</a>
+    <a href="#skills">Lĩnh vực</a>
+    <a href="#leaderboard">Xếp hạng</a>
+    <a href="#founder">Về chúng tôi</a>
+  </div>
+  <div class="nav-right">
+    <div class="xp-pill" id="nav-xp">⚡ <span id="xp-val">0</span> XP</div>
+    <div class="avatar">H</div>
+  </div>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
-  <div class="badge">PeopleOS Learning Hub · 2026</div>
-  <h1>Từ HR Manager → <span>CHRO</span><br>Không phải may mắn. Là hệ thống.</h1>
-  <p class="sub">Framework Finance-HR Hybrid giúp bạn nói chuyện được với CEO, đọc được P&L, và leo lên C-level. Biên soạn bởi TaHien — CHCO, Golden Gate Group.</p>
-  <div class="stats">
-    <div class="stat"><span class="stat-num">6</span><div class="stat-label">Khóa LIVE ngay</div></div>
-    <div class="stat"><span class="stat-num">36</span><div class="stat-label">Modules</div></div>
-    <div class="stat"><span class="stat-num">~2h</span><div class="stat-label">Học ngay hôm nay</div></div>
+  <div class="wrap hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge-pill">AI-powered · Human-centered · Always.</div>
+      <h1>Học để<br><span>dẫn đầu.</span></h1>
+      <p class="hero-desc">Từ HR Manager → CHRO. Không phải may mắn. Là hệ thống.</p>
+      <p class="hero-sub">Miễn phí · Học mà chơi (gamified) · Dành cho HR professionals Việt Nam</p>
+      <button class="btn-primary" onclick="document.getElementById('courses-hot').scrollIntoView({behavior:'smooth'})">Bắt đầu miễn phí →</button>
+    </div>
+    <div class="hero-right">
+      <div class="stat-card">
+        <div class="stat-row">
+          <div class="stat-item"><div style="font-size:22px">🔥</div><div class="stat-num" id="streak">2</div><div class="stat-label">Chuỗi ngày</div></div>
+          <div class="stat-divider"></div>
+          <div class="stat-item"><div style="font-size:22px">🌱</div><div class="stat-num" style="font-size:14px;color:var(--gold)">Lv.1</div><div class="stat-label" style="color:var(--gold)">HR Explorer</div></div>
+          <div class="stat-divider"></div>
+          <div class="stat-item"><div style="font-size:22px">⚡</div><div class="stat-num" id="hero-xp">0</div><div class="stat-label">XP hôm nay</div></div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px">
+          <span>Tiến độ hôm nay</span><span style="color:var(--cyan)"><span id="xp-prog">0</span> / 500 XP</span>
+        </div>
+        <div class="xp-bar-wrap"><div class="xp-bar-fill" id="xp-bar" style="width:0%"></div></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px;text-align:right"><span id="done-count">0</span> / 6 khóa hoàn thành</div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="phase-title">Phase 1 — Cấp 1: HR Staff & Specialist · 6 khóa · LIVE</div>
-<div class="grid">
-  <a class="course-card live" href="/k1-eq-selfmastery">
-    <div class="cc-top"><div class="cc-emoji">🧠</div><div><div class="cc-num">K1 · EQ & Lãnh Đạo</div><div class="cc-title">EQ & Self-Mastery</div><div class="cc-sub">Nền tảng cảm xúc cho HR</div></div></div>
-    <div class="cc-footer"><span class="cc-dur">~18 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+108 XP</span></div>
-  </a>
-  <a class="course-card live" href="/k2-giao-tiep-anh-huong">
-    <div class="cc-top"><div class="cc-emoji">💬</div><div><div class="cc-num">K2 · EQ & Lãnh Đạo</div><div class="cc-title">Giao Tiếp & Ảnh Hưởng</div><div class="cc-sub">Nói để người khác hành động</div></div></div>
-    <div class="cc-footer"><span class="cc-dur">~18 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+108 XP</span></div>
-  </a>
-  <a class="course-card live" href="/k3-ai-literacy-hr">
-    <div class="cc-top"><div class="cc-emoji">🤖</div><div><div class="cc-num">K3 · AI-First HR</div><div class="cc-title">AI Literacy Cho HR</div><div class="cc-sub">Prompt · Tools · Automation</div></div></div>
-    <div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+120 XP</span></div>
-  </a>
-  <a class="course-card live" href="/k4-hr-ops-thuc-chien">
-    <div class="cc-top"><div class="cc-emoji">📋</div><div><div class="cc-num">K4 · HR Operations ★</div><div class="cc-title">HR Ops Thực Chiến</div><div class="cc-sub">Hợp đồng · C&B · HRIS VN</div></div></div>
-    <div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+120 XP</span></div>
-  </a>
-  <a class="course-card live" href="/k5-recruiting-co-ban">
-    <div class="cc-top"><div class="cc-emoji">🔍</div><div><div class="cc-num">K5 · Talent ★</div><div class="cc-title">Recruiting Cơ Bản</div><div class="cc-sub">JD · Sourcing · Phỏng vấn</div></div></div>
-    <div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+120 XP</span></div>
-  </a>
-  <a class="course-card live" href="/k6-ld-thuc-chien">
-    <div class="cc-top"><div class="cc-emoji">🎓</div><div><div class="cc-num">K6 · L&D ★</div><div class="cc-title">L&D Thực Chiến</div><div class="cc-sub">ADDIE · Kirkpatrick · ILT</div></div></div>
-    <div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-live">✓ Live</span><span class="cc-xp">+120 XP</span></div>
-  </a>
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-big"><div class="stat-big-num">👩‍💼 1,200+</div><div class="stat-big-label">HR Professionals</div></div>
+    <div class="stat-big"><div class="stat-big-num">📚 6</div><div class="stat-big-label">Khóa đang mở</div></div>
+    <div class="stat-big"><div class="stat-big-num">🌐 63+</div><div class="stat-big-label">Tỉnh thành VN</div></div>
+  </div>
 </div>
 
-<div class="phase-title">Phase 2 — Cấp 2: HR Manager & Senior · 6 khóa · Sắp ra</div>
-<div class="grid">
-  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">⚡</div><div><div class="cc-num">K7 · EQ & Lãnh Đạo</div><div class="cc-title">Leadership Không Chức Danh</div><div class="cc-sub">Dẫn dắt bằng ảnh hưởng</div></div></div><div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+132 XP</span></div></div>
-  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">🧩</div><div><div class="cc-num">K8 · EQ & Lãnh Đạo</div><div class="cc-title">Tư Duy Hệ Thống</div><div class="cc-sub">Quyết định bằng dữ liệu</div></div></div><div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+132 XP</span></div></div>
-  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">🔄</div><div><div class="cc-num">K9 · EQ & Lãnh Đạo</div><div class="cc-title">Quản Trị Thay Đổi</div><div class="cc-sub">ADKAR · Kháng cự · Văn hóa</div></div></div><div class="cc-footer"><span class="cc-dur">~20 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+132 XP</span></div></div>
-  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">💼</div><div><div class="cc-num">K10 · Finance-HR ★</div><div class="cc-title">HRBP Mindset</div><div class="cc-sub">P&L · 9-box · Business lang</div></div></div><div class="cc-footer"><span class="cc-dur">~22 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+144 XP</span></div></div>
-  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">📈</div><div><div class="cc-num">K11 · Finance-HR ★</div><div class="cc-title">Performance · RevPAMH</div><div class="cc-sub">OKR · KPI · Calibration</div></div></div><div class="cc-footer"><span class="cc-dur">~22 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+144 XP</span></div></div>
-  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">📊</div><div><div class="cc-num">K12 · People Analytics ★</div><div class="cc-title">HR Analytics Cơ Bản</div><div class="cc-sub">Attrition · Dashboard · Story</div></div></div><div class="cc-footer"><span class="cc-dur">~22 phút · 6 bài</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+144 XP</span></div></div>
+<!-- HOW IT WORKS -->
+<div class="section" style="background:linear-gradient(180deg,rgba(6,32,64,0),var(--navy2))">
+  <div class="wrap">
+    <div class="section-tag">HOW IT WORKS</div>
+    <h2 class="section-h2">Học như thế nào?</h2>
+    <div class="how-grid">
+      <div class="how-card"><div class="how-thumb">🎯</div><div class="how-body"><div class="how-num">01</div><div class="how-title">Chọn lộ trình của bạn</div><div class="how-desc">HR Foundation · Finance-HR Hybrid · CHRO Accelerator — tìm đúng hành trình cho vị trí của bạn</div></div></div>
+      <div class="how-card"><div class="how-thumb">⚡</div><div class="how-body"><div class="how-num">02</div><div class="how-title">Bài học nhỏ 10–20 phút</div><div class="how-desc">Bài học ngắn, súc tích, thiết kế cho HR Manager bận rộn. Học mọi lúc, mọi nơi.</div></div></div>
+      <div class="how-card"><div class="how-thumb">🏆</div><div class="how-body"><div class="how-num">03</div><div class="how-title">Tích XP & lên cấp</div><div class="how-desc">Mỗi bài = XP + huy hiệu + chuỗi ngày học liên tục — và chứng chỉ khi hoàn thành.</div></div></div>
+    </div>
+  </div>
 </div>
 
-<div class="phase-title">Phase 3 — Cấp 3: CHRO & HR Director · 6 khóa · Sắp ra</div>
-<div class="grid">
-  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">👑</div><div><div class="cc-num">K13</div><div class="cc-title">Executive Presence</div><div class="cc-sub">Board · CEO · C-suite lang</div></div></div><div class="cc-footer"><span class="cc-dur">~25 phút</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+156 XP</span></div></div>
-  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">💰</div><div><div class="cc-num">K17 · Finance-HR ★</div><div class="cc-title">Finance-HR Hybrid</div><div class="cc-sub">Total Rewards · ESOP · IPO</div></div></div><div class="cc-footer"><span class="cc-dur">~25 phút</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+168 XP</span></div></div>
-  <div class="course-card soon"><div class="cc-top"><div class="cc-emoji">🔭</div><div><div class="cc-num">K18 · People Analytics ★</div><div class="cc-title">People Analytics Nâng Cao</div><div class="cc-sub">Predictive · RevPAMH+ · ROI</div></div></div><div class="cc-footer"><span class="cc-dur">~25 phút</span><span class="cc-status status-soon">Sắp ra</span><span class="cc-xp">+168 XP</span></div></div>
+<!-- DAILY CHALLENGE -->
+<div class="daily">
+  <div class="wrap">
+    <div class="daily-header">
+      <div><div class="daily-tag">🔥 THỬ THÁCH HÔM NAY</div><div class="daily-sub">30 giây · +20 XP</div></div>
+      <div class="daily-timer">CÂU HỎI MỚI SAU <span id="timer">04:00</span></div>
+    </div>
+    <p class="daily-q">Theo RevPAMH framework, HR cần đo chỉ số nào để CEO hiểu đóng góp của nhân lực vào doanh thu?</p>
+    <div class="daily-opts" id="daily-opts">
+      <button class="daily-opt" onclick="pickDaily(0,false)"><span class="daily-letter">A</span>Headcount so với kế hoạch tuyển dụng</button>
+      <button class="daily-opt" onclick="pickDaily(1,true)"><span class="daily-letter">B</span>Doanh thu trên mỗi giờ lao động sẵn sàng phục vụ (RevPAMH)</button>
+      <button class="daily-opt" onclick="pickDaily(2,false)"><span class="daily-letter">C</span>Tỷ lệ turnover hàng tháng theo phòng ban</button>
+      <button class="daily-opt" onclick="pickDaily(3,false)"><span class="daily-letter">D</span>Chi phí tuyển dụng trên mỗi hire thành công</button>
+    </div>
+    <div id="daily-fb" style="margin-top:12px;font-size:13px;color:var(--cyan);font-weight:600;display:none">
+      🎉 Chính xác! +20 XP — RevPAMH (Revenue Per Available Man-Hour) là metric HR nên report cho CEO.
+    </div>
+  </div>
 </div>
 
+<!-- HOT COURSES -->
+<div class="carousel-section" id="courses-hot" style="background:linear-gradient(135deg,#1A0A00,var(--navy));border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="carousel-header">
+      <div>
+        <div class="hot-badge">🔥 HOT</div>
+        <h2 class="section-h2-sm">Khóa học nổi bật</h2>
+        <p style="font-size:13px;color:var(--muted);margin:0">Được học nhiều nhất</p>
+      </div>
+    </div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn prev" onclick="scroll('hot',-1)">‹</button>
+      <div class="carousel-scroll" id="carousel-hot"></div>
+      <button class="carousel-btn next" onclick="scroll('hot',1)">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEW COURSES -->
+<div class="carousel-section" style="background:var(--navy);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="carousel-header">
+      <div>
+        <div class="new-badge">✨ MỚI</div>
+        <h2 class="section-h2-sm">Khóa học mới</h2>
+        <p style="font-size:13px;color:var(--muted);margin:0">Vừa ra mắt · Phase 1 hoàn chỉnh</p>
+      </div>
+    </div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn prev" onclick="scroll('new',-1)">‹</button>
+      <div class="carousel-scroll" id="carousel-new"></div>
+      <button class="carousel-btn next" onclick="scroll('new',1)">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- 6 SKILLS -->
+<div class="skills-section" id="skills">
+  <div class="wrap">
+    <div class="section-tag">LĨNH VỰC KỸ NĂNG</div>
+    <h2 class="section-h2">6 lĩnh vực HR hiện đại</h2>
+    <p class="section-sub">Chọn lĩnh vực để xem các khóa học</p>
+    <div class="skill-tabs" id="skill-tabs"></div>
+    <div class="skill-stat" id="skill-stat"></div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn prev" onclick="scroll('skill',-1)">‹</button>
+      <div class="carousel-scroll" id="carousel-skill"></div>
+      <button class="carousel-btn next" onclick="scroll('skill',1)">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- LEARNING PATHS -->
+<div class="paths-section" id="paths">
+  <div class="wrap">
+    <div class="section-tag">GO PEOPLEOS SKILLVERSE</div>
+    <h2 class="section-h2">Chương trình học</h2>
+    <p class="section-sub">Ba lộ trình · Ba cấp độ · Một hành trình từ HR Manager → CHRO</p>
+    <div class="path-accordion" id="path-accordion"></div>
+  </div>
+</div>
+
+<!-- LEADERBOARD -->
+<div class="lb-section" id="leaderboard">
+  <div class="wrap">
+    <div class="section-tag">BẢNG TUẦN</div>
+    <h2 class="section-h2">Bảng xếp hạng live</h2>
+    <p class="section-sub">Ai đang dẫn đầu XP ngay lúc này?</p>
+    <div class="lb-grid">
+      <div class="lb-card">
+        <div class="lb-topbar">⚡ Xếp hạng theo thời gian thực</div>
+        <div id="lb-rows"></div>
+        <div class="lb-me-row">
+          <div style="width:28px;text-align:center;font-size:13px;color:var(--muted)">96</div>
+          <div class="lb-me-avatar">H</div>
+          <div style="flex:1"><div class="lb-me-name">Bạn</div><div style="font-size:11px;color:var(--muted)">HR Explorer</div></div>
+          <div class="lb-me-xp" id="me-xp">0 XP</div>
+        </div>
+      </div>
+      <div class="prog-right">
+        <div class="prog-card">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:4px">Lộ trình của bạn</div>
+          <div style="font-size:20px;font-weight:700;color:var(--cyan);margin-bottom:12px">HR Foundation (Phase 1)</div>
+          <div class="xp-bar-wrap"><div class="xp-bar-fill" id="path-bar" style="width:0%"></div></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:6px"><span id="path-prog">0 / 6 khóa</span></div>
+        </div>
+        <div class="prog-card" style="text-align:center">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:10px">Vào học để thăng hạng!</div>
+          <button class="btn-primary" style="width:100%;padding:12px" onclick="document.getElementById('courses-hot').scrollIntoView({behavior:'smooth'})">Vào học để thăng hạng →</button>
+        </div>
+        <div class="prog-card" style="display:flex;gap:16px">
+          <div><div style="font-size:20px">🏅</div><div style="font-size:13px;font-weight:600"><span id="done-badge">0</span> Hoàn thành</div><div style="font-size:11px;color:var(--muted)">khóa học</div></div>
+          <div><div style="font-size:20px">⚡</div><div style="font-size:13px;font-weight:600"><span id="total-xp-badge">0</span> XP tổng</div><div style="font-size:11px;color:var(--muted)">tích lũy</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:16px">
+      <button class="btn-ghost">Xem bảng đầy đủ →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOUNDER -->
+<div class="founder-section" id="founder">
+  <div class="wrap">
+    <div class="section-tag">FOUNDER</div>
+    <div class="founder-inner">
+      <div class="founder-avatar">👩‍💼</div>
+      <div>
+        <div class="founder-tag">⭐ Giảng viên chính (Master Instructor)</div>
+        <div class="founder-name">Tạ Thị Thu Hiền</div>
+        <div class="founder-role">CHCO · Golden Gate Group · Finance-HR Hybrid Pioneer · CMA Australia</div>
+        <p class="founder-bio">Với hơn 20 năm kinh nghiệm trong tập đoàn F&B lớn nhất Việt Nam (600+ nhà hàng, 20.000+ nhân viên), là người đầu tiên đưa Finance-HR Hybrid framework vào thực tiễn HR Việt Nam, TaHien tin rằng HR giỏi nhất là HR biết nói ngôn ngữ của CEO.</p>
+        <div class="founder-stats">
+          <div><div class="founder-stat-num">20+</div><div class="founder-stat-label">Năm kinh nghiệm</div></div>
+          <div><div class="founder-stat-num">600+</div><div class="founder-stat-label">Nhà hàng quản lý</div></div>
+          <div><div class="founder-stat-num">1,200+</div><div class="founder-stat-label">HR đã đào tạo</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div style="max-width:600px;margin:0 auto">
+    <h2 class="cta-h2">Sẵn sàng dẫn đầu?</h2>
+    <p class="cta-p">Cùng cộng đồng 1,200+ HR professionals Việt Nam — hoàn toàn miễn phí</p>
+    <p class="cta-sub">Đăng ký nhận thông báo khi có khóa học mới ra mắt.</p>
+    <div class="cta-row">
+      <input class="cta-input" placeholder="email@congty.com" type="email">
+      <button class="btn-primary" style="padding:12px 24px">Đăng ký</button>
+    </div>
+    <p class="cta-fine">Bạn có thể huỷ đăng ký bất cứ lúc nào.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
-  TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>
-  PeopleOS Community · 2026 · AI-powered. Human-centered. Always.
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">PeopleOS</div>
+        <div class="footer-sub">Learning Hub · by TaHien<br>Miễn phí · Học mà chơi (gamified)<br>Dành cho HR professionals Việt Nam</div>
+      </div>
+      <div><div class="footer-col-title">Kết nối với TaHien</div><span class="footer-link">LinkedIn: TaHien</span><span class="footer-link">#PeopleOS</span><span class="footer-link">#HRxAI</span><span class="footer-link">#FinanceHR</span></div>
+      <div><div class="footer-col-title">Hệ sinh thái</div><span class="footer-link">🌐 PeopleOS Community</span><span class="footer-link">📧 Newsletter Beehiiv</span><span class="footer-link">🤖 Hana AI Assistant</span><span class="footer-link">🔧 Claude Cowork</span></div>
+      <div><div class="footer-col-title">Tài nguyên</div><span class="footer-link">📖 HR Prompt Library</span><span class="footer-link">📊 Finance-HR Toolkit</span><span class="footer-link">🎓 Chứng chỉ</span><span class="footer-link">💼 Career Path Guide</span></div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 PeopleOS Learning Hub · by TaHien</div>
+      <div class="footer-copy" style="font-style:italic">AI-powered. Human-centered. Always.</div>
+    </div>
+  </div>
 </footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
+    <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:20px">
+      <div class="modal-icon" id="m-icon">📚</div>
+      <div>
+        <div class="modal-meta" id="m-meta"></div>
+        <div class="modal-title" id="m-title"></div>
+        <div class="modal-sub" id="m-sub"></div>
+      </div>
+    </div>
+    <div class="modal-content-box">
+      <div class="modal-content-label">NỘI DUNG BÀI HỌC</div>
+      <div class="modal-content-text">Bài học micro-learning 10–20 phút — đọc được ngay, áp dụng được hôm nay.<br>Gồm: Concept chính · Ví dụ thực tế HR · Quiz kiểm tra · Câu mang đi</div>
+    </div>
+    <div class="modal-content-box">
+      <div class="modal-content-label">🔍 KIỂM TRA NHANH</div>
+      <div class="quiz-q">Theo Finance-HR Hybrid, HR cần biết đọc chỉ số nào để tham gia vào quyết định kinh doanh cùng CEO?</div>
+      <div class="quiz-opts" id="m-quiz">
+        <button class="quiz-opt" onclick="pickModalQuiz(0,false)"><span class="daily-letter">A</span>Tỷ lệ retention và turnover hàng tháng</button>
+        <button class="quiz-opt" onclick="pickModalQuiz(1,true)"><span class="daily-letter">B</span>P&L, Budget HC, RevPAMH — ngôn ngữ của CEO và CFO</button>
+        <button class="quiz-opt" onclick="pickModalQuiz(2,false)"><span class="daily-letter">C</span>Satisfaction score sau mỗi chương trình training</button>
+        <button class="quiz-opt" onclick="pickModalQuiz(3,false)"><span class="daily-letter">D</span>Số lượng headcount theo từng phòng ban</button>
+      </div>
+    </div>
+    <a id="m-link" href="#" class="modal-open-btn">Vào học ngay →</a>
+  </div>
 </div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────
+const COURSES = [
+  {id:101,cat:"EQ & Lãnh Đạo",     color:"#22D3EE", emoji:"🧠", title:"EQ & Self-Mastery",           sub:"Nền tảng cảm xúc cho HR",       dur:"~18 phút",level:"HR Staff",  hot:true,  url:"/k1-eq-selfmastery",       xp:108, modules:6},
+  {id:102,cat:"EQ & Lãnh Đạo",     color:"#22D3EE", emoji:"💬", title:"Giao Tiếp & Ảnh Hưởng",      sub:"Nói để người khác hành động",   dur:"~18 phút",level:"HR Staff",  hot:true,  url:"/k2-giao-tiep-anh-huong",  xp:108, modules:6},
+  {id:103,cat:"AI-First HR",        color:"#A78BFA", emoji:"🤖", title:"AI Literacy Cho HR",          sub:"Prompt · Tools · Automation",   dur:"~20 phút",level:"HR Staff",  hot:true,  url:"/k3-ai-literacy-hr",       xp:120, modules:6},
+  {id:104,cat:"HR Operations",      color:"#F97316", emoji:"📋", title:"HR Ops Thực Chiến",           sub:"Hợp đồng · C&B · HRIS VN",     dur:"~20 phút",level:"HR Staff",  hot:false, url:"/k4-hr-ops-thuc-chien",    xp:120, modules:6},
+  {id:105,cat:"Talent",             color:"#F472B6", emoji:"🔍", title:"Recruiting Cơ Bản",           sub:"JD · Sourcing · Phỏng vấn",    dur:"~20 phút",level:"HR Staff",  hot:false, url:"/k5-recruiting-co-ban",    xp:120, modules:6},
+  {id:106,cat:"L&D",                color:"#10B981", emoji:"🎓", title:"L&D Thực Chiến",              sub:"ADDIE · Kirkpatrick · ILT",     dur:"~20 phút",level:"HR Staff",  hot:false, url:"/k6-ld-thuc-chien",        xp:120, modules:6},
+  // Phase 2 — sắp ra
+  {id:201,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"⚡",title:"Leadership Không Chức Danh",sub:"Dẫn dắt bằng ảnh hưởng",dur:"~20 phút",level:"HR Manager",hot:false,soon:true,xp:132},
+  {id:202,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"🧩",title:"Tư Duy Hệ Thống",sub:"Quyết định bằng dữ liệu",dur:"~20 phút",level:"HR Manager",hot:false,soon:true,xp:132},
+  {id:203,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"🔄",title:"Quản Trị Thay Đổi",sub:"ADKAR · Kháng cự · Văn hóa",dur:"~20 phút",level:"HR Manager",hot:false,soon:true,xp:132},
+  {id:210,cat:"Finance-HR",color:"#F0C040",emoji:"💼",title:"HRBP Mindset",sub:"P&L · 9-box · Business lang",dur:"~22 phút",level:"HRBP",hot:true,soon:true,xp:144},
+  {id:211,cat:"Finance-HR",color:"#F0C040",emoji:"📈",title:"Performance · RevPAMH ★",sub:"OKR · KPI · Calibration",dur:"~22 phút",level:"HRBP",hot:true,soon:true,xp:144},
+  {id:212,cat:"People Analytics",color:"#34D399",emoji:"📊",title:"HR Analytics Cơ Bản ★",sub:"Attrition · Dashboard · Story",dur:"~22 phút",level:"HRBP",hot:false,soon:true,xp:144},
+  // Phase 3
+  {id:301,cat:"CHRO Mindset",color:"#FB923C",emoji:"👑",title:"Executive Presence",sub:"Board · CEO · C-suite lang",dur:"~25 phút",level:"CHRO",hot:false,soon:true,xp:156},
+  {id:302,cat:"Finance-HR",color:"#F0C040",emoji:"💰",title:"Finance-HR Hybrid ★",sub:"Total Rewards · ESOP · IPO",dur:"~25 phút",level:"CHRO",hot:false,soon:true,xp:168},
+  {id:303,cat:"People Analytics",color:"#34D399",emoji:"🔭",title:"People Analytics+ ★",sub:"Predictive · RevPAMH+ · ROI",dur:"~25 phút",level:"CHRO",hot:false,soon:true,xp:168},
+];
+
+const SKILLS = [
+  {key:"EQ & Lãnh Đạo",  emoji:"🧠",color:"#22D3EE",stat:"📈 EQ là kỹ năng #1 phân biệt HR effective và HR excellent"},
+  {key:"AI-First HR",     emoji:"🤖",color:"#A78BFA",stat:"📈 Kỹ năng AI-literacy tăng 70% nhu cầu tuyển dụng (LinkedIn 2026)"},
+  {key:"Finance-HR",      emoji:"💰",color:"#F0C040",stat:"📈 Finance-HR Hybrid là top 3 kỹ năng hot nhất cho CHRO 2026"},
+  {key:"People Analytics",emoji:"📊",color:"#34D399",stat:"📈 People Analytics tăng 185% nhu cầu HRBP toàn cầu"},
+  {key:"Talent",          emoji:"🎯",color:"#F472B6",stat:"📈 Bar Raiser methodology: quality-of-hire tăng 40%"},
+  {key:"HR Operations",   emoji:"📋",color:"#F97316",stat:"📈 HR Ops chuẩn giảm 30% rủi ro pháp lý cho chuỗi F&B"},
+  {key:"L&D",             emoji:"🎓",color:"#10B981",stat:"📈 Kirkpatrick L4 measurement tăng L&D budget approval 2.5x"},
+  {key:"CHRO Mindset",    emoji:"👑",color:"#FB923C",stat:"📈 CHRO ngồi tại board table: tăng 60% tại Fortune 500"},
+];
+
+const PATHS = [
+  {key:"foundation",emoji:"🚀",name:"HR Foundation",color:"#22D3EE",target:"Dành cho HR Executive & HR Staff",tagline:"Xây nền tảng · Phát triển nghề nghiệp",xp:"+696 XP",courses:6,
+   tiers:[{name:"NOW-READY",cls:"now",ids:[101,102,103,104,105,106]}]},
+  {key:"finance-hr",emoji:"⚡",name:"Finance-HR Hybrid",color:"#F0C040",target:"Dành cho HRBP & HR Senior",tagline:"Nói chuyện được với CEO & CFO",xp:"+600 XP",courses:6,
+   tiers:[{name:"NOW-READY",cls:"now",ids:[210,211,212]},{name:"FUTURE-READY",cls:"future",ids:[302,303]}]},
+  {key:"chro",emoji:"👑",name:"CHRO Accelerator",color:"#A855F7",target:"Dành cho CHRO, CPO & C-suite HR",tagline:"Định hướng chiến lược · Dẫn dắt tổ chức",xp:"+800 XP",courses:5,
+   tiers:[{name:"NOW-READY",cls:"now",ids:[301]},{name:"FUTURE-READY",cls:"future",ids:[302,303]}]},
+];
+
+const LB = [
+  {rank:1,name:"Nguyễn Minh Châu",level:"AI Master HR",xp:2775,medal:"🥇"},
+  {rank:2,name:"Trần Thị Hoa",level:"Finance-HR Expert",xp:2120,medal:"🥈"},
+  {rank:3,name:"Lê Văn Đức",level:"CHRO Practitioner",xp:1895,medal:"🥉"},
+  {rank:4,name:"Phạm Thu Hằng",level:"HR Accelerator",xp:1540,medal:""},
+  {rank:5,name:"Vũ Thị Lan",level:"HR Foundation",xp:1230,medal:""},
+];
+
+// ── STATE ────────────────────────────────────────────────────
+let xp = 0, done = new Set(), openPath = null, openSkill = SKILLS[0].key;
+const saved = localStorage.getItem('pos_done');
+if (saved) { JSON.parse(saved).forEach(id => done.add(id)); }
+const savedXP = parseInt(localStorage.getItem('pos_xp')||'0');
+xp = savedXP;
+
+function save() {
+  localStorage.setItem('pos_done', JSON.stringify([...done]));
+  localStorage.setItem('pos_xp', xp);
+}
+
+function updateUI() {
+  const x = xp;
+  document.getElementById('xp-val').textContent = x;
+  document.getElementById('hero-xp').textContent = x;
+  document.getElementById('xp-prog').textContent = x;
+  document.getElementById('xp-bar').style.width = Math.min((x/500)*100,100)+'%';
+  document.getElementById('done-count').textContent = done.size;
+  document.getElementById('done-badge').textContent = done.size;
+  document.getElementById('total-xp-badge').textContent = x;
+  document.getElementById('me-xp').textContent = x+' XP';
+  const pct = Math.round((done.size/6)*100);
+  document.getElementById('path-bar').style.width = pct+'%';
+  document.getElementById('path-prog').textContent = done.size+' / 6 khóa · '+pct+'%';
+}
+
+// ── COURSE CARD HTML ─────────────────────────────────────────
+function cardHTML(c) {
+  const isDone = done.has(c.id);
+  const isSoon = !!c.soon;
+  const catColor = c.color || '#22D3EE';
+  return `<div class="course-card ${isSoon?'soon':''} ${isDone?'done':''}" onclick="${isSoon?'':'openModal('+c.id+')'}">
+    <div class="card-thumb">
+      <span style="font-size:52px">${c.emoji}</span>
+      <div class="card-badges">
+        <span class="badge-cat" style="background:${catColor}">${c.cat}</span>
+        ${c.hot?'<span class="badge-hot">HOT</span>':''}
+        ${isSoon?'<span class="badge-soon">Sắp ra</span>':''}
+      </div>
+      ${isDone?'<div class="badge-done">✓</div>':''}
+    </div>
+    <div class="card-body">
+      <div class="card-meta">Khóa học · VI · 🚀 ${c.level}</div>
+      <div class="card-title" style="color:${isDone?'var(--cyan)':'var(--text)'}">${c.title}</div>
+      <div class="card-sub">${c.dur} · ${c.sub}</div>
+      <button class="card-btn" ${isSoon?'disabled':''}>
+        ${isSoon?'🔔 Báo tôi khi ra mắt':isDone?'Xem lại →':'Vào học →'}
+      </button>
+    </div>
+  </div>`;
+}
+
+// ── RENDER CAROUSELS ─────────────────────────────────────────
+function renderCarousels() {
+  const hot = COURSES.filter(c => c.hot);
+  const newC = COURSES.filter(c => !c.soon);
+  document.getElementById('carousel-hot').innerHTML = hot.map(cardHTML).join('');
+  document.getElementById('carousel-new').innerHTML = newC.map(cardHTML).join('');
+  renderSkillCarousel();
+}
+
+function renderSkillCarousel() {
+  const filtered = COURSES.filter(c => c.cat === openSkill);
+  document.getElementById('carousel-skill').innerHTML = filtered.map(cardHTML).join('');
+}
+
+function scroll(id, dir) {
+  const el = document.getElementById('carousel-'+id);
+  el?.scrollBy({left: dir*300, behavior:'smooth'});
+}
+
+// ── SKILL TABS ────────────────────────────────────────────────
+function renderSkillTabs() {
+  const container = document.getElementById('skill-tabs');
+  container.innerHTML = SKILLS.map(s => {
+    const count = COURSES.filter(c => c.cat === s.key).length;
+    const active = openSkill === s.key;
+    return `<div class="skill-tab ${active?'active':''}" style="color:${s.color};border-top-color:${active?s.color:'transparent'}" onclick="setSkill('${s.key}')">
+      <div class="skill-tab-emoji">${s.emoji}</div>
+      <div class="skill-tab-name" style="color:${active?s.color:'var(--muted)'}">${s.key}</div>
+      <div class="skill-tab-count">${count} khóa</div>
+    </div>`;
+  }).join('');
+  const sk = SKILLS.find(s => s.key === openSkill);
+  document.getElementById('skill-stat').textContent = sk?.stat || '';
+}
+
+function setSkill(key) {
+  openSkill = key;
+  renderSkillTabs();
+  renderSkillCarousel();
+}
+
+// ── LEARNING PATHS ────────────────────────────────────────────
+function renderPaths() {
+  const container = document.getElementById('path-accordion');
+  container.innerHTML = PATHS.map(h => `
+    <div class="path-item ${openPath===h.key?'open':''}" style="border-color:${openPath===h.key?h.color:'var(--border)'}">
+      <button class="path-header" style="color:${h.color};border-left-color:${h.color}" onclick="togglePath('${h.key}')">
+        <div class="path-icon" style="border-color:${h.color}">${h.emoji}</div>
+        <div class="path-info">
+          <div class="path-tag" style="color:${h.color}">${h.name.toUpperCase()}</div>
+          <div class="path-name">${h.name}</div>
+          <div class="path-target">${h.target}</div>
+        </div>
+        <div class="path-meta">
+          <span class="path-xp">${h.xp}</span>
+          <span class="path-courses-count">${h.courses} khóa</span>
+          <span class="path-arrow" style="color:${h.color}">${openPath===h.key?'▾':'▸'}</span>
+        </div>
+      </button>
+      ${openPath===h.key ? renderPathBody(h) : ''}
+    </div>
+  `).join('');
+}
+
+function renderPathBody(h) {
+  return `<div class="path-body">
+    ${h.tiers.map(tier => {
+      const courses = tier.ids.map(id => COURSES.find(c => c.id === id)).filter(Boolean);
+      return `<div class="path-tier">
+        <div class="tier-label ${tier.cls}">📚 ${tier.name}</div>
+        <div class="tier-grid">
+          ${courses.map(c => `
+            <button class="tier-item ${c.soon?'soon-item':''} ${done.has(c.id)?'done-item':''}" 
+              style="border-color:${done.has(c.id)?'var(--teal)':'var(--border)'}"
+              onclick="${c.soon?'':'openModal('+c.id+')'}">
+              <span class="tier-emoji">${c.emoji}</span>
+              <span class="tier-title" style="color:${done.has(c.id)?'var(--cyan)':'var(--text)'}">${c.title}</span>
+              ${c.soon?'<span style="font-size:10px;color:var(--muted);margin-left:auto;flex-shrink:0">Sắp ra</span>':''}
+              ${done.has(c.id)?'<span style="margin-left:auto;color:var(--teal);font-size:12px">✓</span>':''}
+            </button>
+          `).join('')}
+        </div>
+      </div>`;
+    }).join('')}
+    <div class="path-start">
+      <button class="btn-path" style="background:linear-gradient(135deg,${h.color},var(--navy3));color:var(--navy)" onclick="document.getElementById('courses-hot').scrollIntoView({behavior:'smooth'})">
+        Bắt đầu ${h.name} →
+      </button>
+    </div>
+  </div>`;
+}
+
+function togglePath(key) {
+  openPath = openPath === key ? null : key;
+  renderPaths();
+}
+
+// ── LEADERBOARD ───────────────────────────────────────────────
+function renderLB() {
+  document.getElementById('lb-rows').innerHTML = LB.map((u,i) => `
+    <div class="lb-row ${i===0?'gold-bg':''}">
+      <div class="lb-rank">${u.medal||'#'+u.rank}</div>
+      <div class="lb-avatar">${u.name.split(' ').pop()[0]}</div>
+      <div style="flex:1"><div class="lb-name" style="color:${i===0?'var(--gold)':'var(--text)'}">${u.name}</div><div class="lb-level">${u.level}</div></div>
+      <div><div class="lb-xp">${u.xp.toLocaleString()}</div><div class="lb-xp-label">XP</div></div>
+    </div>
+  `).join('');
+}
+
+// ── MODAL ─────────────────────────────────────────────────────
+let currentCourse = null, quizDone = false;
+
+function openModal(id) {
+  const c = COURSES.find(x => x.id === id);
+  if (!c || c.soon) return;
+  currentCourse = c; quizDone = false;
+  document.getElementById('m-icon').textContent = c.emoji;
+  document.getElementById('m-meta').textContent = `Khóa học · ${c.dur} · +${c.xp} XP`;
+  document.getElementById('m-title').textContent = c.title;
+  document.getElementById('m-sub').textContent = c.sub;
+  // reset quiz
+  document.querySelectorAll('.quiz-opt').forEach(b => { b.disabled=false; b.className='quiz-opt'; });
+  // set link
+  const link = document.getElementById('m-link');
+  if (c.url) {
+    link.href = c.url;
+    link.textContent = done.has(c.id) ? 'Xem lại khóa học →' : 'Vào học ngay →';
+  } else {
+    link.href = '#';
+    link.textContent = '🔔 Sẽ ra mắt sớm';
+  }
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+  }
+}
+
+function pickModalQuiz(i, correct) {
+  if (quizDone) return;
+  quizDone = true;
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(b => b.disabled = true);
+  opts[i].classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) opts[1].classList.add('correct');
+  if (correct && currentCourse && !done.has(currentCourse.id)) {
+    xp += currentCourse.xp;
+    done.add(currentCourse.id);
+    save();
+    updateUI();
+    renderCarousels();
+    renderPaths();
+  }
+}
+
+// ── DAILY CHALLENGE ───────────────────────────────────────────
+let dailyDone = false;
+function pickDaily(i, correct) {
+  if (dailyDone) return;
+  dailyDone = true;
+  const opts = document.querySelectorAll('.daily-opt');
+  opts.forEach(b => b.disabled = true);
+  opts[i].classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) opts[1].classList.add('correct');
+  if (correct) {
+    xp += 20; save(); updateUI();
+    document.getElementById('daily-fb').style.display = 'block';
+  }
+}
+
+// ── TIMER ─────────────────────────────────────────────────────
+let secs = 240;
+setInterval(() => {
+  if (secs > 0) secs--;
+  const m = Math.floor(secs/60).toString().padStart(2,'0');
+  const s = (secs%60).toString().padStart(2,'0');
+  document.getElementById('timer').textContent = m+':'+s;
+}, 1000);
+
+// ── INIT ──────────────────────────────────────────────────────
+renderCarousels();
+renderSkillTabs();
+renderPaths();
+renderLB();
+updateUI();
+</script>
 </body>
 </html>
