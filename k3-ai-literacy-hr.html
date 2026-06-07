@@ -25,8 +25,9 @@ body::after{content:'AI';position:fixed;right:-30px;top:50%;transform:translateY
   font-size:280px;line-height:1;color:rgba(34,211,238,.022);pointer-events:none;z-index:0;
   font-family:'Playfair Display',serif;letter-spacing:-10px}
 .app{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 20px 100px}
-.topnav{display:flex;align-items:center;justify-content:space-between;
-  padding:18px 0 14px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.topnav{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
+  height:58px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;position:sticky;top:0;z-index:100}
 .back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);text-decoration:none;transition:color .18s}
 .back:hover{color:var(--cyan)}
 .logo{display:flex;align-items:center;gap:9px}
@@ -216,10 +217,11 @@ body::after{content:'AI';position:fixed;right:-30px;top:50%;transform:translateY
 
 <nav class="topnav">
   <a class="back" href="/">← Về Learning Hub</a>
-  <div class="logo">
-    <div class="lmark">水</div>
-    <div><div class="lname">PeopleOS</div><div class="lsub">by TaHien</div></div>
+  <div style="display:flex;align-items:center">
+    <span class="nav-logo">PeopleOS</span>
+    <span class="nav-sub">Learning Hub &nbsp;by TaHien</span>
   </div>
+  <div class="giot-pill">💧 <span id="nav-giot-display">0</span> Giọt</div>
 </nav>
 
 <div class="prog-wrap">
