@@ -49,6 +49,10 @@
     {
       "source": "/k6-ld-thuc-chien",
       "destination": "/k6-ld-thuc-chien.html"
+    },
+    {
+      "source": "/k7-leadership-khong-chuc-danh",
+      "destination": "/k7-leadership-khong-chuc-danh.html"
     }
   ]
 }
