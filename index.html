@@ -466,13 +466,8 @@ footer{background:var(--navy);padding:40px 24px 24px}
       <div><div class="daily-tag">🔥 THỬ THÁCH HÔM NAY</div><div class="daily-sub">30 giây · +20 XP</div></div>
       <div class="daily-timer">CÂU HỎI MỚI SAU <span id="timer">04:00</span></div>
     </div>
-    <p class="daily-q">Theo RevPAMH framework, HR cần đo chỉ số nào để CEO hiểu đóng góp của nhân lực vào doanh thu?</p>
-    <div class="daily-opts" id="daily-opts">
-      <button class="daily-opt" onclick="pickDaily(0,false)"><span class="daily-letter">A</span>Headcount so với kế hoạch tuyển dụng</button>
-      <button class="daily-opt" onclick="pickDaily(1,true)"><span class="daily-letter">B</span>Doanh thu trên mỗi giờ lao động sẵn sàng phục vụ (RevPAMH)</button>
-      <button class="daily-opt" onclick="pickDaily(2,false)"><span class="daily-letter">C</span>Tỷ lệ turnover hàng tháng theo phòng ban</button>
-      <button class="daily-opt" onclick="pickDaily(3,false)"><span class="daily-letter">D</span>Chi phí tuyển dụng trên mỗi hire thành công</button>
-    </div>
+    <p class="daily-q" id="daily-q-text"></p>
+    <div class="daily-opts" id="daily-opts"></div>
     <div id="daily-fb" style="margin-top:12px;font-size:13px;color:var(--cyan);font-weight:600;display:none">
       🎉 Chính xác! +20 XP — RevPAMH (Revenue Per Available Man-Hour) là metric HR nên report cho CEO.
     </div>
@@ -985,18 +980,107 @@ function pickModalQuiz(i, correct) {
 
 // ── DAILY CHALLENGE ───────────────────────────────────────────
 let dailyDone = false;
-function pickDaily(i, correct) {
-  if (dailyDone) return;
-  dailyDone = true;
-  const opts = document.querySelectorAll('.daily-opt');
-  opts.forEach(b => b.disabled = true);
-  opts[i].classList.add(correct ? 'correct' : 'wrong');
-  if (!correct) opts[1].classList.add('correct');
-  if (correct) {
-    xp += 20; save(); updateUI();
-    document.getElementById('daily-fb').style.display = 'block';
+// ── DAILY CHALLENGE — rotate by day ──────────────────
+var DAILY_POOL = [
+  {
+    q: "Theo RevPAMH framework, HR cần đo chỉ số nào để CEO hiểu đóng góp của nhân lực vào doanh thu?",
+    opts: ["Headcount so với kế hoạch tuyển dụng","Doanh thu trên mỗi giờ lao động sẵn sàng phục vụ (RevPAMH)","Tỷ lệ turnover hàng tháng theo phòng ban","Chi phí tuyển dụng trên mỗi hire thành công"],
+    ans: 1,
+    fb_ok: "Chính xác! RevPAMH (Revenue Per Available Man-Hour) là chỉ số duy nhất kết nối nhân lực trực tiếp với doanh thu — ngôn ngữ CEO hiểu và trân trọng.",
+    fb_no: "Chưa đúng. Các chỉ số kia là HR metrics truyền thống. RevPAMH mới là cầu nối giữa HR và P&L — đó là lý do CEO lắng nghe."
+  },
+  {
+    q: "HR nhận được feedback: 'Buổi training tốt nhưng nhân viên vẫn làm như cũ.' Nguyên nhân gốc rễ là gì?",
+    opts: ["Trainer chưa đủ giỏi","Thiếu follow-up sau training","Training không gắn với hành vi cụ thể cần thay đổi","Nhân viên không muốn thay đổi"],
+    ans: 2,
+    fb_ok: "Đúng! Training thất bại phần lớn vì không xác định được behavior gap cụ thể — dạy kiến thức nhưng không chỉ ra hành vi nào cần dừng/bắt đầu/tiếp tục.",
+    fb_no: "Gần đúng nhưng chưa trúng gốc. Dù có follow-up hay trainer giỏi, nếu training không map với hành vi cụ thể cần thay đổi thì kết quả vẫn bằng 0."
+  },
+  {
+    q: "Manager nói: 'HR toàn làm chính sách trên trời, không hiểu business.' Phản ứng nào thể hiện HR strategic nhất?",
+    opts: ["Giải thích lý do tại sao chính sách đó cần thiết","Hỏi: Anh/chị có thể cho ví dụ cụ thể về chính sách nào chưa phù hợp không?","Ghi nhận feedback và báo cáo lên CHRO","Mời manager tham gia thiết kế chính sách tiếp theo"],
+    ans: 1,
+    fb_ok: "Xuất sắc! Câu hỏi mở giúp bạn hiểu pain point thật sự, thể hiện EQ cao và biến một lời phàn nàn thành cơ hội co-create.",
+    fb_no: "Phương án đó an toàn nhưng không tạo breakthrough. HR strategic nhất là hỏi để hiểu — không phải giải thích hay né tránh."
+  },
+  {
+    q: "Tỷ lệ turnover bộ phận F&B tăng đột biến trong tháng 3. Bước đầu tiên HR nên làm là gì?",
+    opts: ["Tăng lương ngay để giữ người","Phân tích exit interview data và so sánh với cùng kỳ năm trước","Triển khai chương trình recognition ngay lập tức","Họp khẩn với tất cả quản lý cấp trung"],
+    ans: 1,
+    fb_ok: "Đúng! Data trước, action sau. Phân tích exit interview + trend so sánh giúp bạn tìm nguyên nhân thật sự — không phải đoán mò.",
+    fb_no: "Action vội vàng mà chưa hiểu nguyên nhân gốc rễ = đốt tiền nhầm chỗ. HR chiến lược luôn data-first."
+  },
+  {
+    q: "Một nhân viên giỏi xin nghỉ việc sau 3 năm cống hiến. Điều nào KHÔNG nên làm trong exit interview?",
+    opts: ["Hỏi điều gì khiến họ quyết định rời đi","Counter-offer ngay tại buổi exit interview","Hỏi họ muốn thay đổi gì nếu ở lại","Cảm ơn họ và hỏi về trải nghiệm tổng thể"],
+    ans: 1,
+    fb_ok: "Đúng! Counter-offer tại exit interview là sai thời điểm — quyết định đã được đưa ra. Hãy tập trung học từ họ, không phải giữ họ lại bằng mọi giá.",
+    fb_no: "Exit interview là cơ hội học — không phải buổi thương lượng cuối. Counter-offer đột ngột tạo áp lực và hiếm khi hiệu quả khi nhân viên đã sẵn sàng rời đi."
+  },
+  {
+    q: "CHRO yêu cầu bạn đề xuất chiến lược giữ chân nhân tài trong 6 tháng tới. Điểm bắt đầu hiệu quả nhất là?",
+    opts: ["Benchmarking lương thị trường ngay","Phân tích dữ liệu: ai có nguy cơ nghỉ cao nhất và tại sao","Triển khai khảo sát engagement toàn công ty","Thiết kế chương trình recognition mới"],
+    ans: 1,
+    fb_ok: "Chính xác! Retention strategy phải bắt đầu từ data về flight risk — biết ai, ở đâu, tại sao trước khi quyết định can thiệp gì.",
+    fb_no: "Các phương án kia đều có giá trị nhưng thiếu định hướng. Không biết ai có nguy cơ nghỉ thì mọi chương trình retention đều là bắn mù."
+  },
+  {
+    q: "Để HR có ghế ở bàn chiến lược, điều quan trọng nhất HR cần thể hiện với CEO là gì?",
+    opts: ["Số lượng chính sách HR đã ban hành trong năm","Mức độ hài lòng của nhân viên qua khảo sát","Mối liên hệ trực tiếp giữa quyết định nhân sự và kết quả kinh doanh","Tỷ lệ hoàn thành các dự án HR đúng deadline"],
+    ans: 2,
+    fb_ok: "Đúng! CEO suy nghĩ bằng P&L. HR chứng minh được mỗi quyết định nhân sự ảnh hưởng thế nào đến doanh thu/chi phí/tăng trưởng — đó là ngôn ngữ để có ghế chiến lược.",
+    fb_no: "Số lượng chính sách hay mức hài lòng không nói lên impact với business. CEO muốn thấy: quyết định HR → kết quả kinh doanh cụ thể."
+  }
+];
+
+function initDailyChallenge() {
+  // Chọn câu theo ngày — đổi mỗi ngày
+  var today = new Date();
+  var dayIndex = Math.floor(today.getTime() / (1000*60*60*24)) % DAILY_POOL.length;
+  var q = DAILY_POOL[dayIndex];
+  
+  // Kiểm tra đã làm hôm nay chưa
+  var todayKey = 'daily_' + today.toDateString();
+  var done = localStorage.getItem(todayKey);
+  
+  document.getElementById('daily-q-text').textContent = q.q;
+  var optsEl = document.getElementById('daily-opts');
+  optsEl.innerHTML = '';
+  var letters = ['A','B','C','D'];
+  q.opts.forEach(function(opt, i) {
+    var btn = document.createElement('button');
+    btn.className = 'daily-opt' + (done ? ' disabled-after' : '');
+    btn.disabled = !!done;
+    btn.innerHTML = '<span class="daily-letter">' + letters[i] + '</span>' + opt;
+    btn.onclick = (function(idx){ return function(){ pickDaily(idx, idx===q.ans, q, todayKey); }; })(i);
+    optsEl.appendChild(btn);
+  });
+  
+  if (done) {
+    var fb = document.getElementById('daily-fb');
+    if (fb) { fb.style.display = 'block'; fb.textContent = done === 'correct' ? q.fb_ok : q.fb_no; fb.className = 'qfb show ' + done; }
   }
 }
+
+function pickDaily(idx, isCorrect, q, todayKey) {
+  var opts = document.querySelectorAll('#daily-opts .daily-opt');
+  opts.forEach(function(o){ o.disabled = true; });
+  opts[q.ans].classList.add('correct');
+  if (!isCorrect) opts[idx].classList.add('wrong');
+  var fb = document.getElementById('daily-fb');
+  if (fb) {
+    fb.style.display = 'block';
+    fb.className = 'qfb show ' + (isCorrect ? 'correct' : 'wrong');
+    fb.textContent = isCorrect ? q.fb_ok : q.fb_no;
+  }
+  localStorage.setItem(todayKey, isCorrect ? 'correct' : 'wrong');
+  if (isCorrect) {
+    var gv = document.getElementById('giot-val');
+    if (gv) gv.textContent = parseInt(gv.textContent||0) + 20;
+    localStorage.setItem('pos_giot', parseInt(localStorage.getItem('pos_giot')||0) + 20);
+  }
+}
+
 
 // ── TIMER ─────────────────────────────────────────────────────
 let secs = 240;
