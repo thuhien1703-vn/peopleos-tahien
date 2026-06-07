@@ -167,6 +167,53 @@ body::after{content:'學';position:fixed;right:-40px;top:50%;transform:translate
 .phase-banner{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(240,192,64,.08));border:1px solid rgba(16,185,129,.35);border-radius:var(--r);padding:20px 22px;margin-bottom:22px;text-align:center}
 .phase-banner-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--text);margin-bottom:6px}
 .phase-banner-sub{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);
+  padding:10px 24px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border)}
+.breadcrumb a{color:var(--cyan);text-decoration:none}.breadcrumb a:hover{text-decoration:underline}
+.breadcrumb .sep{opacity:.4}
+/* ── OUTCOMES BOX ── */
+.outcomes-box{background:rgba(34,211,238,.05);border:1px solid rgba(34,211,238,.18);
+  border-radius:12px;padding:16px 18px;margin:0 0 18px}
+.outcomes-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:8px}
+.outcomes-list{list-style:none;padding:0;margin:0}
+.outcomes-list li{font-size:13px;color:var(--text);padding:3px 0;display:flex;
+  align-items:flex-start;gap:8px;line-height:1.5}
+.outcomes-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
+/* ── MODULE TIME ── */
+.module-time{font-size:12px;color:var(--muted);margin-top:3px}
+/* ── DOT TOOLTIP ── */
+.dot{position:relative}
+.dot-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#0d2a42;border:1px solid var(--border);border-radius:6px;
+  padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:120px;text-align:center}
+.dot-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:4px solid transparent;border-top-color:#0d2a42}
+.dot:hover .dot-tip,.dot.active:hover .dot-tip{opacity:1}
+/* ── RESUME BANNER ── */
+.resume-banner{background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.2);
+  border-radius:12px;padding:12px 18px;display:flex;align-items:center;
+  justify-content:space-between;margin-bottom:18px;animation:fadeUp .3s ease;gap:12px}
+.resume-text{font-size:13px;color:var(--text)}.resume-text strong{color:var(--cyan)}
+.resume-btn{background:var(--cyan);color:var(--navy);border:none;border-radius:8px;
+  padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:'Be Vietnam Pro',sans-serif;white-space:nowrap;transition:all .2s}
+.resume-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(34,211,238,.3)}
+/* ── MICRO TASK ── */
+.micro-task{background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.22);
+  border-radius:12px;padding:14px 16px;margin-top:14px}
+.micro-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:6px}
+.micro-text{font-size:13px;color:var(--text);line-height:1.6}
+/* ── PROG DETAIL ── */
+.prog-detail{font-size:11px;color:var(--muted);padding:3px 24px 6px;text-align:right}
+/* ── QUIZ HINT FADE ── */
+#nav-hint{opacity:0;transition:opacity .5s;font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
+#nav-hint.vis{opacity:1}
+
 </style>
 </head>
 <body>
@@ -179,6 +226,11 @@ body::after{content:'學';position:fixed;right:-40px;top:50%;transform:translate
   </div>
   <div class="giot-pill">💧 <span id="nav-giot-display">0</span> Giọt</div>
 </nav>
+<div class="breadcrumb">
+  <a href="/">Learning Hub</a><span class="sep">›</span>
+  <span>Foundation 🌱</span><span class="sep">›</span>
+  <span>L&D Thực Chiến</span>
+</div>
 <div class="prog-wrap">
   <div class="prog-meta"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div>
   <div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
@@ -193,10 +245,12 @@ body::after{content:'學';position:fixed;right:-40px;top:50%;transform:translate
     <div class="hero-content">
       <div class="hero-badge">L&D Thực Chiến ★ · Cấp 1</div>
       <div class="hero-num">Bài 1 / 6</div>
+      <div class="module-time">⏱ ~4 phút đọc</div>
       <div class="hero-title">TNA — phân tích nhu cầu đào tạo đúng cách</div>
     </div>
   </div>
 
+  <div class="outcomes-box"><div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div><ul class="outcomes-list"><li>Thực hiện TNA đơn giản cho 1 nhu cầu đào tạo cụ thể</li><li>Thiết kế 1 chương trình học theo Bloom's Taxonomy</li><li>Đo hiệu quả đào tạo ở ít nhất Level 2 Kirkpatrick</li></ul></div>
   <div class="lead">"Mỗi năm một công ty trong chuỗi của Hiền chi 800 triệu cho training. Sau 3 năm, Hiền yêu cầu team phân tích xem training nào thật sự tạo ra thay đổi hành vi. Kết quả: 60% ngân sách đổ vào các chương trình không ai nhớ sau 2 tuần. Nguyên nhân: training được chọn dựa trên 'manager nghĩ nhân viên cần gì' — không phải 'dữ liệu cho thấy gap là gì.'"</div>
 
   <p class="body">TNA — Training Needs Analysis — không phải khảo sát hỏi nhân viên "bạn muốn học gì." Đó là quá trình <b>xác định gap giữa performance hiện tại và performance kỳ vọng</b>, rồi tìm xem training có phải giải pháp đúng không.</p>
@@ -336,6 +390,7 @@ body::after{content:'學';position:fixed;right:-40px;top:50%;transform:translate
     <div class="hero-content">
       <div class="hero-badge">L&D Thực Chiến ★ · Cấp 1</div>
       <div class="hero-num">Bài 3 / 6</div>
+      <div class="module-time">⏱ ~3 phút đọc</div>
       <div class="hero-title">Facilitation skills — dẫn dắt lớp học live hiệu quả</div>
     </div>
   </div>
@@ -798,6 +853,94 @@ function done(){
   localStorage.setItem('peopleos_phase1_done','true');
 }
 buildDots();updP();
+</script>
+<script>
+/* ── PEOPLEOS UX v2 — k6-ld-thuc-chien ── */
+window.MODULE_TITLES = ["TNA \u2014 ph\u00e2n t\u00edch nhu c\u1ea7u \u0111\u00e0o t\u1ea1o \u0111\u00fang c\u00e1ch", "Thi\u1ebft k\u1ebf ch\u01b0\u01a1ng tr\u00ecnh h\u1ecdc: t\u1eeb m\u1ee5c ti\u00eau \u0111\u1ebfn n\u1ed9i dung", "Facilitation: \u0111\u1ee9ng l\u1edbp kh\u00f4ng ph\u1ea3i \u0111\u1ecdc slide", "\u0110o hi\u1ec7u qu\u1ea3 \u0111\u00e0o t\u1ea1o \u2014 Kirkpatrick trong th\u1ef1c t\u1ebf F&B", "70-20-10: h\u1ecdc t\u1eeb c\u00f4ng vi\u1ec7c nhi\u1ec1u h\u01a1n t\u1eeb l\u1edbp h\u1ecdc", "X\u00e2y d\u1ef1ng learning culture trong t\u1ed5 ch\u1ee9c chu\u1ed7i"];
+window.MODULE_TIMES  = [4, 4, 3, 4, 3, 4];
+window.MICRO_TASKS   = ["L\u1ea5y 1 y\u00eau c\u1ea7u training v\u1eeba nh\u1eadn \u2014 l\u00e0m TNA 3 c\u00e2u h\u1ecfi tr\u01b0\u1edbc khi \u0111\u1ed3ng \u00fd.", "Vi\u1ebft learning objective cho 1 session s\u1eafp t\u1edbi: 'Sau bu\u1ed5i n\u00e0y, h\u1ecdc vi\u00ean s\u1ebd...'", "Trong session ti\u1ebfp theo: d\u00f9ng 1 k\u1ef9 thu\u1eadt facilitation thay v\u00ec thuy\u1ebft tr\u00ecnh.", "Sau training: g\u1eedi 1 c\u00e2u h\u1ecfi \u0111o Level 2 \u2014 h\u1ecd h\u1ecdc \u0111\u01b0\u1ee3c g\u00ec c\u1ee5 th\u1ec3?", "Identify 1 on-the-job learning opportunity cho ng\u01b0\u1eddi \u0111ang c\u1ea7n ph\u00e1t tri\u1ec3n.", "K\u1ec3 3 th\u1ee9 b\u1ea1n h\u1ecdc \u0111\u01b0\u1ee3c t\u1eeb vi\u1ec7c l\u00e0m \u2014 kh\u00f4ng ph\u1ea3i t\u1eeb l\u1edbp \u2014 trong 6 th\u00e1ng qua."];
+
+document.addEventListener('DOMContentLoaded', function() {
+  var SLUG = 'k6-ld-thuc-chien';
+  var lastKey = 'resume_' + SLUG;
+  var lastSaved = parseInt(localStorage.getItem(lastKey) || '0');
+
+  /* 1. RESUME BANNER */
+  if (lastSaved > 1 && lastSaved <= (window.tot||6)) {
+    var rb = document.createElement('div');
+    rb.className = 'resume-banner'; rb.id = 'rb';
+    rb.innerHTML = '<div class="resume-text">Lần trước bạn học đến <strong>Bài ' + lastSaved + '</strong> · Tiếp tục?</div>' +
+      '<button class="resume-btn" onclick="doResume()">Tiếp tục Bài ' + lastSaved + ' →</button>';
+    var wrap = document.querySelector('.wrap') || document.querySelector('.container') || document.body;
+    var m1 = document.getElementById('m1');
+    if (m1) m1.parentNode.insertBefore(rb, m1);
+  }
+  window.doResume = function() {
+    var n = parseInt(localStorage.getItem(lastKey)||'1');
+    var el = document.getElementById('rb'); if(el) el.remove();
+    if(window.go) window.go(n);
+  };
+
+  /* 2. SAVE POSITION — patch go() */
+  var _go = window.go;
+  window.go = function(n) { if(_go) _go(n); localStorage.setItem(lastKey, n); };
+
+  /* 3. DOT TOOLTIPS — patch buildDots() */
+  var _bd = window.buildDots;
+  window.buildDots = function() {
+    if(_bd) _bd();
+    setTimeout(function() {
+      document.querySelectorAll('.dot').forEach(function(d, i) {
+        if (!d.querySelector('.dot-tip') && MODULE_TITLES[i]) {
+          var t = document.createElement('div');
+          t.className = 'dot-tip';
+          t.textContent = 'Bài ' + (i+1) + ': ' + MODULE_TITLES[i];
+          d.appendChild(t);
+        }
+      });
+    }, 30);
+  };
+
+  /* 4. PROGRESS DETAIL */
+  var _up = window.updProg;
+  window.updProg = function() {
+    if(_up) _up();
+    var el = document.getElementById('prog-detail');
+    if(!el) return;
+    var done = Object.keys(window.doneM||{}).length;
+    var tot = window.tot || 6;
+    var doneMin = (window.doneM ? Object.keys(window.doneM).reduce(function(a,k){return a+(MODULE_TIMES[k-1]||3);},0) : 0);
+    var totMin = MODULE_TIMES.reduce(function(a,b){return a+b;},0);
+    el.textContent = done + '/' + tot + ' bài · ~' + doneMin + '/' + totMin + ' phút';
+  };
+
+  /* 5. QUIZ HINT REVEAL ON SCROLL */
+  var hint = document.getElementById('nav-hint');
+  if(hint) {
+    var quiz = document.querySelector('.ex');
+    if(quiz) {
+      var obs = new IntersectionObserver(function(e) { 
+        if(e[0].isIntersecting) { hint.classList.add('vis'); obs.disconnect(); }
+      }, {threshold:0.3});
+      obs.observe(quiz);
+    }
+  }
+
+  /* 6. MICRO TASK INJECT — vào sau .takeaway của mỗi module */
+  document.querySelectorAll('.takeaway').forEach(function(tw, i) {
+    if(MICRO_TASKS[i]) {
+      var mt = document.createElement('div');
+      mt.className = 'micro-task';
+      mt.innerHTML = '<div class="micro-label">⚡ Áp dụng ngay · Bài ' + (i+1) + '</div>' +
+        '<div class="micro-text">' + MICRO_TASKS[i] + '</div>';
+      tw.parentNode.insertBefore(mt, tw.nextSibling);
+    }
+  });
+
+  /* 7. INITIAL CALLS */
+  if(window.buildDots) window.buildDots();
+  if(window.updProg) window.updProg();
+});
 </script>
 </body>
 </html>
