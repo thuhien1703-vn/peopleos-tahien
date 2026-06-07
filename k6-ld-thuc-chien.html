@@ -6,59 +6,790 @@
 <title>L&D Thực Chiến · PeopleOS by TaHien</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS ─────────────────────────────────────────────── */
 :root{
-  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--navy4:#143350;
-  --cyan:#22D3EE;--teal:#06B6D4;--cyan2:#67E8F9;
-  --gold:#F0C040;--gold2:#FDE68A;--gold3:#d97706;
+  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;
+  --cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--gold3:#d97706;
+  --green:#22c55e;--red:#ef4444;--emerald:#10b981;--em2:#059669;
   --text:#F0F6FF;--muted:#94A3B8;--subtle:#4A7A94;
   --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);
-  --border:rgba(34,211,238,0.14);--border2:rgba(34,211,238,0.28);
+  --border:rgba(16,185,129,0.15);--border2:rgba(16,185,129,0.30);
   --r:14px;--r-sm:9px;
 }
-/* ── RESET ──────────────────────────────────────────────── */
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Be Vietnam Pro',system-ui,sans-serif;background:var(--navy);
-  color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.6}
-/* ── ATMOSPHERE ─────────────────────────────────────────── */
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--navy);color:var(--text);line-height:1.6;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:
-    radial-gradient(ellipse 90% 55% at 15% -5%,rgba(6,182,212,.09) 0%,transparent 55%),
-    radial-gradient(ellipse 65% 45% at 85% 105%,rgba(240,192,64,.06) 0%,transparent 55%)}
-body::after{content:'水';position:fixed;right:-50px;top:50%;
-  transform:translateY(-50%) rotate(-8deg);font-size:340px;line-height:1;
-  color:rgba(34,211,238,.022);pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 80% 50% at 5% 0%,rgba(16,185,129,.08) 0%,transparent 55%),
+             radial-gradient(ellipse 60% 40% at 95% 100%,rgba(240,192,64,.06) 0%,transparent 55%)}
+body::after{content:'學';position:fixed;right:-40px;top:50%;transform:translateY(-50%) rotate(-6deg);
+  font-size:300px;line-height:1;color:rgba(16,185,129,.025);pointer-events:none;z-index:0;
   font-family:'Playfair Display',serif}
-/* ── LAYOUT ─────────────────────────────────────────────── */
 .app{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 20px 100px}
-/* ── TOPNAV ─────────────────────────────────────────────── */
-.topnav{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
-  height:58px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;position:sticky;top:0;z-index:100}
-.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);
-  text-decoration:none;transition:color .18s}
-.back:hover{color:var(--cyan)}
-.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}
-.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
-.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;
-  padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;display:flex;gap:5px;align-items:center<!-- TOPNAV -->
+.topnav{display:flex;align-items:center;justify-content:space-between;padding:18px 0 14px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);text-decoration:none;transition:color .18s}
+.back:hover{color:var(--emerald)}
+.logo{display:flex;align-items:center;gap:9px}
+.lmark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--em2),var(--navy3));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:var(--emerald);border:1px solid var(--border2)}
+.lname{font-size:13px;font-weight:600;color:var(--cyan)}.lsub{font-size:10px;color:var(--muted)}
+.prog-wrap{margin-bottom:24px}
+.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:7px}
+.prog-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--em2),var(--emerald));transition:width .55s cubic-bezier(.4,0,.2,1)}
+.dots{display:flex;gap:7px;justify-content:center;margin-bottom:28px}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.1);cursor:pointer;transition:all .22s;border:1.5px solid transparent;flex-shrink:0}
+.dot.active{background:var(--emerald);border-color:var(--emerald);transform:scale(1.4)}
+.dot.done{background:var(--em2);border-color:var(--em2)}
+/* HERO */
+.hero{position:relative;border-radius:var(--r);overflow:hidden;margin-bottom:24px;height:190px;border:1px solid rgba(16,185,129,.2)}
+.hero-bg{position:absolute;inset:0}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(135deg,#051a10 0%,#080f20 50%,#020B18 100%)}
+.hero-pattern{position:absolute;inset:0;opacity:.13;
+  background-image:linear-gradient(rgba(16,185,129,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,129,.4) 1px,transparent 1px);
+  background-size:28px 28px}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(2,11,24,.95) 0%,rgba(2,11,24,.2) 65%,transparent 100%)}
+.hero-content{position:absolute;bottom:18px;left:22px;right:22px}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,.13);border:1px solid var(--border2);border-radius:20px;padding:3px 11px;font-size:11px;color:var(--emerald);margin-bottom:9px;font-weight:500;letter-spacing:.05em}
+.hero-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--emerald)}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}
+.hero-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#fff;line-height:1.25}
+.mv{display:none}.mv.active{display:block;animation:fadeUp .38s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+/* CONTENT */
+.lead{border-left:2.5px solid var(--emerald);padding:13px 17px;background:rgba(16,185,129,.05);border-radius:0 var(--r-sm) var(--r-sm) 0;font-style:italic;color:var(--text);font-size:14.5px;line-height:1.7;margin-bottom:22px}
+.body{font-size:14.5px;line-height:1.78;color:var(--text);margin-bottom:15px}
+.body b{color:var(--emerald);font-weight:600}
+.sec-title{font-size:10.5px;letter-spacing:.13em;color:var(--em2);font-weight:600;text-transform:uppercase;margin:22px 0 11px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--glass);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-sm);padding:13px 15px}
+.cn{font-size:10px;color:var(--gold);font-weight:700;margin-bottom:5px;letter-spacing:.07em}
+.ct{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:4px}
+.cd{font-size:12.5px;color:var(--muted);line-height:1.5}
+.card-full{background:var(--glass);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:10px}
+.hl{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.22);border-radius:var(--r-sm);padding:14px 17px;margin-bottom:18px}
+.hl-label{font-size:10.5px;color:var(--emerald);font-weight:700;letter-spacing:.08em;margin-bottom:7px}
+.hl p{font-size:13.5px;color:var(--text);line-height:1.6}
+.ins{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:var(--r-sm);padding:13px 17px;margin-bottom:18px}
+.ins-label{font-size:10.5px;color:var(--gold);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.ins p{font-size:13px;color:var(--text);line-height:1.55}
+.warn{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:var(--r-sm);padding:13px 17px;margin-bottom:18px}
+.warn-label{font-size:10.5px;color:var(--red);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.warn p{font-size:13px;color:var(--text);line-height:1.55}
+/* EXERCISE */
+.ex{background:var(--glass2);border:1px solid var(--border2);border-radius:var(--r);padding:18px;margin-top:22px}
+.ex-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.ex-ico{width:30px;height:30px;border-radius:8px;flex-shrink:0;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);display:flex;align-items:center;justify-content:center;font-size:14px}
+.ex-label{font-size:12.5px;font-weight:700;color:var(--gold)}
+.ex-sub{font-size:11px;color:var(--muted)}
+/* QUIZ */
+.qq{font-size:14px;color:var(--text);margin-bottom:13px;line-height:1.58;font-weight:500}
+.qopts{display:flex;flex-direction:column;gap:7px}
+.qopt{padding:11px 14px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.08);background:var(--glass);cursor:pointer;font-size:13.5px;color:var(--text);transition:all .18s;text-align:left;width:100%;display:flex;align-items:flex-start;gap:9px;font-family:'Be Vietnam Pro',sans-serif;line-height:1.5}
+.qopt:hover:not(:disabled){border-color:var(--emerald);background:rgba(16,185,129,.07)}
+.qopt.correct{border-color:#22c55e!important;background:rgba(34,197,94,.09)!important;color:#86efac!important}
+.qopt.wrong{border-color:#ef4444!important;background:rgba(239,68,68,.09)!important;color:#fca5a5!important}
+.oletter{width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:10.5px;color:var(--muted);flex-shrink:0;font-weight:700;margin-top:1px}
+.qfb{margin-top:11px;padding:11px 13px;border-radius:var(--r-sm);font-size:13px;line-height:1.5;display:none}
+.qfb.show{display:block}
+.qfb.correct{background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.27);color:#86efac}
+.qfb.wrong{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:#fca5a5}
+/* TNA MATRIX */
+.tna-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.tna-cell{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-sm);padding:11px 13px;cursor:pointer;transition:all .2s;font-family:'Be Vietnam Pro',sans-serif}
+.tna-cell:hover:not(.selected){border-color:var(--emerald);background:rgba(16,185,129,.06)}
+.tna-cell.selected{border-color:var(--emerald)!important;background:rgba(16,185,129,.1)!important}
+.tna-cell.correct{border-color:#22c55e!important;background:rgba(34,197,94,.09)!important}
+.tna-cell.incorrect{border-color:#ef4444!important;background:rgba(239,68,68,.07)!important}
+.tna-label{font-size:11px;color:var(--emerald);font-weight:700;margin-bottom:5px;letter-spacing:.06em}
+.tna-text{font-size:13px;color:var(--text);line-height:1.5}
+/* FORMAT SELECTOR */
+.fmt-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fmt-card{padding:12px 14px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.08);background:var(--glass);cursor:pointer;transition:all .2s;font-family:'Be Vietnam Pro',sans-serif}
+.fmt-card:hover:not(:disabled){border-color:var(--emerald);background:rgba(16,185,129,.06)}
+.fmt-card.sel-good{border-color:var(--green)!important;background:rgba(34,197,94,.08)!important}
+.fmt-card.sel-bad{border-color:var(--red)!important;background:rgba(239,68,68,.07)!important}
+.fmt-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.fmt-desc{font-size:11.5px;color:var(--muted);line-height:1.45}
+/* KIRKPATRICK CALC */
+.kp-levels{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.kp-level{display:grid;grid-template-columns:120px 1fr 80px;gap:10px;align-items:center;padding:10px 12px;border-radius:var(--r-sm);background:var(--glass);border:1px solid rgba(255,255,255,.07)}
+.kp-name{font-size:12px;font-weight:600;color:var(--text)}
+.kp-bar-wrap{height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
+.kp-bar{height:100%;border-radius:4px;transition:width .5s}
+.kp-pct{font-size:12px;color:var(--muted);text-align:right}
+/* REFLECT */
+.rinput{width:100%;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-sm);padding:11px 13px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;resize:vertical;min-height:78px;transition:border .18s;line-height:1.6}
+.rinput:focus{outline:none;border-color:var(--emerald)}
+.rinput::placeholder{color:var(--subtle)}
+.chint{font-size:11px;color:var(--subtle);margin-top:5px;text-align:right;transition:color .2s}
+/* CHECKLIST */
+.chi{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer}
+.chi:last-child{border-bottom:none}
+.chbox{width:19px;height:19px;border-radius:5px;border:1.5px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s;margin-top:1px}
+.chbox.on{background:var(--emerald);border-color:var(--emerald)}
+.chbox.on::after{content:'✓';font-size:11px;color:#fff;font-weight:800}
+.chtext{font-size:13.5px;color:var(--text);line-height:1.5}
+.chtext small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+/* TAKEAWAY */
+.tw{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(240,192,64,.05));border:1px solid rgba(16,185,129,.25);border-radius:var(--r);padding:18px 20px;margin-top:22px}
+.tw-label{font-size:10px;letter-spacing:.15em;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:9px}
+.tw-text{font-family:'Playfair Display',serif;font-size:16px;color:var(--text);line-height:1.65;font-style:italic}
+.tw-sig{font-size:11.5px;color:var(--muted);margin-top:9px}
+/* NAV */
+.navbtns{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:18px;border-top:1px solid var(--border)}
+.btnprev{padding:10px 18px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.08);background:transparent;color:var(--muted);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;cursor:pointer;transition:all .18s}
+.btnprev:hover:not(:disabled){border-color:rgba(255,255,255,.15);color:var(--text)}
+.btnprev:disabled{opacity:.3;cursor:not-allowed}
+.btnnext{padding:11px 26px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--em2),var(--emerald));color:#fff;font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;border:none;transition:all .2s;box-shadow:0 3px 14px rgba(16,185,129,.25)}
+.btnnext:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 5px 18px rgba(16,185,129,.35)}
+.btnnext:disabled{opacity:.28;cursor:not-allowed;transform:none;box-shadow:none;background:var(--subtle);color:var(--navy)}
+.ulock{font-size:11.5px;color:var(--subtle);text-align:center;margin-top:7px}
+/* COMPLETE */
+.cscreen{text-align:center;padding:36px 16px;display:none}
+.cscreen.show{display:block;animation:fadeUp .45s ease}
+.cico{font-size:56px;margin-bottom:18px}
+.ctitle{font-family:'Playfair Display',serif;font-size:26px;color:var(--text);margin-bottom:11px}
+.csub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.certcard{background:var(--glass2);border:1px solid rgba(16,185,129,.28);border-radius:var(--r);padding:22px;margin-bottom:22px;position:relative;overflow:hidden}
+.certcard::before{content:'學';position:absolute;right:-15px;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:90px;color:rgba(16,185,129,.05);pointer-events:none}
+.cert-lbl{font-size:11px;color:var(--emerald);letter-spacing:.12em;font-weight:700;margin-bottom:7px}
+.cert-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--text);margin-bottom:5px}
+.cert-course{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cert-sig{font-size:11.5px;color:var(--subtle);border-top:1px solid var(--border);padding-top:11px;line-height:1.6}
+.btncert{width:100%;padding:13px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--gold3),var(--gold));color:var(--navy);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;margin-bottom:9px}
+.btnnext2{width:100%;padding:11px;border-radius:var(--r-sm);background:transparent;border:1px solid rgba(16,185,129,.3);color:var(--emerald);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;cursor:pointer;transition:background .18s}
+.btnnext2:hover{background:rgba(16,185,129,.07)}
+/* PHASE COMPLETE BANNER */
+.phase-banner{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(240,192,64,.08));border:1px solid rgba(16,185,129,.35);border-radius:var(--r);padding:20px 22px;margin-bottom:22px;text-align:center}
+.phase-banner-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--text);margin-bottom:6px}
+.phase-banner-sub{font-size:13px;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="app">
 <nav class="topnav">
   <a class="back" href="/">← Về Learning Hub</a>
-  <div style="display:flex;align-items:center">
-    <span class="nav-logo">PeopleOS</span>
-    <span class="nav-sub">Learning Hub &nbsp;by TaHien</span>
-  </div>
-  <div class="giot-pill">💧 <span id="nav-giot-display">0</span> Giọt</div>
+  <div class="logo"><div class="lmark">學</div><div><div class="lname">PeopleOS</div><div class="lsub">by TaHien</div></div></div>
 </nav>
+<div class="prog-wrap">
+  <div class="prog-meta"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+</div>
+<div class="dots" id="dots"></div>
 
-av{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
-  height:58px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;position:sticky;top:0;z-index:100}
-.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);
-  text-decoration:none;transition:color .18s}
-.back:hover{color:var(--cyan)}
-.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}
-.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
-.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;
-  padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;display:flex;gap:5px;align-items:center}
+<!-- ═══ M1 — TNA ═══ -->
+<div class="mv active" id="m1">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">L&D Thực Chiến ★ · Cấp 1</div>
+      <div class="hero-num">Bài 1 / 6</div>
+      <div class="hero-title">TNA — phân tích nhu cầu đào tạo đúng cách</div>
+    </div>
+  </div>
+
+  <div class="lead">"Mỗi năm một công ty trong chuỗi của Hiền chi 800 triệu cho training. Sau 3 năm, Hiền yêu cầu team phân tích xem training nào thật sự tạo ra thay đổi hành vi. Kết quả: 60% ngân sách đổ vào các chương trình không ai nhớ sau 2 tuần. Nguyên nhân: training được chọn dựa trên 'manager nghĩ nhân viên cần gì' — không phải 'dữ liệu cho thấy gap là gì.'"</div>
+
+  <p class="body">TNA — Training Needs Analysis — không phải khảo sát hỏi nhân viên "bạn muốn học gì." Đó là quá trình <b>xác định gap giữa performance hiện tại và performance kỳ vọng</b>, rồi tìm xem training có phải giải pháp đúng không.</p>
+
+  <div class="sec-title">3 câu hỏi TNA thực chiến — trước khi thiết kế bất kỳ chương trình nào</div>
+  <div class="card-full" style="border-color:rgba(16,185,129,.25)">
+    <div class="cn" style="color:var(--emerald)">Câu hỏi 1 · Vấn đề thật sự là gì?</div>
+    <div class="ct">"Nhân viên thiếu kỹ năng" hay "quy trình sai" hay "thiếu động lực"?</div>
+    <div class="cd" style="margin-top:6px">Training chỉ fix được khoảng cách về kiến thức và kỹ năng — không fix được vấn đề về motivation, quy trình, hay công cụ thiếu. Hỏi: "Nếu súng kề cổ, họ có làm được không?" Nếu có — vấn đề không phải kỹ năng, đừng training.</div>
+  </div>
+  <div class="card-full" style="border-color:rgba(16,185,129,.25)">
+    <div class="cn" style="color:var(--emerald)">Câu hỏi 2 · Thay đổi hành vi nào cụ thể cần xảy ra?</div>
+    <div class="ct">Không phải "nhân viên hiểu sâu hơn về customer service" — mà là gì cụ thể?</div>
+    <div class="cd" style="margin-top:6px">"Sau training, nhân viên sẽ xử lý complaint từ khách hàng trong dưới 5 phút mà không cần escalate lên manager, trong 90% trường hợp." — Đây mới là behavioral outcome đo được. Không có behavioral outcome = không biết training có thành công hay không.</div>
+  </div>
+  <div class="card-full" style="margin-bottom:18px;border-color:rgba(16,185,129,.25)">
+    <div class="cn" style="color:var(--emerald)">Câu hỏi 3 · Training có phải giải pháp đúng không?</div>
+    <div class="ct">Đôi khi câu trả lời là: không cần training, cần thứ khác</div>
+    <div class="cd" style="margin-top:6px">Nhân viên bán hàng không hit target → training thêm? Hoặc: target không thực tế, territory không tốt, tool CRM kém, không có incentive đúng? Kiểm tra performance driver trước khi thiết kế curriculum.</div>
+  </div>
+
+  <div class="sec-title">Ma trận TNA — 4 ô quyết định</div>
+  <div class="ex" style="margin-top:0">
+    <div class="ex-head">
+      <div class="ex-ico">🗺️</div>
+      <div><div class="ex-label">Phân loại tình huống</div><div class="ex-sub">Click vào ô phù hợp với tình huống bên dưới</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px"><b style="color:var(--text)">Tình huống:</b> Nhân viên bếp mắc lỗi vệ sinh thực phẩm lặp lại. Manager báo cáo rằng họ đã được training nhưng vẫn tiếp tục sai. Supervisor cho biết nhân viên biết quy tắc nhưng "không để ý".</p>
+    <div class="tna-grid">
+      <div class="tna-cell" id="tna-A" onclick="pickTNA('A')">
+        <div class="tna-label">Thiếu kiến thức / kỹ năng</div>
+        <div class="tna-text">Chưa biết quy tắc, chưa được học → cần training</div>
+      </div>
+      <div class="tna-cell" id="tna-B" onclick="pickTNA('B')">
+        <div class="tna-label">Thiếu động lực / accountability</div>
+        <div class="tna-text">Biết nhưng không làm → cần consequence, feedback, hoặc incentive</div>
+      </div>
+      <div class="tna-cell" id="tna-C" onclick="pickTNA('C')">
+        <div class="tna-label">Vấn đề quy trình / môi trường</div>
+        <div class="tna-text">Muốn làm đúng nhưng hệ thống cản trở → cần fix quy trình</div>
+      </div>
+      <div class="tna-cell" id="tna-D" onclick="pickTNA('D')">
+        <div class="tna-label">Cần cả training lẫn hệ thống</div>
+        <div class="tna-text">Gap kép — training + thay đổi môi trường làm việc</div>
+      </div>
+    </div>
+    <div class="qfb" id="qf1"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 1</div>
+    <div class="tw-text">"Training không phải giải pháp cho mọi vấn đề hiệu suất. Câu hỏi đầu tiên của L&D không phải 'cần training gì' — mà là 'vấn đề thật sự là gì và training có phải câu trả lời đúng không.'"</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" disabled>← Quay lại</button>
+    <button class="btnnext" id="n1" onclick="go(2)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h1">Chọn ô trong ma trận TNA để tiếp tục</div>
+</div>
+
+<!-- ═══ M2 — ADDIE ═══ -->
+<div class="mv" id="m2">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">L&D Thực Chiến ★ · Cấp 1</div>
+      <div class="hero-num">Bài 2 / 6</div>
+      <div class="hero-title">ADDIE — thiết kế bài giảng cho F&B chain</div>
+    </div>
+  </div>
+
+  <div class="lead">"L&D specialist mới vào team của Hiền hỏi: 'Chị ơi, em muốn thiết kế training cho nhân viên bán hàng, bắt đầu từ đâu?' Hiền hỏi lại: 'Em muốn họ làm được gì sau training mà hiện tại họ chưa làm được?' — Im lặng dài. 'Em chưa nghĩ đến điều đó.' — Đó là lý do 70% training không tạo ra thay đổi: người thiết kế bắt đầu từ nội dung, không phải từ kết quả."</div>
+
+  <p class="body">ADDIE là framework thiết kế instructional design tiêu chuẩn — không phải để làm phức tạp hơn, mà để <b>đảm bảo training được thiết kế backward từ kết quả</b>, không forward từ nội dung.</p>
+
+  <div class="sec-title">ADDIE thực chiến — 5 bước áp dụng cho F&B</div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--emerald)">A — Analyze (Phân tích)</div>
+    <div class="ct">Đã làm ở bài TNA — xác định gap và behavioral outcome</div>
+    <div class="cd" style="margin-top:5px">Output: "Sau training, nhân viên X sẽ làm được Y trong Z% trường hợp." Nếu không có câu này rõ ràng — không chuyển sang bước tiếp theo.</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--emerald)">D — Design (Thiết kế)</div>
+    <div class="ct">Chọn phương pháp, format, và sequence học</div>
+    <div class="cd" style="margin-top:5px">Với F&B chain: nhân viên turnover cao, ít thời gian → microlearning 15–20 phút, scenario-based, ít text nhiều visual và demo. Sequence: why (tại sao quan trọng) → what (khái niệm ngắn) → how (demo) → practice → apply.</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--emerald)">D — Develop (Phát triển nội dung)</div>
+    <div class="ct">Build content theo design — không phải build rồi mới design</div>
+    <div class="cd" style="margin-top:5px">Prototype trước: 1 module nhỏ → test với 3–5 người → điều chỉnh → build toàn bộ. Dùng AI để generate draft nhanh (xem K3), nhưng HR review và add context tổ chức.</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--emerald)">I — Implement (Triển khai)</div>
+    <div class="ct">Pilot trước khi rollout toàn tổ chức</div>
+    <div class="cd" style="margin-top:5px">Pilot với 1 cửa hàng hoặc 1 team nhỏ → đo kết quả → điều chỉnh → rollout. Không triển khai đại trà ngay khi chưa test. Brief manager về vai trò của họ trong reinforcement sau training.</div>
+  </div>
+  <div class="card-full" style="margin-bottom:18px">
+    <div class="cn" style="color:var(--emerald)">E — Evaluate (Đánh giá)</div>
+    <div class="ct">Đo theo Kirkpatrick 4 levels — không chỉ reaction survey</div>
+    <div class="cd" style="margin-top:5px">Xem chi tiết ở bài 5. Key point: evaluation phải được thiết kế từ bước Analyze — không phải tự hỏi "đo gì" sau khi training đã xong.</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎯</div>
+      <div><div class="ex-label">Kiểm tra ADDIE</div><div class="ex-sub">Xác định bước nào bị bỏ qua</div></div>
+    </div>
+    <div class="qq">L&D team nhận yêu cầu từ Ops Director: "Tháng sau làm training customer service cho toàn bộ 300 nhân viên phục vụ, trước mùa cao điểm." L&D bắt đầu ngay bằng cách tìm nội dung và thiết kế slide. Họ đã bỏ qua bước nào quan trọng nhất?</div>
+    <div class="qopts" id="q2opts">
+      <button class="qopt" onclick="AQ(2,this,'A')"><span class="oletter">A</span>Develop — nên tìm template có sẵn thay vì tự thiết kế slide</button>
+      <button class="qopt" onclick="AQ(2,this,'B')"><span class="oletter">B</span>Analyze — chưa xác định gap cụ thể, behavioral outcome, và liệu training có phải giải pháp đúng</button>
+      <button class="qopt" onclick="AQ(2,this,'C')"><span class="oletter">C</span>Implement — nên pilot trước với 1 cửa hàng thay vì rollout 300 người ngay</button>
+      <button class="qopt" onclick="AQ(2,this,'D')"><span class="oletter">D</span>Evaluate — chưa chuẩn bị khảo sát sau training</button>
+    </div>
+    <div class="qfb" id="qf2"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 2</div>
+    <div class="tw-text">"Training được thiết kế từ nội dung thường dạy thứ L&D biết — không phải thứ người học cần làm được. Bắt đầu từ behavioral outcome, rồi mới chọn nội dung."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(1)">← Quay lại</button>
+    <button class="btnnext" id="n2" onclick="go(3)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h2">Trả lời câu hỏi để tiếp tục</div>
+</div>
+
+<!-- ═══ M3 — Facilitation ═══ -->
+<div class="mv" id="m3">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">L&D Thực Chiến ★ · Cấp 1</div>
+      <div class="hero-num">Bài 3 / 6</div>
+      <div class="hero-title">Facilitation skills — dẫn dắt lớp học live hiệu quả</div>
+    </div>
+  </div>
+
+  <div class="lead">"Hiền từng quan sát một L&D specialist dẫn training 4 tiếng cho 40 nhân viên bán hàng. Người facilitator đọc slide từ đầu đến cuối, giọng đều đều, không có hoạt động nào. Sau 2 tiếng, 30% phòng đang nhìn điện thoại. Sau 4 tiếng, không ai nhớ gì. Kiến thức về customer service rất tốt — nhưng facilitation kém đã giết chết toàn bộ giá trị của nội dung đó."</div>
+
+  <p class="body">Facilitation khác với presentation. Presenter truyền thông tin — facilitator <b>tạo ra trải nghiệm học tập</b>. Người học không nhớ những gì họ nghe — họ nhớ những gì họ làm, cảm nhận, và tự khám phá.</p>
+
+  <div class="sec-title">5 kỹ thuật facilitation thực chiến</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="cn" style="color:var(--emerald)">Kỹ thuật 1</div>
+      <div class="ct">Open với hook — không với agenda</div>
+      <div class="cd">30 giây đầu quyết định engagement. Đừng mở bằng "Hôm nay chúng ta sẽ học về..." — mở bằng câu hỏi, tình huống, hoặc số liệu gây shock nhẹ để người học nghĩ ngay từ đầu</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--emerald)">Kỹ thuật 2</div>
+      <div class="ct">Think-pair-share mỗi 15–20 phút</div>
+      <div class="cd">Đặt câu hỏi → 2 phút nghĩ cá nhân → chia sẻ với người bên cạnh → báo cáo nhóm. Phá vỡ thụ động, buộc tất cả tham gia, L&D nghe được cả phòng nghĩ gì</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--emerald)">Kỹ thuật 3</div>
+      <div class="ct">Role-play scenario thực tế</div>
+      <div class="cd">Tình huống từ cửa hàng thật, nhân vật quen thuộc. "Bạn là nhân viên phục vụ, khách vừa phàn nàn món ăn nguội — bạn nói gì?" — Thực hành ngay trong lớp</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--emerald)">Kỹ thuật 4</div>
+      <div class="ct">Xử lý "người khó" trong phòng</div>
+      <div class="cd">Người im lặng suốt: "Anh Nam, theo kinh nghiệm của anh thì sao?" Người phản đối: "Cảm ơn anh đã chia sẻ — có ai trong phòng có góc nhìn khác không?" Không đối đầu trực tiếp</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--emerald)">Kỹ thuật 5</div>
+      <div class="ct">Closing: action commitment</div>
+      <div class="cd">Kết thúc không phải "tóm tắt nội dung" — mà là "bạn sẽ làm gì khác đi từ ngày mai?" Mỗi người cam kết 1 hành động cụ thể trước khi rời phòng</div>
+    </div>
+    <div class="card">
+      <div class="cn">Đừng làm</div>
+      <div class="ct">Death by PowerPoint</div>
+      <div class="cd">Slide > 10 bullet points, đọc nguyên văn từ slide, không có khoảng trắng để người học xử lý. Quy tắc: 1 idea/slide, tối đa 6 words/bullet, visual > text</div>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎭</div>
+      <div><div class="ex-label">Tình huống facilitation khó</div><div class="ex-sub">Chọn cách xử lý tốt nhất</div></div>
+    </div>
+    <div class="qq">Trong lớp training 30 người, sau 90 phút một nhân viên lâu năm nói to: "Mấy cái này lý thuyết quá, thực tế không áp dụng được đâu." Cả phòng im lặng nhìn bạn. Bạn xử lý thế nào?</div>
+    <div class="qopts" id="q3opts">
+      <button class="qopt" onclick="AQ(3,this,'A')"><span class="oletter">A</span>Giải thích tại sao nội dung này thực tế và có thể áp dụng được</button>
+      <button class="qopt" onclick="AQ(3,this,'B')"><span class="oletter">B</span>Hỏi: "Anh có thể kể cho cả lớp nghe tình huống cụ thể nào anh thấy khó áp dụng không? Mình cùng giải quyết"</button>
+      <button class="qopt" onclick="AQ(3,this,'C')"><span class="oletter">C</span>Tiếp tục bài giảng và bỏ qua comment đó để không mất thời gian</button>
+      <button class="qopt" onclick="AQ(3,this,'D')"><span class="oletter">D</span>Nói: "Feedback của anh rất quý — sau lớp mình nói chuyện thêm nhé"</button>
+    </div>
+    <div class="qfb" id="qf3"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 3</div>
+    <div class="tw-text">"Facilitator giỏi không phải người biết nhiều nhất trong phòng — mà là người giỏi nhất trong việc khai thác kiến thức và kinh nghiệm của những người trong phòng."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(2)">← Quay lại</button>
+    <button class="btnnext" id="n3" onclick="go(4)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h3">Trả lời câu hỏi để tiếp tục</div>
+</div>
+
+<!-- ═══ M4 — Format ═══ -->
+<div class="mv" id="m4">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">L&D Thực Chiến ★ · Cấp 1</div>
+      <div class="hero-num">Bài 4 / 6</div>
+      <div class="hero-title">E-learning, ILT, Microlearning — khi nào dùng cái gì</div>
+    </div>
+  </div>
+
+  <div class="lead">"CEO của một chuỗi F&B 120 cửa hàng hỏi Hiền: 'Mình có nên đầu tư vào LMS và e-learning không? Nghe nói tiết kiệm chi phí training nhiều lắm.' Hiền hỏi lại: 'Training về gì? Cho ai? Kết quả mong muốn là gì?' CEO trả lời không rõ. Hiền nói: 'Câu trả lời phụ thuộc vào 3 câu đó — không phải vào xu hướng.'"</div>
+
+  <p class="body">Không có format nào tốt hơn tất cả — chỉ có format <b>phù hợp hay không phù hợp với mục tiêu học tập, đối tượng, và ngân sách</b>. Chọn sai format = content tốt cũng bị waste.</p>
+
+  <div class="sec-title">So sánh 4 format học tập chính</div>
+  <div class="grid2">
+    <div class="card" style="border-color:rgba(16,185,129,.25)">
+      <div class="cn" style="color:var(--emerald)">ILT · Instructor-Led Training</div>
+      <div class="ct">Tốt nhất cho: kỹ năng mềm, attitude, team building</div>
+      <div class="cd">Cần: thảo luận, role-play, trust building. Không thể thay thế khi training liên quan đến cảm xúc, văn hóa, hoặc practice hands-on. Chi phí cao — nhưng impact cao nhất nếu facilitate đúng</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--cyan)">E-learning / LMS</div>
+      <div class="ct">Tốt nhất cho: kiến thức chuẩn hóa, compliance, onboarding process</div>
+      <div class="cd">Cần: nội dung ổn định, không cần thảo luận, reach nhiều người cùng lúc. Không phù hợp cho kỹ năng mềm — người học hoàn thành quiz mà không thay đổi hành vi</div>
+    </div>
+    <div class="card" style="border-color:rgba(240,192,64,.25)">
+      <div class="cn" style="color:var(--gold)">Microlearning</div>
+      <div class="ct">Tốt nhất cho: reinforcement, just-in-time learning, reminder</div>
+      <div class="cd">3–7 phút, 1 concept, mobile-first. Không thay thế được ILT — dùng để reinforce sau training chính. Rất hiệu quả với nhân viên F&B hay dùng điện thoại</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--muted)">OJT · On-the-Job Training</div>
+      <div class="ct">Tốt nhất cho: kỹ năng kỹ thuật, procedure, hands-on</div>
+      <div class="cd">Học bằng làm dưới sự hướng dẫn. Hiệu quả nhất cho vận hành — nhưng cần trainer được train để không truyền sai kỹ thuật và bad habit</div>
+    </div>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">Blended learning — kết hợp tối ưu cho F&B chain</div>
+    <p style="margin-bottom:7px"><b style="color:var(--emerald)">Pre-work (E-learning 15 phút):</b> Kiến thức nền → đến lớp không phải giải thích từ đầu</p>
+    <p style="margin-bottom:7px"><b style="color:var(--emerald)">Core (ILT 2 tiếng):</b> Practice, discussion, role-play → tạo ra thay đổi hành vi</p>
+    <p><b style="color:var(--emerald)">Post (Microlearning 3 phút/tuần × 4 tuần):</b> Reinforcement → chống forgetting curve</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎮</div>
+      <div><div class="ex-label">Chọn format phù hợp</div><div class="ex-sub">Click vào format tốt nhất cho từng tình huống</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px"><b style="color:var(--text)">Tình huống:</b> Chuỗi vừa thay đổi quy trình tính tiền — cần 500 nhân viên thu ngân trên 50 cửa hàng biết quy trình mới trước khi áp dụng vào tuần tới. Không có ngân sách cho trainer đi từng cửa hàng.</p>
+    <div class="fmt-opts" id="fmt4">
+      <div class="fmt-card" onclick="pickFmt(this,'bad')">
+        <div class="fmt-title">ILT tập trung</div>
+        <div class="fmt-desc">Tập hợp tất cả về 1 địa điểm để trainer giảng trực tiếp</div>
+      </div>
+      <div class="fmt-card" onclick="pickFmt(this,'good')">
+        <div class="fmt-title">E-learning + video demo</div>
+        <div class="fmt-desc">Clip demo 10 phút + quiz kiểm tra — tự học trên điện thoại</div>
+      </div>
+      <div class="fmt-card" onclick="pickFmt(this,'bad')">
+        <div class="fmt-title">Microlearning tips</div>
+        <div class="fmt-desc">Gửi tips nhỏ hàng ngày qua Zalo/nhóm chat</div>
+      </div>
+      <div class="fmt-card" onclick="pickFmt(this,'bad')">
+        <div class="fmt-title">OJT với buddy</div>
+        <div class="fmt-desc">Nhân viên cũ hướng dẫn trực tiếp người mới tại quầy</div>
+      </div>
+    </div>
+    <div class="qfb" id="qf4"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 4</div>
+    <div class="tw-text">"Format không quan trọng bằng fit. E-learning không kém hơn ILT — nó chỉ phù hợp với mục tiêu học tập khác. Chọn format dựa trên 'người học cần làm được gì', không phải 'format nào trendy.'"</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(3)">← Quay lại</button>
+    <button class="btnnext" id="n4" onclick="go(5)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h4">Chọn format để tiếp tục</div>
+</div>
+
+<!-- ═══ M5 — Kirkpatrick ═══ -->
+<div class="mv" id="m5">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">L&D Thực Chiến ★ · Cấp 1</div>
+      <div class="hero-num">Bài 5 / 6</div>
+      <div class="hero-title">Kirkpatrick 4 levels — đo ROI training thực chiến</div>
+    </div>
+  </div>
+
+  <div class="lead">"Sau mỗi training, L&D team gửi survey: 'Bạn thấy training này thế nào? 1–5 sao.' Trung bình luôn 4.2/5. CEO hỏi: 'Training có hiệu quả không?' L&D trả lời: 'Nhân viên rất thích.' CEO gật đầu nhưng không satisfied. Năm sau cắt 30% ngân sách training. Lý do: 'Không thấy impact.' Đó là hậu quả của việc chỉ đo Level 1."</div>
+
+  <p class="body">Kirkpatrick Model 4 levels là framework đo hiệu quả training toàn diện nhất — được dùng từ 1959 đến nay. Vấn đề không phải model — vấn đề là hầu hết L&D chỉ đo Level 1 vì Level 2, 3, 4 khó đo hơn.</p>
+
+  <div class="sec-title">4 levels — từ dễ nhất đến có giá trị nhất</div>
+
+  <div class="kp-levels">
+    <div class="kp-level">
+      <div class="kp-name">Level 1 · Reaction</div>
+      <div class="kp-bar-wrap"><div class="kp-bar" style="width:95%;background:rgba(239,68,68,.6)"></div></div>
+      <div class="kp-pct">95% dùng</div>
+    </div>
+    <div class="kp-level">
+      <div class="kp-name">Level 2 · Learning</div>
+      <div class="kp-bar-wrap"><div class="kp-bar" style="width:60%;background:rgba(249,115,22,.6)"></div></div>
+      <div class="kp-pct">60% dùng</div>
+    </div>
+    <div class="kp-level">
+      <div class="kp-name">Level 3 · Behavior</div>
+      <div class="kp-bar-wrap"><div class="kp-bar" style="width:30%;background:rgba(240,192,64,.6)"></div></div>
+      <div class="kp-pct">30% dùng</div>
+    </div>
+    <div class="kp-level">
+      <div class="kp-name">Level 4 · Results</div>
+      <div class="kp-bar-wrap"><div class="kp-bar" style="width:15%;background:rgba(16,185,129,.7)"></div></div>
+      <div class="kp-pct">15% dùng</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="cn" style="color:var(--red)">Level 1 · Reaction</div>
+      <div class="ct">Người học cảm thấy thế nào?</div>
+      <div class="cd">Survey ngay sau training. Đo: satisfaction, perceived relevance. Hạn chế: "thích" không có nghĩa là "học được" hay "thay đổi hành vi"</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--gold)">Level 2 · Learning</div>
+      <div class="ct">Người học biết/làm được gì mới?</div>
+      <div class="cd">Quiz trước-sau, skill demonstration. Đo gap giữa pre và post. Hạn chế: biết trong lớp không có nghĩa là làm được ở cửa hàng thực tế</div>
+    </div>
+    <div class="card" style="border-color:rgba(16,185,129,.3)">
+      <div class="cn" style="color:var(--emerald)">Level 3 · Behavior ★</div>
+      <div class="ct">Hành vi có thay đổi trong công việc thực tế?</div>
+      <div class="cd">Observation 30–90 ngày sau training. Manager checklist. Mystery shopper. Đây là level quan trọng nhất — và ít được đo nhất. Cần manager involvement để đo được</div>
+    </div>
+    <div class="card" style="border-color:rgba(16,185,129,.3)">
+      <div class="cn" style="color:var(--emerald)">Level 4 · Results ★</div>
+      <div class="ct">KPI business có cải thiện?</div>
+      <div class="cd">Customer satisfaction score, turnover rate, revenue, error rate. Khó nhất để isolate impact của training. Nhưng đây là ngôn ngữ CEO muốn nghe</div>
+    </div>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">Cách đo Level 3 trong F&B chain — thực tế</div>
+    <p style="margin-bottom:7px">① Manager observation checklist: 5–7 hành vi cụ thể cần quan sát trong 30 ngày sau training</p>
+    <p style="margin-bottom:7px">② Mystery shopper: đo trực tiếp hành vi dịch vụ ở cửa hàng — so sánh trước/sau training</p>
+    <p>③ Peer observation: buddy system — nhân viên observe nhau và báo cáo tuần 1 lần. Chi phí thấp nhất, cần setup cẩn thận để không thành hình thức</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">📊</div>
+      <div><div class="ex-label">Thiết kế đo lường</div><div class="ex-sub">Chọn level đo phù hợp</div></div>
+    </div>
+    <div class="qq">Sau training "Customer complaint handling" cho nhân viên phục vụ, L&D muốn chứng minh với CEO rằng training có ROI thực sự. Đo lường nào thuyết phục nhất?</div>
+    <div class="qopts" id="q5opts">
+      <button class="qopt" onclick="AQ(5,this,'A')"><span class="oletter">A</span>Survey satisfaction ngay sau training — điểm trung bình 4.5/5</button>
+      <button class="qopt" onclick="AQ(5,this,'B')"><span class="oletter">B</span>Quiz kiểm tra kiến thức trước và sau training — điểm tăng 40%</button>
+      <button class="qopt" onclick="AQ(5,this,'C')"><span class="oletter">C</span>So sánh tỷ lệ complaint được resolve tại cửa hàng (không escalate) trong 30 ngày trước và sau training</button>
+      <button class="qopt" onclick="AQ(5,this,'D')"><span class="oletter">D</span>Đếm số nhân viên đã tham gia đủ buổi training</button>
+    </div>
+    <div class="qfb" id="qf5"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 5</div>
+    <div class="tw-text">"Survey sau training không đo được training có hiệu quả không — nó chỉ đo training có được thích không. Muốn bảo vệ ngân sách L&D, phải nói được ngôn ngữ business: hành vi thay đổi, KPI cải thiện."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(4)">← Quay lại</button>
+    <button class="btnnext" id="n5" onclick="go(6)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h5">Trả lời câu hỏi để tiếp tục</div>
+</div>
+
+<!-- ═══ M6 — Calendar & Budget ═══ -->
+<div class="mv" id="m6">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">L&D Thực Chiến ★ · Bài cuối · Phase 1 Complete</div>
+      <div class="hero-num">Bài 6 / 6</div>
+      <div class="hero-title">Training calendar & budget cho chuỗi 50+ cửa hàng</div>
+    </div>
+  </div>
+
+  <div class="lead">"Mỗi năm L&D team của Hiền phải submit training plan và budget cho năm tới. Năm đầu tiên Hiền làm ở Golden Gate, team submit 1 trang giấy với 3 chương trình, không có ROI projection. CFO hỏi: 'Tại sao cần 2 tỷ? Impact là gì?' Team không trả lời được. Năm đó budget bị cắt 40%. Năm sau Hiền hướng dẫn team submit 12 trang với business case đầy đủ cho mỗi chương trình. Budget được approve 100% và tăng 20%."</div>
+
+  <p class="body">Training calendar không chỉ là lịch — đó là <b>kế hoạch đầu tư có business case rõ ràng</b>. Và budget L&D không phải "chi phí" — đó là đầu tư có ROI cần được chứng minh bằng data.</p>
+
+  <div class="sec-title">Nguyên tắc lên training calendar cho chuỗi</div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--emerald)">Nguyên tắc 1 · Align với business cycle</div>
+    <div class="ct">Training phải "tránh mùa cao điểm" và "chuẩn bị cho mùa cao điểm"</div>
+    <div class="cd" style="margin-top:5px">F&B chain thường có peak Q4 (cuối năm) và Q1 (Tết). Training core skills nên được done trước Q4 ít nhất 6 tuần — để có thời gian practice và behavioral change xảy ra trước khi bận nhất.</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--emerald)">Nguyên tắc 2 · Mandatory vs optional</div>
+    <div class="ct">Phân loại rõ — không phải mọi training đều bắt buộc tất cả</div>
+    <div class="cd" style="margin-top:5px">Mandatory (toàn bộ): An toàn thực phẩm, Fire safety, Quy trình core, Onboarding. Role-specific: Training theo vị trí và level. Optional/development: Người muốn phát triển có thể đăng ký thêm.</div>
+  </div>
+  <div class="card-full" style="margin-bottom:18px">
+    <div class="cn" style="color:var(--emerald)">Nguyên tắc 3 · Budget phân bổ theo ROI tiềm năng</div>
+    <div class="ct">Không chia đều — ưu tiên training có impact cao nhất</div>
+    <div class="cd" style="margin-top:5px">Phân tích: training nào liên quan trực tiếp đến revenue và customer satisfaction → đầu tư nhiều hơn. Training compliance/safety → cần nhưng tối ưu chi phí. Training "nice to have" → cắt khi ngân sách tight.</div>
+  </div>
+
+  <div class="ins">
+    <div class="ins-label">Business case đơn giản cho mỗi training — 3 con số cần có</div>
+    <p style="margin-bottom:5px"><b style="color:var(--gold)">① Chi phí:</b> Trainer fee + materials + venue + opportunity cost (nhân viên không bán hàng trong thời gian training)</p>
+    <p style="margin-bottom:5px"><b style="color:var(--gold)">② Impact dự kiến:</b> Nếu hành vi X thay đổi → KPI Y cải thiện bao nhiêu % → doanh thu/chi phí tăng/giảm bao nhiêu?</p>
+    <p><b style="color:var(--gold)">③ ROI:</b> (Impact - Cost) / Cost × 100%. Nếu không tính được — tối thiểu phải định nghĩa được "thành công trông như thế nào sau 3 tháng"</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">✅</div>
+      <div><div class="ex-label">Cam kết L&D thực chiến</div><div class="ex-sub">Chọn ít nhất 3 để hoàn thành khóa học</div></div>
+    </div>
+    <div id="cl6">
+      <div class="chi" onclick="TC6(this)" data-on="false"><div class="chbox"></div><div class="chtext">Lần training tiếp theo — xác định behavioral outcome cụ thể TRƯỚC khi thiết kế nội dung<small>Viết ra: "Sau training, người học sẽ làm được X trong Y% trường hợp"</small></div></div>
+      <div class="chi" onclick="TC6(this)" data-on="false"><div class="chbox"></div><div class="chtext">Thêm ít nhất 1 hoạt động tương tác vào training tiếp theo — không chỉ slide<small>Think-pair-share, role-play, case study thực tế, hoặc quiz có discussion</small></div></div>
+      <div class="chi" onclick="TC6(this)" data-on="false"><div class="chbox"></div><div class="chtext">Đo Kirkpatrick Level 3 cho ít nhất 1 chương trình training đang có<small>Tạo observation checklist cho manager — 5 hành vi cần quan sát trong 30 ngày sau training</small></div></div>
+      <div class="chi" onclick="TC6(this)" data-on="false"><div class="chbox"></div><div class="chtext">Tạo business case 1 trang cho training budget năm tới — kèm ROI projection<small>Không phải "chúng tôi cần 500 triệu" mà là "500 triệu → giảm turnover 15% → tiết kiệm 2 tỷ chi phí tuyển"</small></div></div>
+      <div class="chi" onclick="TC6(this)" data-on="false"><div class="chbox"></div><div class="chtext">Thử áp dụng blended learning cho 1 chương trình: pre-work e-learning + ILT + microlearning sau<small>Đo xem behavior retention sau 30 ngày có tốt hơn ILT đơn thuần không</small></div></div>
+    </div>
+    <div class="qfb" id="cf6"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Toàn khóa K6 & Phase 1</div>
+    <div class="tw-text">"L&D không phải tổ chức sự kiện training — L&D là đầu tư vào năng lực con người. Muốn được đầu tư đúng mức, L&D phải biết đo ROI bằng ngôn ngữ mà CEO và CFO hiểu."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group · PeopleOS Community 2026</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(5)">← Quay lại</button>
+    <button class="btnnext" id="n6" onclick="done()" disabled>Hoàn thành Phase 1 🎉</button>
+  </div>
+  <div class="ulock" id="h6">Chọn ít nhất 3 cam kết để hoàn thành</div>
+</div>
+
+<!-- COMPLETE -->
+<div class="cscreen" id="complete">
+  <div class="cico">🏅</div>
+  <div class="ctitle">Phase 1 Hoàn Thành!</div>
+  <div class="csub">Bạn đã hoàn thành toàn bộ <b>6 khóa học Cấp 1 — HR Staff & Specialist</b>.<br>Tổng cộng: 36 bài học · 696 XP · Sẵn sàng cho Cấp 2.</div>
+  <div class="phase-banner">
+    <div class="phase-banner-title">🚀 Chặng 1 · HR Foundation — HOÀN THÀNH</div>
+    <div class="phase-banner-sub">EQ & Self-Mastery · Giao tiếp & Ảnh hưởng · AI Literacy<br>HR Ops · Recruiting · L&D Thực Chiến</div>
+  </div>
+  <div class="certcard">
+    <div class="cert-lbl">Chứng chỉ hoàn thành · PeopleOS</div>
+    <div class="cert-name">L&D Thực Chiến</div>
+    <div class="cert-course">Cấp 1 — HR Staff & Specialist · 6 modules · ~20 phút</div>
+    <div class="cert-sig">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+  </div>
+  <button class="btncert" onclick="alert('Tính năng xuất PDF sẽ có trong phiên bản đầy đủ!')">Tải chứng chỉ PDF</button>
+  <button class="btnnext2" onclick="window.location.href='/'">← Về Hub · Bắt đầu Cấp 2</button>
+</div>
+</div>
+
+<script>
+var cur=1,tot=6,dm={};
+function buildDots(){
+  var c=document.getElementById('dots');c.innerHTML='';
+  for(var i=1;i<=tot;i++){
+    var d=document.createElement('div');
+    d.className='dot'+(i===cur?' active':(dm[i]?' done':''));
+    (function(n){d.onclick=function(){if(n<=cur||dm[n-1])go(n);};})(i);
+    c.appendChild(d);
+  }
+}
+function updP(){
+  var p=Math.round(((cur-1)/tot)*100);
+  document.getElementById('pfill').style.width=p+'%';
+  document.getElementById('ppct').textContent=p+'%';
+  document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;
+}
+function go(n){
+  document.getElementById('m'+cur).classList.remove('active');
+  dm[cur]=true;cur=n;
+  var el=document.getElementById('m'+cur);
+  if(el)el.classList.add('active');
+  buildDots();updP();window.scrollTo({top:0,behavior:'smooth'});
+}
+function unlock(b,h){
+  var bn=document.getElementById(b);if(bn)bn.disabled=false;
+  var hn=document.getElementById(h);if(hn)hn.style.display='none';
+}
+
+/* M1 TNA matrix */
+function pickTNA(opt){
+  ['A','B','C','D'].forEach(function(o){
+    var el=document.getElementById('tna-'+o);
+    el.classList.remove('selected','correct','incorrect');
+    el.onclick=null;
+  });
+  var fb=document.getElementById('qf1');
+  var el=document.getElementById('tna-'+opt);
+  if(opt==='B'){
+    el.classList.add('correct');
+    fb.className='qfb show correct';
+    fb.textContent='Đúng! Supervisor nói "biết quy tắc nhưng không để ý" = vấn đề thiếu động lực và accountability, không phải thiếu kiến thức. Giải pháp: consequence rõ ràng (nhắc nhở, review), feedback loop, và có thể incentive cho compliance. Training thêm sẽ không giải quyết được vấn đề này.';
+  } else {
+    el.classList.add('incorrect');
+    document.getElementById('tna-B').classList.add('correct');
+    fb.className='qfb show wrong';
+    if(opt==='A')fb.textContent='Chưa đúng. Họ đã được training và biết quy tắc rồi. Training thêm sẽ không thay đổi được khi vấn đề là thiếu động lực/accountability.';
+    else if(opt==='C')fb.textContent='Chưa đúng. Không có dấu hiệu quy trình hay môi trường cản trở họ. Supervisor nói họ "không để ý" — vấn đề là attitude và accountability.';
+    else fb.textContent='Chưa đúng. Đây chủ yếu là vấn đề động lực — không cần cả training lẫn fix hệ thống. Cần tập trung vào consequence và accountability trước.';
+  }
+  unlock('n1','h1');
+}
+
+/* M2, M3, M5 quiz */
+function AQ(m,el,ans){
+  var correct={2:'B',3:'B',5:'C'};
+  document.querySelectorAll('#q'+m+'opts .qopt').forEach(function(o){o.disabled=true;});
+  var fb=document.getElementById('qf'+m);
+  if(ans===correct[m]){
+    el.classList.add('correct');fb.className='qfb show correct';
+    if(m===2)fb.textContent='Đúng! Bỏ qua bước Analyze là lỗi phổ biến nhất. Không biết gap cụ thể là gì, không biết behavioral outcome mong muốn, không biết training có phải giải pháp đúng → thiết kế nội dung xong mới hỏi "đo gì" → không đo được → không chứng minh được ROI.';
+    if(m===3)fb.textContent='Đúng! Câu B mời người phản đối chia sẻ cụ thể — tạo opportunity để giải quyết objection thật sự ngay trước cả lớp. Những người khác trong phòng cũng đang nghĩ như vậy — giải quyết được cho anh ấy = giải quyết được cho cả phòng.';
+    if(m===5)fb.textContent='Đúng! Đây là Level 3 (Behavior) và gần Level 4 (Results). So sánh "resolve tại chỗ" trước/sau = đo hành vi thật trong công việc thực tế, không phải trong lớp. Đây là con số CEO và CFO muốn thấy.';
+    unlock('n'+m,'h'+m);
+  } else {
+    el.classList.add('wrong');
+    var ci={2:1,3:1,5:2}[m];
+    document.querySelectorAll('#q'+m+'opts .qopt')[ci].classList.add('correct');
+    fb.className='qfb show wrong';
+    if(m===2)fb.textContent='Chưa đúng. Tất cả các bước Develop (A), Implement (C), Evaluate (D) đều quan trọng — nhưng Analyze (B) là bước nền tảng nhất. Không có Analyze tốt → Design sai → mọi thứ sau đó sai theo.';
+    if(m===3)fb.textContent='Chưa đúng. (A) tranh luận trực tiếp sẽ tạo thế đối đầu. (C) bỏ qua = mất cả phòng. (D) postpone = không giải quyết. Câu B chuyển người phản đối thành người đồng hành giải quyết vấn đề.';
+    if(m===5)fb.textContent='Chưa đúng. (A) Level 1 — satisfaction, không đo được learning. (B) Level 2 — learning trong lớp, không biết có áp dụng không. (D) chỉ là attendance metric. Câu C đo được behavior thay đổi trong thực tế — đây mới là ROI thật.';
+    setTimeout(function(){unlock('n'+m,'h'+m);},1600);
+  }
+}
+
+/* M4 format picker */
+function pickFmt(el,type){
+  document.querySelectorAll('#fmt4 .fmt-card').forEach(function(c){c.disabled=true;});
+  var fb=document.getElementById('qf4');
+  if(type==='good'){
+    el.classList.add('sel-good');fb.className='qfb show correct';
+    fb.textContent='Đúng! E-learning + video demo là phù hợp nhất cho tình huống này: cần reach 500 người trên 50 cửa hàng với nội dung chuẩn hóa, không có ngân sách trainer đi từng cửa hàng. Nội dung là procedural (quy trình) — phù hợp với e-learning. Clip demo trực quan hơn text.';
+    unlock('n4','h4');
+  } else {
+    el.classList.add('sel-bad');
+    document.querySelectorAll('#fmt4 .fmt-card')[1].classList.add('sel-good');
+    fb.className='qfb show wrong';
+    if(el.querySelector('.fmt-title').textContent.includes('ILT'))fb.textContent='Chưa đúng. ILT tập trung 500 người từ 50 cửa hàng về 1 nơi là logistically không khả thi và tốn kém. Phù hợp nhất khi cần thảo luận và practice — không phải khi cần truyền quy trình chuẩn hóa.';
+    else if(el.querySelector('.fmt-title').textContent.includes('Micro'))fb.textContent='Chưa đúng. Microlearning tốt để reinforce sau khi đã học nội dung chính — không phải để học quy trình mới từ đầu. 500 người cần nắm đủ trước khi áp dụng, không phải nhận tips rải rác.';
+    else fb.textContent='Chưa đúng. OJT với buddy tốt cho kỹ năng tay chân — nhưng nguy cơ buddy truyền sai cách nếu chưa được train đúng. Và với 50 cửa hàng, không kiểm soát được chất lượng nhất quán.';
+    setTimeout(function(){unlock('n4','h4');},1600);
+  }
+}
+
+/* M6 checklist */
+var cc6=0;
+function TC6(el){
+  var box=el.querySelector('.chbox');
+  var on=el.getAttribute('data-on')==='true';
+  if(!on){box.classList.add('on');el.setAttribute('data-on','true');cc6++;}
+  else{box.classList.remove('on');el.setAttribute('data-on','false');cc6--;}
+  var fb=document.getElementById('cf6');
+  if(cc6>=3){
+    fb.className='qfb show correct';
+    fb.textContent='Xuất sắc! '+cc6+' cam kết cho L&D thực chiến. Bạn vừa hoàn thành Phase 1 — HR Foundation. Sẵn sàng cho Cấp 2: HR Manager & Senior Specialist!';
+    unlock('n6','h6');
+  } else {fb.className='';}
+}
+
+function done(){
+  document.getElementById('m6').style.display='none';
+  document.getElementById('complete').classList.add('show');
+  dm[6]=true;cur=7;
+  document.getElementById('pfill').style.width='100%';
+  document.getElementById('ppct').textContent='100%';
+  document.getElementById('plabel').textContent='Hoàn thành Phase 1!';
+  buildDots();window.scrollTo({top:0,behavior:'smooth'});
+  localStorage.setItem('peopleos_k6_done','true');
+  localStorage.setItem('peopleos_phase1_done','true');
+}
+buildDots();updP();
+</script>
+</body>
+</html>
