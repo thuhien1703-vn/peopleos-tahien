@@ -25,8 +25,9 @@ body::after{content:'言';position:fixed;right:-50px;top:50%;transform:translate
   font-family:'Playfair Display',serif}
 .app{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 20px 100px}
 /* NAV */
-.topnav{display:flex;align-items:center;justify-content:space-between;
-  padding:18px 0 14px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.topnav{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
+  height:58px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;position:sticky;top:0;z-index:100}
 .back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);
   text-decoration:none;transition:color .18s}
 .back:hover{color:var(--cyan)}
@@ -230,10 +231,11 @@ body::after{content:'言';position:fixed;right:-50px;top:50%;transform:translate
 
 <nav class="topnav">
   <a class="back" href="/">← Về Learning Hub</a>
-  <div class="logo">
-    <div class="lmark">水</div>
-    <div><div class="lname">PeopleOS</div><div class="lsub">by TaHien</div></div>
+  <div style="display:flex;align-items:center">
+    <span class="nav-logo">PeopleOS</span>
+    <span class="nav-sub">Learning Hub &nbsp;by TaHien</span>
   </div>
+  <div class="giot-pill">💧 <span id="nav-giot-display">0</span> Giọt</div>
 </nav>
 
 <div class="prog-wrap">
