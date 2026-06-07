@@ -18,7 +18,33 @@ const C = {
 };
 
 // ── ALL COURSES DATA ────────────────────────────────────────
+// ── COMPUTED STATS (dynamic from ALL_COURSES) ──────────────
+// Usage: LIVE_COURSES, TOTAL_MODULES, TOTAL_HOURS computed below data
+
 const ALL_COURSES = [
+  // ══ PeopleOS Career Path (18 khóa · 3 cấp) ══════════════
+  // Cấp 1 — HR Staff & Specialist
+  { id:101, cat:"EQ & Lãnh Đạo",   emoji:"🧠", title:"EQ & Self-Mastery",             sub:"Nền tảng cảm xúc cho HR",       dur:"18 phút", type:"Khóa học", level:"HR Staff",       hot:true,  tags:["VI"], url:"/k1-eq-selfmastery",           xp:108, modules:6 },
+  { id:102, cat:"EQ & Lãnh Đạo",   emoji:"💬", title:"Giao Tiếp & Ảnh Hưởng",        sub:"Nói để người khác hành động",   dur:"18 phút", type:"Khóa học", level:"HR Staff",       hot:true,  tags:["VI"], soon:true,                           xp:108, modules:6 },
+  { id:103, cat:"AI-First HR",      emoji:"🤖", title:"AI Literacy Cho HR",            sub:"Prompt · Tools · Automation",   dur:"20 phút", type:"Khóa học", level:"HR Staff",       hot:true,  tags:["VI"], soon:true,                           xp:120, modules:6 },
+  { id:104, cat:"HR Operations",    emoji:"📋", title:"HR Ops Thực Chiến",             sub:"Hợp đồng · C&B · HRIS VN",     dur:"20 phút", type:"Khóa học", level:"HR Staff",       hot:false, tags:["VI"], soon:true,                           xp:120, modules:6 },
+  { id:105, cat:"Talent",           emoji:"🔍", title:"Recruiting Cơ Bản",             sub:"JD · Sourcing · Phỏng vấn",    dur:"20 phút", type:"Khóa học", level:"HR Staff",       hot:false, tags:["VI"], soon:true,                           xp:120, modules:6 },
+  { id:106, cat:"L&D",              emoji:"🎓", title:"L&D Thực Chiến",               sub:"ADDIE · Kirkpatrick · ILT",     dur:"20 phút", type:"Khóa học", level:"HR Staff",       hot:false, tags:["VI"], soon:true,                           xp:120, modules:6 },
+  // Cấp 2 — HR Manager & Senior Specialist
+  { id:107, cat:"EQ & Lãnh Đạo",   emoji:"⚡", title:"Leadership Không Chức Danh",   sub:"Dẫn dắt bằng ảnh hưởng",       dur:"20 phút", type:"Khóa học", level:"HR Manager",     hot:true,  tags:["VI"], soon:true,                           xp:132, modules:6 },
+  { id:108, cat:"EQ & Lãnh Đạo",   emoji:"🧩", title:"Tư Duy Hệ Thống",              sub:"Quyết định bằng dữ liệu",      dur:"20 phút", type:"Khóa học", level:"HR Manager",     hot:false, tags:["VI"], soon:true,                           xp:132, modules:6 },
+  { id:109, cat:"EQ & Lãnh Đạo",   emoji:"🔄", title:"Quản Trị Thay Đổi",            sub:"ADKAR · Kháng cự · Văn hóa",   dur:"20 phút", type:"Khóa học", level:"HR Manager",     hot:false, tags:["VI"], soon:true,                           xp:132, modules:6 },
+  { id:110, cat:"Finance-HR",       emoji:"💼", title:"HRBP Mindset",                  sub:"P&L · 9-box · Business lang",  dur:"22 phút", type:"Khóa học", level:"HR Manager",     hot:true,  tags:["VI"], soon:true,                           xp:144, modules:6 },
+  { id:111, cat:"Finance-HR",       emoji:"📈", title:"Performance Mgmt · RevPAMH",   sub:"OKR · KPI · Calibration",      dur:"22 phút", type:"Khóa học", level:"HR Manager",     hot:true,  tags:["VI"], soon:true,                           xp:144, modules:6 },
+  { id:112, cat:"People Analytics", emoji:"📊", title:"HR Analytics Cơ Bản",          sub:"Attrition · Dashboard · Story", dur:"22 phút", type:"Khóa học", level:"HR Manager",     hot:true,  tags:["VI"], soon:true,                           xp:144, modules:6 },
+  // Cấp 3 — HR Director / CHRO
+  { id:113, cat:"EQ & Lãnh Đạo",   emoji:"👑", title:"Executive Presence",            sub:"Board · CEO · C-suite lang",   dur:"25 phút", type:"Khóa học", level:"CHRO",           hot:true,  tags:["VI"], soon:true,                           xp:156, modules:6 },
+  { id:114, cat:"EQ & Lãnh Đạo",   emoji:"🌐", title:"Tầm Nhìn & Văn Hóa Tổ Chức",  sub:"Culture · Succession · Legacy", dur:"25 phút", type:"Khóa học", level:"CHRO",           hot:false, tags:["VI"], soon:true,                           xp:156, modules:6 },
+  { id:115, cat:"AI-First HR",      emoji:"🚀", title:"AI Strategy Cho CHRO",          sub:"Roadmap · Ethics · HR Tech",   dur:"25 phút", type:"Khóa học", level:"CHRO",           hot:true,  tags:["VI"], soon:true,                           xp:156, modules:6 },
+  { id:116, cat:"Finance-HR",       emoji:"🧭", title:"Workforce Strategy · Stagility",sub:"Org design · F&B chain",       dur:"25 phút", type:"Khóa học", level:"CHRO",           hot:false, tags:["VI"], soon:true,                           xp:168, modules:6 },
+  { id:117, cat:"Finance-HR",       emoji:"💰", title:"Finance-HR Hybrid",             sub:"Total Rewards · ESOP · IPO",   dur:"25 phút", type:"Khóa học", level:"CHRO",           hot:true,  tags:["VI"], soon:true,                           xp:168, modules:6 },
+  { id:118, cat:"People Analytics", emoji:"🔭", title:"People Analytics Nâng Cao",    sub:"Predictive · RevPAMH+ · ROI",  dur:"25 phút", type:"Khóa học", level:"CHRO",           hot:false, tags:["VI"], soon:true,                           xp:168, modules:6 },
+  // ══ AI-First HR (bổ sung) ════════════════════════════════
   // AI-First HR (8 khóa)
   { id:1,  cat:"AI-First HR",     emoji:"🤔", title:"AI Thật Ra Là Gì?",              sub:"Phiên Bản HR",                 dur:"10 phút", type:"Khóa học", level:"HR Executive",   hot:true,  tags:["VI"] },
   { id:2,  cat:"AI-First HR",     emoji:"💬", title:"Trò Chuyện Với AI",              sub:"HR Edition",                   dur:"12 phút", type:"Khóa học", level:"HR Executive",   hot:true,  tags:["VI"] },
@@ -62,44 +88,52 @@ const ALL_COURSES = [
   { id:35, cat:"CHRO Mindset",    emoji:"📊", title:"IPO Readiness — HR Chuẩn Bị Gì?", sub:"Pre-IPO HR Checklist",     dur:"20 phút", type:"Khóa học", level:"CHRO",           hot:false, tags:["VI"], soon:true },
 ];
 
+// ── DYNAMIC STATS ──────────────────────────────────────────
+const LIVE_COURSES = ALL_COURSES.filter(c => c.url && !c.soon);
+const SOON_COURSES = ALL_COURSES.filter(c => c.soon);
+const TOTAL_LIVE = LIVE_COURSES.length;
+const TOTAL_MODULES = LIVE_COURSES.reduce((s,c) => s + (c.modules||6), 0);
+const TOTAL_HOURS_MIN = LIVE_COURSES.reduce((s,c) => s + parseInt(c.dur||"15"), 0);
+const fmt_dur = (min) => min >= 60 ? `${Math.floor(min/60)}h${min%60>0?` ${min%60}m`:""}` : `${min} phút`;
+
 const SKILLS = [
-  { key:"AI-First HR",     emoji:"🤖", color:C.cyan,    tagline:"Hiểu AI · Dùng AI · Tin tưởng AI",         stat:"📈 Kỹ năng AI-literacy tăng 70% nhu cầu tuyển dụng (LinkedIn 2026)" },
+  { key:"EQ & Lãnh Đạo",  emoji:"🧠", color:C.cyan,    tagline:"EQ · Resilience · Leadership · Influence",  stat:"📈 EQ là kỹ năng số 1 mà CEO muốn ở CHRO 2026 (McKinsey)" },
   { key:"Finance-HR",      emoji:"💰", color:C.gold,    tagline:"P&L · Budget HC · RevPAMH · Finance Hybrid",stat:"📈 Finance-HR Hybrid là top 3 kỹ năng hot nhất cho CHRO 2026" },
-  { key:"People Analytics",emoji:"📊", color:"#34D399", tagline:"Data · Dashboard · Insight · Prediction",   stat:"📈 People Analytics tăng 185% nhu cầu HRBP toàn cầu" },
-  { key:"Talent",          emoji:"🎯", color:"#F472B6", tagline:"JD · Phỏng Vấn · Onboarding · Succession",  stat:"📈 Bar Raiser methodology: quality-of-hire tăng 40%" },
-  { key:"Total Rewards",   emoji:"🏆", color:"#A78BFA", tagline:"Lương · Thưởng · Benefits · ESOP",          stat:"📈 Total Rewards design là top priority của CHRO 2026" },
-  { key:"CHRO Mindset",    emoji:"👑", color:"#FB923C", tagline:"Strategy · Board · IPO · AI Governance",    stat:"📈 CHRO ngồi tại board table: tăng 60% tại Fortune 500" },
+  { key:"People Analytics",emoji:"📊", color:"#34D399", tagline:"Data · Dashboard · Attrition · Prediction", stat:"📈 People Analytics tăng 185% nhu cầu HRBP toàn cầu" },
+  { key:"AI-First HR",     emoji:"🤖", color:"#67E8F9", tagline:"Prompt · Tools · AI Strategy · Automation", stat:"📈 Kỹ năng AI-literacy tăng 70% nhu cầu tuyển dụng (LinkedIn 2026)" },
+  { key:"Talent",          emoji:"🎯", color:"#F472B6", tagline:"JD · Recruiting · Onboarding · Succession",  stat:"📈 Structured interview tăng quality-of-hire 40%" },
+  { key:"HR Operations",   emoji:"📋", color:"#FB923C", tagline:"C&B · Labor Law · HRIS · Compliance VN",    stat:"📈 HR Ops sai 1 bước = rủi ro pháp lý cho 10,000+ nhân sự" },
 ];
 
 const HAUS = [
   {
-    key:"hr-foundation", emoji:"🚀", name:"HR Foundation",
-    color:C.cyan, target:"Dành cho HR Executive & HR Manager",
+    key:"hr-staff", emoji:"🚀", name:"HR Foundation",
+    color:C.cyan, target:"Dành cho HR Staff & Specialist",
     tagline:"Xây nền tảng · Phát triển nghề nghiệp",
-    xp:"+450 XP", courses:8,
+    xp:"+696 XP", courses:6,
     tiers:[
-      { name:"NOW-READY", ids:[1,2,3,4] },
-      { name:"FUTURE-READY", ids:[5,6,7,8] },
+      { name:"NOW-READY", ids:[101,102,103] },
+      { name:"FUTURE-READY", ids:[104,105,106] },
     ]
   },
   {
-    key:"finance-hr", emoji:"⚡", name:"Finance-HR Hybrid",
-    color:C.gold, target:"Dành cho HRBP & HR Senior",
-    tagline:"Nói chuyện được với CEO & CFO",
-    xp:"+600 XP", courses:7,
+    key:"hr-manager", emoji:"⚡", name:"HR Manager Track",
+    color:C.gold, target:"Dành cho HR Manager & Senior Specialist",
+    tagline:"Dẫn dắt · Phân tích · Tư vấn business",
+    xp:"+804 XP", courses:6,
     tiers:[
-      { name:"NOW-READY", ids:[9,10,11,12] },
-      { name:"FUTURE-READY", ids:[13,14,15] },
+      { name:"NOW-READY", ids:[107,108,109] },
+      { name:"FUTURE-READY", ids:[110,111,112] },
     ]
   },
   {
     key:"chro", emoji:"👑", name:"CHRO Accelerator",
-    color:"#A855F7", target:"Dành cho CHRO, CPO & C-suite HR",
-    tagline:"Định hướng chiến lược · Dẫn dắt tổ chức",
-    xp:"+800 XP", courses:5,
+    color:"#A855F7", target:"Dành cho HR Director & CHRO",
+    tagline:"Chiến lược · Kiến tạo · Di sản",
+    xp:"+972 XP", courses:6,
     tiers:[
-      { name:"NOW-READY", ids:[31] },
-      { name:"FUTURE-READY", ids:[32,33,34,35] },
+      { name:"NOW-READY", ids:[113,114,115] },
+      { name:"FUTURE-READY", ids:[116,117,118] },
     ]
   },
 ];
@@ -130,8 +164,13 @@ function s(...args) {
 // ── COURSE CARD ────────────────────────────────────────────
 function CourseCard({ c, onOpen, done }) {
   const isDone = done?.includes(c.id);
+  const handleClick = () => {
+    if (c.soon) return;
+    if (c.url) { window.open(c.url, '_blank'); return; }
+    onOpen(c);
+  };
   return (
-    <div onClick={() => !c.soon && onOpen(c)}
+    <div onClick={handleClick}
       style={{ background:C.navy2, border:`1px solid ${isDone ? C.teal : C.border}`,
         borderRadius:16, overflow:"hidden", minWidth:260, maxWidth:280, flexShrink:0,
         cursor:c.soon?"default":"pointer", opacity:c.soon?.8:1,
@@ -171,7 +210,7 @@ function CourseCard({ c, onOpen, done }) {
         <button style={{ width:"100%", background:`linear-gradient(135deg, ${C.teal}, ${C.navy4})`,
           color:C.navy, border:"none", borderRadius:24, padding:"8px",
           fontSize:13, fontWeight:700, cursor:c.soon?"not-allowed":"pointer" }}>
-          {c.soon ? "🔔 Báo tôi khi ra mắt" : isDone ? "Xem lại →" : "Vào học →"}
+          {c.soon ? "🔔 Sắp ra mắt" : isDone ? "✓ Xem lại →" : c.url ? "Vào học →" : "Vào học →"}
         </button>
       </div>
     </div>
@@ -312,7 +351,7 @@ export default function PeopleOSHub() {
   const [dailySel, setDailySel] = useState(null);
   const [openCourse, setOpenCourse] = useState(null);
   const [openHaus, setOpenHaus] = useState(null);
-  const [openSkill, setOpenSkill] = useState("AI-First HR");
+  const [openSkill, setOpenSkill] = useState("EQ & Lãnh Đạo");
   const [timer, setTimer] = useState(19800); // 5.5 hours in seconds
 
   // countdown
@@ -332,9 +371,13 @@ export default function PeopleOSHub() {
     }
   };
 
-  const hotCourses = ALL_COURSES.filter(c => c.hot);
-  const newCourses = ALL_COURSES.filter(c => !c.hot).slice(0,10);
-  const skillCourses = ALL_COURSES.filter(c => c.cat === openSkill);
+  const hotCourses = ALL_COURSES.filter(c => c.hot && !c.soon).concat(
+    ALL_COURSES.filter(c => c.hot && c.soon).slice(0,4)
+  ).slice(0,8);
+  const newCourses = ALL_COURSES.filter(c => c.soon).slice(0,10);
+  const skillCourses = ALL_COURSES.filter(c => c.cat === openSkill && !c.soon).concat(
+    ALL_COURSES.filter(c => c.cat === openSkill && c.soon).slice(0,4)
+  );
 
   const LEVEL = xp >= 600 ? "AI Master HR" : xp >= 350 ? "CHRO Practitioner"
     : xp >= 150 ? "Finance-HR Expert" : xp >= 50 ? "HR Accelerator" : "HR Explorer";
@@ -356,7 +399,7 @@ export default function PeopleOSHub() {
   return (
     <div style={{ background:C.navy, minHeight:"100vh",
       fontFamily:"'Be Vietnam Pro',sans-serif", color:C.white }}>
-      
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
       {/* ── NAVBAR ── */}
       <nav style={{ background:"rgba(2,11,24,.97)", borderBottom:`1px solid ${C.border}`,
@@ -472,8 +515,8 @@ export default function PeopleOSHub() {
         padding:"20px 24px" }}>
         <div style={{ ...W, display:"flex", justifyContent:"space-around",
           alignItems:"center" }}>
-          {[["👩‍💼","1,200+","HR Professionals"],["📚","35","Khóa đang mở"],
-            ["🌐","63+","Tỉnh thành VN"]].map(([e,v,l]) => (
+          {[["👩‍💼","1,200+","HR Professionals"],["📚",`${TOTAL_LIVE} live · ${SOON_COURSES.length} sắp ra`,"Khóa học"],
+            ["⏱️",fmt_dur(TOTAL_HOURS_MIN),"Học ngay hôm nay"]].map(([e,v,l]) => (
             <div key={l} style={{ textAlign:"center" }}>
               <div style={{ fontSize:28, fontWeight:800, color:C.navy }}>{e} {v}</div>
               <div style={{ fontSize:12, color:C.navy, fontWeight:600 }}>{l}</div>
@@ -637,7 +680,9 @@ export default function PeopleOSHub() {
                 borderRadius:20, padding:"4px 14px", fontSize:12,
                 fontWeight:700, color:"#fff", marginBottom:10 }}>🔥 HOT</div>
               <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:32,
-                fontWeight:800, color:C.white, margin:"0 0 4px" }}>Khóa học nổi bật</h2>
+                fontWeight:800, color:C.white, margin:"0 0 4px" }}>Khóa học nổi bật
+                  {TOTAL_LIVE > 0 && <span style={{marginLeft:10, fontSize:12, background:C.teal, color:C.navy, borderRadius:12, padding:"2px 10px", verticalAlign:"middle"}}>{TOTAL_LIVE} LIVE</span>}
+                </h2>
               <p style={{ fontSize:13, color:C.muted, margin:0 }}>Được học nhiều nhất</p>
             </div>
             <button style={{ background:"none", border:`1px solid ${C.border}`,
