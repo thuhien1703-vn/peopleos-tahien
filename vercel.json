@@ -1,5 +1,34 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "next build",
-  "outputDirectory": ".next"
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    {
+      "src": "/k1-eq-selfmastery",
+      "dest": "/k1-eq-selfmastery.html"
+    },
+    {
+      "src": "/k2-giao-tiep-anh-huong",
+      "dest": "/k2-giao-tiep-anh-huong.html"
+    },
+    {
+      "src": "/k3-ai-literacy-hr",
+      "dest": "/k3-ai-literacy-hr.html"
+    },
+    {
+      "src": "/k4-hr-ops-thuc-chien",
+      "dest": "/k4-hr-ops-thuc-chien.html"
+    },
+    {
+      "src": "/k5-recruiting-co-ban",
+      "dest": "/k5-recruiting-co-ban.html"
+    },
+    {
+      "src": "/k6-ld-thuc-chien",
+      "dest": "/k6-ld-thuc-chien.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
 }
