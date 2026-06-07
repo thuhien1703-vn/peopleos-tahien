@@ -334,7 +334,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
         <div class="stat-row">
           <div class="stat-item"><div style="font-size:22px">🔥</div><div class="stat-num" id="streak">2</div><div class="stat-label">Chuỗi ngày</div></div>
           <div class="stat-divider"></div>
-          <div class="stat-item"><div style="font-size:22px">🌱</div><div class="stat-num" style="font-size:14px;color:var(--gold)">Lv.1</div><div class="stat-label" style="color:var(--gold)">HR Explorer</div></div>
+          <div class="stat-item"><div style="font-size:22px">🌱</div><div class="stat-num" style="font-size:14px;color:var(--gold)">Lv.1</div><div class="stat-label" style="color:var(--gold)">Foundation 🌱</div></div>
           <div class="stat-divider"></div>
           <div class="stat-item"><div style="font-size:22px">⚡</div><div class="stat-num" id="hero-xp">0</div><div class="stat-label">XP hôm nay</div></div>
         </div>
@@ -365,7 +365,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
     <div class="section-tag">HOW IT WORKS</div>
     <h2 class="section-h2">Học như thế nào?</h2>
     <div class="how-grid">
-      <div class="how-card"><div class="how-thumb">🎯</div><div class="how-body"><div class="how-num">01</div><div class="how-title">Chọn lộ trình của bạn</div><div class="how-desc">HR Foundation · Finance-HR Hybrid · CHRO Accelerator — tìm đúng hành trình cho vị trí của bạn</div></div></div>
+      <div class="how-card"><div class="how-thumb">🎯</div><div class="how-body"><div class="how-num">01</div><div class="how-title">Chọn lộ trình của bạn</div><div class="how-desc">Foundation · Growth · Horizon — tìm đúng hành trình cho vị trí của bạn</div></div></div>
       <div class="how-card"><div class="how-thumb">⚡</div><div class="how-body"><div class="how-num">02</div><div class="how-title">Bài học nhỏ 10–20 phút</div><div class="how-desc">Bài học ngắn, súc tích, thiết kế cho HR Manager bận rộn. Học mọi lúc, mọi nơi.</div></div></div>
       <div class="how-card"><div class="how-thumb">🏆</div><div class="how-body"><div class="how-num">03</div><div class="how-title">Tích XP & lên cấp</div><div class="how-desc">Mỗi bài = XP + huy hiệu + chuỗi ngày học liên tục — và chứng chỉ khi hoàn thành.</div></div></div>
     </div>
@@ -417,7 +417,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
       <div>
         <div class="new-badge">✨ MỚI</div>
         <h2 class="section-h2-sm">Khóa học mới</h2>
-        <p style="font-size:13px;color:var(--muted);margin:0">Vừa ra mắt · Phase 1 hoàn chỉnh</p>
+        <p style="font-size:13px;color:var(--muted);margin:0">Vừa ra mắt · Foundation Track</p>
       </div>
     </div>
     <div class="carousel-wrap">
@@ -449,7 +449,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
   <div class="wrap">
     <div class="section-tag">GO PEOPLEOS SKILLVERSE</div>
     <h2 class="section-h2">Chương trình học</h2>
-    <p class="section-sub">Ba lộ trình · Ba cấp độ · Một hành trình từ HR Manager → CHRO</p>
+    <p class="section-sub">Foundation · Growth · Horizon — Ba cấp độ · Một hành trình lên C-suite</p>
     <div class="path-accordion" id="path-accordion"></div>
   </div>
 </div>
@@ -467,14 +467,14 @@ footer{background:var(--navy);padding:40px 24px 24px}
         <div class="lb-me-row">
           <div style="width:28px;text-align:center;font-size:13px;color:var(--muted)">96</div>
           <div class="lb-me-avatar">H</div>
-          <div style="flex:1"><div class="lb-me-name">Bạn</div><div style="font-size:11px;color:var(--muted)">HR Explorer</div></div>
+          <div style="flex:1"><div class="lb-me-name">Bạn</div><div style="font-size:11px;color:var(--muted)">Foundation 🌱</div></div>
           <div class="lb-me-xp" id="me-xp">0 XP</div>
         </div>
       </div>
       <div class="prog-right">
         <div class="prog-card">
           <div style="font-size:13px;color:var(--muted);margin-bottom:4px">Lộ trình của bạn</div>
-          <div style="font-size:20px;font-weight:700;color:var(--cyan);margin-bottom:12px">HR Foundation (Phase 1)</div>
+          <div style="font-size:20px;font-weight:700;color:var(--cyan);margin-bottom:12px">Foundation Track</div>
           <div class="xp-bar-wrap"><div class="xp-bar-fill" id="path-bar" style="width:0%"></div></div>
           <div style="font-size:12px;color:var(--muted);margin-top:6px"><span id="path-prog">0 / 6 khóa</span></div>
         </div>
@@ -581,23 +581,23 @@ footer{background:var(--navy);padding:40px 24px 24px}
 <script>
 // ── DATA ─────────────────────────────────────────────────────
 const COURSES = [
-  {id:101,cat:"EQ & Lãnh Đạo",     color:"#22D3EE", emoji:"🧠", title:"EQ & Self-Mastery",           sub:"Nền tảng cảm xúc cho HR",       dur:"~18 phút",level:"HR Staff",  hot:true,  url:"/k1-eq-selfmastery",       xp:108, modules:6},
-  {id:102,cat:"EQ & Lãnh Đạo",     color:"#22D3EE", emoji:"💬", title:"Giao Tiếp & Ảnh Hưởng",      sub:"Nói để người khác hành động",   dur:"~18 phút",level:"HR Staff",  hot:true,  url:"/k2-giao-tiep-anh-huong",  xp:108, modules:6},
-  {id:103,cat:"AI-First HR",        color:"#A78BFA", emoji:"🤖", title:"AI Literacy Cho HR",          sub:"Prompt · Tools · Automation",   dur:"~20 phút",level:"HR Staff",  hot:true,  url:"/k3-ai-literacy-hr",       xp:120, modules:6},
-  {id:104,cat:"HR Operations",      color:"#F97316", emoji:"📋", title:"HR Ops Thực Chiến",           sub:"Hợp đồng · C&B · HRIS VN",     dur:"~20 phút",level:"HR Staff",  hot:false, url:"/k4-hr-ops-thuc-chien",    xp:120, modules:6},
-  {id:105,cat:"Talent",             color:"#F472B6", emoji:"🔍", title:"Recruiting Cơ Bản",           sub:"JD · Sourcing · Phỏng vấn",    dur:"~20 phút",level:"HR Staff",  hot:false, url:"/k5-recruiting-co-ban",    xp:120, modules:6},
-  {id:106,cat:"L&D",                color:"#10B981", emoji:"🎓", title:"L&D Thực Chiến",              sub:"ADDIE · Kirkpatrick · ILT",     dur:"~20 phút",level:"HR Staff",  hot:false, url:"/k6-ld-thuc-chien",        xp:120, modules:6},
-  // Phase 2 — sắp ra
-  {id:201,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"⚡",title:"Leadership Không Chức Danh",sub:"Dẫn dắt bằng ảnh hưởng",dur:"~20 phút",level:"HR Manager",hot:false,soon:true,xp:132},
-  {id:202,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"🧩",title:"Tư Duy Hệ Thống",sub:"Quyết định bằng dữ liệu",dur:"~20 phút",level:"HR Manager",hot:false,soon:true,xp:132},
-  {id:203,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"🔄",title:"Quản Trị Thay Đổi",sub:"ADKAR · Kháng cự · Văn hóa",dur:"~20 phút",level:"HR Manager",hot:false,soon:true,xp:132},
-  {id:210,cat:"Finance-HR",color:"#F0C040",emoji:"💼",title:"HRBP Mindset",sub:"P&L · 9-box · Business lang",dur:"~22 phút",level:"HRBP",hot:true,soon:true,xp:144},
-  {id:211,cat:"Finance-HR",color:"#F0C040",emoji:"📈",title:"Performance · RevPAMH ★",sub:"OKR · KPI · Calibration",dur:"~22 phút",level:"HRBP",hot:true,soon:true,xp:144},
-  {id:212,cat:"People Analytics",color:"#34D399",emoji:"📊",title:"HR Analytics Cơ Bản ★",sub:"Attrition · Dashboard · Story",dur:"~22 phút",level:"HRBP",hot:false,soon:true,xp:144},
-  // Phase 3
-  {id:301,cat:"CHRO Mindset",color:"#FB923C",emoji:"👑",title:"Executive Presence",sub:"Board · CEO · C-suite lang",dur:"~25 phút",level:"CHRO",hot:false,soon:true,xp:156},
-  {id:302,cat:"Finance-HR",color:"#F0C040",emoji:"💰",title:"Finance-HR Hybrid ★",sub:"Total Rewards · ESOP · IPO",dur:"~25 phút",level:"CHRO",hot:false,soon:true,xp:168},
-  {id:303,cat:"People Analytics",color:"#34D399",emoji:"🔭",title:"People Analytics+ ★",sub:"Predictive · RevPAMH+ · ROI",dur:"~25 phút",level:"CHRO",hot:false,soon:true,xp:168},
+  {id:101,cat:"EQ & Lãnh Đạo",     color:"#22D3EE", emoji:"🧠", title:"EQ & Self-Mastery",           sub:"Nền tảng cảm xúc cho HR",       dur:"~18 phút",level:"Foundation 🌱",  hot:true,  url:"/k1-eq-selfmastery",       xp:108, modules:6},
+  {id:102,cat:"EQ & Lãnh Đạo",     color:"#22D3EE", emoji:"💬", title:"Giao Tiếp & Ảnh Hưởng",      sub:"Nói để người khác hành động",   dur:"~18 phút",level:"Foundation 🌱",  hot:true,  url:"/k2-giao-tiep-anh-huong",  xp:108, modules:6},
+  {id:103,cat:"AI-First HR",        color:"#A78BFA", emoji:"🤖", title:"AI Literacy Cho HR",          sub:"Prompt · Tools · Automation",   dur:"~20 phút",level:"Foundation 🌱",  hot:true,  url:"/k3-ai-literacy-hr",       xp:120, modules:6},
+  {id:104,cat:"HR Operations",      color:"#F97316", emoji:"📋", title:"HR Ops Thực Chiến",           sub:"Hợp đồng · C&B · HRIS VN",     dur:"~20 phút",level:"Foundation 🌱",  hot:false, url:"/k4-hr-ops-thuc-chien",    xp:120, modules:6},
+  {id:105,cat:"Talent",             color:"#F472B6", emoji:"🔍", title:"Recruiting Cơ Bản",           sub:"JD · Sourcing · Phỏng vấn",    dur:"~20 phút",level:"Foundation 🌱",  hot:false, url:"/k5-recruiting-co-ban",    xp:120, modules:6},
+  {id:106,cat:"L&D",                color:"#10B981", emoji:"🎓", title:"L&D Thực Chiến",              sub:"ADDIE · Kirkpatrick · ILT",     dur:"~20 phút",level:"Foundation 🌱",  hot:false, url:"/k6-ld-thuc-chien",        xp:120, modules:6},
+  // Growth Track — sắp ra
+  {id:201,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"⚡",title:"Leadership Không Chức Danh",sub:"Dẫn dắt bằng ảnh hưởng",dur:"~20 phút",level:"Growth 🌿",hot:false,soon:true,xp:132},
+  {id:202,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"🧩",title:"Tư Duy Hệ Thống",sub:"Quyết định bằng dữ liệu",dur:"~20 phút",level:"Growth 🌿",hot:false,soon:true,xp:132},
+  {id:203,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"🔄",title:"Quản Trị Thay Đổi",sub:"ADKAR · Kháng cự · Văn hóa",dur:"~20 phút",level:"Growth 🌿",hot:false,soon:true,xp:132},
+  {id:210,cat:"Finance-HR",color:"#F0C040",emoji:"💼",title:"HRBP Mindset",sub:"P&L · 9-box · Business lang",dur:"~22 phút",level:"Growth 🌿",hot:true,soon:true,xp:144},
+  {id:211,cat:"Finance-HR",color:"#F0C040",emoji:"📈",title:"Performance · RevPAMH ★",sub:"OKR · KPI · Calibration",dur:"~22 phút",level:"Growth 🌿",hot:true,soon:true,xp:144},
+  {id:212,cat:"People Analytics",color:"#34D399",emoji:"📊",title:"HR Analytics Cơ Bản ★",sub:"Attrition · Dashboard · Story",dur:"~22 phút",level:"Growth 🌿",hot:false,soon:true,xp:144},
+  // Horizon Track
+  {id:301,cat:"CHRO Mindset",color:"#FB923C",emoji:"👑",title:"Executive Presence",sub:"Board · CEO · C-suite lang",dur:"~25 phút",level:"Horizon 🌌",hot:false,soon:true,xp:156},
+  {id:302,cat:"Finance-HR",color:"#F0C040",emoji:"💰",title:"Finance-HR Hybrid ★",sub:"Total Rewards · ESOP · IPO",dur:"~25 phút",level:"Horizon 🌌",hot:false,soon:true,xp:168},
+  {id:303,cat:"People Analytics",color:"#34D399",emoji:"🔭",title:"People Analytics+ ★",sub:"Predictive · RevPAMH+ · ROI",dur:"~25 phút",level:"Horizon 🌌",hot:false,soon:true,xp:168},
 ];
 
 const SKILLS = [
@@ -612,20 +612,20 @@ const SKILLS = [
 ];
 
 const PATHS = [
-  {key:"foundation",emoji:"🚀",name:"HR Foundation",color:"#22D3EE",target:"Dành cho HR Executive & HR Staff",tagline:"Xây nền tảng · Phát triển nghề nghiệp",xp:"+696 XP",courses:6,
+  {key:"foundation",emoji:"🚀",name:"Foundation",color:"#22D3EE",target:"Dành cho HR Executive & HR Staff · Xây nền vững",tagline:"Foundation — Nơi hành trình bắt đầu",xp:"+696 XP",courses:6,
    tiers:[{name:"NOW-READY",cls:"now",ids:[101,102,103,104,105,106]}]},
-  {key:"finance-hr",emoji:"⚡",name:"Finance-HR Hybrid",color:"#F0C040",target:"Dành cho HRBP & HR Senior",tagline:"Nói chuyện được với CEO & CFO",xp:"+600 XP",courses:6,
+  {key:"finance-hr",emoji:"⚡",name:"Growth",color:"#F0C040",target:"Dành cho HR Manager & Senior · Tăng tốc & dẫn dắt",tagline:"Growth — Tăng tốc & dẫn dắt",xp:"+600 XP",courses:6,
    tiers:[{name:"NOW-READY",cls:"now",ids:[210,211,212]},{name:"FUTURE-READY",cls:"future",ids:[302,303]}]},
-  {key:"chro",emoji:"👑",name:"CHRO Accelerator",color:"#A855F7",target:"Dành cho CHRO, CPO & C-suite HR",tagline:"Định hướng chiến lược · Dẫn dắt tổ chức",xp:"+800 XP",courses:5,
+  {key:"chro",emoji:"👑",name:"Horizon",color:"#A855F7",target:"Dành cho CHRO, CPO & C-suite · Nhìn xa & định hướng",tagline:"Horizon — Nhìn xa · Định hướng tổ chức",xp:"+800 XP",courses:5,
    tiers:[{name:"NOW-READY",cls:"now",ids:[301]},{name:"FUTURE-READY",cls:"future",ids:[302,303]}]},
 ];
 
 const LB = [
   {rank:1,name:"Nguyễn Minh Châu",level:"AI Master HR",xp:2775,medal:"🥇"},
   {rank:2,name:"Trần Thị Hoa",level:"Finance-HR Expert",xp:2120,medal:"🥈"},
-  {rank:3,name:"Lê Văn Đức",level:"CHRO Practitioner",xp:1895,medal:"🥉"},
-  {rank:4,name:"Phạm Thu Hằng",level:"HR Accelerator",xp:1540,medal:""},
-  {rank:5,name:"Vũ Thị Lan",level:"HR Foundation",xp:1230,medal:""},
+  {rank:3,name:"Lê Văn Đức",level:"Horizon 🌌",xp:1895,medal:"🥉"},
+  {rank:4,name:"Phạm Thu Hằng",level:"Growth 🌿",xp:1540,medal:""},
+  {rank:5,name:"Vũ Thị Lan",level:"Foundation 🌱",xp:1230,medal:""},
 ];
 
 // ── STATE ────────────────────────────────────────────────────
