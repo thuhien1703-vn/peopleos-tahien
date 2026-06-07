@@ -843,18 +843,32 @@ function save() {
 }
 
 function updateUI() {
-  const x = xp;
-  document.getElementById('xp-val').textContent = x;
-  document.getElementById('hero-xp').textContent = x;
-  document.getElementById('xp-prog').textContent = x;
-  document.getElementById('xp-bar').style.width = Math.min((x/500)*100,100)+'%';
-  document.getElementById('done-count').textContent = done.size;
-  document.getElementById('done-badge').textContent = done.size;
-  document.getElementById('total-xp-badge').textContent = x;
-  document.getElementById('me-xp').textContent = x+' 💧';
+  const x = giot;
+  const el_val = document.getElementById('xp-val');
+  const el_hero = document.getElementById('hero-xp');
+  const el_prog = document.getElementById('xp-prog');
+  const el_bar  = document.getElementById('xp-bar');
+  const el_nav  = document.getElementById('giot-val');
+  const el_nav2 = document.getElementById('nav-giot-display');
+  if (el_val)  el_val.textContent  = x;
+  if (el_hero) el_hero.textContent = x;
+  if (el_prog) el_prog.textContent = x;
+  if (el_bar)  el_bar.style.width  = Math.min((x/500)*100,100)+'%';
+  if (el_nav)  el_nav.textContent  = x;
+  if (el_nav2) el_nav2.textContent = x;
+  const dc = document.getElementById('done-count');
+  const db = document.getElementById('done-badge');
+  const tb = document.getElementById('total-xp-badge');
+  const me = document.getElementById('me-xp');
+  if (dc) dc.textContent = done.size;
+  if (db) db.textContent = done.size;
+  if (tb) tb.textContent = x;
+  if (me) me.textContent = x+' 💧';
   const pct = Math.round((done.size/6)*100);
-  document.getElementById('path-bar').style.width = pct+'%';
-  document.getElementById('path-prog').textContent = done.size+' / 6 Foundation · '+pct+'%';
+  const fp = document.getElementById('found-pct');
+  const pb = document.getElementById('prog-bar-fill');
+  if (fp) fp.textContent = pct+'%';
+  if (pb) pb.style.width = pct+'%';
 }
 
 // ── COURSE CARD HTML ─────────────────────────────────────────
