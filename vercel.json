@@ -53,6 +53,10 @@
     {
       "source": "/k7-leadership-khong-chuc-danh",
       "destination": "/k7-leadership-khong-chuc-danh.html"
+    },
+    {
+      "source": "/k8-finance-hr-hybrid",
+      "destination": "/k8-finance-hr-hybrid.html"
     }
   ]
 }
