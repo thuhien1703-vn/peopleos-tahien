@@ -25,7 +25,7 @@ const ALL_COURSES = [
   // ══ PeopleOS Career Path (18 khóa · 3 cấp) ══════════════
   // Cấp 1 — HR Staff & Specialist
   { id:101, cat:"EQ & Lãnh Đạo",   emoji:"🧠", title:"EQ & Self-Mastery",             sub:"Nền tảng cảm xúc cho HR",       dur:"18 phút", type:"Khóa học", level:"HR Staff",       hot:true,  tags:["VI"], url:"/k1-eq-selfmastery",           xp:108, modules:6 },
-  { id:102, cat:"EQ & Lãnh Đạo",   emoji:"💬", title:"Giao Tiếp & Ảnh Hưởng",        sub:"Nói để người khác hành động",   dur:"18 phút", type:"Khóa học", level:"HR Staff",       hot:true,  tags:["VI"], soon:true,                           xp:108, modules:6 },
+  { id:102, cat:"EQ & Lãnh Đạo",   emoji:"💬", title:"Giao Tiếp & Ảnh Hưởng",        sub:"Nói để người khác hành động",   dur:"18 phút", type:"Khóa học", level:"HR Staff",       hot:true,  tags:["VI"], url:"/k2-giao-tiep-anh-huong",      xp:108, modules:6 },
   { id:103, cat:"AI-First HR",      emoji:"🤖", title:"AI Literacy Cho HR",            sub:"Prompt · Tools · Automation",   dur:"20 phút", type:"Khóa học", level:"HR Staff",       hot:true,  tags:["VI"], soon:true,                           xp:120, modules:6 },
   { id:104, cat:"HR Operations",    emoji:"📋", title:"HR Ops Thực Chiến",             sub:"Hợp đồng · C&B · HRIS VN",     dur:"20 phút", type:"Khóa học", level:"HR Staff",       hot:false, tags:["VI"], soon:true,                           xp:120, modules:6 },
   { id:105, cat:"Talent",           emoji:"🔍", title:"Recruiting Cơ Bản",             sub:"JD · Sourcing · Phỏng vấn",    dur:"20 phút", type:"Khóa học", level:"HR Staff",       hot:false, tags:["VI"], soon:true,                           xp:120, modules:6 },
