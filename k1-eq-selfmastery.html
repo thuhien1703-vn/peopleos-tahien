@@ -33,19 +33,21 @@ body::after{content:'水';position:fixed;right:-50px;top:50%;
 /* ── LAYOUT ─────────────────────────────────────────────── */
 .app{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 20px 100px}
 /* ── TOPNAV ─────────────────────────────────────────────── */
-.topnav{display:flex;align-items:center;justify-content:space-between;
-  padding:18px 0 14px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.topnav{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
+  height:58px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);margin-bottom:28px}
 .back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);
   text-decoration:none;transition:color .18s}
 .back:hover{color:var(--cyan)}
-.logo{display:flex;align-items:center;gap:9px}
-.lmark{width:30px;height:30px;border-radius:8px;
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.lmark{width:32px;height:32px;border-radius:9px;
   background:linear-gradient(135deg,var(--teal),var(--navy3));
   display:flex;align-items:center;justify-content:center;
-  font-family:'Playfair Display',serif;font-size:13px;color:var(--cyan);
+  font-family:'Playfair Display',serif;font-size:14px;color:var(--cyan);
   border:1px solid var(--border2)}
-.lname{font-size:13px;font-weight:600;color:var(--cyan);letter-spacing:.02em}
-.lsub{font-size:10px;color:var(--muted)}
+.lname{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cyan)}
+.lsub{font-size:11px;color:var(--muted);margin-left:4px}
 /* ── PROGRESS ───────────────────────────────────────────── */
 .prog-wrap{margin-bottom:24px}
 .prog-meta{display:flex;justify-content:space-between;
@@ -241,15 +243,17 @@ body::after{content:'水';position:fixed;right:-50px;top:50%;
 <!-- TOPNAV -->
 <nav class="topnav">
   <a class="back" href="/">← Về Learning Hub</a>
-  <div class="logo">
+  <a class="logo" href="/">
     <div class="lmark">水</div>
-    <div>
-      <div class="lname">PeopleOS</div>
-      <div class="lsub">by TaHien</div>
-    </div>
+    <span class="lname">PeopleOS</span>
+    <span class="lsub">by TaHien</span>
+  </a>
+  <div style="background:var(--navy2);border:1px solid var(--border);border-radius:20px;
+    padding:5px 14px;font-size:12px;color:var(--cyan);font-weight:600;
+    display:flex;gap:5px;align-items:center">
+    ⚡ <span id="nav-xp-display">0</span> XP
   </div>
 </nav>
-
 <!-- PROGRESS -->
 <div class="prog-wrap">
   <div class="prog-meta">
@@ -783,6 +787,12 @@ function done(){
 
 /* ── INIT ── */
 buildDots();updProg();
+// Sync XP from localStorage
+(function(){
+  var xp = parseInt(localStorage.getItem('pos_xp')||'0');
+  var el = document.getElementById('nav-xp-display');
+  if(el) el.textContent = xp;
+})();
 </script>
 </body>
 </html>
