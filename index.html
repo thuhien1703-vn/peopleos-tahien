@@ -344,7 +344,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
           <span>Tiến độ hôm nay</span><span style="color:var(--cyan)"><span id="xp-prog">0</span> / 500 XP</span>
         </div>
         <div class="xp-bar-wrap"><div class="xp-bar-fill" id="xp-bar" style="width:0%"></div></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:8px;text-align:right"><span id="done-count">0</span> / 6 khóa hoàn thành</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px;text-align:right"><span id="done-count">0</span> / 6 khóa Foundation</div>
       </div>
     </div>
   </div>
@@ -354,7 +354,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
 <div class="stats-bar">
   <div class="stats-bar-inner">
     <div class="stat-big"><div class="stat-big-num">👩‍💼 1,200+</div><div class="stat-big-label">HR Professionals</div></div>
-    <div class="stat-big"><div class="stat-big-num">📚 6</div><div class="stat-big-label">Khóa đang mở</div></div>
+    <div class="stat-big"><div class="stat-big-num">📚 18</div><div class="stat-big-label">Khóa trong lộ trình</div></div>
     <div class="stat-big"><div class="stat-big-num">🌐 63+</div><div class="stat-big-label">Tỉnh thành VN</div></div>
   </div>
 </div>
@@ -417,7 +417,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
       <div>
         <div class="new-badge">✨ MỚI</div>
         <h2 class="section-h2-sm">Khóa học mới</h2>
-        <p style="font-size:13px;color:var(--muted);margin:0">Vừa ra mắt · Foundation Track</p>
+        <p style="font-size:13px;color:var(--muted);margin:0">Vừa ra mắt · 6 khóa Foundation live</p>
       </div>
     </div>
     <div class="carousel-wrap">
@@ -581,51 +581,108 @@ footer{background:var(--navy);padding:40px 24px 24px}
 <script>
 // ── DATA ─────────────────────────────────────────────────────
 const COURSES = [
-  {id:101,cat:"EQ & Lãnh Đạo",     color:"#22D3EE", emoji:"🧠", title:"EQ & Self-Mastery",           sub:"Nền tảng cảm xúc cho HR",       dur:"~18 phút",level:"Foundation 🌱",  hot:true,  url:"/k1-eq-selfmastery",       xp:108, modules:6},
-  {id:102,cat:"EQ & Lãnh Đạo",     color:"#22D3EE", emoji:"💬", title:"Giao Tiếp & Ảnh Hưởng",      sub:"Nói để người khác hành động",   dur:"~18 phút",level:"Foundation 🌱",  hot:true,  url:"/k2-giao-tiep-anh-huong",  xp:108, modules:6},
-  {id:103,cat:"AI-First HR",        color:"#A78BFA", emoji:"🤖", title:"AI Literacy Cho HR",          sub:"Prompt · Tools · Automation",   dur:"~20 phút",level:"Foundation 🌱",  hot:true,  url:"/k3-ai-literacy-hr",       xp:120, modules:6},
-  {id:104,cat:"HR Operations",      color:"#F97316", emoji:"📋", title:"HR Ops Thực Chiến",           sub:"Hợp đồng · C&B · HRIS VN",     dur:"~20 phút",level:"Foundation 🌱",  hot:false, url:"/k4-hr-ops-thuc-chien",    xp:120, modules:6},
-  {id:105,cat:"Talent",             color:"#F472B6", emoji:"🔍", title:"Recruiting Cơ Bản",           sub:"JD · Sourcing · Phỏng vấn",    dur:"~20 phút",level:"Foundation 🌱",  hot:false, url:"/k5-recruiting-co-ban",    xp:120, modules:6},
-  {id:106,cat:"L&D",                color:"#10B981", emoji:"🎓", title:"L&D Thực Chiến",              sub:"ADDIE · Kirkpatrick · ILT",     dur:"~20 phút",level:"Foundation 🌱",  hot:false, url:"/k6-ld-thuc-chien",        xp:120, modules:6},
-  // Growth Track — sắp ra
-  {id:201,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"⚡",title:"Leadership Không Chức Danh",sub:"Dẫn dắt bằng ảnh hưởng",dur:"~20 phút",level:"Growth 🌿",hot:false,soon:true,xp:132},
-  {id:202,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"🧩",title:"Tư Duy Hệ Thống",sub:"Quyết định bằng dữ liệu",dur:"~20 phút",level:"Growth 🌿",hot:false,soon:true,xp:132},
-  {id:203,cat:"EQ & Lãnh Đạo",color:"#22D3EE",emoji:"🔄",title:"Quản Trị Thay Đổi",sub:"ADKAR · Kháng cự · Văn hóa",dur:"~20 phút",level:"Growth 🌿",hot:false,soon:true,xp:132},
-  {id:210,cat:"Finance-HR",color:"#F0C040",emoji:"💼",title:"HRBP Mindset",sub:"P&L · 9-box · Business lang",dur:"~22 phút",level:"Growth 🌿",hot:true,soon:true,xp:144},
-  {id:211,cat:"Finance-HR",color:"#F0C040",emoji:"📈",title:"Performance · RevPAMH ★",sub:"OKR · KPI · Calibration",dur:"~22 phút",level:"Growth 🌿",hot:true,soon:true,xp:144},
-  {id:212,cat:"People Analytics",color:"#34D399",emoji:"📊",title:"HR Analytics Cơ Bản ★",sub:"Attrition · Dashboard · Story",dur:"~22 phút",level:"Growth 🌿",hot:false,soon:true,xp:144},
-  // Horizon Track
-  {id:301,cat:"CHRO Mindset",color:"#FB923C",emoji:"👑",title:"Executive Presence",sub:"Board · CEO · C-suite lang",dur:"~25 phút",level:"Horizon 🌌",hot:false,soon:true,xp:156},
-  {id:302,cat:"Finance-HR",color:"#F0C040",emoji:"💰",title:"Finance-HR Hybrid ★",sub:"Total Rewards · ESOP · IPO",dur:"~25 phút",level:"Horizon 🌌",hot:false,soon:true,xp:168},
-  {id:303,cat:"People Analytics",color:"#34D399",emoji:"🔭",title:"People Analytics+ ★",sub:"Predictive · RevPAMH+ · ROI",dur:"~25 phút",level:"Horizon 🌌",hot:false,soon:true,xp:168},
+  // ── FOUNDATION TRACK (K1–K6) — 6 khóa LIVE ──────────────────────────────
+  {id:101,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"🧠",title:"EQ & Self-Mastery",
+   sub:"Nền tảng cảm xúc — không thể thiếu ở mọi cấp HR",
+   dur:"~18 phút",level:"Foundation 🌱",hot:true, url:"/k1-eq-selfmastery",    xp:108,modules:6},
+
+  {id:102,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"💬",title:"Giao Tiếp & Ảnh Hưởng",
+   sub:"HR nói chuyện với tất cả mọi người — từ công nhân đến CEO",
+   dur:"~18 phút",level:"Foundation 🌱",hot:true, url:"/k2-giao-tiep-anh-huong",xp:108,modules:6},
+
+  {id:103,cat:"AI-First HR",       color:"#A78BFA",emoji:"🤖",title:"AI Literacy Cho HR",
+   sub:"HR không dùng AI sẽ bị thay bởi HR dùng AI",
+   dur:"~20 phút",level:"Foundation 🌱",hot:true, url:"/k3-ai-literacy-hr",    xp:120,modules:6},
+
+  {id:104,cat:"HR Operations",     color:"#F97316",emoji:"📋",title:"HR Ops Thực Chiến",
+   sub:"Làm đúng từ đầu — sai một ly đi một dặm",
+   dur:"~20 phút",level:"Foundation 🌱",hot:false,url:"/k4-hr-ops-thuc-chien",  xp:120,modules:6},
+
+  {id:105,cat:"Talent",            color:"#F472B6",emoji:"🔍",title:"Recruiting Cơ Bản",
+   sub:"Tuyển sai = tốn 6 tháng lương + chi phí cơ hội",
+   dur:"~20 phút",level:"Foundation 🌱",hot:false,url:"/k5-recruiting-co-ban",  xp:120,modules:6},
+
+  {id:106,cat:"L&D",               color:"#10B981",emoji:"🎓",title:"L&D Thực Chiến",
+   sub:"Training không đo được hiệu quả là chi phí, không phải đầu tư",
+   dur:"~20 phút",level:"Foundation 🌱",hot:false,url:"/k6-ld-thuc-chien",      xp:120,modules:6},
+
+  // ── GROWTH TRACK (K7–K12) — sắp ra ─────────────────────────────────────
+  {id:201,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"⚡",title:"Leadership Không Chức Danh",
+   sub:"HRBP ảnh hưởng không có line authority — siêu năng lực của HR",
+   dur:"~20 phút",level:"Growth 🌿",  hot:true, soon:true,xp:132},
+
+  {id:202,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"🧩",title:"Tư Duy Hệ Thống & Quyết Định",
+   sub:"HR Manager giỏi không giải quyết triệu chứng — họ fix hệ thống",
+   dur:"~20 phút",level:"Growth 🌿",  hot:false,soon:true,xp:132},
+
+  {id:203,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"🔄",title:"Quản Trị Thay Đổi & Văn Hóa",
+   sub:"70% change initiatives thất bại — HR chính là lý do, và cũng là giải pháp",
+   dur:"~20 phút",level:"Growth 🌿",  hot:false,soon:true,xp:132},
+
+  {id:210,cat:"Finance-HR",        color:"#F0C040",emoji:"💼",title:"HRBP Mindset",
+   sub:"Từ HR chấp hành sang HR chiến lược — bước nhảy quan trọng nhất",
+   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,xp:144},
+
+  {id:211,cat:"Finance-HR",        color:"#F0C040",emoji:"📈",title:"Performance Mgmt · RevPAMH ★",
+   sub:"Đánh giá hiệu suất là công cụ quản trị mạnh nhất — nếu làm đúng",
+   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,xp:144},
+
+  {id:212,cat:"People Analytics",  color:"#34D399",emoji:"📊",title:"HR Analytics Cơ Bản ★",
+   sub:"Data không nói dối — nhưng HR hay đọc sai. Đây là cách đọc đúng",
+   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,xp:144},
+
+  // ── HORIZON TRACK (K13–K18) — sắp ra ───────────────────────────────────
+  {id:301,cat:"CHRO Mindset",      color:"#FB923C",emoji:"👑",title:"Executive Presence & Ảnh Hưởng",
+   sub:"CHRO ngồi cùng bàn với CEO — cần ngôn ngữ, tư thế và tư duy khác",
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:156},
+
+  {id:302,cat:"CHRO Mindset",      color:"#FB923C",emoji:"🌱",title:"Văn Hóa & Culture Design",
+   sub:"Văn hóa không phải poster trên tường — là quyết định CEO đưa ra khi không ai nhìn",
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:156},
+
+  {id:303,cat:"AI-First HR",       color:"#A78BFA",emoji:"🤖",title:"AI Strategy Cho CHRO",
+   sub:"CHRO định hình AI trong tổ chức — không phải IT, không phải CEO, là HR",
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:156},
+
+  {id:304,cat:"CHRO Mindset",      color:"#FB923C",emoji:"🌊",title:"Stagility & Workforce Design ★",
+   sub:"Vừa stable (hệ thống) vừa agile (con người) — không mâu thuẫn",
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:168},
+
+  {id:305,cat:"Finance-HR",        color:"#F0C040",emoji:"💰",title:"Finance-HR Hybrid ★",
+   sub:"CHRO biết tài chính là CHRO không bị qua mặt — bởi CFO hay bởi CEO",
+   dur:"~25 phút",level:"Horizon 🌌", hot:true, soon:true,xp:168},
+
+  {id:306,cat:"People Analytics",  color:"#34D399",emoji:"🔭",title:"People Analytics Nâng Cao · RevPAMH+ ★",
+   sub:"Từ báo cáo nhìn lại sang dự báo nhìn tới — CHRO thế hệ mới",
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:168},
 ];
 
 const SKILLS = [
-  {key:"EQ & Lãnh Đạo",  emoji:"🧠",color:"#22D3EE",stat:"📈 EQ là kỹ năng #1 phân biệt HR effective và HR excellent"},
-  {key:"AI-First HR",     emoji:"🤖",color:"#A78BFA",stat:"📈 Kỹ năng AI-literacy tăng 70% nhu cầu tuyển dụng (LinkedIn 2026)"},
-  {key:"Finance-HR",      emoji:"💰",color:"#F0C040",stat:"📈 Finance-HR Hybrid là top 3 kỹ năng hot nhất cho CHRO 2026"},
-  {key:"People Analytics",emoji:"📊",color:"#34D399",stat:"📈 People Analytics tăng 185% nhu cầu HRBP toàn cầu"},
-  {key:"Talent",          emoji:"🎯",color:"#F472B6",stat:"📈 Bar Raiser methodology: quality-of-hire tăng 40%"},
-  {key:"HR Operations",   emoji:"📋",color:"#F97316",stat:"📈 HR Ops chuẩn giảm 30% rủi ro pháp lý cho chuỗi F&B"},
-  {key:"L&D",             emoji:"🎓",color:"#10B981",stat:"📈 Kirkpatrick L4 measurement tăng L&D budget approval 2.5x"},
-  {key:"CHRO Mindset",    emoji:"👑",color:"#FB923C",stat:"📈 CHRO ngồi tại board table: tăng 60% tại Fortune 500"},
+  {key:"EQ & Lãnh Đạo",  emoji:"🧠",color:"#22D3EE",stat:"📈 EQ là kỹ năng #1 phân biệt HR effective và HR excellent — 5 khóa trong lộ trình"},
+  {key:"AI-First HR",     emoji:"🤖",color:"#A78BFA",stat:"📈 Kỹ năng AI-literacy tăng 70% nhu cầu tuyển dụng (LinkedIn 2026) — 2 khóa"},
+  {key:"Finance-HR",      emoji:"💰",color:"#F0C040",stat:"📈 Finance-HR Hybrid · RevPAMH là top 3 kỹ năng hot nhất cho CHRO 2026 — 3 khóa"},
+  {key:"People Analytics",emoji:"📊",color:"#34D399",stat:"📈 People Analytics tăng 185% nhu cầu HRBP toàn cầu — 2 khóa · RevPAMH+ framework"},
+  {key:"Talent",          emoji:"🎯",color:"#F472B6",stat:"📈 Tuyển sai = 6 tháng lương + chi phí cơ hội. Structured hiring giảm 40% bad hire"},
+  {key:"HR Operations",   emoji:"📋",color:"#F97316",stat:"📈 HR Ops chuẩn giảm 30% rủi ro pháp lý — đặc biệt quan trọng với chuỗi F&B"},
+  {key:"L&D",             emoji:"🎓",color:"#10B981",stat:"📈 Kirkpatrick L4 tăng L&D budget approval 2.5x — training phải đo được ROI"},
+  {key:"CHRO Mindset",    emoji:"👑",color:"#FB923C",stat:"📈 CHRO ngồi tại board table tăng 60% tại Fortune 500 — Stagility · Culture · IPO readiness"},
 ];
 
 const PATHS = [
   {key:"foundation",emoji:"🚀",name:"Foundation",color:"#22D3EE",target:"Dành cho HR Executive & HR Staff · Xây nền vững",tagline:"Foundation — Nơi hành trình bắt đầu",xp:"+696 XP",courses:6,
    tiers:[{name:"NOW-READY",cls:"now",ids:[101,102,103,104,105,106]}]},
-  {key:"finance-hr",emoji:"⚡",name:"Growth",color:"#F0C040",target:"Dành cho HR Manager & Senior · Tăng tốc & dẫn dắt",tagline:"Growth — Tăng tốc & dẫn dắt",xp:"+600 XP",courses:6,
-   tiers:[{name:"NOW-READY",cls:"now",ids:[210,211,212]},{name:"FUTURE-READY",cls:"future",ids:[302,303]}]},
-  {key:"chro",emoji:"👑",name:"Horizon",color:"#A855F7",target:"Dành cho CHRO, CPO & C-suite · Nhìn xa & định hướng",tagline:"Horizon — Nhìn xa · Định hướng tổ chức",xp:"+800 XP",courses:5,
-   tiers:[{name:"NOW-READY",cls:"now",ids:[301]},{name:"FUTURE-READY",cls:"future",ids:[302,303]}]},
+  {key:"finance-hr",emoji:"🌿",name:"Growth",color:"#34D399",target:"Dành cho HR Manager & Senior · Tăng tốc & dẫn dắt",tagline:"Growth — Tăng tốc & dẫn dắt",xp:"+828 XP",courses:6,
+   tiers:[{name:"NOW-READY — Sắp ra",cls:"now",ids:[201,202,203]},{name:"NOW-READY — Sắp ra",cls:"now",ids:[210,211,212]}]},
+  {key:"chro",emoji:"🌌",name:"Horizon",color:"#A855F7",target:"Dành cho CHRO, CPO & C-suite · Nhìn xa & định hướng",tagline:"Horizon — Nhìn xa · Định hướng tổ chức",xp:"+972 XP",courses:6,
+   tiers:[{name:"COMING SOON",cls:"future",ids:[301,302,303]},{name:"COMING SOON",cls:"future",ids:[304,305,306]}]},
 ];
 
 const LB = [
-  {rank:1,name:"Nguyễn Minh Châu",level:"AI Master HR",xp:2775,medal:"🥇"},
-  {rank:2,name:"Trần Thị Hoa",level:"Finance-HR Expert",xp:2120,medal:"🥈"},
-  {rank:3,name:"Lê Văn Đức",level:"Horizon 🌌",xp:1895,medal:"🥉"},
-  {rank:4,name:"Phạm Thu Hằng",level:"Growth 🌿",xp:1540,medal:""},
-  {rank:5,name:"Vũ Thị Lan",level:"Foundation 🌱",xp:1230,medal:""},
+  {rank:1,name:"Nguyễn Minh Châu",level:"Horizon 🌌 · RevPAMH Master",xp:2775,medal:"🥇"},
+  {rank:2,name:"Trần Thị Hoa",level:"Horizon 🌌 · Finance-HR Expert",xp:2120,medal:"🥈"},
+  {rank:3,name:"Lê Văn Đức",level:"Growth 🌿 · HRBP Strategist",xp:1895,medal:"🥉"},
+  {rank:4,name:"Phạm Thu Hằng",level:"Growth 🌿 · People Analytics",xp:1540,medal:""},
+  {rank:5,name:"Vũ Thị Lan",level:"Foundation 🌱 · HR Ops Pro",xp:1230,medal:""},
 ];
 
 // ── STATE ────────────────────────────────────────────────────
@@ -652,7 +709,7 @@ function updateUI() {
   document.getElementById('me-xp').textContent = x+' XP';
   const pct = Math.round((done.size/6)*100);
   document.getElementById('path-bar').style.width = pct+'%';
-  document.getElementById('path-prog').textContent = done.size+' / 6 khóa · '+pct+'%';
+  document.getElementById('path-prog').textContent = done.size+' / 6 Foundation · '+pct+'%';
 }
 
 // ── COURSE CARD HTML ─────────────────────────────────────────
