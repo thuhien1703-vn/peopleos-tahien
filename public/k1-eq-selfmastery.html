@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EQ & Self-Mastery · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ─────────────────────────────────────────────── */
+:root{
+  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--navy4:#143350;
+  --cyan:#22D3EE;--teal:#06B6D4;--cyan2:#67E8F9;
+  --gold:#F0C040;--gold2:#FDE68A;--gold3:#d97706;
+  --text:#F0F6FF;--muted:#94A3B8;--subtle:#4A7A94;
+  --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);
+  --border:rgba(34,211,238,0.14);--border2:rgba(34,211,238,0.28);
+  --r:14px;--r-sm:9px;
+}
+/* ── RESET ──────────────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;background:var(--navy);
+  color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.6}
+/* ── ATMOSPHERE ─────────────────────────────────────────── */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 90% 55% at 15% -5%,rgba(6,182,212,.09) 0%,transparent 55%),
+    radial-gradient(ellipse 65% 45% at 85% 105%,rgba(240,192,64,.06) 0%,transparent 55%)}
+body::after{content:'水';position:fixed;right:-50px;top:50%;
+  transform:translateY(-50%) rotate(-8deg);font-size:340px;line-height:1;
+  color:rgba(34,211,238,.022);pointer-events:none;z-index:0;
+  font-family:'Playfair Display',serif}
+/* ── LAYOUT ─────────────────────────────────────────────── */
+.app{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 20px 100px}
+/* ── TOPNAV ─────────────────────────────────────────────── */
+.topnav{display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0 14px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);
+  text-decoration:none;transition:color .18s}
+.back:hover{color:var(--cyan)}
+.logo{display:flex;align-items:center;gap:9px}
+.lmark{width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--teal),var(--navy3));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:13px;color:var(--cyan);
+  border:1px solid var(--border2)}
+.lname{font-size:13px;font-weight:600;color:var(--cyan);letter-spacing:.02em}
+.lsub{font-size:10px;color:var(--muted)}
+/* ── PROGRESS ───────────────────────────────────────────── */
+.prog-wrap{margin-bottom:24px}
+.prog-meta{display:flex;justify-content:space-between;
+  font-size:11px;color:var(--muted);margin-bottom:7px}
+.prog-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;
+  background:linear-gradient(90deg,var(--teal),var(--cyan));
+  transition:width .55s cubic-bezier(.4,0,.2,1)}
+/* ── MODULE DOTS ────────────────────────────────────────── */
+.dots{display:flex;gap:7px;justify-content:center;margin-bottom:28px}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.1);
+  cursor:pointer;transition:all .22s;border:1.5px solid transparent;flex-shrink:0}
+.dot.active{background:var(--cyan);border-color:var(--cyan);transform:scale(1.4)}
+.dot.done{background:var(--teal);border-color:var(--teal)}
+/* ── HERO ───────────────────────────────────────────────── */
+.hero{position:relative;border-radius:var(--r);overflow:hidden;
+  margin-bottom:24px;height:190px;
+  border:1px solid var(--border)}
+.hero-bg{position:absolute;inset:0}
+.hero-grad{position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--navy3) 0%,#0d2a46 50%,#041020 100%)}
+.hero-pattern{position:absolute;inset:0;opacity:.18;
+  background-image:repeating-linear-gradient(45deg,var(--cyan) 0,var(--cyan) 1px,transparent 0,transparent 50%);
+  background-size:24px 24px}
+.hero-overlay{position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(2,11,24,.92) 0%,rgba(2,11,24,.3) 60%,transparent 100%)}
+.hero-content{position:absolute;bottom:18px;left:22px;right:22px}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;
+  background:rgba(34,211,238,.13);border:1px solid var(--border2);
+  border-radius:20px;padding:3px 11px;font-size:11px;color:var(--cyan);
+  margin-bottom:9px;font-weight:500;letter-spacing:.05em}
+.hero-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--cyan)}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}
+.hero-title{font-family:'Playfair Display',serif;font-size:22px;
+  font-weight:800;color:#fff;line-height:1.25}
+/* ── MODULE VIEW ────────────────────────────────────────── */
+.mv{display:none}
+.mv.active{display:block;animation:fadeUp .38s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+/* ── CONTENT BLOCKS ─────────────────────────────────────── */
+.lead{border-left:2.5px solid var(--cyan);padding:13px 17px;
+  background:var(--glass);border-radius:0 var(--r-sm) var(--r-sm) 0;
+  font-style:italic;color:var(--text);font-size:14.5px;line-height:1.7;
+  margin-bottom:22px}
+.body{font-size:14.5px;line-height:1.78;color:var(--text);margin-bottom:15px}
+.body b{color:var(--cyan);font-weight:600}
+.sec-title{font-size:10.5px;letter-spacing:.13em;color:var(--teal);
+  font-weight:600;text-transform:uppercase;margin:22px 0 11px}
+/* ── CARDS ──────────────────────────────────────────────── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--glass);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:13px 15px}
+.cn{font-size:10px;color:var(--gold);font-weight:700;margin-bottom:5px;letter-spacing:.07em}
+.ct{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:4px}
+.cd{font-size:12.5px;color:var(--muted);line-height:1.5}
+/* ── HIGHLIGHT / INSIGHT ─────────────────────────────────── */
+.hl{background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.22);
+  border-radius:var(--r-sm);padding:14px 17px;margin-bottom:18px}
+.hl-label{font-size:10.5px;color:var(--cyan);font-weight:700;letter-spacing:.08em;margin-bottom:7px}
+.hl p{font-size:13.5px;color:var(--text);line-height:1.6}
+.ins{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);
+  border-radius:var(--r-sm);padding:13px 17px;margin-bottom:18px}
+.ins-label{font-size:10.5px;color:var(--gold);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.ins p{font-size:13px;color:var(--text);line-height:1.55}
+/* ── EXERCISE ───────────────────────────────────────────── */
+.ex{background:var(--glass2);border:1px solid var(--border2);
+  border-radius:var(--r);padding:18px;margin-top:22px}
+.ex-head{display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.ex-ico{width:30px;height:30px;border-radius:8px;flex-shrink:0;
+  background:rgba(240,192,64,.13);border:1px solid rgba(240,192,64,.27);
+  display:flex;align-items:center;justify-content:center;font-size:14px}
+.ex-label{font-size:12.5px;font-weight:700;color:var(--gold)}
+.ex-sub{font-size:11px;color:var(--muted)}
+/* ── QUIZ ───────────────────────────────────────────────── */
+.qq{font-size:14px;color:var(--text);margin-bottom:13px;line-height:1.58;font-weight:500}
+.qopts{display:flex;flex-direction:column;gap:7px}
+.qopt{padding:11px 14px;border-radius:var(--r-sm);border:1px solid var(--border);
+  background:var(--glass);cursor:pointer;font-size:13.5px;color:var(--text);
+  transition:all .18s;text-align:left;width:100%;
+  display:flex;align-items:center;gap:9px;font-family:'Be Vietnam Pro',sans-serif}
+.qopt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.07)}
+.qopt.correct{border-color:#22c55e!important;background:rgba(34,197,94,.09)!important;color:#86efac!important}
+.qopt.wrong{border-color:#ef4444!important;background:rgba(239,68,68,.09)!important;color:#fca5a5!important}
+.oletter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10.5px;color:var(--muted);flex-shrink:0;font-weight:700}
+.qfb{margin-top:11px;padding:11px 13px;border-radius:var(--r-sm);
+  font-size:13px;line-height:1.5;display:none}
+.qfb.show{display:block}
+.qfb.correct{background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.27);color:#86efac}
+.qfb.wrong{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:#fca5a5}
+/* ── EMOTION GRID ───────────────────────────────────────── */
+.emgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.embtn{padding:9px 6px;border-radius:var(--r-sm);border:1px solid var(--border);
+  background:var(--glass);cursor:pointer;text-align:center;
+  transition:all .18s;font-family:'Be Vietnam Pro',sans-serif}
+.embtn:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.08)}
+.embtn.sel{border-color:var(--cyan)!important;background:rgba(34,211,238,.1)!important}
+.emoj{font-size:21px;display:block;margin-bottom:3px}
+.emname{font-size:11.5px;color:var(--muted)}
+.embtn.sel .emname{color:var(--cyan)}
+/* ── REFLECT ────────────────────────────────────────────── */
+.rlabel{font-size:13px;color:var(--muted);margin-bottom:7px;display:block}
+.rinput{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:11px 13px;color:var(--text);
+  font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;
+  resize:vertical;min-height:78px;transition:border .18s;line-height:1.6}
+.rinput:focus{outline:none;border-color:var(--cyan)}
+.rinput::placeholder{color:var(--subtle)}
+.chint{font-size:11px;color:var(--subtle);margin-top:5px;text-align:right;transition:color .2s}
+/* ── SCALE ──────────────────────────────────────────────── */
+.slabels{display:flex;justify-content:space-between;margin-bottom:5px;font-size:11px;color:var(--muted)}
+.sslider{width:100%;-webkit-appearance:none;height:4px;
+  background:rgba(255,255,255,.1);border-radius:2px;outline:none}
+.sslider::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;
+  border-radius:50%;background:var(--cyan);cursor:pointer;
+  border:2px solid var(--navy);box-shadow:0 0 0 3px rgba(34,211,238,.2)}
+.sval{text-align:center;margin-top:9px;font-size:17px;font-weight:700;color:var(--cyan)}
+/* ── CHECKLIST ──────────────────────────────────────────── */
+.chi{display:flex;align-items:flex-start;gap:11px;padding:11px 0;
+  border-bottom:1px solid var(--border);cursor:pointer}
+.chi:last-child{border-bottom:none}
+.chbox{width:19px;height:19px;border-radius:5px;border:1.5px solid var(--border2);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:all .18s;margin-top:1px}
+.chbox.on{background:var(--cyan);border-color:var(--cyan)}
+.chbox.on::after{content:'✓';font-size:11px;color:var(--navy);font-weight:800}
+.chtext{font-size:13.5px;color:var(--text);line-height:1.5}
+.chtext small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+/* ── TAKEAWAY ───────────────────────────────────────────── */
+.tw{background:linear-gradient(135deg,rgba(6,182,212,.09),rgba(240,192,64,.05));
+  border:1px solid var(--border2);border-radius:var(--r);
+  padding:18px 20px;margin-top:22px}
+.tw-label{font-size:10px;letter-spacing:.15em;color:var(--gold);
+  font-weight:700;text-transform:uppercase;margin-bottom:9px}
+.tw-text{font-family:'Playfair Display',serif;font-size:16px;
+  color:var(--text);line-height:1.65;font-style:italic}
+.tw-sig{font-size:11.5px;color:var(--muted);margin-top:9px}
+/* ── NAV BUTTONS ────────────────────────────────────────── */
+.navbtns{display:flex;align-items:center;justify-content:space-between;
+  margin-top:28px;padding-top:18px;border-top:1px solid var(--border)}
+.btnprev{padding:10px 18px;border-radius:var(--r-sm);
+  border:1px solid var(--border);background:transparent;
+  color:var(--muted);font-family:'Be Vietnam Pro',sans-serif;
+  font-size:13.5px;cursor:pointer;transition:all .18s}
+.btnprev:hover:not(:disabled){border-color:var(--border2);color:var(--text)}
+.btnprev:disabled{opacity:.3;cursor:not-allowed}
+.btnnext{padding:11px 26px;border-radius:var(--r-sm);
+  background:linear-gradient(135deg,var(--teal),var(--cyan));
+  color:var(--navy);font-family:'Be Vietnam Pro',sans-serif;
+  font-size:13.5px;font-weight:700;cursor:pointer;border:none;
+  transition:all .2s;box-shadow:0 3px 14px rgba(34,211,238,.2)}
+.btnnext:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 5px 18px rgba(34,211,238,.3)}
+.btnnext:disabled{opacity:.28;cursor:not-allowed;transform:none;
+  box-shadow:none;background:var(--subtle);color:var(--navy)}
+.ulock{font-size:11.5px;color:var(--subtle);text-align:center;margin-top:7px}
+/* ── COMPLETE ───────────────────────────────────────────── */
+.cscreen{text-align:center;padding:36px 16px;display:none}
+.cscreen.show{display:block;animation:fadeUp .45s ease}
+.cico{font-size:56px;margin-bottom:18px}
+.ctitle{font-family:'Playfair Display',serif;font-size:26px;
+  color:var(--text);margin-bottom:11px}
+.csub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.certcard{background:var(--glass2);border:1px solid var(--border2);
+  border-radius:var(--r);padding:22px;margin-bottom:22px;
+  position:relative;overflow:hidden}
+.certcard::before{content:'PeopleOS';position:absolute;right:-20px;top:50%;
+  transform:translateY(-50%);font-family:'Playfair Display',serif;
+  font-size:72px;color:rgba(34,211,238,.04);pointer-events:none}
+.cert-lbl{font-size:11px;color:var(--cyan);letter-spacing:.12em;
+  font-weight:700;margin-bottom:7px}
+.cert-name{font-family:'Playfair Display',serif;font-size:20px;
+  color:var(--text);margin-bottom:5px}
+.cert-course{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cert-sig{font-size:11.5px;color:var(--subtle);
+  border-top:1px solid var(--border);padding-top:11px;line-height:1.6}
+.btncert{width:100%;padding:13px;border-radius:var(--r-sm);
+  background:linear-gradient(135deg,var(--gold3),var(--gold));
+  color:var(--navy);font-family:'Be Vietnam Pro',sans-serif;
+  font-size:14px;font-weight:700;cursor:pointer;border:none;margin-bottom:9px}
+.btnnext2{width:100%;padding:11px;border-radius:var(--r-sm);
+  background:transparent;border:1px solid var(--border2);
+  color:var(--cyan);font-family:'Be Vietnam Pro',sans-serif;
+  font-size:13.5px;cursor:pointer;transition:background .18s}
+.btnnext2:hover{background:rgba(34,211,238,.07)}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- TOPNAV -->
+<nav class="topnav">
+  <a class="back" href="/">← Về Learning Hub</a>
+  <div class="logo">
+    <div class="lmark">水</div>
+    <div>
+      <div class="lname">PeopleOS</div>
+      <div class="lsub">by TaHien</div>
+    </div>
+  </div>
+</nav>
+
+<!-- PROGRESS -->
+<div class="prog-wrap">
+  <div class="prog-meta">
+    <span id="plabel">Bài 1 / 6</span>
+    <span id="ppct">0%</span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+</div>
+
+<!-- DOTS -->
+<div class="dots" id="dots"></div>
+
+<!-- ═══════════════════════ M1 ═══════════════════════════ -->
+<div class="mv active" id="m1">
+  <div class="hero">
+    <div class="hero-bg">
+      <div class="hero-grad"></div>
+      <div class="hero-pattern"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">EQ & Self-Mastery · Cấp 1</div>
+      <div class="hero-num">Bài 1 / 6</div>
+      <div class="hero-title">Tại sao HR cần EQ hơn bất kỳ ngành nào</div>
+    </div>
+  </div>
+
+  <div class="lead">"Hiền từng gặp một HR Manager rất giỏi quy trình. Hợp đồng không sai một dấu phẩy. Policy viết chuẩn chỉnh. Nhưng mỗi lần nhân viên bước vào phòng HR, họ bước ra với cảm giác bị xét xử — không phải được giúp đỡ. Chín tháng sau, cô ấy chuyển bộ phận. Không phải vì thiếu năng lực. Mà vì thiếu EQ."</div>
+
+  <p class="body">Hãy nhìn vào một ngày làm việc bình thường của HR: sáng nghe nhân viên kể mâu thuẫn với sếp, trưa dự calibration session mà ai cũng bảo vệ người của mình, chiều thông báo một người không qua thử việc, tối nhận email CEO hỏi tại sao turnover tăng. Tất cả đều đòi hỏi một thứ trước tiên: <b>khả năng đọc và quản lý cảm xúc — của người khác và của chính mình.</b></p>
+
+  <div class="sec-title">EQ không phải "hiền lành" hay "dễ tính"</div>
+  <p class="body">EQ cao là <b>biết khi nào cần nói thẳng</b> và nói thẳng mà người kia vẫn cảm thấy được tôn trọng. EQ cao là <b>ngồi trong cuộc sa thải mà vẫn giữ phẩm giá cho cả hai phía</b>. EQ cao là không bị cuốn vào cảm xúc phòng họp — trong khi vẫn đọc được toàn bộ cảm xúc đó.</p>
+
+  <div class="sec-title">5 thành phần EQ theo Daniel Goleman</div>
+  <div class="grid2">
+    <div class="card"><div class="cn">01</div><div class="ct">Tự nhận thức</div><div class="cd">Biết mình đang cảm thấy gì trước khi nó kiểm soát mình</div></div>
+    <div class="card"><div class="cn">02</div><div class="ct">Tự điều chỉnh</div><div class="cd">Chọn phản ứng thay vì bị phản ứng điều khiển</div></div>
+    <div class="card"><div class="cn">03</div><div class="ct">Động lực nội tại</div><div class="cd">Làm vì ý nghĩa — không chỉ vì chức danh hay lương</div></div>
+    <div class="card"><div class="cn">04</div><div class="ct">Đồng cảm</div><div class="cd">Hiểu cảm xúc người khác mà không hòa tan vào đó</div></div>
+  </div>
+  <div class="hl">
+    <div class="hl-label">+ Thành phần thứ 6 · TaHien bổ sung</div>
+    <p><b style="color:var(--cyan)">Duy trì ranh giới cảm xúc trong khi vẫn kết nối thật sự.</b> Đây là thứ không trường nào dạy — nhưng phân biệt HR xuất sắc với HR giỏi nghiệp vụ.</p>
+  </div>
+
+  <!-- EXERCISE -->
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎯</div>
+      <div><div class="ex-label">Kiểm tra nhanh</div><div class="ex-sub">Chọn đáp án phản ánh EQ cao nhất</div></div>
+    </div>
+    <div class="qq">Một manager phản ứng gay gắt khi HR thông báo chính sách mới. Phản ứng nào thể hiện EQ cao nhất?</div>
+    <div class="qopts" id="q1opts">
+      <button class="qopt" onclick="A1(this,'A')"><span class="oletter">A</span>Giải thích ngay lý do tại sao chính sách đó đúng</button>
+      <button class="qopt" onclick="A1(this,'B')"><span class="oletter">B</span>Hỏi: "Điều gì khiến anh lo ngại nhất về chính sách này?"</button>
+      <button class="qopt" onclick="A1(this,'C')"><span class="oletter">C</span>Đồng ý với manager để tránh leo thang xung đột</button>
+      <button class="qopt" onclick="A1(this,'D')"><span class="oletter">D</span>Báo cáo lên cấp trên để xử lý</button>
+    </div>
+    <div class="qfb" id="qf1"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 1</div>
+    <div class="tw-text">"EQ không phải tính cách bẩm sinh. Đó là hệ cơ — có thể luyện tập mỗi ngày. Và với người làm HR, đây là hệ cơ quan trọng nhất."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" disabled>← Quay lại</button>
+    <button class="btnnext" id="n1" onclick="go(2)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h1">Trả lời câu hỏi để mở bài tiếp theo</div>
+</div>
+
+<!-- ═══════════════════════ M2 ═══════════════════════════ -->
+<div class="mv" id="m2">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">EQ & Self-Mastery · Cấp 1</div>
+      <div class="hero-num">Bài 2 / 6</div>
+      <div class="hero-title">Nhận diện 6 cảm xúc cốt lõi trong workplace</div>
+    </div>
+  </div>
+
+  <div class="lead">"Em không hiểu tại sao anh ấy phản ứng dữ vậy — em chỉ thông báo thay đổi chính sách thôi." Hiền hỏi: "Lúc em thông báo, anh ấy đang nhìn đâu? Tay anh ấy làm gì?" Cô HR trẻ không nhớ. Vì cô không được dạy cách quan sát."</div>
+
+  <p class="body">Paul Ekman xác định 6 cảm xúc phổ quát của con người. Nhưng trong workplace, chúng không xuất hiện dưới dạng thuần khiết — chúng bị <b>che phủ, mã hóa, và ngụy trang</b> thành thứ hoàn toàn khác.</p>
+
+  <div class="sec-title">6 cảm xúc & cách nhận diện trong môi trường HR</div>
+  <div class="grid2">
+    <div class="card"><div class="cn" style="color:#ef4444">Tức giận</div><div class="ct">Hiếm khi là la hét</div><div class="cd">Im lặng đột ngột, giọng bằng phẳng, "đồng ý tất cả" sau khi tranh luận gay gắt</div></div>
+    <div class="card"><div class="cn" style="color:#a78bfa">Sợ hãi</div><div class="ct">Phổ biến nhất — bị che giấu nhiều nhất</div><div class="cd">Nói nhiều nhưng không nói thật. Đồng ý miệng nhưng không hành động</div></div>
+    <div class="card"><div class="cn" style="color:#60a5fa">Buồn</div><div class="ct">Rút lui, không nổi giận</div><div class="cd">Hiệu suất giảm dần, ít tham gia họp, câu trả lời ngắn và thụ động</div></div>
+    <div class="card"><div class="cn" style="color:#f97316">Ghê tởm</div><div class="ct">Khó xử lý nhất</div><div class="cd">"Tôi hiểu tại sao công ty làm vậy" với giọng phẳng = đã quyết định rời đi</div></div>
+    <div class="card"><div class="cn" style="color:#22c55e">Vui</div><div class="ct">Cơ hội bị bỏ lỡ nhiều nhất</div><div class="cd">Khi ánh mắt nhân viên sáng lên — HR có 30 giây vàng để nhân lên động lực đó</div></div>
+    <div class="card"><div class="cn" style="color:var(--cyan)">Ngạc nhiên</div><div class="ct">Cánh cửa dẫn đến 5 cảm xúc còn lại</div><div class="cd">10 giây phản ứng đầu tiên của HR quyết định người kia đi về hướng nào</div></div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🔍</div>
+      <div><div class="ex-label">Nhận diện tình huống</div><div class="ex-sub">Đọc tình huống — chọn cảm xúc chính</div></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--text);margin-bottom:13px;line-height:1.6"><b>Tình huống:</b> Trong buổi họp thông báo cơ cấu lại, một nhân viên lâu năm ngồi im suốt, không hỏi gì, cuối buổi chỉ nói "Cảm ơn" rồi ra về. Hôm sau hiệu suất giảm hẳn.</p>
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:11px">Cảm xúc chính anh ấy đang trải qua là gì?</p>
+    <div class="emgrid" id="emg">
+      <button class="embtn" onclick="PE(this,'wrong')"><span class="emoj">😡</span><span class="emname">Tức giận</span></button>
+      <button class="embtn" onclick="PE(this,'ok')"><span class="emoj">😔</span><span class="emname">Buồn / vô hình</span></button>
+      <button class="embtn" onclick="PE(this,'wrong')"><span class="emoj">😨</span><span class="emname">Sợ hãi</span></button>
+      <button class="embtn" onclick="PE(this,'wrong')"><span class="emoj">😲</span><span class="emname">Ngạc nhiên</span></button>
+      <button class="embtn" onclick="PE(this,'wrong')"><span class="emoj">😊</span><span class="emname">Vui</span></button>
+      <button class="embtn" onclick="PE(this,'wrong')"><span class="emoj">🤢</span><span class="emname">Ghê tởm</span></button>
+    </div>
+    <div class="qfb" id="ef2"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 2</div>
+    <div class="tw-text">"Cảm xúc không bao giờ nói thẳng — chúng nói qua cơ thể, giọng, và khoảng lặng. Người HR giỏi học cách đọc ba kênh đó song song."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(1)">← Quay lại</button>
+    <button class="btnnext" id="n2" onclick="go(3)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h2">Chọn cảm xúc để tiếp tục</div>
+</div>
+
+<!-- ═══════════════════════ M3 ═══════════════════════════ -->
+<div class="mv" id="m3">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">EQ & Self-Mastery · Cấp 1</div>
+      <div class="hero-num">Bài 3 / 6</div>
+      <div class="hero-title">Đọc vị người — ngôn ngữ cơ thể thực chiến</div>
+    </div>
+  </div>
+
+  <div class="lead">"Khi phỏng vấn, bạn tin vào những gì ứng viên nói, hay những gì cơ thể họ nói?" — Hầu hết HR trả lời: "Cả hai." Nhưng khi được hỏi "Lần cuối lời nói và cơ thể mâu thuẫn nhau, bạn tin cái nào?" — câu trả lời thường là im lặng."</div>
+
+  <div class="ins">
+    <div class="ins-label">Nguyên lý 7-38-55 · Albert Mehrabian</div>
+    <p>Trong giao tiếp cảm xúc: <b style="color:var(--gold)">7%</b> từ lời nói · <b style="color:var(--gold)">38%</b> từ giọng điệu · <b style="color:var(--gold)">55%</b> từ ngôn ngữ cơ thể. Khi người ta che giấu — cơ thể phản bội trước khi miệng kịp điều chỉnh.</p>
+  </div>
+
+  <div class="sec-title">5 tín hiệu HR cần đọc ngay</div>
+  <div class="grid2">
+    <div class="card"><div class="cn">01</div><div class="ct">Không nhất quán</div><div class="cd">Nói "Tôi ổn" nhưng tay siết chặt, giọng run → còn thứ gì chưa được nói ra</div></div>
+    <div class="card"><div class="cn">02</div><div class="ct">Tự chạm (self-touching)</div><div class="cd">Chạm mặt, cổ, tóc khi không chắc → câu hỏi đó cần đào sâu hơn</div></div>
+    <div class="card"><div class="cn">03</div><div class="ct">Hướng cơ thể</div><div class="cd">Quay cơ thể ra cửa (không chỉ nhìn) → muốn thoát khỏi tình huống</div></div>
+    <div class="card"><div class="cn">04</div><div class="ct">Micro-expressions</div><div class="cd">Biểu cảm &lt;0.25 giây — xảy ra trước khi não kiểm soát. Phải nhìn thẳng vào mặt người kia</div></div>
+  </div>
+  <div class="hl">
+    <div class="hl-label">Nguyên tắc vàng khi đọc cơ thể</div>
+    <p>Không phải để "bắt quả tang" — mà để biết khi nào cần tạo không gian an toàn hơn. Khi thấy tín hiệu mâu thuẫn, hỏi: <b style="color:var(--cyan)">"Tôi có cảm giác còn điều gì đó chưa nói hết — anh có muốn chia sẻ thêm không?"</b></p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">👁️</div>
+      <div><div class="ex-label">Đọc tình huống</div><div class="ex-sub">Xác định phản ứng HR đúng nhất</div></div>
+    </div>
+    <div class="qq">Trong exit interview, khi hỏi lý do nghỉ, nhân viên thở nhanh hơn và nhịp nói chậm lại khi nhắc đến tên một người cụ thể. HR nên làm gì?</div>
+    <div class="qopts" id="q3opts">
+      <button class="qopt" onclick="A3(this,'A')"><span class="oletter">A</span>Hỏi thẳng: "Anh có vấn đề với người đó không?"</button>
+      <button class="qopt" onclick="A3(this,'B')"><span class="oletter">B</span>Bỏ qua — chỉ là phản ứng bình thường</button>
+      <button class="qopt" onclick="A3(this,'C')"><span class="oletter">C</span>Tạm dừng, hỏi mở: "Anh có thể kể thêm về mối quan hệ đó không?"</button>
+      <button class="qopt" onclick="A3(this,'D')"><span class="oletter">D</span>Kết thúc buổi sớm vì nhân viên không thoải mái</button>
+    </div>
+    <div class="qfb" id="qf3"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 3</div>
+    <div class="tw-text">"Trong mọi cuộc trò chuyện HR, hãy lắng nghe bằng tai — nhưng quan sát bằng mắt. Hai thứ đó thường kể hai câu chuyện khác nhau."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(2)">← Quay lại</button>
+    <button class="btnnext" id="n3" onclick="go(4)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h3">Trả lời câu hỏi để tiếp tục</div>
+</div>
+
+<!-- ═══════════════════════ M4 ═══════════════════════════ -->
+<div class="mv" id="m4">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">EQ & Self-Mastery · Cấp 1</div>
+      <div class="hero-num">Bài 4 / 6</div>
+      <div class="hero-title">Kiểm soát cảm xúc dưới áp lực</div>
+    </div>
+  </div>
+
+  <div class="lead">"Có khoảnh khắc mà hầu hết HR đều trải qua ít nhất một lần: ngồi với nhân viên đang khóc hoặc đang nổi giận — và không biết phải làm gì với cảm xúc của chính mình. Không phải vì không có kỹ năng. Mà vì cảm xúc của người kia đã lan sang họ trước khi họ kịp nhận ra."</div>
+
+  <div class="ins">
+    <div class="ins-label">Emotional contagion · Khoa học thần kinh</div>
+    <p>Não người không phân biệt "đây là cảm xúc của tôi" và "đây là cảm xúc tôi hấp thu từ người khác." Khi ngồi với người đang sợ, amygdala của bạn phản ứng như thể bạn cũng đang trong nguy hiểm. Đây là lý do sau một ngày dày đặc cuộc trò chuyện cảm xúc, nhiều HR về nhà kiệt sức mà không hiểu tại sao.</p>
+  </div>
+
+  <div class="sec-title">3 kỹ thuật reframing thực chiến</div>
+  <div class="card" style="margin-bottom:9px">
+    <div class="cn">Kỹ thuật 1 · Observer mode</div>
+    <div class="ct">Quan sát thay vì hòa tan</div>
+    <div class="cd">Đặt tên cho cảm xúc đang cảm thấy: "Tôi đang muốn tự bào chữa." Nghiên cứu cho thấy chỉ đặt tên là đã giảm 30–40% cường độ cảm xúc đó — vì kích hoạt prefrontal cortex, giảm amygdala.</div>
+  </div>
+  <div class="card" style="margin-bottom:9px">
+    <div class="cn">Kỹ thuật 2 · Reframe trước khi phản ứng</div>
+    <div class="ct">Thay "phòng thủ" bằng "tò mò"</div>
+    <div class="cd">Khi manager nổi giận: reframe trong đầu — "Người này không tức giận với tôi — họ đang sợ mất quyền kiểm soát." Câu reframe không cần nói ra. Nó chỉ cần xảy ra trong đầu bạn.</div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="cn">Kỹ thuật 3 · Pause có chủ đích</div>
+    <div class="ct">Mở rộng "khoảng trống" giữa kích thích và phản ứng</div>
+    <div class="cd">Viktor Frankl: "Between stimulus and response there is a space." Đơn giản nhất: lặp lại câu cuối của người kia dưới dạng câu hỏi — mua thêm 10 giây, đồng thời làm người kia cảm thấy được nghe.</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🪞</div>
+      <div><div class="ex-label">Tự đánh giá</div><div class="ex-sub">Thành thật với bản thân</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Khi bị phản ứng gay gắt, tôi thường phản hồi như thế nào?</p>
+    <div class="slabels"><span>Phòng thủ ngay</span><span>Tò mò & hỏi thêm</span></div>
+    <input type="range" class="sslider" min="1" max="10" value="5" id="sl4" oninput="SL4()">
+    <div class="sval" id="sv4">5 / 10</div>
+    <div style="margin-top:17px">
+      <label class="rlabel">Tình huống cảm xúc khó nhất gần đây trong công việc HR của tôi:</label>
+      <textarea class="rinput" id="r4" placeholder="Mô tả ngắn — không cần hoàn hảo, chỉ cần thật..." oninput="CR4()"></textarea>
+      <div class="chint" id="rh4">Nhập ít nhất 20 ký tự để tiếp tục</div>
+    </div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 4</div>
+    <div class="tw-text">"Giữa kích thích và phản ứng luôn có một khoảng trống. Luyện tập để mở rộng khoảng trống đó — đó là nơi EQ thật sự sống."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(3)">← Quay lại</button>
+    <button class="btnnext" id="n4" onclick="go(5)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h4">Chia sẻ để tiếp tục (tối thiểu 20 ký tự)</div>
+</div>
+
+<!-- ═══════════════════════ M5 ═══════════════════════════ -->
+<div class="mv" id="m5">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">EQ & Self-Mastery · Cấp 1</div>
+      <div class="hero-num">Bài 5 / 6</div>
+      <div class="hero-title">Resilience — phục hồi sau những ngày tệ nhất</div>
+    </div>
+  </div>
+
+  <div class="lead">"Không có nghề nào trong tổ chức nhận nhiều 'không' hơn HR. Không ngân sách. Không được phê duyệt. Không được ủng hộ. Và đôi khi — không được cảm ơn dù làm đúng."</div>
+
+  <div class="ins">
+    <div class="ins-label">Dữ liệu · SHRM Research 2024</div>
+    <p><b style="color:var(--gold)">42%</b> HR professionals báo cáo mức độ burnout cao — cao hơn bình quân lực lượng lao động <b style="color:var(--gold)">18 điểm phần trăm.</b> HR là nghề dual stress: xử lý stress bản thân lẫn hấp thu stress của người khác mỗi ngày.</p>
+  </div>
+
+  <div class="sec-title">4 trụ cột resilience cho người làm HR</div>
+  <div class="grid2">
+    <div class="card"><div class="cn">Trụ cột 1</div><div class="ct">Ranh giới cảm xúc rõ ràng</div><div class="cd">Khi nhân viên không hạnh phúc — đó không phải là thất bại cá nhân của HR. HR tạo điều kiện, không kiểm soát cảm xúc người khác.</div></div>
+    <div class="card"><div class="cn">Trụ cột 2</div><div class="ct">Hệ thống nạp lại có ý thức</div><div class="cd">Không phải "nghỉ khi có thể" — mà là lịch cố định. Sau ngày nặng cảm xúc, cơ thể cần thời gian không xử lý thông tin xã hội.</div></div>
+    <div class="card"><div class="cn">Trụ cột 3</div><div class="ct">Anchor story</div><div class="cd">Một câu chuyện cụ thể về lần bạn tạo ra sự khác biệt thật sự cho một người. Kéo ra khi cần — đặc biệt trong những ngày tệ nhất.</div></div>
+    <div class="card"><div class="cn">Trụ cột 4</div><div class="ct">Kết nối cộng đồng HR</div><div class="cd">Không ai hiểu áp lực của nghề HR bằng người cũng làm HR. Sự cô lập là kẻ thù lớn nhất của resilience.</div></div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">⚡</div>
+      <div><div class="ex-label">Cam kết cá nhân</div><div class="ex-sub">Chọn ít nhất 2 để tiếp tục</div></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:13px">Tôi sẽ thực hành những điều này trong tuần tới:</p>
+    <div id="cl5">
+      <div class="chi" onclick="TC(this,'5')" data-on="false"><div class="chbox"></div><div class="chtext">Sau mỗi cuộc trò chuyện cảm xúc nặng, dành 5 phút không nhìn điện thoại<small>Để cortisol hạ xuống trước khi xử lý task tiếp theo</small></div></div>
+      <div class="chi" onclick="TC(this,'5')" data-on="false"><div class="chbox"></div><div class="chtext">Viết "anchor story" — một khoảnh khắc HR tôi tạo ra sự khác biệt thật sự<small>Lưu ở nơi dễ tìm để kéo ra khi ngày tệ</small></div></div>
+      <div class="chi" onclick="TC(this,'5')" data-on="false"><div class="chbox"></div><div class="chtext">Xác định ranh giới: công việc nào là trách nhiệm của tôi — và công việc nào không?<small>Viết ra, không chỉ nghĩ trong đầu</small></div></div>
+      <div class="chi" onclick="TC(this,'5')" data-on="false"><div class="chbox"></div><div class="chtext">Kết nối với ít nhất 1 HR khác để chia sẻ áp lực nghề nghiệp<small>Không phải than vãn — để cảm thấy không đơn độc</small></div></div>
+    </div>
+    <div class="qfb" id="cf5"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 5</div>
+    <div class="tw-text">"Resilience là cơ bắp — cần được tập luyện, cần được nghỉ ngơi, và cần được nuôi dưỡng. HR không thể chăm sóc người khác từ một chiếc cốc rỗng."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(4)">← Quay lại</button>
+    <button class="btnnext" id="n5" onclick="go(6)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h5">Chọn ít nhất 2 cam kết để tiếp tục</div>
+</div>
+
+<!-- ═══════════════════════ M6 ═══════════════════════════ -->
+<div class="mv" id="m6">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">EQ & Self-Mastery · Bài cuối</div>
+      <div class="hero-num">Bài 6 / 6</div>
+      <div class="hero-title">Hệ thống EQ 5 phút — áp dụng ngay ngày mai</div>
+    </div>
+  </div>
+
+  <div class="lead">"Kiến thức về EQ mà không được thực hành sẽ biến mất trong 72 giờ. Bài này là bộ công cụ bạn mang ra dùng ngay từ ngày mai — không phải lý thuyết thêm nữa."</div>
+
+  <div class="sec-title">Hệ thống EQ 5 phút · Mỗi ngày làm việc</div>
+  <div class="card" style="margin-bottom:9px">
+    <div class="cn" style="color:var(--cyan)">Sáng · 2 phút</div>
+    <div class="ct">Check-in cảm xúc bản thân</div>
+    <div class="cd">Trước khi bắt đầu cuộc trò chuyện đầu tiên: "Hôm nay tôi đang ở trạng thái cảm xúc nào? Có thứ gì đang chiếm chỗ trong đầu không?" Không cần giải quyết — chỉ cần nhận ra.</div>
+  </div>
+  <div class="card" style="margin-bottom:9px">
+    <div class="cn" style="color:var(--gold)">Trong ngày · 10 giây</div>
+    <div class="ct">STOP technique trước mỗi cuộc trò chuyện quan trọng</div>
+    <div class="cd"><b style="color:var(--text)">S</b>top · <b style="color:var(--text)">T</b>ake a breath · <b style="color:var(--text)">O</b>bserve (tôi cảm thấy gì? người kia cần gì?) · <b style="color:var(--text)">P</b>roceed. 10 giây — nhưng thay đổi hoàn toàn chất lượng cuộc trò chuyện.</div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="cn" style="color:#a78bfa">Cuối ngày · 3 phút</div>
+    <div class="ct">Emotional debrief</div>
+    <div class="cd">Cuộc trò chuyện nào hôm nay ảnh hưởng cảm xúc mình nhiều nhất? Phản ứng của mình có phù hợp không? Nếu làm lại, mình sẽ làm khác điều gì? — Không phán xét, chỉ quan sát.</div>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">3 câu hỏi luôn an toàn trong tình huống cảm xúc khó</div>
+    <p style="margin-bottom:7px">① <b style="color:var(--cyan)">"Điều gì quan trọng nhất với anh/chị trong tình huống này?"</b> — dịch chuyển từ cảm xúc sang nhu cầu</p>
+    <p style="margin-bottom:7px">② <b style="color:var(--cyan)">"Anh/chị muốn tôi giúp theo cách nào nhất?"</b> — trao quyền kiểm soát cho người kia</p>
+    <p>③ <b style="color:var(--cyan)">"Còn điều gì anh/chị chưa nói mà muốn tôi biết không?"</b> — tạo không gian cho những gì bị giấu</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">✍️</div>
+      <div><div class="ex-label">Cam kết cuối khóa</div><div class="ex-sub">Điều đầu tiên tôi sẽ áp dụng ngay ngày mai</div></div>
+    </div>
+    <textarea class="rinput" id="r6" placeholder="vd: Trước buổi calibration, tôi sẽ dành 10 giây STOP để nhắc mình rằng mọi người trong phòng đều đang lo lắng — không phải chỉ mình tôi..." oninput="CR6()" style="min-height:96px"></textarea>
+    <div class="chint" id="rh6">Nhập ít nhất 30 ký tự để hoàn thành khóa học</div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Toàn khóa</div>
+    <div class="tw-text">"EQ không phải thứ bạn có hay không có. Đó là thứ bạn xây dựng mỗi ngày — trong từng cuộc trò chuyện, từng khoảnh khắc dừng lại, từng lần chọn tò mò thay vì phán xét."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group · PeopleOS Community 2026</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(5)">← Quay lại</button>
+    <button class="btnnext" id="n6" onclick="done()" disabled>Hoàn thành khóa học ✓</button>
+  </div>
+  <div class="ulock" id="h6">Nhập cam kết để hoàn thành (tối thiểu 30 ký tự)</div>
+</div>
+
+<!-- ═══════════════════════ COMPLETE ══════════════════════ -->
+<div class="cscreen" id="complete">
+  <div class="cico">🏆</div>
+  <div class="ctitle">Hoàn thành xuất sắc!</div>
+  <div class="csub">Bạn đã hoàn thành khóa <b>EQ & Self-Mastery</b>.<br>6 bài học · 108 XP đã được ghi nhận.</div>
+  <div class="certcard">
+    <div class="cert-lbl">Chứng chỉ hoàn thành · PeopleOS</div>
+    <div class="cert-name">EQ & Self-Mastery</div>
+    <div class="cert-course">Cấp 1 — HR Staff & Specialist · 6 modules · ~18 phút</div>
+    <div class="cert-sig">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+  </div>
+  <button class="btncert" onclick="alert('Tính năng xuất PDF sẽ có trong phiên bản đầy đủ!')">Tải chứng chỉ PDF</button>
+  <button class="btnnext2" onclick="window.location.href='/'">← Về Learning Hub</button>
+</div>
+
+</div><!-- /app -->
+
+<script>
+var cur=1,tot=6,doneM={};
+
+/* ── BUILD UI ── */
+function buildDots(){
+  var c=document.getElementById('dots');c.innerHTML='';
+  for(var i=1;i<=tot;i++){
+    var d=document.createElement('div');
+    d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));
+    (function(n){d.onclick=function(){if(n<=cur||doneM[n-1])go(n)}})(i);
+    c.appendChild(d);
+  }
+}
+function updProg(){
+  var p=Math.round(((cur-1)/tot)*100);
+  document.getElementById('pfill').style.width=p+'%';
+  document.getElementById('ppct').textContent=p+'%';
+  document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;
+}
+function go(n){
+  document.getElementById('m'+cur).classList.remove('active');
+  doneM[cur]=true;cur=n;
+  var el=document.getElementById('m'+cur);
+  if(el)el.classList.add('active');
+  buildDots();updProg();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function unlock(nb,nh){
+  var b=document.getElementById(nb);if(b)b.disabled=false;
+  var h=document.getElementById(nh);if(h)h.style.display='none';
+}
+
+/* ── M1 QUIZ ── */
+function A1(el,ans){
+  document.querySelectorAll('#q1opts .qopt').forEach(function(o){o.disabled=true});
+  var fb=document.getElementById('qf1');
+  if(ans==='B'){
+    el.classList.add('correct');
+    fb.className='qfb show correct';
+    fb.textContent='Đúng! Câu hỏi mở giúp hiểu lo ngại thật sự của manager trước khi giải thích. EQ cao là tò mò trước, giải thích sau.';
+    unlock('n1','h1');
+  } else {
+    el.classList.add('wrong');
+    document.querySelectorAll('#q1opts .qopt')[1].classList.add('correct');
+    fb.className='qfb show wrong';
+    fb.textContent='Chưa đúng. Giải thích ngay (A) tạo tranh luận. Đồng ý (C) mất uy tín. Báo cáo (D) né tránh vấn đề. EQ cao là hỏi trước — tìm hiểu nhu cầu thật sự của người kia.';
+    setTimeout(function(){unlock('n1','h1')},1500);
+  }
+}
+
+/* ── M2 EMOTION ── */
+function PE(el,type){
+  document.querySelectorAll('#emg .embtn').forEach(function(b){b.disabled=true});
+  var fb=document.getElementById('ef2');
+  el.classList.add('sel');
+  if(type==='ok'){
+    fb.className='qfb show correct';
+    fb.textContent='Chính xác! Anh ấy đang trải qua nỗi buồn / cảm giác vô hình — không được nhìn nhận sau năm tháng cống hiến. Im lặng + rút lui là dấu hiệu điển hình. HR cần chủ động 1:1 trong vòng 48 giờ.';
+    unlock('n2','h2');
+  } else {
+    document.querySelectorAll('#emg .embtn')[1].classList.add('sel');
+    fb.className='qfb show wrong';
+    fb.textContent='Gần đúng nhưng chưa trúng. Người im lặng và rút lui thường đang buồn / cảm thấy vô hình — không phải tức giận (bùng phát) hay sợ (nói nhiều hơn).';
+    setTimeout(function(){unlock('n2','h2')},1500);
+  }
+}
+
+/* ── M3 QUIZ ── */
+function A3(el,ans){
+  document.querySelectorAll('#q3opts .qopt').forEach(function(o){o.disabled=true});
+  var fb=document.getElementById('qf3');
+  if(ans==='C'){
+    el.classList.add('correct');
+    fb.className='qfb show correct';
+    fb.textContent='Hoàn hảo! Tạm dừng mua thời gian, câu hỏi mở tạo không gian an toàn. Không hỏi thẳng (gây phòng thủ), không bỏ qua (mất thông tin quan trọng), không kết thúc sớm (đóng cửa).';
+    unlock('n3','h3');
+  } else {
+    el.classList.add('wrong');
+    document.querySelectorAll('#q3opts .qopt')[2].classList.add('correct');
+    fb.className='qfb show wrong';
+    fb.textContent='Chưa đúng. Đáp án C tạo không gian an toàn nhất. Hỏi thẳng (A) gây phòng thủ, bỏ qua (B) mất thông tin quan trọng, kết thúc sớm (D) đóng cơ hội.';
+    setTimeout(function(){unlock('n3','h3')},1500);
+  }
+}
+
+/* ── M4 SLIDER + REFLECT ── */
+var sl4moved=false;
+function SL4(){
+  var v=document.getElementById('sl4').value;
+  document.getElementById('sv4').textContent=v+' / 10';
+  sl4moved=true;
+}
+function CR4(){
+  var t=document.getElementById('r4').value;
+  var h=document.getElementById('rh4');
+  var left=Math.max(0,20-t.length);
+  if(t.length>=20){
+    h.textContent='Cảm ơn bạn đã chia sẻ thật lòng ✓';h.style.color='var(--cyan)';
+    unlock('n4','h4');
+  } else {
+    h.textContent='Còn '+left+' ký tự nữa';h.style.color='var(--subtle)';
+  }
+}
+
+/* ── M5 CHECKLIST ── */
+var cc5=0;
+function TC(el,mid){
+  var box=el.querySelector('.chbox');
+  var on=el.getAttribute('data-on')==='true';
+  if(!on){box.classList.add('on');el.setAttribute('data-on','true');cc5++}
+  else{box.classList.remove('on');el.setAttribute('data-on','false');cc5--}
+  var fb=document.getElementById('cf5');
+  if(cc5>=2){
+    fb.className='qfb show correct';
+    fb.textContent='Tốt lắm! Bạn đã cam kết '+cc5+' hành động. Ghi vào lịch để không quên.';
+    unlock('n5','h5');
+  } else {
+    fb.className='';
+    var nb=document.getElementById('n5');if(nb)nb.disabled=true;
+    var hb=document.getElementById('h5');if(hb)hb.style.display='';
+  }
+}
+
+/* ── M6 FINAL REFLECT ── */
+function CR6(){
+  var t=document.getElementById('r6').value;
+  var h=document.getElementById('rh6');
+  var left=Math.max(0,30-t.length);
+  if(t.length>=30){
+    h.textContent='Cam kết đã được ghi nhận ✓';h.style.color='var(--cyan)';
+    unlock('n6','h6');
+  } else {
+    h.textContent='Còn '+left+' ký tự nữa';h.style.color='var(--subtle)';
+  }
+}
+
+/* ── COMPLETE ── */
+function done(){
+  document.getElementById('m6').style.display='none';
+  var cs=document.getElementById('complete');cs.classList.add('show');
+  doneM[6]=true;cur=7;
+  document.getElementById('pfill').style.width='100%';
+  document.getElementById('ppct').textContent='100%';
+  document.getElementById('plabel').textContent='Hoàn thành!';
+  buildDots();
+  window.scrollTo({top:0,behavior:'smooth'});
+  localStorage.setItem('peopleos_k1_done','true');
+}
+
+/* ── INIT ── */
+buildDots();updProg();
+</script>
+</body>
+</html>
