@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Ops Thực Chiến · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;
+  --cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--gold3:#d97706;
+  --green:#22c55e;--red:#ef4444;--orange:#f97316;
+  --text:#F0F6FF;--muted:#94A3B8;--subtle:#4A7A94;
+  --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);
+  --border:rgba(34,211,238,0.14);--border2:rgba(34,211,238,0.28);
+  --r:14px;--r-sm:9px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--navy);color:var(--text);line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 80% 50% at 5% 0%,rgba(249,115,22,.07) 0%,transparent 55%),
+             radial-gradient(ellipse 60% 40% at 95% 100%,rgba(6,182,212,.07) 0%,transparent 55%)}
+body::after{content:'律';position:fixed;right:-40px;top:50%;transform:translateY(-50%) rotate(-6deg);
+  font-size:300px;line-height:1;color:rgba(249,115,22,.025);pointer-events:none;z-index:0;
+  font-family:'Playfair Display',serif}
+.app{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 20px 100px}
+.topnav{display:flex;align-items:center;justify-content:space-between;padding:18px 0 14px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);text-decoration:none;transition:color .18s}
+.back:hover{color:var(--cyan)}
+.logo{display:flex;align-items:center;gap:9px}
+.lmark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--orange),var(--navy3));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:var(--gold);border:1px solid rgba(249,115,22,.3)}
+.lname{font-size:13px;font-weight:600;color:var(--cyan)}.lsub{font-size:10px;color:var(--muted)}
+.prog-wrap{margin-bottom:24px}
+.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:7px}
+.prog-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--orange),var(--gold));transition:width .55s cubic-bezier(.4,0,.2,1)}
+.dots{display:flex;gap:7px;justify-content:center;margin-bottom:28px}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.1);cursor:pointer;transition:all .22s;border:1.5px solid transparent;flex-shrink:0}
+.dot.active{background:var(--gold);border-color:var(--gold);transform:scale(1.4)}
+.dot.done{background:var(--orange);border-color:var(--orange)}
+/* HERO */
+.hero{position:relative;border-radius:var(--r);overflow:hidden;margin-bottom:24px;height:190px;border:1px solid rgba(249,115,22,.2)}
+.hero-bg{position:absolute;inset:0}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(135deg,#1a0a00 0%,#0d1520 50%,#020B18 100%)}
+.hero-pattern{position:absolute;inset:0;opacity:.13;background-image:repeating-linear-gradient(0deg,var(--orange) 0,var(--orange) 1px,transparent 0,transparent 30px),repeating-linear-gradient(90deg,var(--orange) 0,var(--orange) 1px,transparent 0,transparent 30px);background-size:30px 30px}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(2,11,24,.95) 0%,rgba(2,11,24,.2) 65%,transparent 100%)}
+.hero-content{position:absolute;bottom:18px;left:22px;right:22px}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.35);border-radius:20px;padding:3px 11px;font-size:11px;color:var(--orange);margin-bottom:9px;font-weight:500;letter-spacing:.05em}
+.hero-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange)}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}
+.hero-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#fff;line-height:1.25}
+.mv{display:none}.mv.active{display:block;animation:fadeUp .38s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+/* CONTENT */
+.lead{border-left:2.5px solid var(--orange);padding:13px 17px;background:rgba(249,115,22,.05);border-radius:0 var(--r-sm) var(--r-sm) 0;font-style:italic;color:var(--text);font-size:14.5px;line-height:1.7;margin-bottom:22px}
+.body{font-size:14.5px;line-height:1.78;color:var(--text);margin-bottom:15px}
+.body b{color:var(--gold);font-weight:600}
+.sec-title{font-size:10.5px;letter-spacing:.13em;color:var(--orange);font-weight:600;text-transform:uppercase;margin:22px 0 11px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r-sm);padding:13px 15px}
+.cn{font-size:10px;color:var(--gold);font-weight:700;margin-bottom:5px;letter-spacing:.07em}
+.ct{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:4px}
+.cd{font-size:12.5px;color:var(--muted);line-height:1.5}
+.card-full{background:var(--glass);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:10px}
+.hl{background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.22);border-radius:var(--r-sm);padding:14px 17px;margin-bottom:18px}
+.hl-label{font-size:10.5px;color:var(--orange);font-weight:700;letter-spacing:.08em;margin-bottom:7px}
+.hl p{font-size:13.5px;color:var(--text);line-height:1.6}
+.ins{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:var(--r-sm);padding:13px 17px;margin-bottom:18px}
+.ins-label{font-size:10.5px;color:var(--gold);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.ins p{font-size:13px;color:var(--text);line-height:1.55}
+.warn{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.22);border-radius:var(--r-sm);padding:13px 17px;margin-bottom:18px}
+.warn-label{font-size:10.5px;color:var(--red);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.warn p{font-size:13px;color:var(--text);line-height:1.55}
+/* EXERCISE */
+.ex{background:var(--glass2);border:1px solid var(--border2);border-radius:var(--r);padding:18px;margin-top:22px}
+.ex-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.ex-ico{width:30px;height:30px;border-radius:8px;flex-shrink:0;background:rgba(249,115,22,.13);border:1px solid rgba(249,115,22,.27);display:flex;align-items:center;justify-content:center;font-size:14px}
+.ex-label{font-size:12.5px;font-weight:700;color:var(--gold)}
+.ex-sub{font-size:11px;color:var(--muted)}
+/* QUIZ */
+.qq{font-size:14px;color:var(--text);margin-bottom:13px;line-height:1.58;font-weight:500}
+.qopts{display:flex;flex-direction:column;gap:7px}
+.qopt{padding:11px 14px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--glass);cursor:pointer;font-size:13.5px;color:var(--text);transition:all .18s;text-align:left;width:100%;display:flex;align-items:flex-start;gap:9px;font-family:'Be Vietnam Pro',sans-serif;line-height:1.5}
+.qopt:hover:not(:disabled){border-color:var(--orange);background:rgba(249,115,22,.06)}
+.qopt.correct{border-color:#22c55e!important;background:rgba(34,197,94,.09)!important;color:#86efac!important}
+.qopt.wrong{border-color:#ef4444!important;background:rgba(239,68,68,.09)!important;color:#fca5a5!important}
+.oletter{width:22px;height:22px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10.5px;color:var(--muted);flex-shrink:0;font-weight:700;margin-top:1px}
+.qfb{margin-top:11px;padding:11px 13px;border-radius:var(--r-sm);font-size:13px;line-height:1.5;display:none}
+.qfb.show{display:block}
+.qfb.correct{background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.27);color:#86efac}
+.qfb.wrong{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:#fca5a5}
+/* ERROR SPOTTER */
+.clause-list{display:flex;flex-direction:column;gap:7px}
+.clause{padding:11px 14px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--glass);cursor:pointer;font-size:13px;color:var(--text);transition:all .2s;font-family:'Be Vietnam Pro',sans-serif;line-height:1.55;text-align:left;width:100%}
+.clause:hover:not(:disabled){border-color:var(--orange);background:rgba(249,115,22,.05)}
+.clause.error{border-color:var(--red)!important;background:rgba(239,68,68,.08)!important}
+.clause.ok{border-color:var(--green)!important;background:rgba(34,197,94,.07)!important}
+.clause.neutral{border-color:var(--muted)!important;opacity:.6}
+/* TIMELINE BUILDER */
+.tl{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:12px;align-items:flex-start}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;gap:0}
+.tl-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border2);flex-shrink:0;margin-top:3px;transition:all .2s;cursor:pointer}
+.tl-dot.checked{background:var(--orange);border-color:var(--orange)}
+.tl-line{width:2px;flex:1;background:var(--border);min-height:20px}
+.tl-content{padding-bottom:16px;flex:1}
+.tl-day{font-size:10px;color:var(--orange);font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+.tl-text{font-size:13px;color:var(--text);line-height:1.5}
+.tl-sub{font-size:11.5px;color:var(--muted);margin-top:3px}
+/* CHECKLIST */
+.chi{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.chi:last-child{border-bottom:none}
+.chbox{width:19px;height:19px;border-radius:5px;border:1.5px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s;margin-top:1px}
+.chbox.on{background:var(--orange);border-color:var(--orange)}
+.chbox.on::after{content:'✓';font-size:11px;color:var(--navy);font-weight:800}
+.chtext{font-size:13.5px;color:var(--text);line-height:1.5}
+.chtext small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+/* REFLECT */
+.rinput{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;resize:vertical;min-height:78px;transition:border .18s;line-height:1.6}
+.rinput:focus{outline:none;border-color:var(--orange)}
+.rinput::placeholder{color:var(--subtle)}
+.chint{font-size:11px;color:var(--subtle);margin-top:5px;text-align:right;transition:color .2s}
+/* CALC */
+.calc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.calc-field{background:var(--glass);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 12px}
+.calc-label{font-size:10.5px;color:var(--muted);margin-bottom:5px}
+.calc-input{background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:6px;padding:6px 10px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;width:100%;font-weight:600}
+.calc-input:focus{outline:none;border-color:var(--orange)}
+.calc-result{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);border-radius:var(--r-sm);padding:12px 14px;text-align:center}
+.calc-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--gold)}
+.calc-label2{font-size:11px;color:var(--muted);margin-top:3px}
+/* TAKEAWAY */
+.tw{background:linear-gradient(135deg,rgba(249,115,22,.08),rgba(240,192,64,.05));border:1px solid rgba(249,115,22,.25);border-radius:var(--r);padding:18px 20px;margin-top:22px}
+.tw-label{font-size:10px;letter-spacing:.15em;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:9px}
+.tw-text{font-family:'Playfair Display',serif;font-size:16px;color:var(--text);line-height:1.65;font-style:italic}
+.tw-sig{font-size:11.5px;color:var(--muted);margin-top:9px}
+/* NAV */
+.navbtns{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:18px;border-top:1px solid var(--border)}
+.btnprev{padding:10px 18px;border-radius:var(--r-sm);border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;cursor:pointer;transition:all .18s}
+.btnprev:hover:not(:disabled){border-color:var(--border2);color:var(--text)}
+.btnprev:disabled{opacity:.3;cursor:not-allowed}
+.btnnext{padding:11px 26px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--orange),var(--gold));color:var(--navy);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;border:none;transition:all .2s;box-shadow:0 3px 14px rgba(249,115,22,.2)}
+.btnnext:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 5px 18px rgba(249,115,22,.3)}
+.btnnext:disabled{opacity:.28;cursor:not-allowed;transform:none;box-shadow:none;background:var(--subtle);color:var(--navy)}
+.ulock{font-size:11.5px;color:var(--subtle);text-align:center;margin-top:7px}
+.cscreen{text-align:center;padding:36px 16px;display:none}
+.cscreen.show{display:block;animation:fadeUp .45s ease}
+.cico{font-size:56px;margin-bottom:18px}
+.ctitle{font-family:'Playfair Display',serif;font-size:26px;color:var(--text);margin-bottom:11px}
+.csub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.certcard{background:var(--glass2);border:1px solid rgba(249,115,22,.25);border-radius:var(--r);padding:22px;margin-bottom:22px;position:relative;overflow:hidden}
+.certcard::before{content:'律';position:absolute;right:-15px;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:90px;color:rgba(249,115,22,.05);pointer-events:none}
+.cert-lbl{font-size:11px;color:var(--orange);letter-spacing:.12em;font-weight:700;margin-bottom:7px}
+.cert-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--text);margin-bottom:5px}
+.cert-course{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cert-sig{font-size:11.5px;color:var(--subtle);border-top:1px solid var(--border);padding-top:11px;line-height:1.6}
+.btncert{width:100%;padding:13px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--gold3),var(--gold));color:var(--navy);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;margin-bottom:9px}
+.btnnext2{width:100%;padding:11px;border-radius:var(--r-sm);background:transparent;border:1px solid rgba(249,115,22,.3);color:var(--orange);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;cursor:pointer;transition:background .18s}
+.btnnext2:hover{background:rgba(249,115,22,.07)}
+</style>
+</head>
+<body>
+<div class="app">
+<nav class="topnav">
+  <a class="back" href="/">← Về Learning Hub</a>
+  <div class="logo"><div class="lmark">律</div><div><div class="lname">PeopleOS</div><div class="lsub">by TaHien</div></div></div>
+</nav>
+<div class="prog-wrap">
+  <div class="prog-meta"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+</div>
+<div class="dots" id="dots"></div>
+
+<!-- ═══ M1 — Hợp đồng lao động ═══ -->
+<div class="mv active" id="m1">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">HR Ops Thực Chiến ★ · Cấp 1</div>
+      <div class="hero-num">Bài 1 / 6</div>
+      <div class="hero-title">10 điều khoản hay sai nhất trong HĐLĐ Việt Nam</div>
+    </div>
+  </div>
+
+  <div class="lead">"Hiền từng thanh tra một công ty chuỗi F&B 200 nhân viên. Trong 3 giờ đầu, đội kiểm tra tìm thấy 11 lỗi hợp đồng có thể bị phạt — tổng mức phạt tiềm năng trên 400 triệu đồng. HR Manager ở đó không hề biết có lỗi. Cô ấy dùng template hợp đồng từ 2018 và không ai update theo luật mới. Sai không phải vì cô ấy không cẩn thận — mà vì không biết cần cẩn thận điều gì."</div>
+
+  <p class="body">Bộ Luật Lao Động 2019 và các nghị định hướng dẫn tạo ra nhiều thay đổi mà phần lớn HR không cập nhật kịp. Dưới đây là <b>10 điều khoản hay sai nhất</b> — sai theo nghĩa có thể bị xử phạt hoặc vô hiệu hóa điều khoản.</p>
+
+  <div class="sec-title">5 lỗi phổ biến nhất — nhóm hình thức</div>
+  <div class="grid2">
+    <div class="card" style="border-color:rgba(239,68,68,.25)">
+      <div class="cn" style="color:var(--red)">Lỗi 1</div>
+      <div class="ct">Không ghi rõ địa điểm làm việc</div>
+      <div class="cd">"Tại văn phòng công ty" không đủ. Phải ghi địa chỉ cụ thể. Nếu làm nhiều nơi, liệt kê hoặc ghi rõ "theo phân công"</div>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,.25)">
+      <div class="cn" style="color:var(--red)">Lỗi 2</div>
+      <div class="ct">Mức lương ghi thấp hơn thực nhận</div>
+      <div class="cd">Nhiều công ty ghi lương cơ bản thấp để tiết kiệm BHXH. Theo luật, lương trong HĐLĐ phải là lương thực tế, không phải lương cơ bản</div>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,.25)">
+      <div class="cn" style="color:var(--red)">Lỗi 3</div>
+      <div class="ct">Thời hạn thử việc sai</div>
+      <div class="cd">Vị trí đòi hỏi trình độ cao đẳng trở lên: tối đa 60 ngày. Công việc khác: tối đa 30 ngày. Nhiều HR ghi 2 tháng cho mọi vị trí</div>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,.25)">
+      <div class="cn" style="color:var(--red)">Lỗi 4</div>
+      <div class="ct">Điều khoản chấm dứt quá chung chung</div>
+      <div class="cd">"Công ty có quyền chấm dứt hợp đồng nếu nhân viên vi phạm" — không có giá trị pháp lý. Phải dẫn chiếu cụ thể Điều 36 BLLĐ 2019</div>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,.25)">
+      <div class="cn" style="color:var(--red)">Lỗi 5</div>
+      <div class="ct">Không ghi thời gian làm việc cụ thể</div>
+      <div class="cd">"Theo quy định công ty" không đủ. Phải ghi số giờ/ngày, số ngày/tuần. Thiếu này — nếu tranh chấp OT, công ty không có căn cứ</div>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,.25)">
+      <div class="cn" style="color:var(--red)">Lỗi 6–10</div>
+      <div class="ct">Nhóm lỗi nội dung</div>
+      <div class="cd">Thiếu điều khoản BHXH · Phụ cấp không ghi rõ điều kiện hưởng · NDA quá rộng vô hiệu hóa toàn bộ · Non-compete vô thời hạn · Tên vị trí không khớp với nội bộ</div>
+    </div>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">Nguyên tắc review HĐLĐ định kỳ</div>
+    <p>Luật lao động VN thay đổi thường xuyên — đặc biệt phần lương tối thiểu vùng (cập nhật hàng năm) và điều khoản BHXH. Hiền khuyên mỗi <b style="color:var(--gold)">6 tháng một lần</b> HR cần đối chiếu template HĐLĐ đang dùng với văn bản pháp lý mới nhất. Nếu công ty có luật sư lao động — review cùng họ. Nếu không — check Thông tư và Nghị định mới nhất của Bộ LĐ-TBXH.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🔎</div>
+      <div><div class="ex-label">Tìm lỗi hợp đồng</div><div class="ex-sub">Chọn điều khoản CÓ vấn đề pháp lý</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Đây là 5 điều khoản từ một HĐLĐ thật. Chọn điều khoản bạn thấy có vấn đề:</p>
+    <div class="clause-list" id="clauses">
+      <button class="clause" onclick="pickClause(this,true)">"Tiền lương: 8,000,000đ/tháng. Lương thực nhận bao gồm lương cơ bản 5,000,000đ và phụ cấp chức vụ 3,000,000đ."</button>
+      <button class="clause" onclick="pickClause(this,false)">"Thời gian làm việc: 8 giờ/ngày, 5 ngày/tuần, thứ 2 đến thứ 6."</button>
+      <button class="clause" onclick="pickClause(this,true)">"Thời gian thử việc: 60 ngày kể từ ngày ký hợp đồng áp dụng cho tất cả vị trí."</button>
+      <button class="clause" onclick="pickClause(this,false)">"Địa điểm làm việc: 123 Nguyễn Văn Linh, Quận 7, TP.HCM."</button>
+      <button class="clause" onclick="pickClause(this,true)">"Công ty có quyền chấm dứt hợp đồng ngay lập tức nếu nhân viên không đáp ứng yêu cầu công việc."</button>
+    </div>
+    <div class="qfb" id="qf1"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 1</div>
+    <div class="tw-text">"HĐLĐ sai không phải vì HR cẩu thả — mà vì luật thay đổi nhanh hơn template. Review định kỳ 6 tháng/lần không phải lựa chọn, đó là nghĩa vụ nghề nghiệp."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" disabled>← Quay lại</button>
+    <button class="btnnext" id="n1" onclick="go(2)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h1">Chọn ít nhất 2 điều khoản có vấn đề để tiếp tục</div>
+</div>
+
+<!-- ═══ M2 — Onboarding ═══ -->
+<div class="mv" id="m2">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">HR Ops Thực Chiến ★ · Cấp 1</div>
+      <div class="hero-num">Bài 2 / 6</div>
+      <div class="hero-title">Onboarding 30-60-90 — từ ngày 1 đến khi "vào việc thật sự"</div>
+    </div>
+  </div>
+
+  <div class="lead">"Tỷ lệ nghỉ việc trong 90 ngày đầu tại chuỗi F&B trung bình là 30–40%. Phần lớn HR giải thích: 'Họ không phù hợp.' Nhưng khi Hiền đi sâu phân tích exit data — lý do thật là: ngày đầu tiên không ai đón họ, tuần đầu tiên không ai giải thích rõ kỳ vọng, tháng đầu tiên họ cảm thấy vô hình. Onboarding kém không phải quy trình thiếu — mà là quy trình có trên giấy nhưng không ai thực hiện."</div>
+
+  <p class="body">Nghiên cứu của BambooHR cho thấy nhân viên có onboarding tốt có xác suất ở lại sau 1 năm cao hơn <b>82%</b>. Và định nghĩa "onboarding tốt" không phải buổi orientation 1 ngày — mà là một hành trình 90 ngày có cấu trúc.</p>
+
+  <div class="sec-title">Khung 30-60-90 — mục tiêu từng giai đoạn</div>
+
+  <div class="tl" id="tl2">
+    <div class="tl-item">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot" onclick="checkTL(this,2)" id="tld2-1"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-day">NGÀY 1 — TUẦN 1</div>
+        <div class="tl-text">Cảm giác "được chào đón và biết mình ở đâu"</div>
+        <div class="tl-sub">Workspace sẵn sàng · Buddy được assign · Tour công ty · Meeting với manager · Giải thích kỳ vọng 30 ngày đầu · Không để ngày đầu tiên ngồi chờ IT setup</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot" onclick="checkTL(this,2)" id="tld2-2"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-day">30 NGÀY — KẾT THÚC THÁNG 1</div>
+        <div class="tl-text">Hiểu được công việc và bắt đầu đóng góp</div>
+        <div class="tl-sub">1:1 với manager sau tuần 2 và tuần 4 · Nhân viên có thể mô tả công việc của mình · Biết ai cần liên hệ khi cần gì · Check-in từ HR: "Anh/chị có câu hỏi gì chưa được trả lời không?"</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot" onclick="checkTL(this,2)" id="tld2-3"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-day">60 NGÀY — KẾT THÚC THÁNG 2</div>
+        <div class="tl-text">Tự tin và bắt đầu thấy mình thuộc về nơi này</div>
+        <div class="tl-sub">Đã hoàn thành ít nhất 1 project nhỏ · Có ít nhất 2 mối quan hệ tích cực trong team · Manager feedback rõ ràng về điểm tốt và điểm cần cải thiện · Nhân viên tự chủ động hỏi và đề xuất</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot" onclick="checkTL(this,2)" id="tld2-4"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-day">90 NGÀY — KẾT THÚC THỬ VIỆC</div>
+        <div class="tl-text">Quyết định chính thức — dựa trên evidence, không phải cảm tính</div>
+        <div class="tl-sub">Đánh giá thử việc có tiêu chí rõ ràng từ đầu · Manager đã feedback đủ trong 90 ngày (không phải lần đầu tiên ngày 90) · Nhân viên biết kết quả trong 3 ngày sau ngày 90 · Nếu không pass — exit interview ngay hôm đó, đừng để "lửng"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warn">
+    <div class="warn-label">3 lỗi onboarding hay gặp nhất tại chuỗi F&B</div>
+    <p style="margin-bottom:6px">① <b style="color:var(--red)">Ngày đầu tiên không có ai đón:</b> Manager đang bận, buddy chưa được thông báo, nhân viên mới ngồi chờ 2 tiếng. Đây là ấn tượng đầu tiên — và nó rất khó xóa.</p>
+    <p style="margin-bottom:6px">② <b style="color:var(--red)">Onboarding = orientation 1 ngày:</b> Nhồi nhét chính sách, ký giấy tờ, xong. Không có follow-up. Nhân viên cảm thấy bị bỏ lại một mình sau ngày đó.</p>
+    <p>③ <b style="color:var(--red)">Manager không được chuẩn bị:</b> HR onboard nhân viên nhưng không brief manager về kỳ vọng và vai trò của manager trong 90 ngày đầu. Manager nghĩ "HR lo hết rồi".</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">📅</div>
+      <div><div class="ex-label">Checklist ngày 1</div><div class="ex-sub">Tick vào những gì bạn đang làm — ít nhất 3 để tiếp tục</div></div>
+    </div>
+    <div id="cl2">
+      <div class="chi" onclick="TC(this,'2')" data-on="false"><div class="chbox"></div><div class="chtext">Workspace (bàn, máy tính, account) sẵn sàng TRƯỚC khi nhân viên đến<small>Không để họ ngồi chờ IT setup trong buổi sáng đầu tiên</small></div></div>
+      <div class="chi" onclick="TC(this,'2')" data-on="false"><div class="chbox"></div><div class="chtext">Buddy được thông báo và biết vai trò của mình trong 30 ngày đầu<small>Buddy không phải "người giải đáp thắc mắc" — họ là người khiến nhân viên cảm thấy có chỗ dựa</small></div></div>
+      <div class="chi" onclick="TC(this,'2')" data-on="false"><div class="chbox"></div><div class="chtext">Manager có 30 phút welcome meeting với nhân viên mới trong ngày đầu<small>Không phải orientation chung — meeting 1:1, giải thích kỳ vọng và "đây là cách tôi làm việc"</small></div></div>
+      <div class="chi" onclick="TC(this,'2')" data-on="false"><div class="chbox"></div><div class="chtext">Kế hoạch 30-60-90 được chia sẻ với nhân viên từ ngày đầu<small>Không phải bí mật — nhân viên biết mình sẽ được đánh giá theo tiêu chí gì</small></div></div>
+      <div class="chi" onclick="TC(this,'2')" data-on="false"><div class="chbox"></div><div class="chtext">HR check-in với nhân viên mới sau ngày 7 — không phải sau ngày 30<small>"Tuần đầu của anh/chị thế nào? Có gì chưa rõ không?" — câu hỏi này nghe đơn giản nhưng ít HR làm</small></div></div>
+    </div>
+    <div class="qfb" id="cf2"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 2</div>
+    <div class="tw-text">"Onboarding không kết thúc sau ngày orientation — nó kết thúc khi nhân viên cảm thấy họ thuộc về nơi này và biết mình cần làm gì. Thường mất 90 ngày, không phải 1 ngày."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(1)">← Quay lại</button>
+    <button class="btnnext" id="n2" onclick="go(3)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h2">Chọn ít nhất 3 mục trong checklist để tiếp tục</div>
+</div>
+
+<!-- ═══ M3 — C&B ═══ -->
+<div class="mv" id="m3">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">HR Ops Thực Chiến ★ · Cấp 1</div>
+      <div class="hero-num">Bài 3 / 6</div>
+      <div class="hero-title">C&B cơ bản — lương, BHXH, thuế TNCN đúng luật</div>
+    </div>
+  </div>
+
+  <div class="lead">"Một nhân viên nhận offer 15 triệu gross. Về nhà tính ra net chỉ còn 12.4 triệu — thấp hơn mức họ expect. Họ không hiểu tại sao, và nghĩ công ty khấu trừ không đúng. HR phải mất 30 phút giải thích BHXH và thuế. Sau đó nhân viên vẫn không vui vì cảm giác bị lừa. Vấn đề không phải tính toán sai — mà là HR không giải thích trước khi nhân viên ký offer."</div>
+
+  <p class="body">C&B không phải chỉ là tính đúng con số — mà là <b>giúp nhân viên hiểu con số đó</b>. HR nào giải thích được rõ ràng cách tính lương net = HR đó nhân viên tin tưởng hơn nhiều.</p>
+
+  <div class="sec-title">Công thức cơ bản Gross → Net tại Việt Nam (2025)</div>
+  <div class="card-full" style="border-color:rgba(249,115,22,.25)">
+    <div class="cn" style="color:var(--orange)">Công thức tính lương Net từ Gross</div>
+    <div class="ct">Net = Gross − BHXH NLĐ − BHYT NLĐ − BHTN NLĐ − Thuế TNCN</div>
+    <div class="cd" style="margin-top:8px">
+      <b style="color:var(--text)">BHXH người lao động đóng:</b> 8% lương đóng BHXH<br>
+      <b style="color:var(--text)">BHYT người lao động đóng:</b> 1.5% lương đóng BHYT<br>
+      <b style="color:var(--text)">BHTN người lao động đóng:</b> 1% lương đóng BHTN<br>
+      <b style="color:var(--text)">Tổng NLĐ đóng:</b> 10.5% × lương đóng bảo hiểm<br><br>
+      <span style="color:var(--muted)">Lưu ý: Lương đóng BHXH tối đa = 20 lần lương cơ sở (2025: 2,340,000đ × 20 = 46,800,000đ)</span>
+    </div>
+  </div>
+
+  <div class="sec-title">Máy tính lương nhanh</div>
+  <div class="ex" style="margin-top:0">
+    <div class="ex-head">
+      <div class="ex-ico">🧮</div>
+      <div><div class="ex-label">Tính lương Net ước tính</div><div class="ex-sub">Nhập lương Gross và số người phụ thuộc</div></div>
+    </div>
+    <div class="calc-wrap">
+      <div class="calc-field">
+        <div class="calc-label">Lương Gross (triệu đồng)</div>
+        <input class="calc-input" type="number" id="c-gross" placeholder="15" oninput="calcSalary()" min="0">
+      </div>
+      <div class="calc-field">
+        <div class="calc-label">Số người phụ thuộc</div>
+        <input class="calc-input" type="number" id="c-dep" placeholder="0" oninput="calcSalary()" min="0" max="10">
+      </div>
+    </div>
+    <div class="calc-result" id="calc-out" style="display:none">
+      <div class="calc-num" id="calc-net">—</div>
+      <div class="calc-label2">Lương Net ước tính (triệu đồng/tháng)</div>
+      <div id="calc-detail" style="font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.7"></div>
+    </div>
+    <div class="qfb" id="qf3"></div>
+  </div>
+
+  <div class="ins">
+    <div class="ins-label">Giảm trừ gia cảnh 2025 · Quan trọng khi tư vấn nhân viên</div>
+    <p style="margin-bottom:5px"><b style="color:var(--gold)">Bản thân:</b> 11,000,000đ/tháng</p>
+    <p style="margin-bottom:5px"><b style="color:var(--gold)">Mỗi người phụ thuộc:</b> 4,400,000đ/tháng (đã được phê duyệt đăng ký)</p>
+    <p><b style="color:var(--gold)">Lưu ý:</b> Người phụ thuộc cần được đăng ký — không tự động. HR cần nhắc nhân viên mới khai từ tháng đầu để không mất quyền lợi</p>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 3</div>
+    <div class="tw-text">"Nhân viên không phàn nàn vì lương thấp — họ phàn nàn vì không hiểu tại sao lương của họ là con số đó. HR giải thích được = HR xây được niềm tin."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(2)">← Quay lại</button>
+    <button class="btnnext" id="n3" onclick="go(4)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h3">Nhập lương Gross để tính và tiếp tục</div>
+</div>
+
+<!-- ═══ M4 — HRIS ═══ -->
+<div class="mv" id="m4">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">HR Ops Thực Chiến ★ · Cấp 1</div>
+      <div class="hero-num">Bài 4 / 6</div>
+      <div class="hero-title">HRIS & hồ sơ nhân sự — tránh rủi ro thanh tra</div>
+    </div>
+  </div>
+
+  <div class="lead">"Thanh tra lao động đến chuỗi F&B — đòi xem hồ sơ 10 nhân viên ngẫu nhiên. HR mất 2 tiếng tìm kiếm vì hồ sơ lưu ở 3 nơi khác nhau: Google Drive, email, và một folder cứng trên máy tính của một nhân viên đã nghỉ. Hai hồ sơ không tìm được. Kết quả: biên bản vi phạm và phạt 40 triệu. Không phải vì hồ sơ thiếu nội dung — mà vì không thể xuất trình trong thời gian hợp lý."</div>
+
+  <p class="body">HRIS tốt không phải là phần mềm đắt nhất — mà là hệ thống cho phép HR <b>tìm bất kỳ hồ sơ nào trong 5 phút</b>. Đó là tiêu chí duy nhất cần đánh giá.</p>
+
+  <div class="sec-title">Hồ sơ nhân viên bắt buộc phải có (theo luật VN)</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="cn" style="color:var(--orange)">Nhóm 1 · Khi tuyển vào</div>
+      <div class="ct">Hồ sơ pháp lý cơ bản</div>
+      <div class="cd">CCCD/CMND bản sao · Bằng cấp/chứng chỉ liên quan · Ảnh 3x4 · Sổ hộ khẩu/KT3 (nếu có) · Giấy khám sức khỏe (tùy vị trí) · HĐLĐ ký hai bản</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--orange)">Nhóm 2 · Trong quá trình làm việc</div>
+      <div class="ct">Hồ sơ cập nhật liên tục</div>
+      <div class="cd">Phụ lục HĐLĐ (nếu có thay đổi) · Quyết định điều chuyển/thăng chức · Kỷ luật lao động (nếu có) · Nghỉ phép đã sử dụng · Đánh giá thử việc</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--orange)">Nhóm 3 · BHXH & thuế</div>
+      <div class="ct">Hồ sơ bảo hiểm</div>
+      <div class="cd">Sổ BHXH hoặc mã số BHXH · Đăng ký người phụ thuộc · Hồ sơ hưởng thai sản/ốm đau (nếu có) · Chứng từ khấu trừ thuế TNCN</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--orange)">Nhóm 4 · Khi nghỉ việc</div>
+      <div class="ct">Hồ sơ offboarding</div>
+      <div class="cd">Quyết định chấm dứt HĐLĐ · Biên bản bàn giao · Xác nhận thời gian làm việc · Thanh toán trợ cấp (nếu có) · Sổ BHXH đã chốt</div>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🗂️</div>
+      <div><div class="ex-label">Kiểm tra nhanh</div><div class="ex-sub">Tình huống thanh tra thực tế</div></div>
+    </div>
+    <div class="qq">Thanh tra lao động yêu cầu xem hồ sơ HĐLĐ của nhân viên A. HR mở HRIS và thấy file HĐLĐ được upload nhưng không có chữ ký scan của hai bên. Chỉ có file Word. HR nên xử lý thế nào?</div>
+    <div class="qopts" id="q4opts">
+      <button class="qopt" onclick="AQ4(this,'A')"><span class="oletter">A</span>Giải thích với thanh tra rằng bản gốc có chữ ký đang ở tủ hồ sơ vật lý và sẽ tìm ngay</button>
+      <button class="qopt" onclick="AQ4(this,'B')"><span class="oletter">B</span>Nói với thanh tra hệ thống đang bảo trì và sẽ gửi sau</button>
+      <button class="qopt" onclick="AQ4(this,'C')"><span class="oletter">C</span>Print file Word ra, ký nhanh và trình cho thanh tra</button>
+      <button class="qopt" onclick="AQ4(this,'D')"><span class="oletter">D</span>Chụp ảnh bản gốc trong tủ và gửi kỹ thuật số cho thanh tra xem tạm</button>
+    </div>
+    <div class="qfb" id="qf4"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 4</div>
+    <div class="tw-text">"Hồ sơ nhân sự không phải để lưu trữ — mà để có thể xuất trình trong 5 phút bất kỳ lúc nào. Nếu mất hơn 5 phút, hệ thống của bạn chưa đủ tốt."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(3)">← Quay lại</button>
+    <button class="btnnext" id="n4" onclick="go(5)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h4">Trả lời câu hỏi để tiếp tục</div>
+</div>
+
+<!-- ═══ M5 — Offboarding ═══ -->
+<div class="mv" id="m5">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">HR Ops Thực Chiến ★ · Cấp 1</div>
+      <div class="hero-num">Bài 5 / 6</div>
+      <div class="hero-title">Offboarding sạch — exit interview & thủ tục không để lại vết</div>
+    </div>
+  </div>
+
+  <div class="lead">"Một nhân viên giỏi nghỉ việc. HR xử lý offboarding trong 30 phút: ký giấy, trả laptop, xong. Sáu tháng sau, người đó quay lại ứng tuyển vị trí cao hơn — và có thể trở thành đối tác tốt. Nhưng vì offboarding quá lạnh lùng, họ không muốn quay lại nữa. Một số công ty mất đến 15–20% 'alumni rehire' tiềm năng vì xử lý offboarding như thủ tục hành chính thay vì khoảnh khắc quan hệ."</div>
+
+  <p class="body">Offboarding tốt có hai mục tiêu song song: <b>hoàn tất thủ tục pháp lý an toàn</b> và <b>giữ mối quan hệ tốt</b> với người rời đi. Hai mục tiêu này không mâu thuẫn nhau nếu làm đúng.</p>
+
+  <div class="sec-title">Checklist offboarding chuẩn — 2 track song song</div>
+  <div class="grid2">
+    <div class="card" style="border-color:rgba(249,115,22,.25)">
+      <div class="cn" style="color:var(--orange)">Track 1 · Pháp lý & tài sản</div>
+      <div class="ct">Đảm bảo an toàn cho công ty</div>
+      <div class="cd">Thu hồi thiết bị · Revoke tất cả access (email, Slack, hệ thống) ngay ngày cuối · Ký biên bản bàn giao · Thanh toán ngày phép còn lại + lương tháng cuối · Chốt sổ BHXH trong 30 ngày · Xác nhận thời gian làm việc</div>
+    </div>
+    <div class="card" style="border-color:rgba(34,211,238,.25)">
+      <div class="cn" style="color:var(--cyan)">Track 2 · Quan hệ & alumni</div>
+      <div class="ct">Giữ mối quan hệ tốt lâu dài</div>
+      <div class="cd">Exit interview thật sự (không phải form) · Cảm ơn chân thành về đóng góp · LinkedIn recommendation nếu phù hợp · Giới thiệu vào alumni network · Thông báo team theo cách tích cực · Invitation đến events nếu họ muốn</div>
+    </div>
+  </div>
+
+  <div class="sec-title">Exit interview thật vs exit interview đẹp</div>
+  <p class="body">Hầu hết exit interview cho ra câu trả lời "lý do cá nhân" hoặc "cơ hội phát triển tốt hơn" — vì nhân viên không tin câu trả lời thật sẽ không gây hậu quả. Muốn nghe sự thật, HR phải tạo được cảm giác an toàn thật sự.</p>
+  <div class="hl">
+    <div class="hl-label">3 điều kiện để exit interview cho ra insight thật</div>
+    <p style="margin-bottom:6px">① <b style="color:var(--gold)">Người phỏng vấn không phải manager trực tiếp của họ</b> — và không phải người có ảnh hưởng đến reference của họ</p>
+    <p style="margin-bottom:6px">② <b style="color:var(--gold)">Cam kết rõ ràng về confidentiality</b> — thông tin sẽ được tổng hợp thành trend, không trích dẫn cá nhân</p>
+    <p>③ <b style="color:var(--gold)">Hỏi sau khi họ đã ký giấy tờ cuối</b> — không phải trước. Khi mọi thứ đã xong, họ ít có lý do để giữ lại thông tin</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🚪</div>
+      <div><div class="ex-label">Phân tích tình huống</div><div class="ex-sub">Xử lý offboarding khó</div></div>
+    </div>
+    <div class="qq">Nhân viên cấp senior nghỉ việc sau khi bị từ chối tăng lương. Họ vẫn còn 2 tuần làm việc. Lúc exit interview, khi hỏi lý do nghỉ, họ chỉ nói "cơ hội tốt hơn" dù HR biết sự thật. HR nên làm gì?</div>
+    <div class="qopts" id="q5opts">
+      <button class="qopt" onclick="AQ5(this,'A')"><span class="oletter">A</span>Chấp nhận câu trả lời đó — không nên ép họ nói thật vì có thể tạo căng thẳng trong 2 tuần cuối</button>
+      <button class="qopt" onclick="AQ5(this,'B')"><span class="oletter">B</span>Nói thẳng: "HR biết anh bị từ chối tăng lương — anh có muốn chia sẻ thêm về điều đó không?"</button>
+      <button class="qopt" onclick="AQ5(this,'C')"><span class="oletter">C</span>Hỏi câu mở: "Nếu có một điều công ty có thể làm khác đi — điều đó là gì?" rồi lắng nghe</button>
+      <button class="qopt" onclick="AQ5(this,'D')"><span class="oletter">D</span>Ghi "cơ hội tốt hơn" vào form và kết thúc exit interview, tránh tạo thêm vấn đề</button>
+    </div>
+    <div class="qfb" id="qf5"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 5</div>
+    <div class="tw-text">"Người rời đi hôm nay có thể là khách hàng, đối tác, hoặc nhân viên trở lại vào ngày mai. Offboarding là cơ hội cuối cùng để tổ chức để lại ấn tượng tốt — đừng phí nó vào thủ tục."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(4)">← Quay lại</button>
+    <button class="btnnext" id="n5" onclick="go(6)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h5">Trả lời câu hỏi để tiếp tục</div>
+</div>
+
+<!-- ═══ M6 — Checklist F&B ═══ -->
+<div class="mv" id="m6">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">HR Ops Thực Chiến ★ · Bài cuối</div>
+      <div class="hero-num">Bài 6 / 6</div>
+      <div class="hero-title">HR Ops checklist cho chuỗi F&B — mang đi dùng ngay</div>
+    </div>
+  </div>
+
+  <div class="lead">"Sau 15 năm làm HR trong chuỗi F&B — từ 3 cửa hàng đến hơn 600 cửa hàng — Hiền đúc kết ra một sự thật: vấn đề HR trong chuỗi thường không phải vì thiếu policy, mà vì policy tốt nhưng execution không nhất quán ở cấp cửa hàng. Checklist không phải để kiểm soát — mà để đảm bảo mọi người đều làm đúng thứ quan trọng, bất kể ai là người làm."</div>
+
+  <p class="body">Đây là checklist HR Ops hàng tháng mà Hiền dùng để quản lý nhân sự ở quy mô chuỗi. Không phải lý thuyết — đây là thứ đã được test với hàng chục nghìn nhân sự.</p>
+
+  <div class="sec-title">Checklist HR Ops hàng tháng — chuỗi F&B</div>
+  <div class="ex" style="margin-top:0">
+    <div class="ex-head">
+      <div class="ex-ico">✅</div>
+      <div><div class="ex-label">Cam kết áp dụng</div><div class="ex-sub">Chọn ít nhất 3 mục bạn sẽ implement ngay tháng này</div></div>
+    </div>
+    <div id="cl6">
+      <div class="chi" onclick="TC6(this)" data-on="false">
+        <div class="chbox"></div>
+        <div class="chtext">Review danh sách nhân viên đang trong thử việc — ai đến ngày 85 để chuẩn bị đánh giá?<small>Đừng để ngày 90 mới nhớ ra — manager cần 5 ngày để chuẩn bị feedback</small></div>
+      </div>
+      <div class="chi" onclick="TC6(this)" data-on="false">
+        <div class="chbox"></div>
+        <div class="chtext">Check hợp đồng hết hạn trong 30 ngày tới — gia hạn hay chuyển không xác định thời hạn?<small>Nếu để quá hạn mà không ký lại, HĐLĐ tự động chuyển thành không xác định thời hạn</small></div>
+      </div>
+      <div class="chi" onclick="TC6(this)" data-on="false">
+        <div class="chbox"></div>
+        <div class="chtext">Đối chiếu danh sách tham gia BHXH với danh sách nhân viên đang làm việc<small>Sai lệch > 5% là cần điều tra ngay — thường do có người đã nghỉ mà chưa chốt sổ BHXH</small></div>
+      </div>
+      <div class="chi" onclick="TC6(this)" data-on="false">
+        <div class="chbox"></div>
+        <div class="chtext">Tổng hợp số ngày phép tồn đọng của toàn công ty — cảnh báo nếu ai có > 15 ngày<small>Phép tồn đọng là liability tài chính — nếu nhân viên nghỉ việc, công ty phải trả tiền phép chưa nghỉ</small></div>
+      </div>
+      <div class="chi" onclick="TC6(this)" data-on="false">
+        <div class="chbox"></div>
+        <div class="chtext">Chạy báo cáo turnover theo cửa hàng/bộ phận — cửa hàng nào > 10%/tháng cần điều tra<small>Turnover cao ở một cửa hàng cụ thể thường là dấu hiệu của vấn đề quản lý, không phải market</small></div>
+      </div>
+      <div class="chi" onclick="TC6(this)" data-on="false">
+        <div class="chbox"></div>
+        <div class="chtext">Review template HĐLĐ — có văn bản pháp lý mới nào thay đổi trong quý vừa rồi?<small>Lương tối thiểu vùng, mức đóng BHXH, quy định phụ cấp — thường thay đổi đầu năm</small></div>
+      </div>
+    </div>
+    <div class="qfb" id="cf6"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Toàn khóa</div>
+    <div class="tw-text">"HR Ops tốt không phải làm nhiều — mà là làm đúng thứ quan trọng, đúng thời điểm, nhất quán. Một checklist đơn giản thực hiện đều đặn hơn một policy hoàn hảo không ai nhớ."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group · PeopleOS Community 2026</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(5)">← Quay lại</button>
+    <button class="btnnext" id="n6" onclick="done()" disabled>Hoàn thành khóa học ✓</button>
+  </div>
+  <div class="ulock" id="h6">Chọn ít nhất 3 mục để hoàn thành</div>
+</div>
+
+<!-- COMPLETE -->
+<div class="cscreen" id="complete">
+  <div class="cico">📋</div>
+  <div class="ctitle">Hoàn thành xuất sắc!</div>
+  <div class="csub">Bạn đã hoàn thành khóa <b>HR Ops Thực Chiến</b>.<br>6 bài học · 120 XP đã được ghi nhận.</div>
+  <div class="certcard">
+    <div class="cert-lbl">Chứng chỉ hoàn thành · PeopleOS</div>
+    <div class="cert-name">HR Ops Thực Chiến</div>
+    <div class="cert-course">Cấp 1 — HR Staff & Specialist · 6 modules · ~20 phút</div>
+    <div class="cert-sig">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+  </div>
+  <button class="btncert" onclick="alert('Tính năng xuất PDF sẽ có trong phiên bản đầy đủ!')">Tải chứng chỉ PDF</button>
+  <button class="btnnext2" onclick="window.location.href='/k5-recruiting-co-ban'">Học tiếp → K5: Recruiting Cơ Bản</button>
+</div>
+</div>
+
+<script>
+var cur=1,tot=6,dm={};
+function buildDots(){
+  var c=document.getElementById('dots');c.innerHTML='';
+  for(var i=1;i<=tot;i++){
+    var d=document.createElement('div');
+    d.className='dot'+(i===cur?' active':(dm[i]?' done':''));
+    (function(n){d.onclick=function(){if(n<=cur||dm[n-1])go(n);};})(i);
+    c.appendChild(d);
+  }
+}
+function updP(){
+  var p=Math.round(((cur-1)/tot)*100);
+  document.getElementById('pfill').style.width=p+'%';
+  document.getElementById('ppct').textContent=p+'%';
+  document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;
+}
+function go(n){
+  document.getElementById('m'+cur).classList.remove('active');
+  dm[cur]=true;cur=n;
+  var el=document.getElementById('m'+cur);
+  if(el)el.classList.add('active');
+  buildDots();updP();window.scrollTo({top:0,behavior:'smooth'});
+}
+function unlock(b,h){
+  var bn=document.getElementById(b);if(bn)bn.disabled=false;
+  var hn=document.getElementById(h);if(hn)hn.style.display='none';
+}
+
+/* M1 — clause spotter */
+var clauseErrors=0;
+var clauseCorrect=[true,false,true,false,true]; // error=true, ok=false
+function pickClause(el,isError){
+  if(el.classList.contains('error')||el.classList.contains('ok')||el.classList.contains('neutral'))return;
+  el.disabled=true;
+  var fb=document.getElementById('qf1');
+  if(isError){
+    el.classList.add('error');
+    clauseErrors++;
+    var msgs={0:'Đúng! Lương trong HĐLĐ phải là tổng lương thực nhận — không phải chỉ lương cơ bản. Ghi "lương cơ bản 5tr + phụ cấp 3tr" cần kèm điều kiện hưởng phụ cấp rõ ràng, nếu không phụ cấp có thể bị xem là lương và phải đóng BHXH trên toàn bộ 8tr.',
+      1:'Đúng! "60 ngày cho TẤT CẢ vị trí" là sai. Chỉ vị trí đòi hỏi từ cao đẳng trở lên mới được 60 ngày. Các vị trí khác chỉ được 30 ngày. Nếu ghi sai, thời gian dôi ra bị vô hiệu và NLĐ có thể yêu cầu quyền lợi.',
+      2:'Đúng! "Chấm dứt ngay lập tức nếu không đáp ứng yêu cầu" không có cơ sở pháp lý cụ thể. Phải dẫn chiếu Điều 36 BLLĐ 2019 với lý do cụ thể. Điều khoản chung chung có thể bị vô hiệu hóa khi có tranh chấp.'};
+    var idx=clauseErrors-1;
+    fb.className='qfb show correct';
+    fb.textContent=msgs[idx]||'Đúng! Điều khoản này có vấn đề pháp lý.';
+  } else {
+    el.classList.add('neutral');
+    fb.className='qfb show correct';
+    fb.textContent='Điều khoản này ổn — ghi đúng theo luật. Tiếp tục tìm các điều khoản có vấn đề.';
+  }
+  if(clauseErrors>=2){unlock('n1','h1');}
+}
+
+/* M2 — timeline + checklist */
+var tlChecked2=0;
+function checkTL(el,m){
+  if(!el.classList.contains('checked')){el.classList.add('checked');tlChecked2++;}
+  if(tlChecked2>=2){unlock('n'+m,'h'+m);}
+}
+var cc2=0;
+function TC(el,mid){
+  var box=el.querySelector('.chbox');
+  var on=el.getAttribute('data-on')==='true';
+  if(!on){box.classList.add('on');el.setAttribute('data-on','true');cc2++;}
+  else{box.classList.remove('on');el.setAttribute('data-on','false');cc2--;}
+  var fb=document.getElementById('cf'+mid);
+  if(cc2>=3){
+    fb.className='qfb show correct';
+    fb.textContent='Tốt! '+cc2+' mục đã được chọn. Đây là những thứ tạo ra sự khác biệt thật sự trong 30 ngày đầu của nhân viên mới.';
+    unlock('n2','h2');
+  } else {fb.className='';}
+}
+
+/* M3 — salary calculator */
+function calcSalary(){
+  var gross=parseFloat(document.getElementById('c-gross').value)||0;
+  var dep=parseInt(document.getElementById('c-dep').value)||0;
+  var out=document.getElementById('calc-out');
+  if(gross<=0){out.style.display='none';return;}
+  out.style.display='block';
+  // BH cap: 46.8tr (20x luong co so 2,340,000)
+  var bhCap=46.8;
+  var bhBase=Math.min(gross,bhCap);
+  var bhxh=bhBase*0.08;
+  var bhyt=bhBase*0.015;
+  var bhtn=bhBase*0.01;
+  var totalBH=bhxh+bhyt+bhtn;
+  var taxBase=gross-totalBH;
+  // Giam tru gia canh
+  var personal=11;
+  var depAmt=dep*4.4;
+  var taxable=Math.max(0,taxBase-personal-depAmt);
+  // Bieu thue luy tien 2025
+  var tax=0;
+  var brackets=[[5,0.05],[5,0.1],[8,0.15],[14,0.2],[20,0.25],[28,0.3],[Infinity,0.35]];
+  var rem=taxable;
+  for(var i=0;i<brackets.length;i++){
+    if(rem<=0)break;
+    var t=Math.min(rem,brackets[i][0]);
+    tax+=t*brackets[i][1];
+    rem-=t;
+  }
+  var net=gross-totalBH-tax;
+  document.getElementById('calc-net').textContent=net.toFixed(2);
+  document.getElementById('calc-detail').innerHTML=
+    'Gross: '+gross.toFixed(2)+'tr  |  BH NLĐ đóng: '+totalBH.toFixed(2)+'tr  |  Thu nhập tính thuế: '+taxable.toFixed(2)+'tr  |  Thuế TNCN: '+tax.toFixed(2)+'tr';
+  var fb=document.getElementById('qf3');
+  fb.className='qfb show correct';
+  fb.textContent='Kết quả tính toán ước tính. Thực tế có thể sai lệch nhỏ do làm tròn và các phụ cấp không chịu thuế. Luôn tư vấn phòng kế toán hoặc thuế cho con số chính xác.';
+  unlock('n3','h3');
+}
+
+/* M4 — HRIS quiz */
+function AQ4(el,ans){
+  document.querySelectorAll('#q4opts .qopt').forEach(function(o){o.disabled=true;});
+  var fb=document.getElementById('qf4');
+  if(ans==='A'){
+    el.classList.add('correct');fb.className='qfb show correct';
+    fb.textContent='Đúng! Bản gốc có chữ ký vật lý là hợp lệ — thanh tra có thể chờ trong thời gian hợp lý để HR tìm và xuất trình. Quan trọng là phải thật sự có bản gốc và tìm được. Đây cũng là lý do HR nên lưu hồ sơ vật lý có hệ thống, không chỉ số hóa.';
+    unlock('n4','h4');
+  } else {
+    el.classList.add('wrong');
+    document.querySelectorAll('#q4opts .qopt')[0].classList.add('correct');
+    fb.className='qfb show wrong';
+    if(ans==='B')fb.textContent='Sai. Nói hệ thống bảo trì là không trung thực và có thể bị ghi vào biên bản. Thanh tra có quyền yêu cầu xuất trình hồ sơ ngay.';
+    else if(ans==='C')fb.textContent='Sai và nguy hiểm. Ký hợp đồng trong khi thanh tra đang ở đó có thể bị xem là giả mạo hồ sơ — vi phạm nghiêm trọng hơn việc thiếu chữ ký scan.';
+    else fb.textContent='Chưa đúng. Chụp ảnh không có giá trị pháp lý như bản gốc. Tốt nhất là xin phép tìm bản gốc vật lý.';
+    setTimeout(function(){unlock('n4','h4');},1600);
+  }
+}
+
+/* M5 — exit interview quiz */
+function AQ5(el,ans){
+  document.querySelectorAll('#q5opts .qopt').forEach(function(o){o.disabled=true;});
+  var fb=document.getElementById('qf5');
+  if(ans==='C'){
+    el.classList.add('correct');fb.className='qfb show correct';
+    fb.textContent='Đúng! Câu hỏi mở "một điều công ty có thể làm khác" không đòi hỏi họ thừa nhận lý do thật — nhưng thường mở ra cuộc trò chuyện thật hơn. HR biết lý do nhưng không nên "tấn công" bằng câu hỏi trực tiếp (B) — đó sẽ tạo phòng thủ. Chấp nhận câu trả lời né tránh (A, D) là bỏ qua cơ hội học.';
+    unlock('n5','h5');
+  } else {
+    el.classList.add('wrong');
+    document.querySelectorAll('#q5opts .qopt')[2].classList.add('correct');
+    fb.className='qfb show wrong';
+    if(ans==='A')fb.textContent='Chưa đúng. Tránh căng thẳng bằng cách không hỏi thật là bỏ qua insight quan trọng. 2 tuần cuối vẫn có thể có cuộc trò chuyện tốt nếu HR tiếp cận đúng cách.';
+    else if(ans==='B')fb.textContent='Không nên. Hỏi thẳng như vậy có thể khiến họ cảm thấy bị tấn công và đóng cửa hoàn toàn — hoặc nói những gì HR muốn nghe chứ không phải thật.';
+    else fb.textContent='Chưa tối ưu. Ghi "cơ hội tốt hơn" khi biết lý do thật là bỏ qua cơ hội học và cải thiện. Dữ liệu exit interview không chính xác = quyết định HR dựa trên dữ liệu sai.';
+    setTimeout(function(){unlock('n5','h5');},1600);
+  }
+}
+
+/* M6 — final checklist */
+var cc6=0;
+function TC6(el){
+  var box=el.querySelector('.chbox');
+  var on=el.getAttribute('data-on')==='true';
+  if(!on){box.classList.add('on');el.setAttribute('data-on','true');cc6++;}
+  else{box.classList.remove('on');el.setAttribute('data-on','false');cc6--;}
+  var fb=document.getElementById('cf6');
+  if(cc6>=3){
+    fb.className='qfb show correct';
+    fb.textContent='Tốt lắm! '+cc6+' mục đã chọn. Ghi vào lịch làm việc tháng này để không quên — checklist chỉ có giá trị khi thực sự được thực hiện.';
+    unlock('n6','h6');
+  } else {fb.className='';}
+}
+
+function done(){
+  document.getElementById('m6').style.display='none';
+  document.getElementById('complete').classList.add('show');
+  dm[6]=true;cur=7;
+  document.getElementById('pfill').style.width='100%';
+  document.getElementById('ppct').textContent='100%';
+  document.getElementById('plabel').textContent='Hoàn thành!';
+  buildDots();window.scrollTo({top:0,behavior:'smooth'});
+  localStorage.setItem('peopleos_k4_done','true');
+}
+buildDots();updP();
+</script>
+</body>
+</html>
