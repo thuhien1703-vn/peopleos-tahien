@@ -6,59 +6,803 @@
 <title>Recruiting Cơ Bản · PeopleOS by TaHien</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS ─────────────────────────────────────────────── */
 :root{
-  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--navy4:#143350;
-  --cyan:#22D3EE;--teal:#06B6D4;--cyan2:#67E8F9;
-  --gold:#F0C040;--gold2:#FDE68A;--gold3:#d97706;
+  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;
+  --cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--gold3:#d97706;
+  --green:#22c55e;--red:#ef4444;--pink:#f472b6;--pink2:#db2777;
   --text:#F0F6FF;--muted:#94A3B8;--subtle:#4A7A94;
   --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);
-  --border:rgba(34,211,238,0.14);--border2:rgba(34,211,238,0.28);
+  --border:rgba(244,114,182,0.15);--border2:rgba(244,114,182,0.30);
   --r:14px;--r-sm:9px;
 }
-/* ── RESET ──────────────────────────────────────────────── */
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Be Vietnam Pro',system-ui,sans-serif;background:var(--navy);
-  color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.6}
-/* ── ATMOSPHERE ─────────────────────────────────────────── */
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--navy);color:var(--text);line-height:1.6;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:
-    radial-gradient(ellipse 90% 55% at 15% -5%,rgba(6,182,212,.09) 0%,transparent 55%),
-    radial-gradient(ellipse 65% 45% at 85% 105%,rgba(240,192,64,.06) 0%,transparent 55%)}
-body::after{content:'水';position:fixed;right:-50px;top:50%;
-  transform:translateY(-50%) rotate(-8deg);font-size:340px;line-height:1;
-  color:rgba(34,211,238,.022);pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 80% 50% at 10% 0%,rgba(244,114,182,.07) 0%,transparent 55%),
+             radial-gradient(ellipse 60% 40% at 90% 100%,rgba(34,211,238,.06) 0%,transparent 55%)}
+body::after{content:'才';position:fixed;right:-40px;top:50%;transform:translateY(-50%) rotate(-6deg);
+  font-size:300px;line-height:1;color:rgba(244,114,182,.025);pointer-events:none;z-index:0;
   font-family:'Playfair Display',serif}
-/* ── LAYOUT ─────────────────────────────────────────────── */
 .app{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 20px 100px}
-/* ── TOPNAV ─────────────────────────────────────────────── */
-.topnav{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
-  height:58px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;position:sticky;top:0;z-index:100}
-.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);
-  text-decoration:none;transition:color .18s}
-.back:hover{color:var(--cyan)}
-.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}
-.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
-.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;
-  padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;display:flex;gap:5px;align-items:center<!-- TOPNAV -->
+.topnav{display:flex;align-items:center;justify-content:space-between;padding:18px 0 14px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);text-decoration:none;transition:color .18s}
+.back:hover{color:var(--pink)}
+.logo{display:flex;align-items:center;gap:9px}
+.lmark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--pink2),var(--navy3));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:var(--pink);border:1px solid var(--border2)}
+.lname{font-size:13px;font-weight:600;color:var(--cyan)}.lsub{font-size:10px;color:var(--muted)}
+.prog-wrap{margin-bottom:24px}
+.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:7px}
+.prog-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--pink2),var(--pink));transition:width .55s cubic-bezier(.4,0,.2,1)}
+.dots{display:flex;gap:7px;justify-content:center;margin-bottom:28px}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.1);cursor:pointer;transition:all .22s;border:1.5px solid transparent;flex-shrink:0}
+.dot.active{background:var(--pink);border-color:var(--pink);transform:scale(1.4)}
+.dot.done{background:var(--pink2);border-color:var(--pink2)}
+/* HERO */
+.hero{position:relative;border-radius:var(--r);overflow:hidden;margin-bottom:24px;height:190px;border:1px solid rgba(244,114,182,.2)}
+.hero-bg{position:absolute;inset:0}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(135deg,#1a0820 0%,#090d20 50%,#020B18 100%)}
+.hero-pattern{position:absolute;inset:0;opacity:.12;
+  background-image:radial-gradient(ellipse 100% 100% at 50% 50%,var(--pink) 0,transparent 60%);
+  background-size:40px 40px}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(2,11,24,.95) 0%,rgba(2,11,24,.2) 65%,transparent 100%)}
+.hero-content{position:absolute;bottom:18px;left:22px;right:22px}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(244,114,182,.13);border:1px solid var(--border2);border-radius:20px;padding:3px 11px;font-size:11px;color:var(--pink);margin-bottom:9px;font-weight:500;letter-spacing:.05em}
+.hero-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--pink)}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}
+.hero-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#fff;line-height:1.25}
+.mv{display:none}.mv.active{display:block;animation:fadeUp .38s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+/* CONTENT */
+.lead{border-left:2.5px solid var(--pink);padding:13px 17px;background:rgba(244,114,182,.05);border-radius:0 var(--r-sm) var(--r-sm) 0;font-style:italic;color:var(--text);font-size:14.5px;line-height:1.7;margin-bottom:22px}
+.body{font-size:14.5px;line-height:1.78;color:var(--text);margin-bottom:15px}
+.body b{color:var(--pink);font-weight:600}
+.sec-title{font-size:10.5px;letter-spacing:.13em;color:var(--pink2);font-weight:600;text-transform:uppercase;margin:22px 0 11px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--glass);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-sm);padding:13px 15px}
+.cn{font-size:10px;color:var(--gold);font-weight:700;margin-bottom:5px;letter-spacing:.07em}
+.ct{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:4px}
+.cd{font-size:12.5px;color:var(--muted);line-height:1.5}
+.card-full{background:var(--glass);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:10px}
+.hl{background:rgba(244,114,182,.06);border:1px solid rgba(244,114,182,.22);border-radius:var(--r-sm);padding:14px 17px;margin-bottom:18px}
+.hl-label{font-size:10.5px;color:var(--pink);font-weight:700;letter-spacing:.08em;margin-bottom:7px}
+.hl p{font-size:13.5px;color:var(--text);line-height:1.6}
+.ins{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:var(--r-sm);padding:13px 17px;margin-bottom:18px}
+.ins-label{font-size:10.5px;color:var(--gold);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.ins p{font-size:13px;color:var(--text);line-height:1.55}
+.warn{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:var(--r-sm);padding:13px 17px;margin-bottom:18px}
+.warn-label{font-size:10.5px;color:var(--red);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.warn p{font-size:13px;color:var(--text);line-height:1.55}
+/* EXERCISE */
+.ex{background:var(--glass2);border:1px solid var(--border2);border-radius:var(--r);padding:18px;margin-top:22px}
+.ex-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.ex-ico{width:30px;height:30px;border-radius:8px;flex-shrink:0;background:rgba(244,114,182,.12);border:1px solid rgba(244,114,182,.25);display:flex;align-items:center;justify-content:center;font-size:14px}
+.ex-label{font-size:12.5px;font-weight:700;color:var(--gold)}
+.ex-sub{font-size:11px;color:var(--muted)}
+/* QUIZ */
+.qq{font-size:14px;color:var(--text);margin-bottom:13px;line-height:1.58;font-weight:500}
+.qopts{display:flex;flex-direction:column;gap:7px}
+.qopt{padding:11px 14px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.08);background:var(--glass);cursor:pointer;font-size:13.5px;color:var(--text);transition:all .18s;text-align:left;width:100%;display:flex;align-items:flex-start;gap:9px;font-family:'Be Vietnam Pro',sans-serif;line-height:1.5}
+.qopt:hover:not(:disabled){border-color:var(--pink);background:rgba(244,114,182,.07)}
+.qopt.correct{border-color:#22c55e!important;background:rgba(34,197,94,.09)!important;color:#86efac!important}
+.qopt.wrong{border-color:#ef4444!important;background:rgba(239,68,68,.09)!important;color:#fca5a5!important}
+.oletter{width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:10.5px;color:var(--muted);flex-shrink:0;font-weight:700;margin-top:1px}
+.qfb{margin-top:11px;padding:11px 13px;border-radius:var(--r-sm);font-size:13px;line-height:1.5;display:none}
+.qfb.show{display:block}
+.qfb.correct{background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.27);color:#86efac}
+.qfb.wrong{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:#fca5a5}
+/* JD REWRITER */
+.jd-before{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.2);border-radius:var(--r-sm);padding:13px 15px;margin-bottom:10px}
+.jd-after{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.2);border-radius:var(--r-sm);padding:13px 15px;display:none}
+.jd-after.show{display:block}
+.jd-tag{font-size:10px;font-weight:700;letter-spacing:.1em;margin-bottom:7px}
+.jd-text{font-size:13px;color:var(--text);line-height:1.65}
+.jd-btn{margin-top:10px;padding:9px 18px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--pink2),var(--pink));color:#fff;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:none}
+/* SOURCE PICKER */
+.source-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+@media(max-width:480px){.source-grid{grid-template-columns:1fr 1fr}}
+.src-btn{padding:10px 8px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.08);background:var(--glass);cursor:pointer;text-align:center;transition:all .2s;font-family:'Be Vietnam Pro',sans-serif}
+.src-btn:hover:not(:disabled){border-color:var(--pink);background:rgba(244,114,182,.07)}
+.src-btn.sel-good{border-color:var(--green)!important;background:rgba(34,197,94,.08)!important}
+.src-btn.sel-ok{border-color:var(--gold)!important;background:rgba(240,192,64,.07)!important}
+.src-btn.sel-bad{border-color:var(--red)!important;background:rgba(239,68,68,.07)!important}
+.src-ico{font-size:20px;display:block;margin-bottom:4px}
+.src-name{font-size:11.5px;color:var(--muted)}
+/* SCORECARD */
+.scorecard{display:flex;flex-direction:column;gap:8px}
+.sc-row{display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center}
+.sc-crit{font-size:13px;color:var(--text)}
+.sc-rating{display:flex;gap:4px}
+.sc-star{width:22px;height:22px;border-radius:5px;border:1px solid rgba(255,255,255,.1);background:var(--glass);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);transition:all .2s}
+.sc-star.on{background:var(--pink);border-color:var(--pink);color:#fff}
+/* CHECKLIST */
+.chi{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer}
+.chi:last-child{border-bottom:none}
+.chbox{width:19px;height:19px;border-radius:5px;border:1.5px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s;margin-top:1px}
+.chbox.on{background:var(--pink);border-color:var(--pink)}
+.chbox.on::after{content:'✓';font-size:11px;color:#fff;font-weight:800}
+.chtext{font-size:13.5px;color:var(--text);line-height:1.5}
+.chtext small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+/* PROCESS TIMELINE */
+.proc-tl{display:flex;gap:0;overflow-x:auto;padding-bottom:8px;margin-bottom:10px}
+.proc-day{flex:1;min-width:60px;text-align:center;position:relative}
+.proc-day::before{content:'';position:absolute;top:14px;left:50%;right:-50%;height:2px;background:var(--border);z-index:0}
+.proc-day:last-child::before{display:none}
+.proc-dot{width:28px;height:28px;border-radius:50%;background:var(--glass2);border:2px solid var(--border2);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);position:relative;z-index:1;cursor:pointer;transition:all .2s}
+.proc-dot.done{background:var(--pink2);border-color:var(--pink);color:#fff}
+.proc-label{font-size:10px;color:var(--muted);line-height:1.4}
+.proc-label b{display:block;font-size:10.5px;color:var(--text);margin-bottom:2px}
+/* REFLECT */
+.rinput{width:100%;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-sm);padding:11px 13px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;resize:vertical;min-height:78px;transition:border .18s;line-height:1.6}
+.rinput:focus{outline:none;border-color:var(--pink)}
+.rinput::placeholder{color:var(--subtle)}
+.chint{font-size:11px;color:var(--subtle);margin-top:5px;text-align:right;transition:color .2s}
+/* TAKEAWAY */
+.tw{background:linear-gradient(135deg,rgba(244,114,182,.08),rgba(34,211,238,.04));border:1px solid rgba(244,114,182,.25);border-radius:var(--r);padding:18px 20px;margin-top:22px}
+.tw-label{font-size:10px;letter-spacing:.15em;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:9px}
+.tw-text{font-family:'Playfair Display',serif;font-size:16px;color:var(--text);line-height:1.65;font-style:italic}
+.tw-sig{font-size:11.5px;color:var(--muted);margin-top:9px}
+/* NAV */
+.navbtns{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:18px;border-top:1px solid var(--border)}
+.btnprev{padding:10px 18px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.08);background:transparent;color:var(--muted);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;cursor:pointer;transition:all .18s}
+.btnprev:hover:not(:disabled){border-color:rgba(255,255,255,.15);color:var(--text)}
+.btnprev:disabled{opacity:.3;cursor:not-allowed}
+.btnnext{padding:11px 26px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--pink2),var(--pink));color:#fff;font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;border:none;transition:all .2s;box-shadow:0 3px 14px rgba(244,114,182,.25)}
+.btnnext:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 5px 18px rgba(244,114,182,.35)}
+.btnnext:disabled{opacity:.28;cursor:not-allowed;transform:none;box-shadow:none;background:var(--subtle);color:var(--navy)}
+.ulock{font-size:11.5px;color:var(--subtle);text-align:center;margin-top:7px}
+/* COMPLETE */
+.cscreen{text-align:center;padding:36px 16px;display:none}
+.cscreen.show{display:block;animation:fadeUp .45s ease}
+.cico{font-size:56px;margin-bottom:18px}
+.ctitle{font-family:'Playfair Display',serif;font-size:26px;color:var(--text);margin-bottom:11px}
+.csub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.certcard{background:var(--glass2);border:1px solid rgba(244,114,182,.25);border-radius:var(--r);padding:22px;margin-bottom:22px;position:relative;overflow:hidden}
+.certcard::before{content:'才';position:absolute;right:-15px;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:90px;color:rgba(244,114,182,.05);pointer-events:none}
+.cert-lbl{font-size:11px;color:var(--pink);letter-spacing:.12em;font-weight:700;margin-bottom:7px}
+.cert-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--text);margin-bottom:5px}
+.cert-course{font-size:13px;color:var(--muted);margin-bottom:14px}
+.cert-sig{font-size:11.5px;color:var(--subtle);border-top:1px solid var(--border);padding-top:11px;line-height:1.6}
+.btncert{width:100%;padding:13px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--gold3),var(--gold));color:var(--navy);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;margin-bottom:9px}
+.btnnext2{width:100%;padding:11px;border-radius:var(--r-sm);background:transparent;border:1px solid rgba(244,114,182,.3);color:var(--pink);font-family:'Be Vietnam Pro',sans-serif;font-size:13.5px;cursor:pointer;transition:background .18s}
+.btnnext2:hover{background:rgba(244,114,182,.07)}
+</style>
+</head>
+<body>
+<div class="app">
 <nav class="topnav">
   <a class="back" href="/">← Về Learning Hub</a>
-  <div style="display:flex;align-items:center">
-    <span class="nav-logo">PeopleOS</span>
-    <span class="nav-sub">Learning Hub &nbsp;by TaHien</span>
-  </div>
-  <div class="giot-pill">💧 <span id="nav-giot-display">0</span> Giọt</div>
+  <div class="logo"><div class="lmark">才</div><div><div class="lname">PeopleOS</div><div class="lsub">by TaHien</div></div></div>
 </nav>
+<div class="prog-wrap">
+  <div class="prog-meta"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+</div>
+<div class="dots" id="dots"></div>
 
-av{background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);
-  height:58px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;position:sticky;top:0;z-index:100}
-.back{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);
-  text-decoration:none;transition:color .18s}
-.back:hover{color:var(--cyan)}
-.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}
-.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
-.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;
-  padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;display:flex;gap:5px;align-items:center}
+<!-- ═══ M1 — JD ═══ -->
+<div class="mv active" id="m1">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Recruiting Cơ Bản ★ · Cấp 1</div>
+      <div class="hero-num">Bài 1 / 6</div>
+      <div class="hero-title">Anatomy của JD thu hút — tại sao JD bạn không ai apply</div>
+    </div>
+  </div>
+
+  <div class="lead">"Hiền từng review JD của một chuỗi F&B 80 cửa hàng đang tuyển Store Manager. JD dài 3 trang, yêu cầu 15 năm kinh nghiệm, tiếng Anh B2, bằng đại học chính quy. Vị trí cần người quản lý cửa hàng buffet. Họ đăng 2 tháng không ai apply. Không phải vì không có người — mà vì người phù hợp nhìn vào JD đó và nghĩ 'không phải cho mình.' JD không chỉ mô tả công việc — nó lọc người vào và lọc người ra."</div>
+
+  <p class="body">Ứng viên giỏi đọc JD trong <b>45 giây</b> trước khi quyết định apply hay không. Trong 45 giây đó, họ hỏi một câu duy nhất: "Đây có phải cơ hội dành cho mình không?" HR viết JD như viết job description nội bộ — dài, đầy yêu cầu, không có lý do để ứng viên excited. Đó là vấn đề.</p>
+
+  <div class="sec-title">5 lỗi JD phổ biến nhất — và cách sửa</div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--red)">Lỗi 1 · Yêu cầu wish list thay vì must-have</div>
+    <div class="ct">Ghi 12 yêu cầu khi thực ra chỉ cần 4</div>
+    <div class="cd" style="margin-top:5px">Nghiên cứu của LinkedIn cho thấy phụ nữ chỉ apply khi đáp ứng 100% yêu cầu — nam giới apply khi đáp ứng 60%. JD yêu cầu quá nhiều = mất ứng viên tốt chưa "hoàn hảo trên giấy". Quy tắc: tối đa 5 must-have, 3 nice-to-have.</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--red)">Lỗi 2 · Mô tả trách nhiệm, không mô tả impact</div>
+    <div class="ct">"Quản lý team 10 người" vs "Dẫn dắt team 10 người đạt target doanh thu 2.5 tỷ/tháng"</div>
+    <div class="cd" style="margin-top:5px">Ứng viên giỏi không tìm "job" — họ tìm "impact". Mỗi bullet trách nhiệm cần kèm: con số, scope, hoặc kết quả kỳ vọng. Nếu không có con số — dùng "để làm gì."</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--red)">Lỗi 3 · Không có "what's in it for them"</div>
+    <div class="ct">Phần phúc lợi chỉ có: "lương cạnh tranh, BHXH đầy đủ, du lịch hàng năm"</div>
+    <div class="cd" style="margin-top:5px">Mọi công ty đều có câu đó. Ứng viên skip. Phúc lợi thật sự khác biệt: lộ trình thăng tiến cụ thể, mentor, linh hoạt giờ giấc, văn hóa team. Nói cụ thể thứ mà đối thủ tuyển dụng không có.</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--red)">Lỗi 4 · Ngôn ngữ thụ động và jargon</div>
+    <div class="ct">"Ứng viên lý tưởng sẽ là người có khả năng..." — 12 từ không có nghĩa</div>
+    <div class="cd" style="margin-top:5px">Viết thẳng: "Bạn sẽ làm X. Bạn sẽ dẫn dắt Y. Bạn sẽ chịu trách nhiệm Z." Ngôi "bạn" thay vì "ứng viên" tạo cảm giác kết nối trực tiếp — ứng viên đọc và tự hình dung mình trong role đó.</div>
+  </div>
+  <div class="card-full" style="margin-bottom:18px">
+    <div class="cn" style="color:var(--red)">Lỗi 5 · Copy JD cũ rồi sửa tên vị trí</div>
+    <div class="ct">HR mất 10 phút viết JD — ứng viên mất 45 giây để nhận ra ngay</div>
+    <div class="cd" style="margin-top:5px">JD cũ không phản ánh thực tế hiện tại: team đã thay đổi, strategy đã thay đổi, kỳ vọng đã thay đổi. Mỗi lần mở vị trí mới — hỏi hiring manager: "Role này khác gì lần trước? Success trông như thế nào sau 6 tháng?"</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">✍️</div>
+      <div><div class="ex-label">JD Rewriter</div><div class="ex-sub">Trước và sau khi áp dụng nguyên tắc</div></div>
+    </div>
+    <div class="jd-before">
+      <div class="jd-tag" style="color:var(--red)">❌ JD CŨ — hay gặp</div>
+      <div class="jd-text">
+        <b>Mô tả công việc:</b> Ứng viên lý tưởng sẽ là người có khả năng quản lý và điều phối các hoạt động vận hành của cửa hàng. Chịu trách nhiệm đào tạo nhân viên và đảm bảo chất lượng dịch vụ.<br><br>
+        <b>Yêu cầu:</b> Tốt nghiệp ĐH · 5+ năm kinh nghiệm quản lý · Tiếng Anh tốt · Kỹ năng giao tiếp xuất sắc · Chịu được áp lực · Có tinh thần trách nhiệm cao · Năng động, sáng tạo...
+      </div>
+    </div>
+    <button class="jd-btn" id="jd-btn" onclick="showJDAfter()">Xem phiên bản được viết lại →</button>
+    <div class="jd-after" id="jd-after">
+      <div class="jd-tag" style="color:var(--green)">✓ JD ĐÃ VIẾT LẠI</div>
+      <div class="jd-text">
+        <b>Bạn sẽ làm gì:</b><br>
+        · Dẫn dắt team 15 người đạt revenue target 1.8 tỷ/tháng tại cửa hàng flagship Q.1<br>
+        · Là người đầu tiên phát hiện khi service quality đang trượt — và fix trước khi khách than phiền<br>
+        · Xây đội ngũ có thể chạy cửa hàng ngay cả khi bạn không có mặt<br><br>
+        <b>Bạn cần có:</b><br>
+        · 3+ năm quản lý F&B (không cần bằng ĐH nếu có kết quả thực)<br>
+        · Từng manage team > 8 người và đạt target liên tục ≥ 6 tháng<br>
+        · Không ngại làm việc cuối tuần — vì đó lúc cửa hàng cần bạn nhất<br><br>
+        <b>Tại sao gia nhập chúng tôi:</b><br>
+        · Lộ trình rõ ràng: Store Manager → Area Manager trong 18–24 tháng nếu đạt KPI<br>
+        · Hệ thống training bài bản: mỗi manager mới có mentor 6 tháng đầu
+      </div>
+    </div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 1</div>
+    <div class="tw-text">"JD không phải tài liệu nội bộ — đó là lời mời. Viết để người tài nhìn vào và nghĩ: đây chính xác là nơi mình muốn đến."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" disabled>← Quay lại</button>
+    <button class="btnnext" id="n1" onclick="go(2)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h1">Xem JD được viết lại để tiếp tục</div>
+</div>
+
+<!-- ═══ M2 — Sourcing ═══ -->
+<div class="mv" id="m2">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Recruiting Cơ Bản ★ · Cấp 1</div>
+      <div class="hero-num">Bài 2 / 6</div>
+      <div class="hero-title">Sourcing thực chiến — tìm đúng người ở đúng nơi</div>
+    </div>
+  </div>
+
+  <div class="lead">"Một Recruiter phàn nàn: 'Đăng LinkedIn 2 tuần không có ai apply.' Hiền hỏi: 'Người bạn đang tìm dành thời gian ở đâu?' — Im lặng. Đó là vấn đề. Nhân viên bếp không lướt LinkedIn. Store manager F&B mid-level không có LinkedIn profile. Nhưng họ có trong Facebook group ngành, họ là bạn của nhân viên hiện tại, và họ đang làm ở đối thủ cạnh tranh."</div>
+
+  <p class="body">Sourcing không phải đăng JD rồi chờ — đó là <b>chủ động tìm người phù hợp ở nơi họ đang có mặt</b>. Và mỗi loại vị trí, mỗi cấp độ, có một kênh sourcing khác nhau.</p>
+
+  <div class="sec-title">Kênh sourcing theo cấp độ vị trí — F&B chain</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="cn" style="color:var(--pink)">Nhân viên phục vụ / bếp</div>
+      <div class="ct">Kênh hiệu quả nhất</div>
+      <div class="cd">Internal referral (nhân viên giới thiệu) · Facebook Groups ngành · Trường trung cấp nghề / CĐ dạy nghề · Poster tại cửa hàng · Walk-in</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--pink)">Tổ trưởng / Phó quản lý</div>
+      <div class="ct">Thường từ nội bộ trước</div>
+      <div class="cd">Promotion từ nhân viên giỏi · Internal job posting trước khi đăng ngoài · Mạng lưới Area Manager · Facebook nhóm nghề F&B</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--gold)">Store Manager</div>
+      <div class="ct">Hybrid — inbound + outbound</div>
+      <div class="cd">LinkedIn (passive search) · Internal promotion · Referral từ manager hiện tại · Headhunt từ đối thủ có culture fit · TopCV / VietnamWorks cho active candidate</div>
+    </div>
+    <div class="card">
+      <div class="cn" style="color:var(--gold)">Area Manager / Director</div>
+      <div class="ct">Chủ yếu outbound</div>
+      <div class="cd">LinkedIn boolean search · Headhunter cho cấp cao · Network của CHRO/CEO · Conference và hiệp hội ngành · Executive search firm</div>
+    </div>
+  </div>
+
+  <div class="ins">
+    <div class="ins-label">Internal Referral — kênh bị underused nhất</div>
+    <p>Nhân viên giới thiệu người quen có xác suất ở lại sau 1 năm cao hơn <b style="color:var(--gold)">45%</b> so với kênh khác. Và chi phí tuyển dụng thấp hơn 50%. Nhưng hầu hết F&B chain không có referral program có cấu trúc — chỉ nhắc miệng và quên. Cần: form đơn giản, bonus rõ ràng (thường 1–3 triệu khi người được giới thiệu qua thử việc), và nhắc nhở định kỳ.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎯</div>
+      <div><div class="ex-label">Chọn kênh sourcing</div><div class="ex-sub">Vị trí nào → kênh nào phù hợp nhất?</div></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--text);margin-bottom:13px;line-height:1.6"><b>Tình huống:</b> Cần tuyển gấp 3 nhân viên phục vụ trong 2 tuần cho cửa hàng mới khai trương. Ngân sách sourcing hạn chế. Kênh nào nên ưu tiên nhất?</p>
+    <div class="qopts" id="q2opts">
+      <button class="qopt" onclick="AQ(2,this,'A')"><span class="oletter">A</span>Đăng LinkedIn premium — reach được nhiều người nhất</button>
+      <button class="qopt" onclick="AQ(2,this,'B')"><span class="oletter">B</span>Internal referral + poster tại cửa hàng gần đó + Facebook group nghề F&B địa phương</button>
+      <button class="qopt" onclick="AQ(2,this,'C')"><span class="oletter">C</span>TopCV và VietnamWorks — database lớn nhất</button>
+      <button class="qopt" onclick="AQ(2,this,'D')"><span class="oletter">D</span>Thuê headhunter vì cần tuyển gấp</button>
+    </div>
+    <div class="qfb" id="qf2"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 2</div>
+    <div class="tw-text">"Nguồn ứng viên tốt nhất không phải nơi có nhiều người nhất — mà là nơi có đúng người bạn đang cần. Biết họ ở đâu trước khi quyết định đăng ở đâu."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(1)">← Quay lại</button>
+    <button class="btnnext" id="n2" onclick="go(3)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h2">Trả lời câu hỏi để tiếp tục</div>
+</div>
+
+<!-- ═══ M3 — Interview ═══ -->
+<div class="mv" id="m3">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Recruiting Cơ Bản ★ · Cấp 1</div>
+      <div class="hero-num">Bài 3 / 6</div>
+      <div class="hero-title">Structured interview — đặt câu hỏi đúng cách</div>
+    </div>
+  </div>
+
+  <div class="lead">"Hai interviewer cùng phỏng vấn một ứng viên. Người thứ nhất hỏi: 'Bạn thấy mình có điểm mạnh gì?' — ứng viên trả lời những thứ họ muốn nghe. Người thứ hai hỏi: 'Kể cho tôi nghe một lần bạn phải xử lý conflict trong team — chuyện gì xảy ra, bạn đã làm gì, kết quả thế nào?' — ứng viên không thể bịa được câu trả lời đó. Người thứ hai nhìn thấy thứ người thứ nhất không thấy."</div>
+
+  <p class="body">Structured interview — phỏng vấn có cấu trúc — không phải để làm khó ứng viên. Đó là cách <b>tất cả ứng viên được đánh giá theo cùng một tiêu chí</b>, bằng cùng một loại câu hỏi, để HR có thể so sánh công bằng và giảm bias.</p>
+
+  <div class="sec-title">STAR method — framework hỏi hành vi</div>
+  <div class="grid2">
+    <div class="card" style="border-color:rgba(244,114,182,.25)">
+      <div class="cn" style="color:var(--pink)">S — Situation</div>
+      <div class="ct">Bối cảnh cụ thể</div>
+      <div class="cd">"Khi nào? Ở đâu? Team như thế nào?" — buộc ứng viên neo vào tình huống thật, không nói chung chung</div>
+    </div>
+    <div class="card" style="border-color:rgba(244,114,182,.25)">
+      <div class="cn" style="color:var(--pink)">T — Task</div>
+      <div class="ct">Nhiệm vụ / thách thức</div>
+      <div class="cd">"Anh/chị phải làm gì trong tình huống đó? Kỳ vọng là gì?" — phân biệt context với vai trò cá nhân của họ</div>
+    </div>
+    <div class="card" style="border-color:rgba(244,114,182,.25)">
+      <div class="cn" style="color:var(--pink)">A — Action</div>
+      <div class="ct">Hành động cụ thể của họ</div>
+      <div class="cd">"Anh/chị cụ thể đã làm gì?" — hỏi "tôi" không phải "chúng tôi". Đây là phần quan trọng nhất — bạn muốn nghe HỌ làm gì</div>
+    </div>
+    <div class="card" style="border-color:rgba(244,114,182,.25)">
+      <div class="cn" style="color:var(--pink)">R — Result</div>
+      <div class="ct">Kết quả đo được</div>
+      <div class="cd">"Kết quả cuối cùng là gì? Con số thay đổi thế nào? Anh/chị học được gì từ đó?" — kéo về impact và self-awareness</div>
+    </div>
+  </div>
+
+  <div class="sec-title">5 câu hỏi STAR theo competency — dùng được ngay</div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--pink)">Leadership under pressure</div>
+    <div class="ct" style="font-style:italic;color:var(--text)">"Kể cho tôi nghe một lần team của anh/chị phải xử lý tình huống khẩn cấp — thiếu người, deadline gấp, hoặc khủng hoảng vận hành. Anh/chị đã làm gì?"</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--pink)">Conflict resolution</div>
+    <div class="ct" style="font-style:italic;color:var(--text)">"Kể cho tôi nghe một lần anh/chị phải xử lý mâu thuẫn với đồng nghiệp hoặc cấp trên — chuyện gì xảy ra, anh/chị tiếp cận thế nào?"</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--pink)">Customer focus (F&B)</div>
+    <div class="ct" style="font-style:italic;color:var(--text)">"Kể cho tôi nghe một lần khách hàng phàn nàn gay gắt — anh/chị xử lý thế nào và kết quả ra sao?"</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--pink)">Adaptability</div>
+    <div class="ct" style="font-style:italic;color:var(--text)">"Kể cho tôi nghe một lần quy trình hoặc hệ thống thay đổi đột ngột — anh/chị thích nghi thế nào trong thời gian ngắn?"</div>
+  </div>
+  <div class="card-full" style="margin-bottom:18px">
+    <div class="cn" style="color:var(--pink)">Growth mindset</div>
+    <div class="ct" style="font-style:italic;color:var(--text)">"Kể cho tôi nghe về một lần anh/chị thất bại hoặc làm sai điều gì đó quan trọng — anh/chị đã xử lý và rút ra bài học gì?"</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🎭</div>
+      <div><div class="ex-label">Nhận diện câu hỏi tốt</div><div class="ex-sub">Chọn câu hỏi STAR tốt nhất</div></div>
+    </div>
+    <div class="qq">Bạn đang phỏng vấn ứng viên Store Manager cho chuỗi F&B. Muốn đánh giá khả năng ra quyết định dưới áp lực. Câu hỏi nào theo STAR method tốt nhất?</div>
+    <div class="qopts" id="q3opts">
+      <button class="qopt" onclick="AQ(3,this,'A')"><span class="oletter">A</span>"Anh/chị có phải là người ra quyết định tốt không?"</button>
+      <button class="qopt" onclick="AQ(3,this,'B')"><span class="oletter">B</span>"Nếu cửa hàng thiếu nhân viên đột xuất vào buổi tối cao điểm, anh/chị sẽ làm gì?"</button>
+      <button class="qopt" onclick="AQ(3,this,'C')"><span class="oletter">C</span>"Kể cho tôi nghe một lần anh/chị phải ra quyết định quan trọng với thông tin chưa đầy đủ — chuyện gì xảy ra và kết quả thế nào?"</button>
+      <button class="qopt" onclick="AQ(3,this,'D')"><span class="oletter">D</span>"Theo anh/chị, điều gì quan trọng nhất khi ra quyết định dưới áp lực?"</button>
+    </div>
+    <div class="qfb" id="qf3"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 3</div>
+    <div class="tw-text">"Câu hỏi hành vi không thể được trả lời bằng những gì ứng viên nghĩ bạn muốn nghe — nó chỉ có thể trả lời bằng những gì họ đã thực sự làm."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(2)">← Quay lại</button>
+    <button class="btnnext" id="n3" onclick="go(4)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h3">Trả lời câu hỏi để tiếp tục</div>
+</div>
+
+<!-- ═══ M4 — Scorecard & Bias ═══ -->
+<div class="mv" id="m4">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Recruiting Cơ Bản ★ · Cấp 1</div>
+      <div class="hero-num">Bài 4 / 6</div>
+      <div class="hero-title">Đánh giá không bị bias — scorecard thực chiến</div>
+    </div>
+  </div>
+
+  <div class="lead">"Sau một vòng phỏng vấn, Hiền hỏi 3 interviewer: 'Các anh chị thấy ứng viên đó thế nào?' — Ba câu trả lời khác nhau hoàn toàn. Người thứ nhất thích vì ứng viên 'nói hay và tự tin.' Người thứ hai lo vì ứng viên 'trông còn trẻ quá.' Người thứ ba hỏi lại: 'Tiêu chí đánh giá là gì?' — Và không ai có câu trả lời. Đó là vấn đề cốt lõi: phỏng vấn mà không có tiêu chí = mỗi người đánh giá theo bias của mình."</div>
+
+  <p class="body">Scorecard không phải thêm bureaucracy — đó là công cụ <b>buộc mọi người đồng ý về tiêu chí trước khi phỏng vấn</b>, không phải sau. Khi có scorecard, cuộc thảo luận sau phỏng vấn là "anh/chị đánh giá leadership như thế nào?" thay vì "anh/chị cảm thấy ứng viên thế nào?"</p>
+
+  <div class="sec-title">Nguyên tắc xây scorecard cho F&B chain</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="cn">Bước 1</div>
+      <div class="ct">Xác định 4–6 competency cốt lõi</div>
+      <div class="cd">Không phải "kỹ năng giao tiếp tốt" — mà là cụ thể: "Customer conflict resolution", "Team motivation under pressure", "Process compliance"</div>
+    </div>
+    <div class="card">
+      <div class="cn">Bước 2</div>
+      <div class="ct">Định nghĩa rating trước phỏng vấn</div>
+      <div class="cd">1 = dưới kỳ vọng rõ ràng, 2 = đủ điều kiện, 3 = vượt kỳ vọng. Định nghĩa 3 level trước — để sau phỏng vấn không tranh cãi về ý nghĩa của "tốt"</div>
+    </div>
+    <div class="card">
+      <div class="cn">Bước 3</div>
+      <div class="ct">Mỗi interviewer điền độc lập</div>
+      <div class="cd">Trước khi họp debrief — để tránh anchoring bias (người đầu tiên nói ảnh hưởng người sau). Điền xong mới chia sẻ</div>
+    </div>
+    <div class="card">
+      <div class="cn">Bước 4</div>
+      <div class="ct">Thảo luận những điểm bất đồng</div>
+      <div class="cd">Nếu 2 người cho điểm leadership 1 và 3 — đó là cuộc thảo luận quan trọng nhất. Không phải lấy bình quân, mà là hiểu tại sao bất đồng</div>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">📊</div>
+      <div><div class="ex-label">Thực hành Scorecard</div><div class="ex-sub">Đánh giá ứng viên Store Manager theo 4 tiêu chí</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:6px">Ứng viên vừa phỏng vấn: Kể được 2 tình huống leadership rõ ràng. Giao tiếp tự nhiên nhưng hơi vội. Chưa có kinh nghiệm quản lý chuỗi — chỉ standalone.</p>
+    <p style="font-size:12px;color:var(--subtle);margin-bottom:14px">Bấm các ô để đánh giá 1–3 (1=dưới kỳ vọng · 2=đạt · 3=vượt)</p>
+    <div class="scorecard" id="sc4">
+      <div class="sc-row">
+        <div class="sc-crit">Leadership & Team motivation</div>
+        <div class="sc-rating" id="scr-1"><button class="sc-star" onclick="rateSC(1,1)">1</button><button class="sc-star" onclick="rateSC(1,2)">2</button><button class="sc-star" onclick="rateSC(1,3)">3</button></div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-crit">Customer conflict resolution</div>
+        <div class="sc-rating" id="scr-2"><button class="sc-star" onclick="rateSC(2,1)">1</button><button class="sc-star" onclick="rateSC(2,2)">2</button><button class="sc-star" onclick="rateSC(2,3)">3</button></div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-crit">Process & compliance mindset</div>
+        <div class="sc-rating" id="scr-3"><button class="sc-star" onclick="rateSC(3,1)">1</button><button class="sc-star" onclick="rateSC(3,2)">2</button><button class="sc-star" onclick="rateSC(3,3)">3</button></div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-crit">Adaptability to chain operations</div>
+        <div class="sc-rating" id="scr-4"><button class="sc-star" onclick="rateSC(4,1)">1</button><button class="sc-star" onclick="rateSC(4,2)">2</button><button class="sc-star" onclick="rateSC(4,3)">3</button></div>
+      </div>
+    </div>
+    <div class="qfb" id="qf4" style="margin-top:12px"></div>
+  </div>
+
+  <div class="hl">
+    <div class="hl-label">3 bias phổ biến nhất trong phỏng vấn tuyển dụng</div>
+    <p style="margin-bottom:7px"><b style="color:var(--pink)">Halo effect:</b> Ứng viên ăn mặc đẹp, nói chuyện tự tin → tự động rate cao hơn. Fix: hỏi câu hỏi cụ thể về kết quả thực tế, không về phong thái.</p>
+    <p style="margin-bottom:7px"><b style="color:var(--pink)">Similarity bias:</b> Thích ứng viên giống mình — cùng trường, cùng phong cách. Fix: scorecard buộc phải giải thích vì sao rate như vậy.</p>
+    <p><b style="color:var(--pink)">Contrast effect:</b> Sau 3 ứng viên kém, ứng viên trung bình trông xuất sắc. Fix: đánh giá theo tiêu chí tuyệt đối, không so sánh tương đối với ứng viên trước.</p>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 4</div>
+    <div class="tw-text">"Scorecard không loại bỏ judgment — nó buộc judgment phải dựa trên bằng chứng cụ thể thay vì cảm giác. Đó là sự khác biệt giữa tuyển dụng và cá cược."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(3)">← Quay lại</button>
+    <button class="btnnext" id="n4" onclick="go(5)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h4">Đánh giá đủ 4 tiêu chí để tiếp tục</div>
+</div>
+
+<!-- ═══ M5 — CX ═══ -->
+<div class="mv" id="m5">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Recruiting Cơ Bản ★ · Cấp 1</div>
+      <div class="hero-num">Bài 5 / 6</div>
+      <div class="hero-title">Candidate experience — tại sao người giỏi từ chối offer</div>
+    </div>
+  </div>
+
+  <div class="lead">"Một ứng viên Senior HR Manager từ chối offer của Golden Gate dù lương cao hơn 20%. Lý do: 'Quy trình phỏng vấn của công ty kéo dài 6 tuần, 5 vòng, và tôi không nhận được phản hồi sau vòng 3 suốt 2 tuần. Nếu công ty đối xử với ứng viên như vậy, tôi không chắc họ đối xử với nhân viên thế nào.' Đó là ứng viên đang dùng trải nghiệm tuyển dụng như proxy để đánh giá văn hóa công ty."</div>
+
+  <p class="body">Candidate experience không phải "nice to have" — đó là thứ ứng viên giỏi dùng để quyết định có tin tưởng tổ chức hay không. Và <b>mọi điểm tiếp xúc đều gửi tín hiệu</b> — từ JD đến cách phòng chờ trông như thế nào.</p>
+
+  <div class="sec-title">5 điểm tiếp xúc quan trọng nhất trong hành trình ứng viên</div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--pink)">Điểm 1 · Phản hồi sau apply</div>
+    <div class="ct">SLA: trong 3 ngày làm việc — không phải 3 tuần</div>
+    <div class="cd" style="margin-top:5px">Dù quyết định là gì — ứng viên cần biết họ đã được nhận hoặc chưa phù hợp. Im lặng là thông điệp: "chúng tôi không coi trọng thời gian của anh/chị." Automation email đơn giản giải quyết được 80% vấn đề này.</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--pink)">Điểm 2 · Trải nghiệm phỏng vấn</div>
+    <div class="ct">Interviewer chuẩn bị hay không — ứng viên biết ngay</div>
+    <div class="cd" style="margin-top:5px">Interviewer đến muộn, không đọc CV, hỏi lại thứ ứng viên đã viết trong form = ứng viên giỏi đánh giá ngay về tính chuyên nghiệp của tổ chức. Brief interviewer trước mỗi vòng: đọc CV, biết role, biết competency cần đánh giá.</div>
+  </div>
+  <div class="card-full">
+    <div class="cn" style="color:var(--pink)">Điểm 3 · Thông báo kết quả</div>
+    <div class="ct">Trong 48 giờ sau phỏng vấn — và nói thật, không nói "sẽ liên lạc sau"</div>
+    <div class="cd" style="margin-top:5px">"Chúng tôi sẽ liên lạc sau" không có nghĩa gì. Nói cụ thể: "Thứ 6 tuần này tôi sẽ báo kết quả." Rồi giữ đúng lời. Ứng viên không pass — nói ngay và nói lý do ngắn gọn (họ xứng đáng được biết).</div>
+  </div>
+  <div class="card-full" style="margin-bottom:18px">
+    <div class="cn" style="color:var(--pink)">Điểm 4 & 5 · Offer và rejection</div>
+    <div class="ct">Cả hai cần được xử lý như một cơ hội xây dựng brand</div>
+    <div class="cd" style="margin-top:5px"><b style="color:var(--text)">Offer:</b> Gọi điện trước email — giọng người thật tạo cảm xúc. Giải thích package rõ ràng, không để ứng viên tự tính và thắc mắc. <br><b style="color:var(--text)">Rejection:</b> Email cá nhân hóa (không phải template copy-paste), gợi ý giữ liên lạc cho tương lai. Người bị từ chối hôm nay có thể là referral nguồn hoặc ứng viên tương lai.</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">🗺️</div>
+      <div><div class="ex-label">Phản chiếu</div><div class="ex-sub">Tìm điểm yếu trong quy trình của bạn</div></div>
+    </div>
+    <label style="font-size:13px;color:var(--muted);margin-bottom:7px;display:block">Trong quy trình tuyển dụng hiện tại của bạn — điểm nào candidate experience đang yếu nhất và tại sao?</label>
+    <textarea class="rinput" id="r5" placeholder="vd: Sau vòng 2 thường mất 2 tuần mới báo kết quả vì phải chờ decision từ hiring manager. Ứng viên hay hỏi lại và có người rút..." oninput="CR5()"></textarea>
+    <div class="chint" id="rh5">Nhập ít nhất 20 ký tự để tiếp tục</div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Bài 5</div>
+    <div class="tw-text">"Ứng viên giỏi không thiếu lựa chọn. Họ chọn công ty đối xử với họ tốt nhất — ngay cả trước khi họ gia nhập. Candidate experience là employer brand được thể hiện qua hành động."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(4)">← Quay lại</button>
+    <button class="btnnext" id="n5" onclick="go(6)" disabled>Tiếp theo →</button>
+  </div>
+  <div class="ulock" id="h5">Chia sẻ để tiếp tục (tối thiểu 20 ký tự)</div>
+</div>
+
+<!-- ═══ M6 — 14-day Process ═══ -->
+<div class="mv" id="m6">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-grad"></div><div class="hero-pattern"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Recruiting Cơ Bản ★ · Bài cuối</div>
+      <div class="hero-num">Bài 6 / 6</div>
+      <div class="hero-title">Quy trình tuyển 14 ngày — chuẩn SLA cho F&B chain</div>
+    </div>
+  </div>
+
+  <div class="lead">"Chuỗi F&B mở rộng nhanh không thể để vị trí trống 2 tháng. Nhưng tuyển quá vội thì tuyển sai. Hiền đúc kết sau 15 năm: vị trí nhân viên đến Store Manager trong F&B chain hoàn toàn có thể tuyển đúng trong 14 ngày — nếu quy trình được setup đúng từ đầu. Không phải cắt bớt chất lượng — mà là loại bỏ thời gian chờ không cần thiết."</div>
+
+  <p class="body">14 ngày không phải target tham vọng — đó là SLA chuẩn khi mọi bên (HR, hiring manager, ứng viên) đều cam kết. Thường thì quy trình kéo dài không phải vì cần thêm vòng phỏng vấn — mà vì <b>mỗi bước không có deadline rõ ràng</b>.</p>
+
+  <div class="sec-title">Timeline 14 ngày — click vào từng mốc để xem chi tiết</div>
+  <div class="proc-tl" id="proc-tl">
+    <div class="proc-day">
+      <div class="proc-dot" id="pd1" onclick="clickProc(1)">1</div>
+      <div class="proc-label"><b>Ngày 1–2</b>Brief & JD live</div>
+    </div>
+    <div class="proc-day">
+      <div class="proc-dot" id="pd2" onclick="clickProc(2)">3</div>
+      <div class="proc-label"><b>Ngày 3–5</b>Sourcing & screen</div>
+    </div>
+    <div class="proc-day">
+      <div class="proc-dot" id="pd3" onclick="clickProc(3)">6</div>
+      <div class="proc-label"><b>Ngày 6–8</b>Vòng 1 HR</div>
+    </div>
+    <div class="proc-day">
+      <div class="proc-dot" id="pd4" onclick="clickProc(4)">9</div>
+      <div class="proc-label"><b>Ngày 9–11</b>Vòng 2 HM</div>
+    </div>
+    <div class="proc-day">
+      <div class="proc-dot" id="pd5" onclick="clickProc(5)">12</div>
+      <div class="proc-label"><b>Ngày 12–13</b>Debrief & offer</div>
+    </div>
+    <div class="proc-day">
+      <div class="proc-dot" id="pd6" onclick="clickProc(6)">14</div>
+      <div class="proc-label"><b>Ngày 14</b>Offer accepted</div>
+    </div>
+  </div>
+  <div class="qfb" id="proc-detail" style="margin-bottom:16px;display:none"></div>
+
+  <div class="ins">
+    <div class="ins-label">Điều kiện để 14 ngày hoạt động</div>
+    <p style="margin-bottom:5px"><b style="color:var(--gold)">① Hiring manager cam kết:</b> Block lịch sẵn cho vòng 2 trước khi sourcing bắt đầu — không phải "sẽ sắp xếp sau"</p>
+    <p style="margin-bottom:5px"><b style="color:var(--gold)">② Decision authority rõ ràng:</b> Ai có quyền approve offer? Nếu cần 3 người approve — đặt lịch họp debrief ngay sau vòng cuối</p>
+    <p><b style="color:var(--gold)">③ Ứng viên được brief về timeline:</b> Ngay từ screening call đầu tiên — nói rõ "Quy trình của chúng tôi khoảng 2 tuần, gồm X vòng." Ứng viên biết timeline = ít rút giữa chừng hơn</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-ico">✅</div>
+      <div><div class="ex-label">Cam kết áp dụng</div><div class="ex-sub">Chọn ít nhất 2 thứ bạn sẽ thay đổi trong quy trình tuyển dụng ngay tháng này</div></div>
+    </div>
+    <div id="cl6">
+      <div class="chi" onclick="TC6(this)" data-on="false"><div class="chbox"></div><div class="chtext">Viết lại ít nhất 1 JD theo 5 nguyên tắc trong bài — focus vào "bạn sẽ làm gì" và "tại sao gia nhập chúng tôi"<small>Chọn JD đang live có tỷ lệ apply thấp nhất để test</small></div></div>
+      <div class="chi" onclick="TC6(this)" data-on="false"><div class="chbox"></div><div class="chtext">Setup SLA 3 ngày phản hồi ứng viên sau apply — kể cả khi câu trả lời là "chưa phù hợp"<small>Template email từ chối ngắn gọn, lịch sự — chuẩn bị sẵn để gửi trong 2 phút</small></div></div>
+      <div class="chi" onclick="TC6(this)" data-on="false"><div class="chbox"></div><div class="chtext">Xây scorecard cho 1 vị trí đang tuyển — 4–5 competency, 3 mức rating, định nghĩa trước phỏng vấn<small>Brief tất cả interviewer về scorecard trước khi họ gặp ứng viên đầu tiên</small></div></div>
+      <div class="chi" onclick="TC6(this)" data-on="false"><div class="chbox"></div><div class="chtext">Launch hoặc relaunch referral program — bonus rõ ràng, form đơn giản, nhắc nhở tháng này<small>Mục tiêu: ít nhất 30% open roles có ít nhất 1 referral candidate trong pipeline</small></div></div>
+      <div class="chi" onclick="TC6(this)" data-on="false"><div class="chbox"></div><div class="chtext">Đặt target 14 ngày cho 1 vị trí đang tuyển — block lịch HM và align với team ngay hôm nay<small>Không phải áp dụng cho tất cả ngay — test với 1 role trước</small></div></div>
+    </div>
+    <div class="qfb" id="cf6"></div>
+  </div>
+
+  <div class="tw">
+    <div class="tw-label">Câu mang đi · Toàn khóa</div>
+    <div class="tw-text">"Tuyển đúng người không phải may mắn — đó là kết quả của JD rõ ràng, sourcing đúng kênh, interview có cấu trúc, đánh giá không bias, và trải nghiệm ứng viên tốt. Thiếu một thứ — cả hệ thống đổ."</div>
+    <div class="tw-sig">— TaHien · CHCO Golden Gate Group · PeopleOS Community 2026</div>
+  </div>
+  <div class="navbtns">
+    <button class="btnprev" onclick="go(5)">← Quay lại</button>
+    <button class="btnnext" id="n6" onclick="done()" disabled>Hoàn thành khóa học ✓</button>
+  </div>
+  <div class="ulock" id="h6">Chọn ít nhất 2 cam kết để hoàn thành</div>
+</div>
+
+<!-- COMPLETE -->
+<div class="cscreen" id="complete">
+  <div class="cico">🎯</div>
+  <div class="ctitle">Hoàn thành xuất sắc!</div>
+  <div class="csub">Bạn đã hoàn thành khóa <b>Recruiting Cơ Bản</b>.<br>6 bài học · 120 XP đã được ghi nhận.</div>
+  <div class="certcard">
+    <div class="cert-lbl">Chứng chỉ hoàn thành · PeopleOS</div>
+    <div class="cert-name">Recruiting Cơ Bản</div>
+    <div class="cert-course">Cấp 1 — HR Staff & Specialist · 6 modules · ~20 phút</div>
+    <div class="cert-sig">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+  </div>
+  <button class="btncert" onclick="alert('Tính năng xuất PDF sẽ có trong phiên bản đầy đủ!')">Tải chứng chỉ PDF</button>
+  <button class="btnnext2" onclick="window.location.href='/k6-ld-thuc-chien'">Học tiếp → K6: L&D Thực Chiến</button>
+</div>
+</div>
+
+<script>
+var cur=1,tot=6,dm={};
+function buildDots(){
+  var c=document.getElementById('dots');c.innerHTML='';
+  for(var i=1;i<=tot;i++){
+    var d=document.createElement('div');
+    d.className='dot'+(i===cur?' active':(dm[i]?' done':''));
+    (function(n){d.onclick=function(){if(n<=cur||dm[n-1])go(n);};})(i);
+    c.appendChild(d);
+  }
+}
+function updP(){
+  var p=Math.round(((cur-1)/tot)*100);
+  document.getElementById('pfill').style.width=p+'%';
+  document.getElementById('ppct').textContent=p+'%';
+  document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;
+}
+function go(n){
+  document.getElementById('m'+cur).classList.remove('active');
+  dm[cur]=true;cur=n;
+  var el=document.getElementById('m'+cur);
+  if(el)el.classList.add('active');
+  buildDots();updP();window.scrollTo({top:0,behavior:'smooth'});
+}
+function unlock(b,h){
+  var bn=document.getElementById(b);if(bn)bn.disabled=false;
+  var hn=document.getElementById(h);if(hn)hn.style.display='none';
+}
+
+/* M1 JD rewriter */
+function showJDAfter(){
+  document.getElementById('jd-after').className='jd-after show';
+  document.getElementById('jd-btn').style.display='none';
+  unlock('n1','h1');
+}
+
+/* M2, M3 quiz */
+function AQ(m,el,ans){
+  var correct={2:'B',3:'C'};
+  document.querySelectorAll('#q'+m+'opts .qopt').forEach(function(o){o.disabled=true;});
+  var fb=document.getElementById('qf'+m);
+  if(ans===correct[m]){
+    el.classList.add('correct');fb.className='qfb show correct';
+    if(m===2)fb.textContent='Đúng! Với ngân sách hạn chế và cần tuyển gấp nhân viên phục vụ: Internal referral nhanh nhất và chất lượng tốt nhất. Poster tại cửa hàng gần reach được người đang tìm việc trong khu vực. Facebook group nghề F&B địa phương là nơi active candidate thường trao đổi. LinkedIn/TopCV là kênh sai cho vị trí này.';
+    if(m===3)fb.textContent='Đúng! Câu C là câu STAR điển hình — yêu cầu tình huống thực tế cụ thể, hành động cụ thể của họ, và kết quả đo được. Câu A là self-assessment dễ bịa. Câu B là câu tình huống giả định (hypothetical) — không có bằng chứng về hành vi thật. Câu D là câu opinion, ứng viên nói lý thuyết không phải thực tế.';
+    unlock('n'+m,'h'+m);
+  } else {
+    el.classList.add('wrong');
+    var ci={2:1,3:2}[m];
+    document.querySelectorAll('#q'+m+'opts .qopt')[ci].classList.add('correct');
+    fb.className='qfb show wrong';
+    if(m===2)fb.textContent='Chưa đúng. LinkedIn premium (A) không phải kênh cho nhân viên phục vụ F&B — sai đối tượng. TopCV/VietnamWorks (C) tốt cho white collar, ít phù hợp cho vị trí này. Headhunter (D) quá tốn kém và chậm cho vị trí cấp thấp.';
+    if(m===3)fb.textContent='Chưa đúng. Câu C là STAR tốt nhất vì buộc ứng viên kể tình huống thực tế đã xảy ra, không thể trả lời chung chung. Câu A dễ bịa. Câu B hypothetical — không có bằng chứng thực. Câu D opinion không có value với tuyển dụng.';
+    setTimeout(function(){unlock('n'+m,'h'+m);},1600);
+  }
+}
+
+/* M4 scorecard */
+var scRatings={1:0,2:0,3:0,4:0};
+var scDone=0;
+function rateSC(crit,val){
+  var wasZero=scRatings[crit]===0;
+  scRatings[crit]=val;
+  var row=document.getElementById('scr-'+crit);
+  row.querySelectorAll('.sc-star').forEach(function(s,i){
+    s.classList.toggle('on',i<val);
+  });
+  if(wasZero){scDone++;}
+  var fb=document.getElementById('qf4');
+  if(scDone>=4){
+    var total=scRatings[1]+scRatings[2]+scRatings[3]+scRatings[4];
+    var avg=(total/4).toFixed(1);
+    fb.className='qfb show correct';
+    fb.textContent='Bạn đã hoàn thành scorecard. Điểm trung bình: '+avg+'/3. Nhớ: con số này chỉ có nghĩa khi bạn đã định nghĩa trước mỗi mức 1, 2, 3 có nghĩa là gì. Đây là bước hay bị bỏ qua nhất.';
+    unlock('n4','h4');
+  }
+}
+
+/* M5 reflect */
+function CR5(){
+  var t=document.getElementById('r5').value;
+  var h=document.getElementById('rh5');
+  if(t.length>=20){h.textContent='Ghi nhận ✓';h.style.color='var(--pink)';unlock('n5','h5');}
+  else{h.textContent='Còn '+Math.max(0,20-t.length)+' ký tự';h.style.color='var(--subtle)';}
+}
+
+/* M6 process timeline */
+var procDetails={
+  1:'Ngày 1: Họp brief với hiring manager — role context, must-have, nice-to-have, timeline commit. Ngày 2: JD live trên kênh phù hợp. Đừng để "chờ HM approve JD" mất 1 tuần.',
+  2:'Ngày 3–4: Sourcing active — referral program, đăng job, outreach passive candidate. Ngày 5: Screen CV, phone screen nhanh 15 phút để xác nhận basic fit. Gửi reject email ngay cho người không fit.',
+  3:'Ngày 6–8: Vòng 1 với HR — structured interview STAR method, scorecard. Mục tiêu: giảm từ 10 xuống 3 ứng viên tốt nhất. Thông báo kết quả trong 24 giờ.',
+  4:'Ngày 9–11: Vòng 2 với Hiring Manager — đã brief trước về scorecard và competency cần đánh giá. Không để HM hỏi câu random không liên quan tiêu chí.',
+  5:'Ngày 12: Debrief tất cả interviewer — điền scorecard độc lập trước, thảo luận bất đồng sau. Ngày 13: Approval offer package. Gọi điện offer — không chỉ email.',
+  6:'Ngày 14: Ứng viên xác nhận offer bằng văn bản. Bắt đầu pre-boarding ngay — welcome email, buddy assign, workspace prep. Thời gian chờ từ offer đến onboarding = thời gian dễ mất ứng viên nhất.'
+};
+var procClicked=0;
+function clickProc(n){
+  var el=document.getElementById('pd'+n);
+  if(!el.classList.contains('done')){el.classList.add('done');procClicked++;}
+  var fb=document.getElementById('proc-detail');
+  fb.className='qfb show correct';
+  fb.style.display='block';
+  fb.textContent=procDetails[n];
+  if(procClicked>=3)unlock('n6','h6');
+}
+
+/* M6 checklist */
+var cc6=0;
+function TC6(el){
+  var box=el.querySelector('.chbox');
+  var on=el.getAttribute('data-on')==='true';
+  if(!on){box.classList.add('on');el.setAttribute('data-on','true');cc6++;}
+  else{box.classList.remove('on');el.setAttribute('data-on','false');cc6--;}
+  var fb=document.getElementById('cf6');
+  if(cc6>=2){
+    fb.className='qfb show correct';
+    fb.textContent='Tốt lắm! '+cc6+' cam kết. Ghi vào calendar tuần này — đặc biệt với JD rewrite và scorecard, thực hiện ngay trong 7 ngày tới sẽ thấy kết quả rõ nhất.';
+    unlock('n6','h6');
+  } else {fb.className='';}
+}
+
+function done(){
+  document.getElementById('m6').style.display='none';
+  document.getElementById('complete').classList.add('show');
+  dm[6]=true;cur=7;
+  document.getElementById('pfill').style.width='100%';
+  document.getElementById('ppct').textContent='100%';
+  document.getElementById('plabel').textContent='Hoàn thành!';
+  buildDots();window.scrollTo({top:0,behavior:'smooth'});
+  localStorage.setItem('peopleos_k5_done','true');
+}
+buildDots();updP();
+</script>
+</body>
+</html>
