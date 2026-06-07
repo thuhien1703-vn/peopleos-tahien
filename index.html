@@ -1019,126 +1019,75 @@ updateUI();
 // AUTH SYSTEM — PeopleOS Hub
 // Không dùng giot/done/save vì hub không có các biến này
 // Chỉ dùng localStorage và fetch API
-// ═══════════════════════════════════════════════════
-(function initAuth() {
-  var user = null;
 
-  // Load từ sessionStorage
-  try {
-    var s = sessionStorage.getItem('pos_user');
-    if (s) { user = JSON.parse(s); _applyUserUI(); }
-  } catch(e) {}
+// AUTH SYSTEM — PeopleOS Hub (v3, no giot/done/save deps)
+(function(){
+  var _u=null;
+  try{var _s=sessionStorage.getItem('pos_user');if(_s){_u=JSON.parse(_s);_ui();}}catch(e){}
 
-  // Public API
-  window.Auth = {
-    open: function() {
-      if (user) { _showScreen(3); }
-      document.getElementById('authOverlay').classList.add('open');
+  window.Auth={
+    open:function(){if(_u)_sc(3);document.getElementById('authOverlay').classList.add('open');},
+    close:function(){document.getElementById('authOverlay').classList.remove('open');},
+    sendOTP:function(){
+      var n=document.getElementById('aName').value.trim();
+      var e=document.getElementById('aEmail').value.trim();
+      var er=document.getElementById('aErr1');var b=document.getElementById('aBtn1');
+      er.className='auth-err';
+      if(!n){er.className='auth-err on';er.textContent='Vui lòng nhập họ tên';return;}
+      if(!e||!e.includes('@')){er.className='auth-err on';er.textContent='Email không hợp lệ';return;}
+      b.disabled=true;b.textContent='Đang gửi...';
+      fetch('/api/send-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,name:n})})
+      .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
+      .then(function(r){
+        if(!r.ok){er.className='auth-err on';er.textContent=r.d.error||'Lỗi';b.disabled=false;b.textContent='Gửi mã xác minh →';return;}
+        document.getElementById('aOTPEmail').textContent='Mã đã gửi tới '+e;
+        _sc(2);setTimeout(function(){var i=document.getElementById('aOTP');if(i)i.focus();},200);
+      }).catch(function(){er.className='auth-err on';er.textContent='Lỗi kết nối';b.disabled=false;b.textContent='Gửi mã xác minh →';});
     },
-    close: function() {
-      document.getElementById('authOverlay').classList.remove('open');
+    verifyOTP:function(){
+      var e=document.getElementById('aEmail').value.trim();
+      var o=document.getElementById('aOTP').value.trim();
+      var er=document.getElementById('aErr2');var b=document.getElementById('aBtn2');
+      er.className='auth-err';
+      if(o.length!==6){er.className='auth-err on';er.textContent='Nhập đủ 6 chữ số';return;}
+      b.disabled=true;b.textContent='Đang xác minh...';
+      fetch('/api/verify-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,otp:o})})
+      .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
+      .then(function(r){
+        if(!r.ok){er.className='auth-err on';er.textContent=r.d.error||'Sai mã';b.disabled=false;b.textContent='Xác minh →';return;}
+        _u=r.d.user;sessionStorage.setItem('pos_user',JSON.stringify(_u));
+        var lg=parseInt(localStorage.getItem('pos_giot')||'0');
+        if(lg>(_u.giot||0)){_u.giot=lg;fetch('/api/update-giot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_u.email,giot:lg,done:[],streak:0})});}
+        else{localStorage.setItem('pos_giot',_u.giot||0);}
+        document.getElementById('aWelcomeName').textContent=_u.name;
+        document.getElementById('aWelcomeEmail').textContent=_u.email;
+        document.getElementById('aWelcomeGiot').textContent=_u.giot||0;
+        _sc(3);_ui();sessionStorage.setItem('pos_user',JSON.stringify(_u));
+      }).catch(function(){er.className='auth-err on';er.textContent='Lỗi kết nối';b.disabled=false;b.textContent='Xác minh →';});
     },
-    getUser: function() { return user; },
-
-    sendOTP: function() {
-      var name = document.getElementById('aName').value.trim();
-      var email = document.getElementById('aEmail').value.trim();
-      var err = document.getElementById('aErr1');
-      var btn = document.getElementById('aBtn1');
-      err.className = 'auth-err';
-      if (!name) { err.className='auth-err on'; err.textContent='Vui lòng nhập họ và tên'; return; }
-      if (!email || !email.includes('@')) { err.className='auth-err on'; err.textContent='Email không hợp lệ'; return; }
-      btn.disabled = true; btn.textContent = 'Đang gửi...';
-      fetch('/api/send-otp', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({email: email, name: name})
-      }).then(function(res) { return res.json().then(function(data) { return {ok:res.ok, data:data}; }); })
-      .then(function(r) {
-        if (!r.ok) { err.className='auth-err on'; err.textContent=r.data.error||'Lỗi gửi mã'; btn.disabled=false; btn.textContent='Gửi mã xác minh →'; return; }
-        document.getElementById('aOTPEmail').textContent = 'Mã đã gửi tới ' + email;
-        _showScreen(2);
-        setTimeout(function(){ document.getElementById('aOTP').focus(); }, 100);
-      }).catch(function() {
-        err.className='auth-err on'; err.textContent='Lỗi kết nối. Thử lại.';
-        btn.disabled=false; btn.textContent='Gửi mã xác minh →';
-      });
-    },
-
-    verifyOTP: function() {
-      var email = document.getElementById('aEmail').value.trim();
-      var otp = document.getElementById('aOTP').value.trim();
-      var err = document.getElementById('aErr2');
-      var btn = document.getElementById('aBtn2');
-      err.className = 'auth-err';
-      if (otp.length !== 6) { err.className='auth-err on'; err.textContent='Nhập đủ 6 chữ số'; return; }
-      btn.disabled=true; btn.textContent='Đang xác minh...';
-      fetch('/api/verify-otp', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({email: email, otp: otp})
-      }).then(function(res) { return res.json().then(function(data) { return {ok:res.ok, data:data}; }); })
-      .then(function(r) {
-        if (!r.ok) { err.className='auth-err on'; err.textContent=r.data.error||'Mã không đúng'; btn.disabled=false; btn.textContent='Xác minh →'; return; }
-        user = r.data.user;
-        sessionStorage.setItem('pos_user', JSON.stringify(user));
-        // Merge Giọt: lấy max local vs cloud
-        var localGiot = parseInt(localStorage.getItem('pos_giot')||'0');
-        var cloudGiot = user.giot || 0;
-        if (localGiot > cloudGiot) {
-          // Sync local lên cloud
-          fetch('/api/update-giot', {method:'POST',headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({email:user.email, giot:localGiot, done:JSON.parse(localStorage.getItem('pos_done')||'[]'), streak:0})
-          });
-          user.giot = localGiot;
-        } else {
-          // Apply cloud xuống local
-          localStorage.setItem('pos_giot', cloudGiot);
-          localStorage.setItem('pos_done', JSON.stringify(user.done||[]));
-        }
-        document.getElementById('aWelcomeName').textContent = user.name;
-        document.getElementById('aWelcomeEmail').textContent = user.email;
-        document.getElementById('aWelcomeGiot').textContent = user.giot || 0;
-        _showScreen(3);
-        _applyUserUI();
-        sessionStorage.setItem('pos_user', JSON.stringify(user));
-      }).catch(function() {
-        err.className='auth-err on'; err.textContent='Lỗi kết nối.';
-        btn.disabled=false; btn.textContent='Xác minh →';
-      });
-    },
-
-    resend: function() {
-      var name = document.getElementById('aName').value.trim();
-      var email = document.getElementById('aEmail').value.trim();
-      fetch('/api/send-otp', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,name:name})});
-      document.getElementById('aOTPEmail').textContent = 'Mã mới đã gửi tới ' + email;
+    resend:function(){
+      var n=document.getElementById('aName').value.trim();var e=document.getElementById('aEmail').value.trim();
+      fetch('/api/send-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,name:n})});
+      document.getElementById('aOTPEmail').textContent='Mã mới đã gửi tới '+e;
     }
   };
 
-  window.openAuthModal = function() { Auth.open(); };
+  window.openAuthModal=function(){Auth.open();};
+  var _lb=document.getElementById('nav-login-btn');
+  if(_lb)_lb.onclick=function(){Auth.open();};
 
-  function _applyUserUI() {
-    if (!user) return;
-    var giotLocal = parseInt(localStorage.getItem('pos_giot')||'0');
-    var g = Math.max(giotLocal, user.giot||0);
-    var navRight = document.getElementById('nav-right-area');
-    if (navRight) {
-      navRight.innerHTML =
-        '<div class="giot-pill">💧 <span id="giot-val">' + g + '</span> Giọt</div>' +
-        '<div class="nav-user" onclick="Auth.open()" style="display:flex;align-items:center;gap:8px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.15);border-radius:20px;padding:5px 14px 5px 8px;cursor:pointer">' +
-          '<div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#06B6D4,#062040);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#F0F6FF">' + user.name.charAt(0).toUpperCase() + '</div>' +
-          '<div style="font-size:12px;color:#F0F6FF;font-weight:600;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + user.name.split(' ').slice(-1)[0] + '</div>' +
-        '</div>';
-    }
+  function _ui(){
+    if(!_u)return;
+    var g=Math.max(parseInt(localStorage.getItem('pos_giot')||'0'),_u.giot||0);
+    var nr=document.getElementById('nav-right-area');
+    if(nr){nr.innerHTML='<div class="giot-pill">\u{1F4A7} <span id="giot-val">'+g+'</span> Gi\u1ECDt</div><div onclick="Auth.open()" style="display:flex;align-items:center;gap:8px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.2);border-radius:20px;padding:5px 14px 5px 8px;cursor:pointer"><div style="width:26px;height:26px;border-radius:50%;background:#06B6D4;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#020B18">'+_u.name.charAt(0).toUpperCase()+'</div><span style="font-size:12px;color:#F0F6FF;font-weight:600;margin-left:2px">'+_u.name.split(' ').slice(-1)[0]+'</span></div>';}
   }
 
-  function _showScreen(n) {
-    [1,2,3].forEach(function(i) {
-      var el = document.getElementById('aScreen'+i);
-      if (el) el.style.display = i===n ? 'block' : 'none';
-      var dot = document.getElementById('asd'+i);
-      if (dot) { dot.className='auth-step-dot '+(i<n?'done':i===n?'active':'pending'); dot.textContent=i<n?'✓':i; }
-      var bar = document.getElementById('asb'+i);
-      if (bar) bar.className='auth-step-bar'+(i<n?' done':'');
+  function _sc(n){
+    [1,2,3].forEach(function(i){
+      var el=document.getElementById('aScreen'+i);if(el)el.style.display=i===n?'block':'none';
+      var d=document.getElementById('asd'+i);if(d){d.className='auth-step-dot '+(i<n?'done':i===n?'active':'pending');d.textContent=i<n?'\u2713':String(i);}
+      var b=document.getElementById('asb'+i);if(b)b.className='auth-step-bar'+(i<n?' done':'');
     });
   }
 })();
