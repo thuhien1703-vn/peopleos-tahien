@@ -15,3 +15,5 @@ Platform học HR miễn phí · biên soạn bởi TaHien (CHCO · Golden Gate 
 Pure static HTML · Vercel · framework: null
 
 PeopleOS Community · 2026
+
+<!-- deploy: 1780837898 -->
