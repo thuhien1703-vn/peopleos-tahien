@@ -226,6 +226,53 @@ body::after{content:'言';position:fixed;right:-50px;top:50%;transform:translate
   border:1px solid var(--border2);color:var(--cyan);font-family:'Be Vietnam Pro',sans-serif;
   font-size:13.5px;cursor:pointer;transition:background .18s}
 .btnnext2:hover{background:rgba(34,211,238,.07)}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);
+  padding:10px 24px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border)}
+.breadcrumb a{color:var(--cyan);text-decoration:none}.breadcrumb a:hover{text-decoration:underline}
+.breadcrumb .sep{opacity:.4}
+/* ── OUTCOMES BOX ── */
+.outcomes-box{background:rgba(34,211,238,.05);border:1px solid rgba(34,211,238,.18);
+  border-radius:12px;padding:16px 18px;margin:0 0 18px}
+.outcomes-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:8px}
+.outcomes-list{list-style:none;padding:0;margin:0}
+.outcomes-list li{font-size:13px;color:var(--text);padding:3px 0;display:flex;
+  align-items:flex-start;gap:8px;line-height:1.5}
+.outcomes-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
+/* ── MODULE TIME ── */
+.module-time{font-size:12px;color:var(--muted);margin-top:3px}
+/* ── DOT TOOLTIP ── */
+.dot{position:relative}
+.dot-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#0d2a42;border:1px solid var(--border);border-radius:6px;
+  padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:120px;text-align:center}
+.dot-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:4px solid transparent;border-top-color:#0d2a42}
+.dot:hover .dot-tip,.dot.active:hover .dot-tip{opacity:1}
+/* ── RESUME BANNER ── */
+.resume-banner{background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.2);
+  border-radius:12px;padding:12px 18px;display:flex;align-items:center;
+  justify-content:space-between;margin-bottom:18px;animation:fadeUp .3s ease;gap:12px}
+.resume-text{font-size:13px;color:var(--text)}.resume-text strong{color:var(--cyan)}
+.resume-btn{background:var(--cyan);color:var(--navy);border:none;border-radius:8px;
+  padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:'Be Vietnam Pro',sans-serif;white-space:nowrap;transition:all .2s}
+.resume-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(34,211,238,.3)}
+/* ── MICRO TASK ── */
+.micro-task{background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.22);
+  border-radius:12px;padding:14px 16px;margin-top:14px}
+.micro-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:6px}
+.micro-text{font-size:13px;color:var(--text);line-height:1.6}
+/* ── PROG DETAIL ── */
+.prog-detail{font-size:11px;color:var(--muted);padding:3px 24px 6px;text-align:right}
+/* ── QUIZ HINT FADE ── */
+#nav-hint{opacity:0;transition:opacity .5s;font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
+#nav-hint.vis{opacity:1}
+
 </style>
 </head>
 <body>
@@ -239,6 +286,11 @@ body::after{content:'言';position:fixed;right:-50px;top:50%;transform:translate
   </div>
   <div class="giot-pill">💧 <span id="nav-giot-display">0</span> Giọt</div>
 </nav>
+<div class="breadcrumb">
+  <a href="/">Learning Hub</a><span class="sep">›</span>
+  <span>Foundation 🌱</span><span class="sep">›</span>
+  <span>Giao Tiếp & Ảnh Hưởng</span>
+</div>
 
 <div class="prog-wrap">
   <div class="prog-meta"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div>
@@ -254,10 +306,12 @@ body::after{content:'言';position:fixed;right:-50px;top:50%;transform:translate
     <div class="hero-content">
       <div class="hero-badge">Giao Tiếp & Ảnh Hưởng · Cấp 1</div>
       <div class="hero-num">Bài 1 / 6</div>
+      <div class="module-time">⏱ ~3 phút đọc</div>
       <div class="hero-title">Tại sao người ta không nghe HR</div>
     </div>
   </div>
 
+  <div class="outcomes-box"><div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div><ul class="outcomes-list"><li>Nhận diện 5 communication gap phổ biến của HR</li><li>Chọn ngôn ngữ phù hợp khi nói với CEO vs. nhân viên</li><li>Áp dụng kỹ thuật nói thẳng mà không gây xung đột</li></ul></div>
   <div class="lead">"Hiền từng dự một buổi họp mà HR Manager trình bày suốt 20 phút về chính sách mới. Slide đẹp, số liệu đầy đủ, giọng rõ ràng. Nhưng khi hỏi lại phòng — không ai nhớ điểm chính. CEO nhìn điện thoại từ phút thứ 8. Vấn đề không phải nội dung. Vấn đề là HR chưa bao giờ tự hỏi: người kia đang cần nghe gì?"</div>
 
   <p class="body">Trong tổ chức, HR nói chuyện với nhiều người nhất — nhưng thường được nghe ít nhất. Không phải vì HR kém năng lực. Mà vì có <b>5 communication gap</b> cố hữu mà hầu hết HR không nhận ra mình đang mắc phải.</p>
@@ -298,7 +352,7 @@ body::after{content:'言';position:fixed;right:-50px;top:50%;transform:translate
     <button class="btnprev" disabled>← Quay lại</button>
     <button class="btnnext" id="n1" onclick="go(2)" disabled>Tiếp theo →</button>
   </div>
-  <div class="ulock" id="h1">Trả lời câu hỏi để mở bài tiếp theo</div>
+  <div class="ulock" id="h1"><span id="nav-hint">Trả lời câu hỏi để mở bài tiếp theo</span></div>
 </div>
 
 <!-- ═══ M2 ═══ -->
@@ -309,6 +363,7 @@ body::after{content:'言';position:fixed;right:-50px;top:50%;transform:translate
     <div class="hero-content">
       <div class="hero-badge">Giao Tiếp & Ảnh Hưởng · Cấp 1</div>
       <div class="hero-num">Bài 2 / 6</div>
+      <div class="module-time">⏱ ~4 phút đọc</div>
       <div class="hero-title">Nghệ thuật đặt câu hỏi</div>
     </div>
   </div>
@@ -812,6 +867,94 @@ function done(){
   localStorage.setItem('peopleos_k2_done','true');
 }
 buildDots();updP();
+</script>
+<script>
+/* ── PEOPLEOS UX v2 — k2-giao-tiep-anh-huong ── */
+window.MODULE_TITLES = ["T\u1ea1i sao ng\u01b0\u1eddi ta kh\u00f4ng nghe HR", "5 communication gap c\u1ed1 h\u1eefu c\u1ee7a HR", "Ng\u00f4n ng\u1eef \u1ea3nh h\u01b0\u1edfng \u2014 n\u00f3i \u0111\u1ec3 ng\u01b0\u1eddi ta mu\u1ed1n nghe", "Giao ti\u1ebfp v\u1edbi CEO v\u00e0 C-suite", "N\u00f3i th\u1eb3ng m\u00e0 kh\u00f4ng g\u00e2y chi\u1ebfn", "X\u00e2y d\u1ef1ng uy t\u00edn giao ti\u1ebfp trong t\u1ed5 ch\u1ee9c"];
+window.MODULE_TIMES  = [3, 4, 3, 4, 3, 4];
+window.MICRO_TASKS   = ["Tr\u01b0\u1edbc khi gi\u1ea3i th\u00edch ch\u00ednh s\u00e1ch, h\u1ecfi: '\u0110i\u1ec1u g\u00ec khi\u1ebfn anh/ch\u1ecb lo ng\u1ea1i nh\u1ea5t?'", "Rewrite 1 email HR d\u00f9ng ng\u00f4n ng\u1eef business thay v\u00ec HR jargon.", "D\u00f9ng 'T\u1eeb g\u00f3c nh\u00ecn c\u1ee7a t\u00f4i...' thay v\u00ec 'Theo policy...' trong cu\u1ed9c h\u1ecdp ti\u1ebfp theo.", "Chu\u1ea9n b\u1ecb 1 insight v\u1ec1 business \u0111\u1ec3 mang v\u00e0o cu\u1ed9c g\u1eb7p C-suite tu\u1ea7n t\u1edbi.", "Luy\u1ec7n 1 c\u00e2u ph\u1ea3n h\u1ed3i kh\u00f3 \u2014 b\u1eaft \u0111\u1ea7u b\u1eb1ng ghi nh\u1eadn tr\u01b0\u1edbc khi t\u1eeb ch\u1ed1i.", "H\u1ecfi 1 \u0111\u1ed3ng nghi\u1ec7p: '\u0110i\u1ec1u g\u00ec khi\u1ebfn b\u1ea1n c\u1ea3m th\u1ea5y \u0111\u01b0\u1ee3c nghe th\u1eadt s\u1ef1 khi n\u00f3i chuy\u1ec7n v\u1edbi m\u00ecnh?'"];
+
+document.addEventListener('DOMContentLoaded', function() {
+  var SLUG = 'k2-giao-tiep-anh-huong';
+  var lastKey = 'resume_' + SLUG;
+  var lastSaved = parseInt(localStorage.getItem(lastKey) || '0');
+
+  /* 1. RESUME BANNER */
+  if (lastSaved > 1 && lastSaved <= (window.tot||6)) {
+    var rb = document.createElement('div');
+    rb.className = 'resume-banner'; rb.id = 'rb';
+    rb.innerHTML = '<div class="resume-text">Lần trước bạn học đến <strong>Bài ' + lastSaved + '</strong> · Tiếp tục?</div>' +
+      '<button class="resume-btn" onclick="doResume()">Tiếp tục Bài ' + lastSaved + ' →</button>';
+    var wrap = document.querySelector('.wrap') || document.querySelector('.container') || document.body;
+    var m1 = document.getElementById('m1');
+    if (m1) m1.parentNode.insertBefore(rb, m1);
+  }
+  window.doResume = function() {
+    var n = parseInt(localStorage.getItem(lastKey)||'1');
+    var el = document.getElementById('rb'); if(el) el.remove();
+    if(window.go) window.go(n);
+  };
+
+  /* 2. SAVE POSITION — patch go() */
+  var _go = window.go;
+  window.go = function(n) { if(_go) _go(n); localStorage.setItem(lastKey, n); };
+
+  /* 3. DOT TOOLTIPS — patch buildDots() */
+  var _bd = window.buildDots;
+  window.buildDots = function() {
+    if(_bd) _bd();
+    setTimeout(function() {
+      document.querySelectorAll('.dot').forEach(function(d, i) {
+        if (!d.querySelector('.dot-tip') && MODULE_TITLES[i]) {
+          var t = document.createElement('div');
+          t.className = 'dot-tip';
+          t.textContent = 'Bài ' + (i+1) + ': ' + MODULE_TITLES[i];
+          d.appendChild(t);
+        }
+      });
+    }, 30);
+  };
+
+  /* 4. PROGRESS DETAIL */
+  var _up = window.updProg;
+  window.updProg = function() {
+    if(_up) _up();
+    var el = document.getElementById('prog-detail');
+    if(!el) return;
+    var done = Object.keys(window.doneM||{}).length;
+    var tot = window.tot || 6;
+    var doneMin = (window.doneM ? Object.keys(window.doneM).reduce(function(a,k){return a+(MODULE_TIMES[k-1]||3);},0) : 0);
+    var totMin = MODULE_TIMES.reduce(function(a,b){return a+b;},0);
+    el.textContent = done + '/' + tot + ' bài · ~' + doneMin + '/' + totMin + ' phút';
+  };
+
+  /* 5. QUIZ HINT REVEAL ON SCROLL */
+  var hint = document.getElementById('nav-hint');
+  if(hint) {
+    var quiz = document.querySelector('.ex');
+    if(quiz) {
+      var obs = new IntersectionObserver(function(e) { 
+        if(e[0].isIntersecting) { hint.classList.add('vis'); obs.disconnect(); }
+      }, {threshold:0.3});
+      obs.observe(quiz);
+    }
+  }
+
+  /* 6. MICRO TASK INJECT — vào sau .takeaway của mỗi module */
+  document.querySelectorAll('.takeaway').forEach(function(tw, i) {
+    if(MICRO_TASKS[i]) {
+      var mt = document.createElement('div');
+      mt.className = 'micro-task';
+      mt.innerHTML = '<div class="micro-label">⚡ Áp dụng ngay · Bài ' + (i+1) + '</div>' +
+        '<div class="micro-text">' + MICRO_TASKS[i] + '</div>';
+      tw.parentNode.insertBefore(mt, tw.nextSibling);
+    }
+  });
+
+  /* 7. INITIAL CALLS */
+  if(window.buildDots) window.buildDots();
+  if(window.updProg) window.updProg();
+});
 </script>
 </body>
 </html>
