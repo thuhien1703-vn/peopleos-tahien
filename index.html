@@ -789,7 +789,7 @@ function updateUI() {
   document.getElementById('done-count').textContent = done.size;
   document.getElementById('done-badge').textContent = done.size;
   document.getElementById('total-xp-badge').textContent = x;
-  document.getElementById('me-xp').textContent = x+' XP';
+  document.getElementById('me-xp').textContent = x+' 💧';
   const pct = Math.round((done.size/6)*100);
   document.getElementById('path-bar').style.width = pct+'%';
   document.getElementById('path-prog').textContent = done.size+' / 6 Foundation · '+pct+'%';
@@ -938,7 +938,7 @@ function openModal(id) {
   if (!c || c.soon) return;
   currentCourse = c; quizDone = false;
   document.getElementById('m-icon').textContent = c.emoji;
-  document.getElementById('m-meta').textContent = `Khóa học · ${c.dur} · +${c.xp} XP`;
+  document.getElementById('m-meta').textContent = `Khóa học · ${c.dur} · +${c.xp} 💧`;
   document.getElementById('m-title').textContent = c.title;
   document.getElementById('m-sub').textContent = c.sub;
   // reset quiz
