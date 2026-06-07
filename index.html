@@ -298,80 +298,93 @@ footer{background:var(--navy);padding:40px 24px 24px}
   h1{font-size:32px}
 }
 
-/* AUTH MODAL */
-.auth-overlay{position:fixed;inset:0;background:rgba(2,11,24,.92);z-index:300;
-  display:none;align-items:center;justify-content:center;padding:20px}
+
+/* ═══════════════════════════════════
+   AUTH MODAL — PeopleOS
+═══════════════════════════════════ */
+.auth-overlay{position:fixed;inset:0;background:rgba(2,11,24,.88);backdrop-filter:blur(6px);
+  z-index:999;display:none;align-items:center;justify-content:center;padding:20px}
 .auth-overlay.open{display:flex}
-.auth-modal{background:#062040;border:1px solid var(--border2);border-radius:20px;
-  padding:36px 32px;max-width:440px;width:100%;position:relative;animation:fadeUp .3s ease}
-.auth-steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:24px}
-.auth-step{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;transition:all .3s}
-.auth-step.done{background:var(--teal);color:var(--navy)}
-.auth-step.active{background:var(--cyan);color:var(--navy)}
-.auth-step.pending{background:var(--navy3);color:var(--muted);border:1px solid var(--border)}
-.auth-step-line{width:40px;height:2px;background:var(--border)}
-.auth-step-line.done{background:var(--teal)}
-.auth-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,.1);
-  border:1px solid var(--border2);border-radius:20px;padding:4px 14px;font-size:12px;
-  color:var(--cyan);font-weight:600;margin-bottom:16px}
-.auth-h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;
-  color:var(--text);margin-bottom:8px;text-align:center}
-.auth-sub{font-size:13px;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:20px}
-.auth-benefits{background:rgba(34,211,238,.05);border:1px solid var(--border);
-  border-radius:12px;padding:14px 16px;margin-bottom:20px}
-.auth-benefit{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);
-  margin-bottom:8px}
-.auth-benefit:last-child{margin-bottom:0}
-.auth-benefit::before{content:'✓';width:18px;height:18px;border-radius:50%;
-  background:var(--teal);color:var(--navy);font-size:10px;font-weight:800;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.auth-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);
-  text-transform:uppercase;margin-bottom:6px}
-.auth-input{width:100%;background:rgba(0,0,0,.3);border:1px solid var(--border);
-  border-radius:12px;padding:12px 16px;font-size:14px;color:var(--text);
-  font-family:'Be Vietnam Pro',sans-serif;outline:none;transition:border .2s;margin-bottom:12px}
-.auth-input:focus{border-color:var(--cyan)}
-.auth-input::placeholder{color:var(--muted)}
-.auth-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--teal),var(--cyan));
-  color:var(--navy);border:none;border-radius:12px;font-size:15px;font-weight:700;
-  cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s;margin-top:4px}
-.auth-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(34,211,238,.3)}
-.auth-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.auth-box{background:#071e36;border:1px solid rgba(34,211,238,.2);border-radius:20px;
+  padding:36px 32px;max-width:420px;width:100%;position:relative;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);animation:authSlide .3s ease}
+@keyframes authSlide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .auth-close{position:absolute;top:14px;right:16px;background:none;border:none;
-  color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
+  color:var(--muted);font-size:22px;cursor:pointer;line-height:1;padding:4px}
 .auth-close:hover{color:var(--text)}
-.otp-sent-box{background:rgba(34,211,238,.06);border:1px solid var(--border);
-  border-radius:12px;padding:14px;text-align:center;margin-bottom:16px}
-.otp-sent-icon{font-size:28px;margin-bottom:6px}
-.otp-sent-text{font-size:13px;color:var(--cyan);font-weight:600}
-.otp-sent-sub{font-size:12px;color:var(--muted);margin-top:3px}
-.otp-input{width:100%;background:rgba(0,0,0,.3);border:1px solid var(--border);
-  border-radius:12px;padding:14px;font-size:26px;font-weight:700;letter-spacing:10px;
+.auth-steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:20px}
+.auth-step-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:13px;font-weight:700;transition:all .3s;flex-shrink:0}
+.auth-step-dot.done{background:var(--teal);color:#020B18}
+.auth-step-dot.active{background:var(--cyan);color:#020B18;box-shadow:0 0 0 4px rgba(34,211,238,.2)}
+.auth-step-dot.pending{background:var(--navy2);color:var(--muted);border:1px solid var(--border)}
+.auth-step-bar{width:36px;height:2px;background:var(--border);transition:background .3s}
+.auth-step-bar.done{background:var(--teal)}
+.auth-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,.08);
+  border:1px solid rgba(34,211,238,.2);border-radius:20px;padding:4px 14px;font-size:12px;
+  color:var(--cyan);font-weight:600;margin-bottom:14px}
+.auth-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan)}
+.auth-h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;
+  color:var(--text);margin-bottom:6px;text-align:center}
+.auth-sub{font-size:13px;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:20px}
+.auth-benefits{background:rgba(34,211,238,.04);border:1px solid var(--border);
+  border-radius:12px;padding:14px 16px;margin-bottom:18px}
+.auth-benefit{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--text);
+  padding:4px 0}
+.auth-benefit-icon{width:20px;height:20px;border-radius:50%;background:var(--teal);
+  color:#020B18;font-size:10px;font-weight:800;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0}
+.auth-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);
+  text-transform:uppercase;margin-bottom:6px;margin-top:4px}
+.auth-input{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--border);
+  border-radius:10px;padding:11px 15px;font-size:14px;color:var(--text);
+  font-family:'Be Vietnam Pro',sans-serif;outline:none;transition:border .2s;margin-bottom:10px}
+.auth-input:focus{border-color:var(--cyan)}
+.auth-input::placeholder{color:var(--subtle)}
+.auth-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--teal),var(--cyan));
+  color:#020B18;border:none;border-radius:12px;font-size:15px;font-weight:700;
+  cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s;margin-top:6px}
+.auth-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(34,211,238,.25)}
+.auth-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.auth-err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);
+  border-radius:8px;padding:10px 13px;font-size:13px;color:#fca5a5;
+  margin:8px 0;display:none}
+.auth-err.on{display:block}
+.auth-otp-box{background:rgba(34,211,238,.05);border:1px solid var(--border);
+  border-radius:12px;padding:16px;text-align:center;margin-bottom:16px}
+.auth-otp-icon{font-size:32px;margin-bottom:8px}
+.auth-otp-to{font-size:13px;color:var(--cyan);font-weight:600}
+.auth-otp-hint{font-size:12px;color:var(--muted);margin-top:4px}
+.auth-otp-input{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--border);
+  border-radius:10px;padding:14px;font-size:28px;font-weight:700;letter-spacing:10px;
   color:var(--cyan);font-family:monospace;text-align:center;outline:none;
-  transition:border .2s;margin-bottom:12px}
-.otp-input:focus{border-color:var(--cyan)}
+  transition:border .2s;margin-bottom:10px}
+.auth-otp-input:focus{border-color:var(--cyan)}
 .auth-resend{text-align:center;margin-top:8px}
 .auth-resend button{background:none;border:none;color:var(--cyan);font-size:12px;
-  cursor:pointer;text-decoration:underline;font-family:'Be Vietnam Pro',sans-serif}
-.auth-error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);
-  border-radius:8px;padding:10px 14px;font-size:13px;color:#fca5a5;
-  margin-bottom:12px;display:none}
-.auth-error.show{display:block}
-/* USER PILL in navbar */
-.user-pill{display:flex;align-items:center;gap:8px;background:var(--navy2);
-  border:1px solid var(--border);border-radius:20px;padding:4px 14px;cursor:pointer}
-.user-avatar{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--navy3));
-  display:flex;align-items:center;justify-content:center;font-size:11px;
+  cursor:pointer;text-decoration:underline;font-family:'Be Vietnam Pro',sans-serif;padding:0}
+.auth-success-icon{font-size:52px;text-align:center;margin-bottom:14px}
+.auth-user-card{background:rgba(34,211,238,.05);border:1px solid rgba(34,211,238,.15);
+  border-radius:12px;padding:16px;margin-bottom:18px;text-align:center}
+.auth-user-card .name{font-size:17px;font-weight:700;color:var(--text);margin-bottom:2px}
+.auth-user-card .email{font-size:12px;color:var(--muted);margin-bottom:10px}
+.auth-user-card .giot{font-size:14px;color:var(--cyan)}
+/* Navbar user pill */
+.nav-user{display:flex;align-items:center;gap:8px;background:rgba(34,211,238,.08);
+  border:1px solid rgba(34,211,238,.15);border-radius:20px;padding:5px 14px 5px 8px;
+  cursor:pointer;transition:all .2s}
+.nav-user:hover{background:rgba(34,211,238,.14)}
+.nav-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--navy3));
+  display:flex;align-items:center;justify-content:center;font-size:12px;
   font-weight:700;color:var(--text)}
-.user-name-pill{font-size:12px;color:var(--text);font-weight:600;max-width:100px;
+.nav-uname{font-size:12px;color:var(--text);font-weight:600;max-width:90px;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.login-btn{background:none;border:1px solid var(--border);border-radius:20px;
+.nav-login{background:none;border:1px solid var(--border);border-radius:20px;
   padding:5px 16px;font-size:13px;color:var(--muted);cursor:pointer;
   font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}
-.login-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.nav-login:hover{border-color:var(--cyan);color:var(--cyan)}
 
-</style>
+</style>>
 </head>
 <body>
 
@@ -389,9 +402,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
   </div>
   <div class="nav-right" id="nav-right-area">
     <div class="giot-pill">💧 <span id="giot-val">0</span> Giọt</div>
-    <button class="login-btn" onclick="openAuthModal()">Đăng nhập</button>
-  </div>
-    <div class="avatar">H</div>
+    <button class="login-btn" id="nav-login-btn" onclick="openAuthModal()">Đăng nhập</button>
   </div>
 </nav>
 
@@ -770,7 +781,8 @@ xp = savedXP;
 
 function save() {
   localStorage.setItem('pos_done', JSON.stringify([...done]));
-  localStorage.setItem('pos_xp', xp);
+  if(window.currentUser) window._syncCloud();
+  localStorage.setItem('pos_giot', giot);
 }
 
 function updateUI() {
@@ -1002,248 +1014,229 @@ renderPaths();
 renderLB();
 updateUI();
 
-// ── AUTH SYSTEM ───────────────────────────────────────────────
-let currentUser = null;
 
-// Load user từ sessionStorage khi page load
-(function initAuth() {
-  const saved = sessionStorage.getItem('pos_user');
-  if (saved) {
+// ═══════════════════════════════════════════════════
+// AUTH SYSTEM — PeopleOS
+// ═══════════════════════════════════════════════════
+(function() {
+  // --- State ---
+  let user = null;
+
+  // Load từ sessionStorage
+  try {
+    const s = sessionStorage.getItem('pos_user');
+    if (s) { user = JSON.parse(s); applyUser(); }
+  } catch(e) {}
+
+  // --- Public API ---
+  window.Auth = {
+    open: function(redirect) {
+      if (redirect) window._authRedirect = redirect;
+      if (user) { _showScreen(3); }
+      document.getElementById('authOverlay').classList.add('open');
+    },
+    close: function() {
+      document.getElementById('authOverlay').classList.remove('open');
+      if (window._authRedirect) {
+        var r = window._authRedirect;
+        window._authRedirect = null;
+        window.location.href = r;
+      }
+    },
+    sendOTP: async function() {
+      var name = document.getElementById('aName').value.trim();
+      var email = document.getElementById('aEmail').value.trim();
+      var err = document.getElementById('aErr1');
+      var btn = document.getElementById('aBtn1');
+      err.className = 'auth-err';
+      if (!name) { err.className='auth-err on'; err.textContent='Vui lòng nhập họ và tên'; return; }
+      if (!email || !email.includes('@')) { err.className='auth-err on'; err.textContent='Email không hợp lệ'; return; }
+      btn.disabled = true; btn.textContent = 'Đang gửi...';
+      try {
+        var res = await fetch('/api/send-otp', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({email, name})
+        });
+        var data = await res.json();
+        if (!res.ok) { err.className='auth-err on'; err.textContent=data.error||'Lỗi gửi mã'; btn.disabled=false; btn.textContent='Gửi mã xác minh →'; return; }
+        document.getElementById('aOTPEmail').textContent = 'Mã đã gửi tới ' + email;
+        _showScreen(2);
+        document.getElementById('aOTP').focus();
+      } catch(e) {
+        err.className='auth-err on'; err.textContent='Lỗi kết nối. Thử lại.';
+        btn.disabled=false; btn.textContent='Gửi mã xác minh →';
+      }
+    },
+    verifyOTP: async function() {
+      var email = document.getElementById('aEmail').value.trim();
+      var otp = document.getElementById('aOTP').value.trim();
+      var err = document.getElementById('aErr2');
+      var btn = document.getElementById('aBtn2');
+      err.className = 'auth-err';
+      if (otp.length !== 6) { err.className='auth-err on'; err.textContent='Nhập đủ 6 chữ số'; return; }
+      btn.disabled=true; btn.textContent='Đang xác minh...';
+      try {
+        var res = await fetch('/api/verify-otp', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({email, otp})
+        });
+        var data = await res.json();
+        if (!res.ok) { err.className='auth-err on'; err.textContent=data.error||'Mã không đúng'; btn.disabled=false; btn.textContent='Xác minh →'; return; }
+        user = data.user;
+        sessionStorage.setItem('pos_user', JSON.stringify(user));
+        // Merge Giọt: lấy max giữa local vs cloud
+        var localGiot = parseInt(localStorage.getItem('pos_giot')||'0');
+        if (localGiot > (user.giot||0)) {
+          user.giot = localGiot;
+          user.done = JSON.parse(localStorage.getItem('pos_done')||'[]');
+          window._syncCloud();
+        } else {
+          giot = user.giot || 0;
+          done = new Set(user.done || []);
+          save();
+        }
+        // Show screen 3
+        document.getElementById('aWelcomeName').textContent = user.name;
+        document.getElementById('aWelcomeEmail').textContent = user.email;
+        document.getElementById('aWelcomeGiot').textContent = giot;
+        _showScreen(3);
+        applyUser();
+      } catch(e) {
+        err.className='auth-err on'; err.textContent='Lỗi kết nối.';
+        btn.disabled=false; btn.textContent='Xác minh →';
+      }
+    },
+    resend: async function() {
+      var name = document.getElementById('aName').value.trim();
+      var email = document.getElementById('aEmail').value.trim();
+      await fetch('/api/send-otp', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,name})});
+      document.getElementById('aOTPEmail').textContent = 'Mã mới đã gửi tới ' + email;
+    },
+    getUser: function() { return user; }
+  };
+
+  // Legacy alias
+  window.openAuthModal = function() { Auth.open(); };
+
+  // --- Sync to Firebase ---
+  window._syncCloud = async function() {
+    if (!user) return;
     try {
-      currentUser = JSON.parse(saved);
-      // Sync Giọt từ Firebase về local
-      giot = currentUser.giot || 0;
-      done = new Set(currentUser.done || []);
-      applyUserToUI();
-    } catch(e) { sessionStorage.removeItem('pos_user'); }
+      await fetch('/api/update-giot', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({email:user.email, giot:giot, done:[...done], streak:parseInt(localStorage.getItem('pos_streak')||'0')})
+      });
+      user.giot = giot; user.done = [...done];
+      sessionStorage.setItem('pos_user', JSON.stringify(user));
+    } catch(e) {}
+  };
+
+  // --- Apply user UI ---
+  function applyUser() {
+    if (!user) return;
+    var navRight = document.getElementById('nav-right-area');
+    if (navRight) {
+      navRight.innerHTML =
+        '<div class="giot-pill">💧 <span id="giot-val">' + (giot||0) + '</span> Giọt</div>' +
+        '<div class="nav-user" onclick="Auth.open()">' +
+          '<div class="nav-avatar">' + user.name.charAt(0).toUpperCase() + '</div>' +
+          '<div class="nav-uname">' + user.name.split(' ').slice(-1)[0] + '</div>' +
+        '</div>';
+    }
+    updateUI();
   }
+
+  // --- Step indicator ---
+  function _showScreen(n) {
+    [1,2,3].forEach(function(i) {
+      document.getElementById('aScreen'+i).style.display = i===n ? 'block' : 'none';
+      var dot = document.getElementById('asd'+i);
+      if (i < n) { dot.className='auth-step-dot done'; dot.textContent='✓'; }
+      else if (i===n) { dot.className='auth-step-dot active'; dot.textContent=i; }
+      else { dot.className='auth-step-dot pending'; dot.textContent=i; }
+    });
+    [1,2].forEach(function(i) {
+      var bar = document.getElementById('asb'+i);
+      if (bar) bar.className = 'auth-step-bar' + (i<n?' done':'');
+    });
+  }
+
+  // --- Patch save() để auto sync ---
+  var _origSave = window.save;
+  window.save = function() {
+    localStorage.setItem('pos_done', JSON.stringify([...done]));
+    localStorage.setItem('pos_giot', giot);
+    if (user) window._syncCloud();
+    // update giot-val nếu đang đăng nhập
+    var gv = document.getElementById('giot-val');
+    if (gv) gv.textContent = giot;
+  };
+
 })();
 
-function applyUserToUI() {
-  if (!currentUser) return;
-  // Update navbar
-  const navRight = document.querySelector('.nav-right');
-  if (navRight) {
-    navRight.innerHTML = `
-      <div class="giot-pill">💧 <span id="giot-val">${giot}</span> Giọt</div>
-      <div class="user-pill" onclick="document.getElementById('auth-modal').classList.add('open');showScreen(3)">
-        <div class="user-avatar">${currentUser.name.charAt(0).toUpperCase()}</div>
-        <div class="user-name-pill">${currentUser.name.split(' ').slice(-1)[0]}</div>
-      </div>
-    `;
-  }
-  updateUI();
-}
+</script>>
 
-function openAuthModal() {
-  if (currentUser) { showScreen(3); }
-  document.getElementById('auth-modal').classList.add('open');
-}
 
-function closeAuth() {
-  document.getElementById('auth-modal').classList.remove('open');
-}
+<!-- ═══ AUTH MODAL ═══ -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-box">
+    <button class="auth-close" onclick="Auth.close()">✕</button>
 
-function showScreen(n) {
-  [1,2,3].forEach(i => {
-    document.getElementById('auth-s'+i).style.display = i===n?'block':'none';
-  });
-  // Update step indicators
-  [1,2,3].forEach(i => {
-    const el = document.getElementById('step-'+i);
-    if (i < n) { el.className='auth-step done'; el.textContent='✓'; }
-    else if (i===n) { el.className='auth-step active'; el.textContent=i; }
-    else { el.className='auth-step pending'; el.textContent=i; }
-  });
-  [1,2].forEach(i => {
-    const el = document.getElementById('line-'+i);
-    if (el) el.className = 'auth-step-line' + (i<n?' done':'');
-  });
-}
-
-async function sendOTP() {
-  const name = document.getElementById('auth-name').value.trim();
-  const email = document.getElementById('auth-email').value.trim();
-  const err = document.getElementById('auth-err-1');
-  const btn = document.getElementById('auth-btn-1');
-  
-  err.className='auth-error';
-  if (!name) { err.className='auth-error show'; err.textContent='Vui lòng nhập họ và tên'; return; }
-  if (!email || !email.includes('@')) { err.className='auth-error show'; err.textContent='Email không hợp lệ'; return; }
-  
-  btn.disabled=true; btn.textContent='Đang gửi...';
-  try {
-    const res = await fetch('/api/send-otp', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({email, name})
-    });
-    const data = await res.json();
-    if (!res.ok) { err.className='auth-error show'; err.textContent=data.error||'Lỗi gửi mã'; btn.disabled=false; btn.textContent='Gửi mã xác minh →'; return; }
-    document.getElementById('otp-sent-email').textContent = 'Mã đã được gửi tới ' + email;
-    showScreen(2);
-  } catch(e) {
-    err.className='auth-error show'; err.textContent='Lỗi kết nối. Thử lại sau.';
-    btn.disabled=false; btn.textContent='Gửi mã xác minh →';
-  }
-}
-
-async function verifyOTP() {
-  const email = document.getElementById('auth-email').value.trim();
-  const otp = document.getElementById('auth-otp').value.trim();
-  const err = document.getElementById('auth-err-2');
-  const btn = document.getElementById('auth-btn-2');
-  
-  err.className='auth-error';
-  if (otp.length !== 6) { err.className='auth-error show'; err.textContent='Nhập đủ 6 chữ số'; return; }
-  
-  btn.disabled=true; btn.textContent='Đang xác minh...';
-  try {
-    const res = await fetch('/api/verify-otp', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({email, otp})
-    });
-    const data = await res.json();
-    if (!res.ok) { err.className='auth-error show'; err.textContent=data.error||'Mã không đúng'; btn.disabled=false; btn.textContent='Xác minh mã →'; return; }
-    
-    // Lưu user
-    currentUser = data.user;
-    sessionStorage.setItem('pos_user', JSON.stringify(currentUser));
-    
-    // Merge Giọt: lấy max giữa local và cloud
-    const cloudGiot = currentUser.giot || 0;
-    if (giot > cloudGiot) {
-      // Local cao hơn — sync lên cloud
-      currentUser.giot = giot;
-      currentUser.done = [...done];
-      syncToCloud();
-    } else {
-      // Cloud cao hơn — apply xuống local
-      giot = cloudGiot;
-      done = new Set(currentUser.done || []);
-      save();
-    }
-    
-    // Show success
-    document.getElementById('auth-welcome-name').textContent = currentUser.name;
-    document.getElementById('auth-welcome-email').textContent = currentUser.email;
-    document.getElementById('auth-welcome-giot').textContent = giot;
-    showScreen(3);
-    applyUserToUI();
-  } catch(e) {
-    err.className='auth-error show'; err.textContent='Lỗi kết nối. Thử lại sau.';
-    btn.disabled=false; btn.textContent='Xác minh mã →';
-  }
-}
-
-async function resendOTP() {
-  const name = document.getElementById('auth-name').value.trim();
-  const email = document.getElementById('auth-email').value.trim();
-  await fetch('/api/send-otp', {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({email, name})
-  });
-  document.getElementById('otp-sent-email').textContent = 'Mã mới đã được gửi tới ' + email;
-}
-
-async function syncToCloud() {
-  if (!currentUser) return;
-  try {
-    await fetch('/api/update-giot', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        email: currentUser.email,
-        giot: giot,
-        done: [...done],
-        streak: parseInt(localStorage.getItem('pos_streak')||'0')
-      })
-    });
-    currentUser.giot = giot;
-    currentUser.done = [...done];
-    sessionStorage.setItem('pos_user', JSON.stringify(currentUser));
-  } catch(e) { console.log('sync failed, will retry'); }
-}
-
-// Override save() để sync lên cloud sau mỗi update
-const _origSave = save;
-function save() {
-  localStorage.setItem('pos_done', JSON.stringify([...done]));
-  localStorage.setItem('pos_giot', giot);
-  if (currentUser) syncToCloud();
-}
-
-</script>
-
-<!-- AUTH MODAL -->
-<div class="auth-overlay" id="auth-modal">
-  <div class="auth-modal">
-    <button class="auth-close" onclick="closeAuth()">✕</button>
-    
-    <!-- Steps indicator -->
-    <div style="text-align:center;margin-bottom:8px">
-      <div class="auth-steps" id="auth-steps">
-        <div class="auth-step active" id="step-1">1</div>
-        <div class="auth-step-line" id="line-1"></div>
-        <div class="auth-step pending" id="step-2">2</div>
-        <div class="auth-step-line" id="line-2"></div>
-        <div class="auth-step pending" id="step-3">3</div>
+    <!-- Step dots -->
+    <div style="text-align:center;margin-bottom:6px">
+      <div class="auth-steps">
+        <div class="auth-step-dot active" id="asd1">1</div>
+        <div class="auth-step-bar" id="asb1"></div>
+        <div class="auth-step-dot pending" id="asd2">2</div>
+        <div class="auth-step-bar" id="asb2"></div>
+        <div class="auth-step-dot pending" id="asd3">3</div>
       </div>
     </div>
-    
-    <div style="text-align:center;margin-bottom:16px">
-      <div class="auth-badge">💧 100% miễn phí · Giọt được lưu mãi</div>
+    <div style="text-align:center;margin-bottom:14px">
+      <div class="auth-badge">💧 100% miễn phí · Giọt lưu mãi mãi</div>
     </div>
-    
     <h2 class="auth-h2">Bắt đầu học ngay hôm nay</h2>
-    <p class="auth-sub">Đăng ký để Giọt và tiến độ học của bạn được lưu vĩnh viễn — trên mọi thiết bị</p>
+    <p class="auth-sub">Đăng ký để Giọt và tiến độ được lưu vĩnh viễn trên mọi thiết bị</p>
 
-    <!-- SCREEN 1: Email + Name -->
-    <div id="auth-s1">
+    <!-- Screen 1: Tên + Email -->
+    <div id="aScreen1">
       <div class="auth-benefits">
-        <div class="auth-benefit">Giọt được lưu vĩnh viễn — không mất khi đổi thiết bị</div>
-        <div class="auth-benefit">Chứng chỉ hoàn thành gắn với tên của bạn</div>
-        <div class="auth-benefit">Nhận thông báo khi có khóa học mới</div>
+        <div class="auth-benefit"><div class="auth-benefit-icon">✓</div>Giọt không bao giờ mất dù đổi thiết bị</div>
+        <div class="auth-benefit"><div class="auth-benefit-icon">✓</div>Chứng chỉ gắn tên bạn vĩnh viễn</div>
+        <div class="auth-benefit"><div class="auth-benefit-icon">✓</div>Nhận thông báo khi có khóa học mới</div>
       </div>
       <div class="auth-label">Họ và tên đầy đủ</div>
-      <input class="auth-input" id="auth-name" type="text" placeholder="Nguyễn Thị Thu Hiền" autocomplete="name">
+      <input class="auth-input" id="aName" type="text" placeholder="Nguyễn Thị Thu Hiền" autocomplete="name">
       <div class="auth-label">Địa chỉ email</div>
-      <input class="auth-input" id="auth-email" type="email" placeholder="email@congty.com" autocomplete="email">
-      <div class="auth-error" id="auth-err-1"></div>
-      <button class="auth-btn" id="auth-btn-1" onclick="sendOTP()">Gửi mã xác minh →</button>
+      <input class="auth-input" id="aEmail" type="email" placeholder="email@congty.com" autocomplete="email">
+      <div class="auth-err" id="aErr1"></div>
+      <button class="auth-btn" id="aBtn1" onclick="Auth.sendOTP()">Gửi mã xác minh →</button>
     </div>
 
-    <!-- SCREEN 2: OTP -->
-    <div id="auth-s2" style="display:none">
-      <div class="otp-sent-box">
-        <div class="otp-sent-icon">📧</div>
-        <div class="otp-sent-text" id="otp-sent-email"></div>
-        <div class="otp-sent-sub">Kiểm tra hộp thư đến (và thư mục spam)</div>
+    <!-- Screen 2: OTP -->
+    <div id="aScreen2" style="display:none">
+      <div class="auth-otp-box">
+        <div class="auth-otp-icon">📧</div>
+        <div class="auth-otp-to" id="aOTPEmail">Mã đã gửi tới email</div>
+        <div class="auth-otp-hint">Kiểm tra hộp thư đến và thư mục spam</div>
       </div>
       <div class="auth-label">Mã xác minh (6 chữ số)</div>
-      <input class="otp-input" id="auth-otp" type="text" maxlength="6" placeholder="000000" inputmode="numeric">
-      <div class="auth-error" id="auth-err-2"></div>
-      <button class="auth-btn" id="auth-btn-2" onclick="verifyOTP()">Xác minh mã →</button>
-      <div class="auth-resend">
-        <button onclick="resendOTP()">Gửi lại mã</button>
-      </div>
+      <input class="auth-otp-input" id="aOTP" type="text" maxlength="6" placeholder="000000" inputmode="numeric" oninput="if(this.value.length===6)Auth.verifyOTP()">
+      <div class="auth-err" id="aErr2"></div>
+      <button class="auth-btn" id="aBtn2" onclick="Auth.verifyOTP()">Xác minh →</button>
+      <div class="auth-resend"><button onclick="Auth.resend()">Gửi lại mã</button></div>
     </div>
 
-    <!-- SCREEN 3: Success -->
-    <div id="auth-s3" style="display:none;text-align:center">
-      <div style="font-size:48px;margin-bottom:16px">🎉</div>
-      <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--text);margin-bottom:8px">Chào mừng!</h3>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:20px">
-        Giọt và tiến độ học của bạn sẽ được lưu tự động trên mọi thiết bị.
-      </p>
-      <div style="background:rgba(34,211,238,.06);border:1px solid var(--border2);
-        border-radius:12px;padding:16px;margin-bottom:20px">
-        <div style="font-size:11px;color:var(--cyan);font-weight:700;letter-spacing:.08em;margin-bottom:4px">TÀI KHOẢN CỦA BẠN</div>
-        <div style="font-size:16px;font-weight:600;color:var(--text)" id="auth-welcome-name"></div>
-        <div style="font-size:12px;color:var(--muted)" id="auth-welcome-email"></div>
-        <div style="font-size:13px;color:var(--cyan);margin-top:8px">
-          💧 <span id="auth-welcome-giot">0</span> Giọt tích lũy
-        </div>
+    <!-- Screen 3: Thành công -->
+    <div id="aScreen3" style="display:none">
+      <div class="auth-success-icon">🎉</div>
+      <div class="auth-user-card">
+        <div class="auth-label">TÀI KHOẢN CỦA BẠN</div>
+        <div class="name" id="aWelcomeName"></div>
+        <div class="email" id="aWelcomeEmail"></div>
+        <div class="giot">💧 <span id="aWelcomeGiot">0</span> Giọt tích lũy</div>
       </div>
-      <button class="auth-btn" onclick="closeAuth()">Bắt đầu học →</button>
+      <button class="auth-btn" onclick="Auth.close()">Bắt đầu học →</button>
     </div>
   </div>
 </div>
