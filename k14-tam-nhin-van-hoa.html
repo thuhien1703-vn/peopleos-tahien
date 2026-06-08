@@ -198,7 +198,37 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
 <div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div></div>
 <div class="nav-btns"><button class="btn-back" onclick="go(4)" >← Quay lại</button>
-<button class="btn-next" id="n5" onclick="window.location.href='/'"  style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button></div>
+<button class="btn-next" id="n5" onclick="go(6)" disabled style="background:linear-gradient(135deg,#6366F1,#6366F1)">Tiếp theo →</button></div>
+</div>
+<div class="module" id="m6">
+<div class="hero"><div class="hero-badge">🔭 Horizon · Bài 6</div><div class="hero-num">Bài 6 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">Tổng kết & Hành trình tiếp theo</div></div>
+<div class="hl"><div class="hl-label">Bridge sang K15 — AI Strategy cho CHRO</div>
+<p>Culture và AI không phải opposite — culture defines HOW bạn deploy AI. <b style="color:var(--cyan)">K15 AI Strategy cho CHRO</b> sẽ dạy bạn navigate AI disruption trong workforce, deploy AI ethically, và build AI-ready culture trong tổ chức chuỗi F&B.</p></div>
+<p class="body">People Vision và Culture Strategy chỉ có giá trị khi được lived hàng ngày — không phải chỉ được stated hàng năm. CHRO phải là người đầu tiên model những gì tổ chức tuyên bố tin vào.</p>
+<div class="sec-title">Culture Sustainability — 3 habits của CHRO</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Story curation monthly</div><div class="cd">Mỗi tháng, tìm và broadcast 1 culture story thật từ frontline. Không phải PR story — story thật, có tên người, có hoàn cảnh. Culture travels through stories.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">Culture non-negotiable enforcement</div><div class="cd">Khi ai đó vi phạm culture non-negotiable — dù là senior leader — CHRO phải be the one to address it publicly enough. Culture is only as strong as the enforcement of its boundaries.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Reward alignment quarterly check</div><div class="cd">Mỗi quý, review 1 lần: người được promote, được raise, được recognition — có align với core values không? Nếu không — reward system đang override culture statement.</div></div>
+</div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 6</div>
+<div class="tw-text">"Culture không phải thứ CHRO xây rồi để đó — đó là garden cần được tended mỗi ngày, với sự chú ý nhỏ nhưng nhất quán."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 6</div>
+<div class="micro-text">Trong tuần tới, tìm 1 culture story thật từ frontline — ai đó đã làm đúng theo core values trong tình huống không ai nhìn. Viết lại câu chuyện đó và share với team leadership. Đây là bước đầu tiên của culture story curation.</div></div>
+<div class="cert-wrap">
+<div class="cert-badge">🏆</div>
+<div class="cert-title">Chứng Chỉ Hoàn Thành</div>
+<div class="cert-sub">K14 · Horizon Track · PeopleOS by TaHien</div>
+<input class="cert-name-input" id="cert-name" placeholder="Nhập tên của bạn..."><br>
+<button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
+<div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div>
+</div>
+<div class="nav-btns">
+<button class="btn-back" onclick="go(5)">← Quay lại</button>
+<button class="btn-next" onclick="window.location.href='/'" style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button>
+</div>
 </div>
 </div>
 <div class="footer">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
@@ -206,7 +236,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 var cur=1,tot=6,doneM={};
 var giot=parseInt(localStorage.getItem('pos_giot')||'0');
 document.getElementById('giot-val').textContent=giot;
-var TITLES=["Culture \u2014 th\u1ee9 CEO ph\u00e1t bi\u1ec3u nh\u01b0ng CHRO ph\u1ea3i build", "People Vision \u2014 articulate th\u1ee9 CEO s\u1ebd align v\u00e0 Board s\u1ebd fund", "Culture Change t\u1ea1i scale \u2014 100+ locations", "\u0110o l\u01b0\u1eddng Culture \u2014 leading indicators, kh\u00f4ng ph\u1ea3i annual survey", "CHRO l\u00e0 Chief Culture Officer \u2014 tr\u00e1ch nhi\u1ec7m v\u00e0 legacy"];
+var TITLES=["Culture \u2014 th\u1ee9 CEO ph\u00e1t bi\u1ec3u nh\u01b0ng CHRO ph\u1ea3i build", "People Vision \u2014 articulate th\u1ee9 CEO s\u1ebd align v\u00e0 Board s\u1ebd fund", "Culture Change t\u1ea1i scale \u2014 100+ locations", "\u0110o l\u01b0\u1eddng Culture \u2014 leading indicators, kh\u00f4ng ph\u1ea3i annual survey", "CHRO l\u00e0 Chief Culture Officer \u2014 tr\u00e1ch nhi\u1ec7m v\u00e0 legacy","Tổng kết & Hành trình tiếp theo"];
 function buildDots(){var c=document.getElementById('dots');c.innerHTML='';for(var i=1;i<=tot;i++){var d=document.createElement('div');d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));var tip=document.createElement('div');tip.className='dot-tip';tip.textContent='Bài '+i+': '+TITLES[i-1];d.appendChild(tip);(function(n){d.onclick=function(){if(n<cur||doneM[n-1]||n===1)go(n);}})(i);c.appendChild(d);}}
 function updProg(){var p=Math.round(((cur-1)/tot)*100);document.getElementById('pfill').style.width=p+'%';document.getElementById('ppct').textContent=p+'%';document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;}
 function go(n){document.getElementById('m'+cur).classList.remove('active');if(n>1)document.getElementById('outcomes-box').style.display='none';else document.getElementById('outcomes-box').style.display='block';doneM[cur]=true;cur=n;document.getElementById('m'+cur).classList.add('active');buildDots();updProg();window.scrollTo({top:0,behavior:'smooth'});localStorage.setItem('resume_k14-tam-nhin-van-hoa',n);}
