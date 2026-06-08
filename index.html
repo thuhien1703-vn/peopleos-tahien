@@ -446,6 +446,78 @@ footer{background:var(--navy);padding:40px 24px 24px}
 @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}
   to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
+
+/* ── AUTH BUTTON (fix UI) ── */
+.login-btn{background:linear-gradient(135deg,var(--cyan),var(--teal));color:var(--navy);
+  border:none;border-radius:20px;padding:6px 18px;font-size:13px;font-weight:700;
+  cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s;white-space:nowrap}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(34,211,238,.4)}
+
+/* ── USER AVATAR PILL ── */
+.user-pill{display:flex;align-items:center;gap:8px;background:rgba(34,211,238,.08);
+  border:1px solid rgba(34,211,238,.2);border-radius:22px;padding:4px 14px 4px 6px;
+  cursor:pointer;transition:all .2s}
+.user-pill:hover{background:rgba(34,211,238,.14);border-color:rgba(34,211,238,.35)}
+.user-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--teal));
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;
+  color:var(--navy);flex-shrink:0}
+.user-name{font-size:12px;font-weight:600;color:var(--text)}
+
+/* ── AUTH MODAL ── */
+.auth-overlay{position:fixed;inset:0;background:rgba(2,11,24,.85);backdrop-filter:blur(8px);
+  z-index:600;display:none;align-items:center;justify-content:center;padding:20px}
+.auth-overlay.open{display:flex}
+.auth-box{background:#071e36;border:1px solid rgba(34,211,238,.2);border-radius:20px;
+  padding:36px 32px;max-width:420px;width:100%;position:relative}
+.auth-close{position:absolute;top:14px;right:16px;background:none;border:none;
+  color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
+.auth-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;
+  color:var(--text);margin-bottom:6px}
+.auth-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.auth-field{width:100%;background:var(--navy3);border:1px solid var(--border);border-radius:10px;
+  padding:11px 14px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;
+  outline:none;transition:border .2s;margin-bottom:12px}
+.auth-field:focus{border-color:var(--cyan)}
+.auth-btn{width:100%;background:linear-gradient(135deg,var(--cyan),var(--teal));color:var(--navy);
+  border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;
+  cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s;margin-top:4px}
+.auth-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(34,211,238,.35)}
+.auth-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.auth-msg{font-size:13px;margin-top:10px;text-align:center;min-height:20px}
+.auth-msg.ok{color:var(--teal)}.auth-msg.err{color:#FCA5A5}
+.auth-step{display:none}.auth-step.active{display:block}
+.auth-divider{text-align:center;font-size:11px;color:var(--muted);margin:10px 0}
+.auth-logout{background:none;border:1px solid rgba(239,68,68,.3);border-radius:8px;
+  padding:6px 14px;color:#FCA5A5;font-size:12px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;
+  margin-top:14px;width:100%;transition:all .2s}
+.auth-logout:hover{background:rgba(239,68,68,.1)}
+
+/* ── LEADERBOARD SECTION ── */
+.lb-section{padding:60px 0;background:rgba(0,0,0,.2)}
+.lb-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;
+  color:var(--text);margin-bottom:6px;text-align:center}
+.lb-sub{font-size:14px;color:var(--muted);text-align:center;margin-bottom:32px}
+.lb-wrap{max-width:760px;margin:0 auto;padding:0 20px}
+.lb-row{display:flex;align-items:center;gap:14px;padding:14px 18px;
+  background:var(--navy2);border:1px solid var(--border);border-radius:14px;
+  margin-bottom:10px;transition:all .2s}
+.lb-row:hover{border-color:rgba(34,211,238,.25);transform:translateX(4px)}
+.lb-row.me{border-color:rgba(240,192,64,.35);background:rgba(240,192,64,.06)}
+.lb-rank{width:28px;text-align:center;font-size:13px;font-weight:700;color:var(--muted);flex-shrink:0}
+.lb-rank.gold{color:#F0C040;font-size:18px}
+.lb-rank.silver{color:#94A3B8;font-size:16px}
+.lb-rank.bronze{color:#CD7C54;font-size:15px}
+.lb-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--navy3),var(--navy2));
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:var(--cyan);flex-shrink:0}
+.lb-info{flex:1;min-width:0}
+.lb-name{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-detail{font-size:11px;color:var(--muted);margin-top:2px}
+.lb-giot{font-size:15px;font-weight:700;color:var(--gold);white-space:nowrap}
+.lb-empty{text-align:center;color:var(--muted);font-size:14px;padding:40px 0}
+.lb-loading{text-align:center;color:var(--muted);font-size:13px;padding:20px 0;animation:pulse 1.5s ease infinite}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
 </style>
 </head>
 <body>
@@ -464,7 +536,7 @@ footer{background:var(--navy);padding:40px 24px 24px}
   </div>
   <div class="nav-right" id="nav-right-area">
     <div class="giot-pill">💧 <span id="giot-val">0</span> Giọt</div>
-    <button class="login-btn" id="nav-login-btn" onclick="openAuthModal()">Đăng nhập</button>
+    <button class="login-btn" id="nav-login-btn" onclick="openAuth()">Đăng nhập</button>
   </div>
 </nav>
 
@@ -1176,6 +1248,246 @@ updateUI();
 
 
 // ═══════════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════════════════════
+// AUTH SYSTEM — persistent login + leaderboard
+// ═══════════════════════════════════════════════════════════════
+
+var _authUser = null;
+var _AUTH_KEY = 'pos_auth_user';
+
+// ── Load saved session on page load ──────────────────────────
+(function initAuth() {
+  try {
+    var saved = localStorage.getItem(_AUTH_KEY);
+    if (saved) {
+      _authUser = JSON.parse(saved);
+      _applyAuthUI(_authUser);
+      // Sync with server in background
+      _syncUser(_authUser.email);
+    }
+  } catch(e) { localStorage.removeItem(_AUTH_KEY); }
+})();
+
+function _syncUser(email) {
+  fetch('/api/get-user?email=' + encodeURIComponent(email))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d.user) {
+        // Merge: take max giot (local vs server)
+        var localGiot = parseInt(localStorage.getItem('pos_giot')||'0');
+        d.user.giot = Math.max(d.user.giot||0, localGiot);
+        _authUser = d.user;
+        localStorage.setItem(_AUTH_KEY, JSON.stringify(_authUser));
+        localStorage.setItem('pos_giot', d.user.giot);
+        _applyAuthUI(_authUser);
+        updateUI && updateUI();
+      }
+    })
+    .catch(function(){});
+}
+
+function _applyAuthUI(user) {
+  var navRight = document.getElementById('nav-right-area');
+  if (!navRight) return;
+  // Cập nhật Giọt
+  var g = Math.max(parseInt(localStorage.getItem('pos_giot')||'0'), user.giot||0);
+  navRight.innerHTML =
+    '<div class="giot-pill" onclick="openAuth()" title="Đổi Giọt lấy phần thưởng">💧 <span id="giot-val">' + g + '</span> Giọt</div>' +
+    '<div class="user-pill" onclick="openAuth()">' +
+      '<div class="user-avatar">' + (user.name||'U').charAt(0).toUpperCase() + '</div>' +
+      '<span class="user-name">' + (user.name||'').split(' ').slice(-1)[0] + '</span>' +
+    '</div>';
+  // Cập nhật stat card nếu có
+  ['giot-val','nav-giot-display','hero-xp'].forEach(function(id){
+    var el = document.getElementById(id); if(el) el.textContent = g;
+  });
+}
+
+// ── Open / Close ──────────────────────────────────────────────
+function openAuth() {
+  var overlay = document.getElementById('auth-overlay');
+  if (!overlay) return;
+  if (_authUser) {
+    // Already logged in — show profile
+    showStep('step-loggedin');
+    document.getElementById('li-greeting').textContent = 'Xin chào, ' + (_authUser.name||'bạn') + '!';
+    document.getElementById('li-email-show').textContent = _authUser.email||'';
+    document.getElementById('li-giot').textContent = Math.max(parseInt(localStorage.getItem('pos_giot')||'0'), _authUser.giot||0);
+    document.getElementById('li-done').textContent = (_authUser.done||[]).length;
+    document.getElementById('li-streak').textContent = _authUser.streak||0;
+  } else {
+    showStep('step-email');
+  }
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+// Legacy alias
+window.openAuthModal = openAuth;
+
+function closeAuth() {
+  var overlay = document.getElementById('auth-overlay');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('auth-overlay') && document.getElementById('auth-overlay').addEventListener('click', function(e){
+  if (e.target === this) closeAuth();
+});
+
+function showStep(id) {
+  ['step-email','step-otp','step-loggedin'].forEach(function(s){
+    var el = document.getElementById(s);
+    if (el) el.classList.toggle('active', s === id);
+  });
+}
+
+function backToEmail() { showStep('step-email'); }
+
+// ── Send OTP ──────────────────────────────────────────────────
+function sendOTP() {
+  var name = (document.getElementById('auth-name').value||'').trim();
+  var email = (document.getElementById('auth-email').value||'').trim().toLowerCase();
+  var msg = document.getElementById('msg-step1');
+  var btn = document.getElementById('btn-send-otp');
+  if (!name) { msg.textContent = 'Vui lòng nhập tên của bạn'; msg.className='auth-msg err'; return; }
+  if (!email || !email.includes('@')) { msg.textContent = 'Email chưa hợp lệ'; msg.className='auth-msg err'; return; }
+  btn.disabled = true; btn.textContent = 'Đang gửi...';
+  msg.textContent = ''; msg.className = 'auth-msg';
+  fetch('/api/send-otp', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({email, name})})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d.success) {
+        document.getElementById('otp-email-hint').textContent = 'Mã 6 số đã gửi đến ' + email;
+        showStep('step-otp');
+        setTimeout(function(){ document.getElementById('auth-otp').focus(); }, 100);
+      } else {
+        msg.textContent = d.error || 'Lỗi gửi OTP. Thử lại.'; msg.className='auth-msg err';
+        btn.disabled = false; btn.textContent = 'Gửi mã xác nhận →';
+      }
+    })
+    .catch(function(){ msg.textContent='Lỗi kết nối.'; msg.className='auth-msg err'; btn.disabled=false; btn.textContent='Gửi mã xác nhận →'; });
+}
+
+// ── Verify OTP ────────────────────────────────────────────────
+function verifyOTP() {
+  var email = (document.getElementById('auth-email').value||'').trim().toLowerCase();
+  var otp = (document.getElementById('auth-otp').value||'').trim();
+  var msg = document.getElementById('msg-step2');
+  var btn = document.getElementById('btn-verify');
+  if (!otp || otp.length < 6) { msg.textContent='Nhập đủ 6 số'; msg.className='auth-msg err'; return; }
+  btn.disabled=true; btn.textContent='Đang xác nhận...';
+  fetch('/api/verify-otp', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({email, otp})})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d.success && d.user) {
+        // Merge local giot
+        var localGiot = parseInt(localStorage.getItem('pos_giot')||'0');
+        d.user.giot = Math.max(d.user.giot||0, localGiot);
+        _authUser = d.user;
+        localStorage.setItem(_AUTH_KEY, JSON.stringify(_authUser));
+        localStorage.setItem('pos_giot', d.user.giot);
+        // Sync merged giot to server
+        fetch('/api/update-giot', {method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({email: d.user.email, giot: d.user.giot, done: [], streak: 0})});
+        _applyAuthUI(_authUser);
+        updateUI && updateUI();
+        closeAuth();
+        // Show welcome toast
+        _toast('🎉 Chào mừng ' + (d.user.name||'bạn') + ' đến PeopleOS!');
+        // Refresh leaderboard
+        loadLeaderboard();
+      } else {
+        msg.textContent = d.error||'Mã không đúng'; msg.className='auth-msg err';
+        btn.disabled=false; btn.textContent='Xác nhận →';
+      }
+    })
+    .catch(function(){ msg.textContent='Lỗi kết nối.'; msg.className='auth-msg err'; btn.disabled=false; btn.textContent='Xác nhận →'; });
+}
+
+// ── Enter key support ─────────────────────────────────────────
+document.getElementById('auth-otp') && document.getElementById('auth-otp').addEventListener('keydown', function(e){ if(e.key==='Enter') verifyOTP(); });
+document.getElementById('auth-email') && document.getElementById('auth-email').addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('auth-name').value ? sendOTP() : document.getElementById('auth-name').focus(); });
+
+// ── Logout ────────────────────────────────────────────────────
+function logoutUser() {
+  _authUser = null;
+  localStorage.removeItem(_AUTH_KEY);
+  var navRight = document.getElementById('nav-right-area');
+  if (navRight) {
+    navRight.innerHTML =
+      '<div class="giot-pill">💧 <span id="giot-val">' + (localStorage.getItem('pos_giot')||'0') + '</span> Giọt</div>' +
+      '<button class="login-btn" id="nav-login-btn" onclick="openAuth()">Đăng nhập</button>';
+  }
+  closeAuth();
+  _toast('Đã đăng xuất thành công');
+}
+
+// ── Toast ──────────────────────────────────────────────────────
+function _toast(msg) {
+  var old = document.querySelector('.auth-toast'); if(old) old.remove();
+  var t = document.createElement('div');
+  t.className = 'auth-toast';
+  t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#062040;border:1px solid var(--teal);border-radius:12px;padding:12px 20px;font-size:13px;color:#F0F6FF;z-index:1000;white-space:nowrap;animation:fadeIn .3s ease';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.style.opacity='0'; t.style.transition='opacity .4s'; setTimeout(function(){t.remove();},400); }, 3000);
+}
+
+// ── LEADERBOARD ────────────────────────────────────────────────
+function loadLeaderboard() {
+  var list = document.getElementById('lb-list');
+  if (!list) return;
+  list.innerHTML = '<div class="lb-loading">Đang tải...</div>';
+  fetch('/api/leaderboard')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (!d.users || d.users.length === 0) {
+        list.innerHTML = '<div class="lb-empty">Chưa có dữ liệu. Hãy là người đầu tiên! 🚀</div>';
+        return;
+      }
+      var myEmail = _authUser ? _authUser.email : null;
+      var html = '';
+      d.users.forEach(function(u, i) {
+        var rank = i + 1;
+        var rankHtml = rank === 1 ? '<span class="lb-rank gold">🥇</span>' :
+                       rank === 2 ? '<span class="lb-rank silver">🥈</span>' :
+                       rank === 3 ? '<span class="lb-rank bronze">🥉</span>' :
+                       '<span class="lb-rank">' + rank + '</span>';
+        var isMe = myEmail && (u.email === myEmail || (i < 50 && _authUser && u.name === _authUser.name));
+        var rowClass = isMe ? 'lb-row me' : 'lb-row';
+        var initial = (u.name||'?').charAt(0).toUpperCase();
+        html += '<div class="' + rowClass + '">' +
+          rankHtml +
+          '<div class="lb-avatar">' + initial + '</div>' +
+          '<div class="lb-info">' +
+            '<div class="lb-name">' + (u.name||'Ẩn danh') + (isMe ? ' <span style="font-size:11px;color:var(--gold)">(bạn)</span>' : '') + '</div>' +
+            '<div class="lb-detail">' + u.done + ' khóa · 🔥 ' + u.streak + ' ngày</div>' +
+          '</div>' +
+          '<div class="lb-giot">💧 ' + (u.giot||0).toLocaleString() + '</div>' +
+        '</div>';
+      });
+      list.innerHTML = html;
+    })
+    .catch(function(){
+      list.innerHTML = '<div class="lb-empty">Không tải được bảng xếp hạng. Thử lại sau.</div>';
+    });
+}
+
+// Auto-load leaderboard when section visible
+var _lbLoaded = false;
+var _lbObs = new IntersectionObserver(function(entries){
+  if (entries[0].isIntersecting && !_lbLoaded) {
+    _lbLoaded = true;
+    loadLeaderboard();
+  }
+}, {threshold: 0.1});
+var _lbSection = document.getElementById('leaderboard');
+if (_lbSection) _lbObs.observe(_lbSection);
+
 </script>>
 
 
