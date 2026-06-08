@@ -192,7 +192,38 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
 <div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div></div>
 <div class="nav-btns"><button class="btn-back" onclick="go(4)" >← Quay lại</button>
-<button class="btn-next" id="n5" onclick="window.location.href='/'"  style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button></div>
+<button class="btn-next" id="n5" onclick="go(6)" disabled style="background:linear-gradient(135deg,#0D9488,#6366F1)">Tiếp theo →</button></div>
+</div>
+<div class="module" id="m6">
+<div class="hero"><div class="hero-badge">🔭 Horizon · Bài 6</div><div class="hero-num">Bài 6 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">Tổng kết & Hành trình tiếp theo</div></div>
+<div class="hl"><div class="hl-label">Bridge sang K17 — Finance-HR Hybrid Advanced</div>
+<p>Stagility architecture cần financial justification để get Board approval và CFO buy-in. <b style="color:var(--cyan)">K17 Finance-HR Hybrid Advanced</b> sẽ dạy bạn build workforce cost models, IPO readiness từ people perspective, và speak CFO's language fluently.</p></div>
+<p class="body">Stagility không phải implementation xong là done — đó là continuous portfolio management. Quarterly review portfolio mix, annual realign với business strategy, và always measure: flexibility index, ramp-up speed, và core stability rate.</p>
+<div class="sec-title">Stagility Quarterly Review Agenda</div>
+<div class="grid2">
+<div class="card"><div class="cn">Q1 — Portfolio Mix</div><div class="cd">Tỷ lệ Core/Flex/Dynamic hiện tại vs. target. Có tier nào over hay under indexed không? Adjustment plan?</div></div>
+<div class="card"><div class="cn">Q2 — Agility Test</div><div class="cd">Simulate: "Nếu demand tăng 30% ngay tuần tới, chúng ta deploy được bao nhiêu người trong 7 ngày?" Real number — không estimate.</div></div>
+<div class="card"><div class="cn">Q3 — Alumni Pulse</div><div class="cd">Check alumni network: có ai sẵn sàng return không? Relationship nào cần maintain hơn? Ai đang flourish at competitors?</div></div>
+<div class="card"><div class="cn">Q4 — Cost Efficiency</div><div class="cd">RevPAMH theo tier. Tier nào đang under-deliver? Tier nào ROI cao nhất? Inform next year portfolio decisions.</div></div>
+</div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 6</div>
+<div class="tw-text">"Workforce agility không được build trong crisis — nó được maintained trong calm waters sao cho khi crisis arrives, bạn đã có thứ cần thiết."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 6</div>
+<div class="micro-text">Schedule Stagility Quarterly Review đầu tiên trong calendar: 2 giờ, với 4 agenda items ở trên. Invite HR lead, Finance representative, và 1 business unit head. Bắt đầu measure những gì bạn want to manage.</div></div>
+<div class="cert-wrap">
+<div class="cert-badge">🏆</div>
+<div class="cert-title">Chứng Chỉ Hoàn Thành</div>
+<div class="cert-sub">K16 · Horizon Track · PeopleOS by TaHien</div>
+<input class="cert-name-input" id="cert-name" placeholder="Nhập tên của bạn..."><br>
+<button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
+<div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div>
+</div>
+<div class="nav-btns">
+<button class="btn-back" onclick="go(5)">← Quay lại</button>
+<button class="btn-next" onclick="window.location.href='/'" style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button>
+</div>
 </div>
 </div>
 <div class="footer">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
@@ -200,7 +231,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 var cur=1,tot=6,doneM={};
 var giot=parseInt(localStorage.getItem('pos_giot')||'0');
 document.getElementById('giot-val').textContent=giot;
-var TITLES=["Stagility \u2014 t\u1ea1i sao Stability v\u00e0 Agility kh\u00f4ng ph\u1ea3i \u0111\u00e1nh \u0111\u1ed5i", "Scenario-Based Workforce Planning", "Workforce Agility trong F&B \u2014 build khi kh\u00f4ng c\u1ea7n, deploy khi c\u1ea7n", "Stagility Metrics \u2014 \u0111o \u0111\u01b0\u1ee3c m\u1edbi manage \u0111\u01b0\u1ee3c", "Stagility trong practice \u2014 t\u1eeb concept \u0111\u1ebfn execution"];
+var TITLES=["Stagility \u2014 t\u1ea1i sao Stability v\u00e0 Agility kh\u00f4ng ph\u1ea3i \u0111\u00e1nh \u0111\u1ed5i", "Scenario-Based Workforce Planning", "Workforce Agility trong F&B \u2014 build khi kh\u00f4ng c\u1ea7n, deploy khi c\u1ea7n", "Stagility Metrics \u2014 \u0111o \u0111\u01b0\u1ee3c m\u1edbi manage \u0111\u01b0\u1ee3c", "Stagility trong practice \u2014 t\u1eeb concept \u0111\u1ebfn execution","Tổng kết & Hành trình tiếp theo"];
 function buildDots(){var c=document.getElementById('dots');c.innerHTML='';for(var i=1;i<=tot;i++){var d=document.createElement('div');d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));var tip=document.createElement('div');tip.className='dot-tip';tip.textContent='Bài '+i+': '+TITLES[i-1];d.appendChild(tip);(function(n){d.onclick=function(){if(n<cur||doneM[n-1]||n===1)go(n);}})(i);c.appendChild(d);}}
 function updProg(){var p=Math.round(((cur-1)/tot)*100);document.getElementById('pfill').style.width=p+'%';document.getElementById('ppct').textContent=p+'%';document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;}
 function go(n){document.getElementById('m'+cur).classList.remove('active');if(n>1)document.getElementById('outcomes-box').style.display='none';else document.getElementById('outcomes-box').style.display='block';doneM[cur]=true;cur=n;document.getElementById('m'+cur).classList.add('active');buildDots();updProg();window.scrollTo({top:0,behavior:'smooth'});localStorage.setItem('resume_k16-workforce-stagility',n);}
