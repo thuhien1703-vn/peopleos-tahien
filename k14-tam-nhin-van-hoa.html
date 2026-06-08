@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tầm Nhìn & Văn Hóa · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--text:#E8F4F8;--muted:#8BB8CC;--subtle:#4A7A94;--border:rgba(34,211,238,0.15);--kc:#6366F1}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100vh;line-height:1.7}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(124,58,237,.06) 0%,transparent 55%),radial-gradient(ellipse at 70% 60%,rgba(34,211,238,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+.topnav{position:sticky;top:0;height:58px;background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
+.back{color:var(--muted);text-decoration:none;font-size:13px;transition:color .2s}.back:hover{color:var(--cyan)}
+.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;white-space:nowrap}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);padding:10px 24px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border)}
+.breadcrumb a{color:var(--cyan);text-decoration:none}.breadcrumb .sep{opacity:.4}
+.prog-wrap{padding:10px 24px 0;background:rgba(0,0,0,.15)}.prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--navy2);border-radius:4px;overflow:hidden}.prog-fill{height:100%;background:linear-gradient(90deg,var(--kc),var(--cyan));border-radius:4px;transition:width .4s}
+.dots-wrap{display:flex;justify-content:center;gap:10px;padding:14px 0 4px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--navy3);border:1px solid var(--border);cursor:pointer;transition:all .2s;position:relative}
+.dot.active{background:var(--kc);border-color:var(--kc);box-shadow:0 0 0 3px rgba(124,58,237,.2)}.dot.done{background:var(--teal);border-color:var(--teal)}
+.dot-tip{position:absolute;bottom:calc(100%+8px);left:50%;transform:translateX(-50%);background:#0d2a42;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:150px;text-align:center}.dot:hover .dot-tip{opacity:1}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:1}
+.hero{background:linear-gradient(135deg,rgba(6,18,31,.95),rgba(6,18,31,.8));border-left:4px solid var(--kc);border-radius:14px;padding:26px 28px 20px;margin:20px 0 22px;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:3px 12px;font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}.hero-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--text);line-height:1.25}.hero-time{font-size:12px;color:var(--muted);margin-top:6px}
+.outcomes-box{background:rgba(34,211,238,.04);border:1px solid rgba(34,211,238,.14);border-radius:12px;padding:16px 18px;margin:0 0 20px}.outcomes-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);text-transform:uppercase;margin-bottom:8px}
+.outcomes-list{list-style:none;padding:0;margin:0}.outcomes-list li{font-size:13px;color:var(--text);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}.outcomes-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
+.lead{font-style:italic;color:var(--muted);border-left:3px solid var(--kc);padding:14px 18px;margin:20px 0;font-size:15px;line-height:1.7;border-radius:0 8px 8px 0;background:rgba(255,255,255,.02)}
+.body{color:var(--text);font-size:15px;line-height:1.75;margin:14px 0}.sec-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--cyan);margin:26px 0 10px}
+.hl{background:rgba(240,192,64,.05);border:1px solid rgba(240,192,64,.18);border-radius:10px;padding:14px 18px;margin:16px 0}.hl-label{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.card{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.cn{font-size:11px;color:var(--kc);font-weight:700;margin-bottom:4px}.ct{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}.cd{font-size:12px;color:var(--muted);line-height:1.5}
+.ex{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:20px;margin:20px 0}.ex-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}.ex-ico{font-size:24px}.ex-label{font-size:13px;font-weight:700;color:var(--text)}.ex-sub{font-size:12px;color:var(--muted)}
+.qq{font-size:14px;color:var(--text);margin-bottom:12px;font-weight:500;line-height:1.6}.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;text-align:left;cursor:pointer;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s;display:flex;align-items:flex-start;gap:10px}.qopt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.06)}.qopt:disabled{cursor:not-allowed;opacity:.7}
+.oletter{width:22px;height:22px;border-radius:50%;background:var(--navy);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);flex-shrink:0;margin-top:1px}
+.qopt.correct{border-color:var(--teal);background:rgba(6,182,212,.1)}.qopt.wrong{border-color:#EF4444;background:rgba(239,68,68,.08)}
+.qfb{font-size:13px;padding:10px 12px;border-radius:8px;margin-top:10px;display:none}.qfb.show{display:block}.qfb.correct{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:#6EE7B7}.qfb.wrong{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#FCA5A5}
+.reflect{width:100%;background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;resize:vertical;min-height:90px;outline:none;transition:border .2s}.reflect:focus{border-color:var(--cyan)}.reflect-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.check-group{display:flex;flex-direction:column;gap:8px;margin:10px 0}.check-item{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--text)}.check-item input{width:16px;height:16px;cursor:pointer;accent-color:var(--teal)}
+.tw{background:linear-gradient(135deg,rgba(6,182,212,.07),rgba(240,192,64,.04));border:1px solid rgba(240,192,64,.18);border-radius:14px;padding:20px 22px;margin:22px 0}.tw-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}.tw-text{font-style:italic;font-size:16px;color:var(--text);line-height:1.6;font-weight:500;margin-bottom:6px}.tw-author{font-size:12px;color:var(--muted)}
+.micro-task{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:12px;padding:14px 16px;margin-top:14px}.micro-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}.micro-text{font-size:13px;color:var(--text);line-height:1.6}
+.cert-wrap{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:2px solid var(--gold);border-radius:18px;padding:36px 28px;text-align:center;margin:24px 0}.cert-badge{font-size:48px;margin-bottom:14px}.cert-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:8px}.cert-sub{font-size:14px;color:var(--muted);margin-bottom:20px}
+.cert-name-input{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;width:100%;max-width:320px;text-align:center;outline:none;margin-bottom:14px}
+.cert-btn{background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy);border:none;border-radius:10px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.cert-btn:hover{transform:translateY(-1px)}
+.nav-btns{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}.btn-back{background:none;border:1px solid var(--border);border-radius:10px;padding:10px 20px;color:var(--muted);cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s}.btn-back:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-next{color:white;border:none;border-radius:10px;padding:11px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.btn-next:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,58,237,.3)}.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}.module{display:none}.module.active{display:block}
+.footer{text-align:center;padding:20px;font-size:11px;color:var(--subtle);border-top:1px solid var(--border);margin-top:40px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}.hero-title{font-size:20px}}</style></head><body>
+<nav class="topnav"><a class="back" href="/">← Về Learning Hub</a>
+<div style="display:flex;align-items:center"><span class="nav-logo">PeopleOS</span><span class="nav-sub">Learning Hub &nbsp;by TaHien</span></div>
+<div class="giot-pill">💧 <span id="giot-val">0</span> Giọt</div></nav>
+<div class="breadcrumb"><a href="/">Learning Hub</a><span class="sep">›</span><span>Horizon 🔭</span><span class="sep">›</span><span>Tầm Nhìn & Văn Hóa</span></div>
+<div class="prog-wrap"><div class="prog-top"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div><div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div></div>
+<div class="dots-wrap" id="dots"></div>
+<div class="wrap">
+<div class="outcomes-box" id="outcomes-box"><div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div><ul class="outcomes-list"><li>Articulate được people vision rõ ràng, inspiring, và gắn với business strategy</li><li>Thiết kế culture intervention có thể scale across 100+ locations trong chuỗi F&B</li><li>Đo lường culture bằng leading indicators — không phải chỉ employee survey hàng năm</li></ul></div>
+<div class="module active" id="m1">
+<div class="hero"><div class="hero-badge">🔭 Horizon · Bài 1</div>
+<div class="hero-num">Bài 1 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">Culture — thứ CEO phát biểu nhưng CHRO phải build</div></div>
+<div class="lead">"Mỗi CEO Hiền từng làm việc cùng đều có câu phát biểu về culture đẹp. Nhưng khi Hiền hỏi 'Culture của chúng ta trông như thế nào ở cửa hàng số 247 lúc 10 giờ đêm khi shift manager đang xử lý 3 nhân viên nghỉ đột xuất?' — hầu hết CEO không có câu trả lời. Vì culture không sống ở PowerPoint, nó sống ở những khoảnh khắc không ai nhìn."</div>
+<p class="body">Culture = tập hợp những gì xảy ra khi không có ai theo dõi. Đây là định nghĩa thực tế duy nhất. Và CHRO là người phải đảm bảo rằng những khoảnh khắc không ai nhìn vẫn align với những gì tổ chức tuyên bố.</p>
+<div class="sec-title">3 lớp của Culture — và CHRO phải work ở cả 3</div>
+<div class="grid2">
+<div class="card"><div class="cn">LỚP BỀ MẶT</div><div class="ct">Artifacts</div><div class="cd">Những gì nhìn thấy: dress code, workspace design, ritual, ceremony, language được dùng. Dễ change nhưng không đủ để thay đổi culture thật sự.</div></div>
+<div class="card"><div class="cn">LỚP GIỮA</div><div class="ct">Espoused Values</div><div class="cd">Những gì tổ chức tuyên bố tin vào: core values, mission statement, leadership principles. Thường đẹp trên tường nhưng không nhất thiết là thật.</div></div>
+<div class="card"><div class="cn">LỚP CỐT LÕI</div><div class="ct">Basic Assumptions</div><div class="cd">Những gì mọi người thật sự tin — không nói ra nhưng hành động theo. "Ở đây, người làm tốt được thăng tiến hay người thân CEO được thăng tiến?" Đây là culture thật. CHRO phải work ở đây.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Culture diagnostic — 3 câu hỏi Hiền hay hỏi khi vào tổ chức mới</div>
+<p><b style="color:var(--cyan)">(1) "Người nào trong tổ chức này không phù hợp với culture nhưng vẫn ở đây — và tại sao?"</b> → Đây là signal mạnh nhất về gap giữa stated và real culture.<br>
+<b style="color:var(--cyan)">(2) "Quyết định nào bị reverse nhiều nhất và tại sao?"</b> → Cho thấy ai thật sự có power.<br>
+<b style="color:var(--cyan)">(3) "Story nào nhân viên kể nhau về công ty mà không phải story official?"</b> → Đây là culture thật đang live.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Kiểm tra nhanh — CHRO Level</div></div></div>
+<div class="qq">CHRO mới của một chuỗi 80 cửa hàng muốn understand culture thật sự (không phải culture on paper). Action nào HIỆU QUẢ NHẤT?</div>
+<div class="qopts" id="q1-opts">
+<button class="qopt" data-q="1" data-o="A"><span class="oletter">A</span>Review core values statement và culture handbook</button>
+<button class="qopt" data-q="1" data-o="B"><span class="oletter">B</span>Send employee engagement survey cho toàn bộ nhân sự</button>
+<button class="qopt" data-q="1" data-o="C"><span class="oletter">C</span>Spend 1 tuần working shifts tại 5-6 cửa hàng khác nhau, observe và conversation với frontline, không announce là CHRO</button>
+<button class="qopt" data-q="1" data-o="D"><span class="oletter">D</span>Meeting với tất cả department heads để nghe culture assessment của họ</button>
+</div><div class="qfb" id="q1-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 1</div>
+<div class="tw-text">"Culture không sống trong mission statement — nó sống trong khoảnh khắc một shift manager cửa hàng #247 quyết định giải quyết vấn đề lúc 10 giờ đêm."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 1</div>
+<div class="micro-text">Apply 3 culture diagnostic questions của Hiền vào tổ chức của bạn. Viết ra câu trả lời thật sự — không phải câu trả lời official. Khoảng cách giữa 2 bộ câu trả lời = culture gap bạn cần address.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(0)" disabled>← Quay lại</button>
+<button class="btn-next" id="n1" onclick="go(2)" disabled style="background:linear-gradient(135deg,#6366F1,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h1">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m2">
+<div class="hero"><div class="hero-badge">🔭 Horizon · Bài 2</div>
+<div class="hero-num">Bài 2 / 6</div><div class="hero-time">⏱ ~5 phút đọc</div>
+<div class="hero-title">People Vision — articulate thứ CEO sẽ align và Board sẽ fund</div></div>
+<p class="body">People Vision không phải là "chúng ta muốn có đội ngũ xuất sắc." Đó là <b>tuyên ngôn cụ thể về loại người, loại năng lực, và loại culture cần thiết để business strategy thành công.</b></p>
+<div class="sec-title">Framework xây dựng People Vision — 4 câu hỏi</div>
+<div class="grid2">
+<div class="card"><div class="cn">CÂU HỎI 01</div><div class="ct">Business cần đi đâu trong 3-5 năm?</div><div class="cd">CHRO phải bắt đầu từ business strategy — không phải HR wish list. "Chúng ta sẽ expand từ 600 lên 1,000 cửa hàng và enter 3 tỉnh mới" → People implication là gì?</div></div>
+<div class="card"><div class="cn">CÂU HỎI 02</div><div class="ct">Loại người nào sẽ làm điều đó thành hiện thực?</div><div class="cd">Không phải "người giỏi" — mà cụ thể: manager có khả năng manage multi-site, frontline staff có cross-culture communication, leader có franchise mindset. Specific enough để hire against.</div></div>
+<div class="card"><div class="cn">CÂU HỎI 03</div><div class="ct">Culture nào cần có để thắng?</div><div class="cd">Mỗi business strategy cần culture khác nhau. Expansion cần culture of speed và entrepreneurship. Premium brand cần culture of quality và detail. CHRO phải define culture cần thiết, không phải culture đang có.</div></div>
+<div class="card"><div class="cn">CÂU HỎI 04</div><div class="ct">Gap giữa nơi chúng ta đang ở và nơi cần đến là gì?</div><div class="cd">People gap, culture gap, capability gap. Đây là People Strategy — không phải People Vision alone. Vision là đích đến, Strategy là bản đồ để đến đó.</div></div>
+</div>
+<div class="hl"><div class="hl-label">People Vision của Golden Gate Group — example thực tế</div>
+<p>Khi GGG expand từ 200 lên 600+ cửa hàng, Hiền build People Vision xung quanh một câu đơn giản: <b style="color:var(--cyan)">"Mỗi cửa hàng của chúng ta có Store Manager đủ capability để run như một CEO nhỏ — tự ra quyết định, tự account cho kết quả, và tự grow team của mình."</b> Từ câu này, mọi program HR được thiết kế đều phải trả lời được: "điều này có build SM capability không?"</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">💭</div><div><div class="ex-label">Reflection — Strategic Level</div></div></div>
+<div class="qq">Nhìn vào business strategy 3 năm tới của tổ chức bạn. Nếu phải viết 1 câu People Vision — loại người và culture cần có để strategy đó thành công — câu đó sẽ là gì?</div>
+<textarea class="reflect" id="ref2" placeholder="Draft People Vision của bạn... (ít nhất 30 ký tự)"></textarea>
+<div class="reflect-hint">Nhập ít nhất 30 ký tự để mở bài tiếp theo</div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 2</div>
+<div class="tw-text">"People Vision phải đủ cụ thể để hire against, develop against, và promote against — không phải chỉ để inspire."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 2</div>
+<div class="micro-text">Draft 1-paragraph People Vision cho tổ chức của bạn: business đi đâu + loại người cần + culture cần có. Test: nếu đọc cho 10 manager, họ có thể nói được 3 implication cho team của họ không? Nếu không — cần làm cụ thể hơn.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(1)" >← Quay lại</button>
+<button class="btn-next" id="n2" onclick="go(3)" disabled style="background:linear-gradient(135deg,#6366F1,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h2">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m3">
+<div class="hero"><div class="hero-badge">🔭 Horizon · Bài 3</div>
+<div class="hero-num">Bài 3 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">Culture Change tại scale — 100+ locations</div></div>
+<p class="body">Culture change trong 1 team 20 người đã khó. Culture change trong 600+ cửa hàng là một project hoàn toàn khác. Phần lớn culture transformation effort thất bại không vì thiếu intent — mà vì <b>thiếu hiểu biết về cách culture actually travels trong large organization.</b></p>
+<div class="sec-title">3 nguyên tắc scale culture trong F&B chain</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Culture travels through stories, not slides</div><div class="cd">Nhân viên không remember culture workshop. Họ remember câu chuyện về người được reward vì làm đúng, và người không bị punish vì làm sai. Mỗi tháng, CHRO phải curate và broadcast 1-2 culture story thật từ frontline.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">Culture is set at middle management</div><div class="cd">CEO set aspiration. CHRO set framework. Nhưng culture thật sự được set bởi Area Manager và Store Manager — những người nhân viên tương tác hàng ngày. Culture program phải đi qua middle manager, không phải bypass họ.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Inconsistency is the culture killer</div><div class="cd">Nếu core value là "customer first" nhưng manager bị reward vì tiết kiệm cost ngay cả khi ảnh hưởng service — culture statement là lie. CHRO phải align reward system với culture aspiration. Nếu không aligned, reward system luôn thắng.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Culture intervention tại GGG — từ 200 lên 600 outlets</div>
+<p>Khi GGG expand nhanh, culture bắt đầu dilute — mỗi brand mới có culture riêng, inconsistent với brand core. Hiền không launch "culture program" — thay vào đó làm 3 thứ: <b style="color:var(--cyan)">(1) define 5 "culture non-negotiables" — việc không ai được làm bất kể brand, (2) gắn culture metric vào Area Manager review, (3) build "Culture Ambassador" network — 1 người mỗi 10 cửa hàng được train và empowered để model và reinforce culture.</b> 18 tháng sau, culture consistency index tăng từ 52% lên 78%.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Tình huống thực tế</div></div></div>
+<div class="qq">Tổ chức của bạn vừa acquire thêm 1 chuỗi 50 cửa hàng có culture khác biệt. CHRO phải integrate culture. Action nào ĐÚNG nhất?</div>
+<div class="qopts" id="q3-opts">
+<button class="qopt" data-q="3" data-o="A"><span class="oletter">A</span>Launch culture training program cho tất cả 50 cửa hàng mới về core values của công ty mẹ</button>
+<button class="qopt" data-q="3" data-o="B"><span class="oletter">B</span>Spend 3 tháng đầu observer và understand culture của 50 cửa hàng — những gì tốt cần giữ, những gì cần align</button>
+<button class="qopt" data-q="3" data-o="C"><span class="oletter">C</span>Replace toàn bộ middle management của 50 cửa hàng với người từ công ty mẹ</button>
+<button class="qopt" data-q="3" data-o="D"><span class="oletter">D</span>Để 2 culture coexist trong 1 năm đầu rồi sau đó mới integrate</button>
+</div><div class="qfb" id="q3-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 3</div>
+<div class="tw-text">"Culture change tại scale không phải project với start và end date — đó là 3-5 năm journey được dẫn dắt bởi sự nhất quán trong behavior, không phải sự nhiệt tình trong announcement."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 3</div>
+<div class="micro-text">Identify 1 culture gap trong tổ chức: điều gì tổ chức tuyên bố believe vs. điều gì thật sự xảy ra. Design 1 intervention đơn giản (không phải chương trình lớn) để bắt đầu address gap đó trong 30 ngày tới.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(2)" >← Quay lại</button>
+<button class="btn-next" id="n3" onclick="go(4)" disabled style="background:linear-gradient(135deg,#6366F1,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h3">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m4">
+<div class="hero"><div class="hero-badge">🔭 Horizon · Bài 4</div>
+<div class="hero-num">Bài 4 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">Đo lường Culture — leading indicators, không phải annual survey</div></div>
+<p class="body">Annual engagement survey là lagging indicator — nó đo culture 12 tháng trước. Khi bạn thấy problem trong survey, culture đã deteriorate 6-12 tháng rồi. CHRO cần <b>leading indicators</b> — những signal culture đang change trước khi nó hiện ra trong survey.</p>
+<div class="sec-title">5 Leading Indicators của Culture Health</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Manager turnover rate</div><div class="cd">Middle manager nghỉ = culture carrier đi. Nếu manager turnover tăng 2 quý liên tiếp → culture signal mạnh nhất. Track weekly, không phải annually.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">Internal referral rate</div><div class="cd">Nhân viên có recommend bạn bè vào làm không? Referral rate là proxy tốt nhất cho "tôi có tự hào về nơi mình làm việc không." Giảm = early warning.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Discretionary effort indicators</div><div class="cd">Người ta có làm thêm khi không bắt buộc không? Tình nguyện ở lại giải quyết vấn đề, report issue proactively, help đồng nghiệp. Không đo được trực tiếp nhưng có observable proxies.</div></div>
+<div class="card"><div class="cn">04</div><div class="ct">Skip-level conversation quality</div><div class="cd">Khi Hiền nói chuyện với nhân viên 2-3 cấp dưới, họ có speak freely không? Hay guard và answer politically correct? Chất lượng conversation = culture trust indicator.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Culture Pulse — alternative to annual survey</div>
+<p>Thay vì 1 survey lớn/năm, design <b style="color:var(--cyan)">5-câu Culture Pulse survey mỗi quý</b> — anonymous, 3 phút hoàn thành. Focus vào behavior-based questions: "Trong tháng qua, bạn có thấy ai được recognize vì sống đúng core value không?" Response pattern qua 4 quý = culture trend rõ hơn 1 snapshot/năm.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🔍</div><div><div class="ex-label">Self-audit</div></div></div>
+<div class="qq">Hiện tại, bạn đang theo dõi culture health bằng gì và tần suất nào?</div>
+<div class="qopts" id="q4-opts">
+<button class="qopt" data-q="4" data-o="A"><span class="oletter">A</span>Annual engagement survey + monthly HR report về turnover</button>
+<button class="qopt" data-q="4" data-o="B"><span class="oletter">B</span>Quarterly pulse survey + manager turnover tracking + skip-level conversations</button>
+<button class="qopt" data-q="4" data-o="C"><span class="oletter">C</span>Chủ yếu từ feedback informal và các issue được report lên HR</button>
+<button class="qopt" data-q="4" data-o="D"><span class="oletter">D</span>Chưa có systematic way để track culture</button>
+</div><div class="qfb" id="q4-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 4</div>
+<div class="tw-text">"CHRO không thể wait for annual survey để know culture is deteriorating — bạn cần a system of leading indicators that fire 6-12 months before the problem becomes visible."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 4</div>
+<div class="micro-text">Design 5-câu Culture Pulse survey cho tổ chức của bạn — behavior-based, anonymous, 3 phút. Câu 1 nên là: 'Trong tháng qua, leadership team đã demonstrate core values như thế nào?' Pilot với 1 team tuần tới.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(3)" >← Quay lại</button>
+<button class="btn-next" id="n4" onclick="go(5)" disabled style="background:linear-gradient(135deg,#6366F1,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h4">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m5">
+<div class="hero"><div class="hero-badge">🔭 Horizon · Bài 5</div>
+<div class="hero-num">Bài 5 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">CHRO là Chief Culture Officer — trách nhiệm và legacy</div></div>
+<p class="body">Trong tương lai, role của CHRO đang evolve từ "Head of HR" thành "Chief Culture Officer" — người chịu trách nhiệm cho healthy organization: đúng người, đúng culture, đúng capability để business strategy thành hiện thực.</p>
+<div class="sec-title">3 thứ CHRO để lại là legacy</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Pipeline của leaders</div><div class="cd">CHRO giỏi rời đi và tổ chức không bị thiếu leader. Số lượng leader được develop dưới CHRO đó là legacy rõ ràng nhất và bền vững nhất.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">Culture architecture</div><div class="cd">System, ritual, và norm mà CHRO đặt ra vẫn tiếp tục operate sau khi họ rời đi. Không phải vì policy — mà vì mọi người đã internalize và own nó.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Capability của tổ chức HR</div><div class="cd">CHRO tốt build team HR có thể independent — không dependent vào CHRO cho mọi quyết định. Khi rời đi, team vẫn function at high level. Đây là true test của leadership.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Bridge sang K15 — AI Strategy cho CHRO</div>
+<p>Bạn đã có People Vision và Culture framework. Bài tiếp theo: <b style="color:var(--cyan)">AI Strategy cho CHRO</b> — cách navigate AI disruption trong workforce, ethical AI deployment trong HR, và build AI capability trong organization mà không lose human touch. Đây là challenge mới nhất và quan trọng nhất của CHRO trong 2025-2030.</p></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 5</div>
+<div class="tw-text">"CHRO legacy không phải số program implement hay policy viết — mà là loại leaders được phát triển và loại culture được để lại sau khi họ rời đi."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 5</div>
+<div class="micro-text">Viết 3 câu về legacy bạn muốn để lại với tư cách HR leader: (1) Loại leaders nào tôi muốn đã develop? (2) Culture nào tôi muốn đã shape? (3) HR team nào tôi muốn đã build? Dùng câu trả lời này như north star cho các quyết định HR của bạn.</div></div>
+<div class="cert-wrap">
+<div class="cert-badge">🏆</div><div class="cert-title">Chứng Chỉ Hoàn Thành</div>
+<div class="cert-sub">Tầm Nhìn & Văn Hóa · Horizon Track · PeopleOS by TaHien</div>
+<input class="cert-name-input" id="cert-name" placeholder="Nhập tên của bạn..."><br>
+<button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
+<div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div></div>
+<div class="nav-btns"><button class="btn-back" onclick="go(4)" >← Quay lại</button>
+<button class="btn-next" id="n5" onclick="window.location.href='/'"  style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button></div>
+</div>
+</div>
+<div class="footer">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+<script>
+var cur=1,tot=6,doneM={};
+var giot=parseInt(localStorage.getItem('pos_giot')||'0');
+document.getElementById('giot-val').textContent=giot;
+var TITLES=["Culture \u2014 th\u1ee9 CEO ph\u00e1t bi\u1ec3u nh\u01b0ng CHRO ph\u1ea3i build", "People Vision \u2014 articulate th\u1ee9 CEO s\u1ebd align v\u00e0 Board s\u1ebd fund", "Culture Change t\u1ea1i scale \u2014 100+ locations", "\u0110o l\u01b0\u1eddng Culture \u2014 leading indicators, kh\u00f4ng ph\u1ea3i annual survey", "CHRO l\u00e0 Chief Culture Officer \u2014 tr\u00e1ch nhi\u1ec7m v\u00e0 legacy"];
+function buildDots(){var c=document.getElementById('dots');c.innerHTML='';for(var i=1;i<=tot;i++){var d=document.createElement('div');d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));var tip=document.createElement('div');tip.className='dot-tip';tip.textContent='Bài '+i+': '+TITLES[i-1];d.appendChild(tip);(function(n){d.onclick=function(){if(n<cur||doneM[n-1]||n===1)go(n);}})(i);c.appendChild(d);}}
+function updProg(){var p=Math.round(((cur-1)/tot)*100);document.getElementById('pfill').style.width=p+'%';document.getElementById('ppct').textContent=p+'%';document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;}
+function go(n){document.getElementById('m'+cur).classList.remove('active');if(n>1)document.getElementById('outcomes-box').style.display='none';else document.getElementById('outcomes-box').style.display='block';doneM[cur]=true;cur=n;document.getElementById('m'+cur).classList.add('active');buildDots();updProg();window.scrollTo({top:0,behavior:'smooth'});localStorage.setItem('resume_k14-tam-nhin-van-hoa',n);}
+function unlock(b,h){var btn=document.getElementById(b);if(btn)btn.disabled=false;var hint=document.getElementById(h);if(hint)hint.style.display='none';giot+=20;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;}
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="1"]');if(!el)return;document.querySelectorAll('#q1-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q1-fb');var ok=el.dataset.o==='C';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q1-opts .qopt')[2].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! Observe culture in action không có audience = real data. Handbook và survey cho bạn stated culture — không phải real culture.':'Chưa tối ưu. Handbook = stated culture. Survey = curated response. Leader opinion = filtered. Chỉ direct observation mới cho real culture.';setTimeout(function(){unlock('n1','h1');},ok?0:1500);});
+document.getElementById('ref2').addEventListener('input',function(){if(this.value.length>=30)unlock('n2','h2');});
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="3"]');if(!el)return;document.querySelectorAll('#q3-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q3-fb');var ok=el.dataset.o==='B';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q3-opts .qopt')[1].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! Diagnose before prescribe — culture integration thất bại khi không hiểu gì tốt ở culture cũ. 3 tháng observe = investment, không phải waste.':'Chưa tối ưu. Training trước observe = prescribe trước diagnose. Replace people = lose institutional knowledge. Coexist = confusion lan dần. Observe first = foundation đúng.';setTimeout(function(){unlock('n3','h3');},ok?0:1500);});
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="4"]');if(!el)return;document.querySelectorAll('#q4-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q4-fb');el.classList.add('correct');fb.className='qfb show correct';var msgs=['Good start nhưng annual survey là lagging. Add: referral rate tracking monthly + manager turnover weekly + skip-level monthly.','Excellent! Đây là culture measurement system chuẩn CHRO level. B là best answer ở đây.','Informal feedback = selection bias — người comfortable mới nói. Cần systematic approach để get full picture.','Bắt đầu với 5-câu Culture Pulse quarterly là quick win. Đây là starting point thực tế và sustainable.'];fb.textContent=msgs[['A','B','C','D'].indexOf(el.dataset.o)||0];setTimeout(function(){unlock('n4','h4');},500);});
+
+function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "Tầm Nhìn & Văn Hóa" đã được ghi nhận. #PeopleOS #HRxAI #CHRO';giot+=150;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k14-tam-nhin-van-hoa','true');}
+var saved=parseInt(localStorage.getItem('resume_k14-tam-nhin-van-hoa')||'1');if(saved>1&&saved<=6){var rb=document.createElement('div');rb.style.cssText='background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 0;gap:12px;';rb.innerHTML='<div style="font-size:13px;color:#F0F6FF">Lần trước bạn học đến <strong style="color:#22D3EE">Bài '+saved+'</strong></div><button onclick="go('+saved+');this.parentNode.remove()" style="background:#22D3EE;color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">Tiếp tục →</button>';var wrap=document.querySelector('.wrap');if(wrap)wrap.insertBefore(rb,wrap.firstChild);}
+buildDots();updProg();</script></body></html>
