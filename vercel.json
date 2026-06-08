@@ -61,6 +61,18 @@
     {
       "source": "/k9-talent-management",
       "destination": "/k9-talent-management.html"
+    },
+    {
+      "source": "/k10-hrbp-mindset",
+      "destination": "/k10-hrbp-mindset.html"
+    },
+    {
+      "source": "/k11-performance-revpamh",
+      "destination": "/k11-performance-revpamh.html"
+    },
+    {
+      "source": "/k12-hr-analytics",
+      "destination": "/k12-hr-analytics.html"
     }
   ]
 }
