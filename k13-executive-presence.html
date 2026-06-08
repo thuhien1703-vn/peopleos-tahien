@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Executive Presence · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--text:#E8F4F8;--muted:#8BB8CC;--subtle:#4A7A94;--border:rgba(34,211,238,0.15);--kc:#0EA5E9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100vh;line-height:1.7}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(124,58,237,.06) 0%,transparent 55%),radial-gradient(ellipse at 70% 60%,rgba(34,211,238,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+.topnav{position:sticky;top:0;height:58px;background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
+.back{color:var(--muted);text-decoration:none;font-size:13px;transition:color .2s}.back:hover{color:var(--cyan)}
+.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;white-space:nowrap}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);padding:10px 24px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border)}
+.breadcrumb a{color:var(--cyan);text-decoration:none}.breadcrumb .sep{opacity:.4}
+.prog-wrap{padding:10px 24px 0;background:rgba(0,0,0,.15)}.prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--navy2);border-radius:4px;overflow:hidden}.prog-fill{height:100%;background:linear-gradient(90deg,var(--kc),var(--cyan));border-radius:4px;transition:width .4s}
+.dots-wrap{display:flex;justify-content:center;gap:10px;padding:14px 0 4px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--navy3);border:1px solid var(--border);cursor:pointer;transition:all .2s;position:relative}
+.dot.active{background:var(--kc);border-color:var(--kc);box-shadow:0 0 0 3px rgba(124,58,237,.2)}.dot.done{background:var(--teal);border-color:var(--teal)}
+.dot-tip{position:absolute;bottom:calc(100%+8px);left:50%;transform:translateX(-50%);background:#0d2a42;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:150px;text-align:center}.dot:hover .dot-tip{opacity:1}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:1}
+.hero{background:linear-gradient(135deg,rgba(6,18,31,.95),rgba(6,18,31,.8));border-left:4px solid var(--kc);border-radius:14px;padding:26px 28px 20px;margin:20px 0 22px;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:3px 12px;font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}.hero-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--text);line-height:1.25}.hero-time{font-size:12px;color:var(--muted);margin-top:6px}
+.outcomes-box{background:rgba(34,211,238,.04);border:1px solid rgba(34,211,238,.14);border-radius:12px;padding:16px 18px;margin:0 0 20px}.outcomes-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);text-transform:uppercase;margin-bottom:8px}
+.outcomes-list{list-style:none;padding:0;margin:0}.outcomes-list li{font-size:13px;color:var(--text);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}.outcomes-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
+.lead{font-style:italic;color:var(--muted);border-left:3px solid var(--kc);padding:14px 18px;margin:20px 0;font-size:15px;line-height:1.7;border-radius:0 8px 8px 0;background:rgba(255,255,255,.02)}
+.body{color:var(--text);font-size:15px;line-height:1.75;margin:14px 0}.sec-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--cyan);margin:26px 0 10px}
+.hl{background:rgba(240,192,64,.05);border:1px solid rgba(240,192,64,.18);border-radius:10px;padding:14px 18px;margin:16px 0}.hl-label{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.card{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.cn{font-size:11px;color:var(--kc);font-weight:700;margin-bottom:4px}.ct{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}.cd{font-size:12px;color:var(--muted);line-height:1.5}
+.ex{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:20px;margin:20px 0}.ex-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}.ex-ico{font-size:24px}.ex-label{font-size:13px;font-weight:700;color:var(--text)}.ex-sub{font-size:12px;color:var(--muted)}
+.qq{font-size:14px;color:var(--text);margin-bottom:12px;font-weight:500;line-height:1.6}.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;text-align:left;cursor:pointer;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s;display:flex;align-items:flex-start;gap:10px}.qopt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.06)}.qopt:disabled{cursor:not-allowed;opacity:.7}
+.oletter{width:22px;height:22px;border-radius:50%;background:var(--navy);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);flex-shrink:0;margin-top:1px}
+.qopt.correct{border-color:var(--teal);background:rgba(6,182,212,.1)}.qopt.wrong{border-color:#EF4444;background:rgba(239,68,68,.08)}
+.qfb{font-size:13px;padding:10px 12px;border-radius:8px;margin-top:10px;display:none}.qfb.show{display:block}.qfb.correct{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:#6EE7B7}.qfb.wrong{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#FCA5A5}
+.reflect{width:100%;background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;resize:vertical;min-height:90px;outline:none;transition:border .2s}.reflect:focus{border-color:var(--cyan)}.reflect-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.check-group{display:flex;flex-direction:column;gap:8px;margin:10px 0}.check-item{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--text)}.check-item input{width:16px;height:16px;cursor:pointer;accent-color:var(--teal)}
+.tw{background:linear-gradient(135deg,rgba(6,182,212,.07),rgba(240,192,64,.04));border:1px solid rgba(240,192,64,.18);border-radius:14px;padding:20px 22px;margin:22px 0}.tw-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}.tw-text{font-style:italic;font-size:16px;color:var(--text);line-height:1.6;font-weight:500;margin-bottom:6px}.tw-author{font-size:12px;color:var(--muted)}
+.micro-task{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:12px;padding:14px 16px;margin-top:14px}.micro-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}.micro-text{font-size:13px;color:var(--text);line-height:1.6}
+.cert-wrap{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:2px solid var(--gold);border-radius:18px;padding:36px 28px;text-align:center;margin:24px 0}.cert-badge{font-size:48px;margin-bottom:14px}.cert-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:8px}.cert-sub{font-size:14px;color:var(--muted);margin-bottom:20px}
+.cert-name-input{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;width:100%;max-width:320px;text-align:center;outline:none;margin-bottom:14px}
+.cert-btn{background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy);border:none;border-radius:10px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.cert-btn:hover{transform:translateY(-1px)}
+.nav-btns{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}.btn-back{background:none;border:1px solid var(--border);border-radius:10px;padding:10px 20px;color:var(--muted);cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s}.btn-back:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-next{color:white;border:none;border-radius:10px;padding:11px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.btn-next:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,58,237,.3)}.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}.module{display:none}.module.active{display:block}
+.footer{text-align:center;padding:20px;font-size:11px;color:var(--subtle);border-top:1px solid var(--border);margin-top:40px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}.hero-title{font-size:20px}}</style></head><body>
+<nav class="topnav"><a class="back" href="/">← Về Learning Hub</a>
+<div style="display:flex;align-items:center"><span class="nav-logo">PeopleOS</span><span class="nav-sub">Learning Hub &nbsp;by TaHien</span></div>
+<div class="giot-pill">💧 <span id="giot-val">0</span> Giọt</div></nav>
+<div class="breadcrumb"><a href="/">Learning Hub</a><span class="sep">›</span><span>Horizon 🔭</span><span class="sep">›</span><span>Executive Presence</span></div>
+<div class="prog-wrap"><div class="prog-top"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div><div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div></div>
+<div class="dots-wrap" id="dots"></div>
+<div class="wrap">
+<div class="outcomes-box" id="outcomes-box"><div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div><ul class="outcomes-list"><li>Hiểu và thể hiện 3 thành phần cốt lõi của Executive Presence: Gravitas, Communication, Appearance</li><li>Áp dụng được ngôn ngữ và frame của C-suite trong mọi tình huống — board meeting, crisis, negotiation</li><li>Xây dựng chiến lược phát triển Executive Presence cá nhân trong 90 ngày</li></ul></div>
+<div class="module active" id="m1">
+<div class="hero"><div class="hero-badge">👑 Horizon · Bài 1</div>
+<div class="hero-num">Bài 1 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">Executive Presence — thứ không trường nào dạy</div></div>
+<div class="lead">"Hiền từng phỏng vấn ứng viên CHRO cho một tập đoàn 5,000 nhân sự — người có CV đẹp nhất, bằng cấp tốt nhất, kinh nghiệm phong phú nhất. Nhưng khi ngồi trong phòng họp cùng CEO và CFO 30 phút, rõ ràng: họ có knowledge nhưng không có presence. Vị trí đó về tay người khác — ít bằng cấp hơn nhưng khi nói, cả phòng họp lắng nghe."</div>
+<p class="body">Executive Presence là thứ khiến người ta tin tưởng bạn với quyết định lớn — ngay cả trước khi bạn nói một từ nào. Đây không phải về ngoại hình, không phải về độ tuổi. <b>Đây về cách bạn chiếm không gian trong phòng họp.</b></p>
+<div class="sec-title">3 thành phần của Executive Presence (theo Sylvia Ann Hewlett)</div>
+<div class="grid2">
+<div class="card"><div class="cn">GRAVITAS — 67%</div><div class="ct">Trọng lượng và thẩm quyền</div><div class="cd">Tự tin khi bị challenge. Quyết đoán trong uncertainty. Calm under fire. Đây là thành phần quan trọng nhất — và khó build nhất. Không phải arrogance — là grounded confidence.</div></div>
+<div class="card"><div class="cn">COMMUNICATION — 28%</div><div class="ct">Cách bạn truyền đạt</div><div class="cd">Nói ít hơn nhưng mọi câu đều có trọng lượng. Biết im lặng đúng lúc. Không "um/uh" không "thật ra là". Command of the room — không phải command of the words.</div></div>
+<div class="card"><div class="cn">APPEARANCE — 5%</div><div class="ct">Hình thức bề ngoài</div><div class="cd">Ít quan trọng nhất nhưng hay được focus nhất. Rule: dress for the job you want, not the job you have. Trong F&B Vietnam: professional nhưng không overdressed so với CEO của công ty.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Tại sao CHRO cần Executive Presence hơn bất kỳ C-suite nào khác</div>
+<p>CFO có số liệu. CMO có creative. COO có operational track record. <b style="color:var(--cyan)">CHRO có người — thứ khó nhất để quantify và dễ bị undervalue nhất.</b> Khi CHRO không có Executive Presence, HR proposal dễ bị xem như "chi phí" thay vì "investment". Presence là cách CHRO earn the right để được nghe trước khi họ prove value bằng data.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Kiểm tra nhanh</div></div></div>
+<div class="qq">CEO vừa nói điều gì đó trong họp board mà bạn hoàn toàn không đồng ý — và bạn có data để support quan điểm ngược lại. Phản ứng nào thể hiện Executive Presence đúng nhất?</div>
+<div class="qopts" id="q1-opts">
+<button class="qopt" data-q="1" data-o="A"><span class="oletter">A</span>Ngay lập tức đưa ra data của mình để counter CEO</button>
+<button class="qopt" data-q="1" data-o="B"><span class="oletter">B</span>Đợi sau buổi họp rồi gửi email với data của mình</button>
+<button class="qopt" data-q="1" data-o="C"><span class="oletter">C</span>Đặt câu hỏi làm rõ để hiểu frame của CEO, rồi share một góc nhìn bổ sung với data — không phải để thắng mà để enrich discussion</button>
+<button class="qopt" data-q="1" data-o="D"><span class="oletter">D</span>Đồng ý trong họp, ghi chú lại và đề xuất review sau</button>
+</div><div class="qfb" id="q1-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 1</div>
+<div class="tw-text">"Executive Presence không phải về việc chiếm lĩnh phòng họp — mà về việc khiến mọi người trong phòng họp cảm thấy an toàn khi đưa ra quyết định lớn."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 1</div>
+<div class="micro-text">Trong cuộc họp tiếp theo với leadership, thực hành 1 điều: nói ít hơn 30% so với thường lệ, nhưng mỗi lần nói phải là 1 câu hỏi sắc bén hoặc 1 insight có data. Quan sát reaction của phòng họp.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(0)" disabled>← Quay lại</button>
+<button class="btn-next" id="n1" onclick="go(2)" disabled style="background:linear-gradient(135deg,#0EA5E9,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h1">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m2">
+<div class="hero"><div class="hero-badge">👑 Horizon · Bài 2</div>
+<div class="hero-num">Bài 2 / 6</div><div class="hero-time">⏱ ~5 phút đọc</div>
+<div class="hero-title">Gravitas — nền tảng của Executive Presence</div></div>
+<p class="body">Gravitas là thứ khiến người ta nói "tôi muốn người đó trong phòng họp khi chúng ta có quyết định khó." Không phải vì họ biết nhiều nhất — mà vì <b>họ bring clarity khi mọi thứ đang confused.</b></p>
+<div class="sec-title">5 hành vi tạo nên Gravitas của CHRO</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Calm under pressure</div><div class="cd">Khi crisis xảy ra, người có gravitas không raise voice, không panic visible. Tone của họ hạ xuống 1 octave, pace chậm hơn 20%. Cả phòng lấy cue từ họ. Đây là trainable skill.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">Decisive với incomplete information</div><div class="cd">CHRO có gravitas không nói "cần thêm data để quyết định" khi cần quyết ngay. Họ nói "với data chúng ta có, quyết định tốt nhất hiện tại là X — và đây là trigger để review lại." Decisiveness with humility.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Challenge lên, support xuống</div><div class="cd">Dũng cảm push back lên CEO/Board khi có data. Nhưng không bao giờ publicly undermine subordinate. Người có gravitas chọn battle của mình — và chỉ fight những battle đáng fight.</div></div>
+<div class="card"><div class="cn">04</div><div class="ct">Own mistakes publicly</div><div class="cd">"Tôi đã sai về dự báo turnover quý 2. Đây là những gì tôi học được và cách chúng ta adjust cho Q3." Không có gì xây dựng gravitas nhanh hơn là acknowledge mistake trước leadership team.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Khi Hiền mất Gravitas và phải rebuild</div>
+<p>Năm thứ 3 tại Golden Gate Group, trong 1 board meeting căng thẳng về restructuring, Hiền defensive khi CFO challenge data HR. Sau buổi họp, CEO gặp riêng: "Khi em defensive, tôi không còn tin tưởng vào data của em nữa — dù data có đúng đi nữa." <b style="color:var(--cyan)">Lesson: Gravitas không phải về việc bạn đúng — mà về việc bạn handle being wrong hoặc being challenged.</b></p></div><div class="ex"><div class="ex-head"><div class="ex-ico">💭</div><div><div class="ex-label">Reflection — CHRO Level</div></div></div>
+<div class="qq">Nghĩ về 1 tình huống gần đây bạn cảm thấy gravitas của mình bị giảm — có thể do defensive, uncertain visible, hoặc không decisiveness. Chuyện gì xảy ra? Nếu làm lại, bạn sẽ handle thế nào?</div>
+<textarea class="reflect" id="ref2" placeholder="Phân tích tình huống... (ít nhất 30 ký tự)"></textarea>
+<div class="reflect-hint">Nhập ít nhất 30 ký tự để mở bài tiếp theo</div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 2</div>
+<div class="tw-text">"Gravitas được build trong bình thường và tested trong crisis — không phải ngược lại. Mỗi quyết định nhỏ hàng ngày tích lũy thành hoặc là hay không là người được trust khi stake cao."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 2</div>
+<div class="micro-text">Identify 1 tình huống tuần tới sẽ test gravitas của bạn (meeting khó, decision cần đưa ra, conflict cần navigate). Chuẩn bị trước: tone bạn sẽ dùng, câu hỏi bạn sẽ đặt, và cách bạn sẽ handle nếu bị challenge.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(1)" >← Quay lại</button>
+<button class="btn-next" id="n2" onclick="go(3)" disabled style="background:linear-gradient(135deg,#0EA5E9,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h2">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m3">
+<div class="hero"><div class="hero-badge">👑 Horizon · Bài 3</div>
+<div class="hero-num">Bài 3 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">Communication ở cấp C-suite — ít hơn nhưng mạnh hơn</div></div>
+<p class="body">C-suite communication không phải về việc nói nhiều hơn hay thuyết phục giỏi hơn. Đó về việc <b>mỗi từ bạn nói phải earn its place trong conversation.</b> CEO và CFO không có tolerance cho vagueness — họ cần clarity, speed, và confidence.</p>
+<div class="sec-title">5 nguyên tắc C-suite Communication</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Bottom-line first</div><div class="cd">Đừng build up đến kết luận — start với kết luận. "Tôi đề xuất chúng ta cắt 15% headcount tại bộ phận X. Lý do là..." CEO không có thời gian đợi bạn arrive at the point.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">Numbers, not impressions</div><div class="cd">"Turnover đang tăng" → "Turnover tăng từ 18% lên 27% trong Q3, tập trung ở nhóm nhân viên 1-3 năm kinh nghiệm, cost estimate 4.2 tỷ VND/năm nếu không fix." Mỗi claim cần 1 số.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Pause với purpose</div><div class="cd">Người thiếu confidence fill silence bằng words. Người có EP dùng silence như tool: sau 1 key statement, pause 3 giây — để người nghe process. Silence = power, không phải awkwardness.</div></div>
+<div class="card"><div class="cn">04</div><div class="ct">Agree to disagree gracefully</div><div class="cd">"Tôi hiểu quan điểm của anh, và có 1 góc nhìn khác tôi muốn đưa ra..." là câu mạnh hơn "tôi không đồng ý vì..." Reframe, đừng oppose.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Forbidden phrases trong boardroom</div>
+<p>❌ "Thật ra là..." (undermines what you just said)<br>
+❌ "Tôi chỉ muốn nói nhanh là..." (signals it's not important)<br>
+❌ "Điều này có thể sai nhưng..." (pre-apologizing for your own opinion)<br>
+❌ "Tôi không chắc nhưng..." (say it only if you truly don't know — not as filler)<br>
+❌ "Em xin phép..." (hierarchy language that reduces your executive standing)<br>
+<b style="color:var(--cyan)">Thay bằng:</b> Pause → State clearly → Let it land → Hold eye contact</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Tình huống thực tế</div></div></div>
+<div class="qq">Bạn đang present budget HR 2025 cho CFO. Bạn cần tăng L&D budget 40%. CFO hỏi: "Tại sao chúng ta nên chi thêm cho L&D khi margin đang bị squeeze?" Câu trả lời nào thể hiện C-suite communication chuẩn nhất?</div>
+<div class="qopts" id="q3-opts">
+<button class="qopt" data-q="3" data-o="A"><span class="oletter">A</span>"Thưa anh, đây là investment rất quan trọng cho tương lai công ty, nhân tài là tài sản quý nhất..."</button>
+<button class="qopt" data-q="3" data-o="B"><span class="oletter">B</span>"Mỗi VND chúng ta invest vào L&D năm nay dự kiến return 3.2 VND trong 18 tháng — dựa trên RevPAMH data của nhóm được train vs. không được train. Đây là số."</button>
+<button class="qopt" data-q="3" data-o="C"><span class="oletter">C</span>"Tôi hiểu concern về margin. Chúng ta có thể phân kỳ ngân sách — 50% ngay và 50% khi margin recover?"</button>
+<button class="qopt" data-q="3" data-o="D"><span class="oletter">D</span>"Thực ra nếu không đầu tư thì turnover sẽ cao hơn và cost còn nhiều hơn..."</button>
+</div><div class="qfb" id="q3-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 3</div>
+<div class="tw-text">"Trong boardroom, 1 câu với số liệu cụ thể mạnh hơn 10 câu với argument hay. Numbers end debates — opinions start them."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 3</div>
+<div class="micro-text">Lấy 1 đề xuất HR bạn đang chuẩn bị. Rewrite opening theo Bottom-line first: câu đầu tiên là recommendation + số liệu quan trọng nhất. Test: ai đó chỉ đọc câu đầu có biết bạn muốn gì và tại sao không?</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(2)" >← Quay lại</button>
+<button class="btn-next" id="n3" onclick="go(4)" disabled style="background:linear-gradient(135deg,#0EA5E9,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h3">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m4">
+<div class="hero"><div class="hero-badge">👑 Horizon · Bài 4</div>
+<div class="hero-num">Bài 4 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">3 bẫy phá hủy Executive Presence của HR Leaders</div></div>
+<div class="sec-title">Bẫy 1: HR Leader mode thay vì Business Leader mode</div>
+<p class="body">HR Leaders hay vào phòng họp với "HR hat" — nói về people, process, policy. Executive với presence vào phòng họp với "business hat" — nói về revenue, risk, competitive advantage. <b>Cùng 1 nội dung nhưng framing khác nhau = impact khác nhau.</b></p>
+<p class="body">Ví dụ: "Chúng ta cần improve onboarding program" (HR mode) vs. "Onboarding program hiện tại đang cost chúng ta 2.3 tỷ VND/năm vì time-to-productivity kéo dài 90 ngày thay vì 45 ngày industry benchmark" (Business mode).</p>
+<div class="sec-title">Bẫy 2: Agree too easily</div>
+<p class="body">HR Leaders hay have tendency to be agreeable — vì training là về harmony và employee relations. Nhưng trong boardroom, người agree mọi thứ nhanh chóng bị nhìn là không có strong perspective — không phải là strategic thinker. <b>Selective pushback — đúng lúc, với data — xây dựng credibility.</b></p>
+<div class="sec-title">Bẫy 3: Over-explain và over-qualify</div>
+<p class="body">"Tôi nghĩ có thể là... mặc dù tôi chưa có đủ data nhưng... từ góc nhìn của HR thì..." — mỗi qualifier làm giảm impact của statement. <b>Executive Presence = nói ít hơn, mỗi câu mạnh hơn. Không qualify nếu bạn đã confident về data.</b></p>
+<div class="hl"><div class="hl-label">Self-assessment: EP audit trong 30 ngày</div>
+<p>Trong 30 ngày tới, after mỗi senior meeting, dành 5 phút tự hỏi:<br>
+<b style="color:var(--cyan)">(1) Tôi đã nói bao nhiêu lần so với cần thiết?</b><br>
+<b style="color:var(--cyan)">(2) Lần nào tôi qualify thay vì state clearly?</b><br>
+<b style="color:var(--cyan)">(3) Có moment nào tôi đã có data nhưng không speak up?</b><br>
+<b style="color:var(--cyan)">(4) Người trong phòng nhìn tôi như business leader hay HR admin?</b></p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🔍</div><div><div class="ex-label">Self-audit</div></div></div>
+<div class="qq">Trong các meeting với C-suite gần đây nhất, điều nào mô tả đúng nhất cách bạn communicate?</div>
+<div class="qopts" id="q4-opts">
+<button class="qopt" data-q="4" data-o="A"><span class="oletter">A</span>Tôi thường speak last, đặt câu hỏi hơn là statement, và khi nói thì focus vào business impact</button>
+<button class="qopt" data-q="4" data-o="B"><span class="oletter">B</span>Tôi hay giải thích context dài trước khi đến main point</button>
+<button class="qopt" data-q="4" data-o="C"><span class="oletter">C</span>Tôi tend to agree để giữ harmony, push back sau họp hoặc bằng email</button>
+<button class="qopt" data-q="4" data-o="D"><span class="oletter">D</span>Tôi present HR perspective, đôi khi khó connect với business priority của CEO/CFO</button>
+</div><div class="qfb" id="q4-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 4</div>
+<div class="tw-text">"Executive Presence không phải personality trait bẩm sinh — đó là tập hợp behaviors được lựa chọn có ý thức, ngày qua ngày, meeting qua meeting."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 4</div>
+<div class="micro-text">Identify 1 trong 3 bẫy bạn đang mắc nhiều nhất. Viết ra 1 rule cụ thể để avoid nó: ví dụ 'Trước khi nói, tôi hỏi: đây là HR perspective hay business perspective?' Commit 30 ngày.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(3)" >← Quay lại</button>
+<button class="btn-next" id="n4" onclick="go(5)" disabled style="background:linear-gradient(135deg,#0EA5E9,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h4">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m5">
+<div class="hero"><div class="hero-badge">👑 Horizon · Bài 5</div>
+<div class="hero-num">Bài 5 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">90-Day Executive Presence Development Plan</div></div>
+<p class="body">Executive Presence không build được trong 1 training session. Nó build trong 90 ngày thực hành có chủ đích — trong mọi meeting, mọi email, mọi interaction với leadership.</p>
+<div class="sec-title">90-Day EP Development Plan — 3 giai đoạn</div>
+<div class="grid2">
+<div class="card"><div class="cn">THÁNG 1: OBSERVE & AUDIT</div><div class="ct">Nhận diện patterns hiện tại</div><div class="cd">Record 3 meeting (với permission). Watch lại. Đếm: số lần bạn qualify, số lần bạn nói "thật ra là", body language khi bị challenge. Data về bản thân = starting point rõ ràng.</div></div>
+<div class="card"><div class="cn">THÁNG 2: TARGETED PRACTICE</div><div class="ct">Fix 1 thing at a time</div><div class="cd">Chọn 1 behavior để change mỗi 2 tuần. Tuần 1-2: bottom-line first. Tuần 3-4: eliminate qualifiers. Tuần 5-6: strategic pauses. Tuần 7-8: pushback with data. Không multitask.</div></div>
+<div class="card"><div class="cn">THÁNG 3: STRETCH</div><div class="ct">Tình huống thách thức</div><div class="cd">Volunteer cho 1 high-stake presentation. Lead 1 difficult conversation với peer ở C-suite. Present 1 unpopular recommendation với full data. These are the moments EP gets built fastest.</div></div>
+</div>
+<div class="hl"><div class="hl-label">EP Mentor — người cần trong hành trình này</div>
+<p>Identify 1 người trong tổ chức mà bạn nghĩ có Executive Presence tốt (không nhất thiết là HR). Nhờ họ observe bạn trong 1 senior meeting và give feedback trên 3 điều cụ thể: gravitas moments, communication clarity, và 1 điều cần improve. <b style="color:var(--cyan)">External feedback là data — không phải judgment. Act on it.</b></p></div>
+<div class="ex"><div class="ex-head"><div class="ex-ico">✅</div><div><div class="ex-label">Cam kết 90 ngày</div></div></div>
+<div class="check-group" id="ck5">
+<label class="check-item"><input type="checkbox" onchange="checkCk5k13()"> Tôi sẽ record 1 meeting trong tháng tới và self-review behavior của mình</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k13()"> Tôi sẽ identify 1 EP mentor và request feedback sau 1 meeting cụ thể</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k13()"> Tôi sẽ viết 90-day EP plan với 1 behavior focus mỗi 2 tuần</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k13()"> Tôi sẽ volunteer cho 1 high-stake presentation trong 90 ngày tới</label>
+</div><div class="reflect-hint" id="ck5-hint">Chọn ít nhất 2 cam kết</div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 5</div>
+<div class="tw-text">"Executive Presence không phải thứ bạn có hay không có — đó là thứ bạn build, hàng ngày, trong những moment bình thường trước khi moment lớn arrive."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 5</div>
+<div class="micro-text">Viết 90-day EP plan của bạn: month 1 behavior, month 2 behavior, month 3 stretch challenge. Share với 1 người bạn trust để họ giữ bạn accountable.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(4)" >← Quay lại</button>
+<button class="btn-next" id="n5" onclick="go(6)" disabled style="background:linear-gradient(135deg,#0EA5E9,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h5">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m6">
+<div class="hero"><div class="hero-badge">👑 Horizon · Bài 6</div>
+<div class="hero-num">Bài 6 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">Executive Presence trong crisis — khi mọi người nhìn vào bạn</div></div>
+<p class="body">Crisis là lúc Executive Presence được test nhất — và cũng là lúc nó được build fastest. Cách CHRO handle khủng hoảng nhân sự (massive layoff, labor dispute, key leader exit, cultural scandal) để lại impression vĩnh viễn trong tổ chức.</p>
+<div class="sec-title">CHRO Crisis Communication Framework</div>
+<div class="grid2">
+<div class="card"><div class="cn">TRONG 24 GIỜ ĐẦU</div><div class="ct">Acknowledge & Frame</div><div class="cd">Không silence, không over-promise. Acknowledge rằng có situation, cam kết sẽ có update cụ thể vào [thời điểm]. "Chúng tôi biết điều này ảnh hưởng đến nhiều người. Chúng tôi đang xử lý và sẽ có câu trả lời rõ ràng trước [deadline]."</div></div>
+<div class="card"><div class="cn">COMMUNICATION PRINCIPLE</div><div class="ct">Tell the truth at the speed of trust</div><div class="cd">Nói ít hơn bạn biết nếu chưa chắc — không vì giấu, mà vì wrong information trong crisis nhân đôi damage. Nhưng đừng im lặng hoàn toàn — silence = rumor factory.</div></div>
+<div class="card"><div class="cn">POST-CRISIS</div><div class="ct">Close the loop</div><div class="cd">Sau mỗi crisis, CHRO phải close the loop: "Đây là những gì xảy ra. Đây là những gì chúng ta đã làm. Đây là những gì sẽ khác từ nay." Không có ending = nhân viên giữ uncertainty mãi.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Bridge hoàn thành K13 → K14: Tầm Nhìn & Văn Hóa</div>
+<p>Bạn đã có foundation về Executive Presence. Bài tiếp theo: <b style="color:var(--cyan)">Tầm nhìn & Văn hóa</b> — cách CHRO shape và sustain culture across 600+ cửa hàng, và cách articulate people vision mà CEO và Board sẽ align với. Đây là nơi CHRO tạo legacy.</p></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 6</div>
+<div class="tw-text">"Trong crisis, cả tổ chức nhìn vào CHRO để biết nên feel thế nào. Calm + Clear + Decisive — đây là 3 chữ đủ để navigate hầu hết crisis nhân sự."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 6</div>
+<div class="micro-text">Identify 1 crisis tiềm tàng trong tổ chức của bạn (flight risk của key talent, compliance gap, culture issue simmering). Viết draft crisis communication cho scenario đó — chuẩn bị trước khi cần dùng.</div></div>
+<div class="cert-wrap">
+<div class="cert-badge">🏆</div><div class="cert-title">Chứng Chỉ Hoàn Thành</div>
+<div class="cert-sub">Executive Presence · Horizon Track · PeopleOS by TaHien</div>
+<input class="cert-name-input" id="cert-name" placeholder="Nhập tên của bạn..."><br>
+<button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
+<div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div></div>
+<div class="nav-btns"><button class="btn-back" onclick="go(5)" >← Quay lại</button>
+<button class="btn-next" id="n6" onclick="window.location.href='/'"  style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button></div>
+</div>
+</div>
+<div class="footer">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+<script>
+var cur=1,tot=6,doneM={};
+var giot=parseInt(localStorage.getItem('pos_giot')||'0');
+document.getElementById('giot-val').textContent=giot;
+var TITLES=["Executive Presence \u2014 th\u1ee9 kh\u00f4ng tr\u01b0\u1eddng n\u00e0o d\u1ea1y", "Gravitas \u2014 n\u1ec1n t\u1ea3ng c\u1ee7a Executive Presence", "Communication \u1edf c\u1ea5p C-suite \u2014 \u00edt h\u01a1n nh\u01b0ng m\u1ea1nh h\u01a1n", "3 b\u1eaby ph\u00e1 h\u1ee7y Executive Presence c\u1ee7a HR Leaders", "90-Day Executive Presence Development Plan", "Executive Presence trong crisis \u2014 khi m\u1ecdi ng\u01b0\u1eddi nh\u00ecn v\u00e0o b\u1ea1n"];
+function buildDots(){var c=document.getElementById('dots');c.innerHTML='';for(var i=1;i<=tot;i++){var d=document.createElement('div');d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));var tip=document.createElement('div');tip.className='dot-tip';tip.textContent='Bài '+i+': '+TITLES[i-1];d.appendChild(tip);(function(n){d.onclick=function(){if(n<cur||doneM[n-1]||n===1)go(n);}})(i);c.appendChild(d);}}
+function updProg(){var p=Math.round(((cur-1)/tot)*100);document.getElementById('pfill').style.width=p+'%';document.getElementById('ppct').textContent=p+'%';document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;}
+function go(n){document.getElementById('m'+cur).classList.remove('active');if(n>1)document.getElementById('outcomes-box').style.display='none';else document.getElementById('outcomes-box').style.display='block';doneM[cur]=true;cur=n;document.getElementById('m'+cur).classList.add('active');buildDots();updProg();window.scrollTo({top:0,behavior:'smooth'});localStorage.setItem('resume_k13-executive-presence',n);}
+function unlock(b,h){var btn=document.getElementById(b);if(btn)btn.disabled=false;var hint=document.getElementById(h);if(hint)hint.style.display='none';giot+=20;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;}
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="1"]');if(!el)return;document.querySelectorAll('#q1-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q1-fb');var ok=el.dataset.o==='C';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q1-opts .qopt')[2].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! Executive Presence không phải về việc thắng tranh luận — mà về việc enrich discussion. Câu hỏi đúng lúc đáng giá hơn 10 counter-argument.':'Chưa tối ưu. Counter CEO trực tiếp = ego game. Sau họp = too late. Đồng ý = lose credibility. Đặt câu hỏi + share perspective = executive move.';setTimeout(function(){unlock('n1','h1');},ok?0:1500);});
+document.getElementById('ref2').addEventListener('input',function(){if(this.value.length>=30)unlock('n2','h2');});
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="3"]');if(!el)return;document.querySelectorAll('#q3-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q3-fb');var ok=el.dataset.o==='B';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q3-opts .qopt')[1].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! ROI với số cụ thể là ngôn ngữ duy nhất CFO muốn nghe. 3.2x return kết thúc cuộc tranh luận ngay tại đó.':'Option B mạnh nhất vì dùng ROI cụ thể — ngôn ngữ mà CFO không thể từ chối. Các option khác là negotiate hay justify — không phải close the deal.';setTimeout(function(){unlock('n3','h3');},ok?0:1500);});
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="4"]');if(!el)return;document.querySelectorAll('#q4-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q4-fb');el.classList.add('correct');fb.className='qfb show correct';var msgs=['Xuất sắc! Đây chính xác là EP signature của strong HR executive. Giữ tiếp.','Pattern này giảm impact của bạn đáng kể. Rule mới: 1 câu context tối đa, rồi main point ngay.','Agreeable trong boardroom = được nhìn là facilitator, không phải strategic partner. Push back khi có data — ngay trong phòng họp.','Framing HR perspective → Business perspective là kỹ năng quan trọng nhất để phát triển.'];fb.textContent=msgs[['A','B','C','D'].indexOf(el.dataset.o)||0];setTimeout(function(){unlock('n4','h4');},500);});
+function checkCk5k13(){var c=document.querySelectorAll('#ck5 input:checked').length;if(c>=2)unlock('n5','h5');}
+
+function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "Executive Presence" đã được ghi nhận. #PeopleOS #HRxAI #CHRO';giot+=150;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k13-executive-presence','true');}
+var saved=parseInt(localStorage.getItem('resume_k13-executive-presence')||'1');if(saved>1&&saved<=6){var rb=document.createElement('div');rb.style.cssText='background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 0;gap:12px;';rb.innerHTML='<div style="font-size:13px;color:#F0F6FF">Lần trước bạn học đến <strong style="color:#22D3EE">Bài '+saved+'</strong></div><button onclick="go('+saved+');this.parentNode.remove()" style="background:#22D3EE;color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">Tiếp tục →</button>';var wrap=document.querySelector('.wrap');if(wrap)wrap.insertBefore(rb,wrap.firstChild);}
+buildDots();updProg();</script></body></html>
