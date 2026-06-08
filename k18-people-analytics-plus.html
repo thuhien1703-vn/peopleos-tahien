@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>People Analytics+ · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--text:#E8F4F8;--muted:#8BB8CC;--subtle:#4A7A94;--border:rgba(34,211,238,0.15);--kc:#8B5CF6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100vh;line-height:1.7}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(124,58,237,.06) 0%,transparent 55%),radial-gradient(ellipse at 70% 60%,rgba(34,211,238,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+.topnav{position:sticky;top:0;height:58px;background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
+.back{color:var(--muted);text-decoration:none;font-size:13px;transition:color .2s}.back:hover{color:var(--cyan)}
+.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;white-space:nowrap}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);padding:10px 24px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border)}
+.breadcrumb a{color:var(--cyan);text-decoration:none}.breadcrumb .sep{opacity:.4}
+.prog-wrap{padding:10px 24px 0;background:rgba(0,0,0,.15)}.prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--navy2);border-radius:4px;overflow:hidden}.prog-fill{height:100%;background:linear-gradient(90deg,var(--kc),var(--cyan));border-radius:4px;transition:width .4s}
+.dots-wrap{display:flex;justify-content:center;gap:10px;padding:14px 0 4px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--navy3);border:1px solid var(--border);cursor:pointer;transition:all .2s;position:relative}
+.dot.active{background:var(--kc);border-color:var(--kc);box-shadow:0 0 0 3px rgba(124,58,237,.2)}.dot.done{background:var(--teal);border-color:var(--teal)}
+.dot-tip{position:absolute;bottom:calc(100%+8px);left:50%;transform:translateX(-50%);background:#0d2a42;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:150px;text-align:center}.dot:hover .dot-tip{opacity:1}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:1}
+.hero{background:linear-gradient(135deg,rgba(6,18,31,.95),rgba(6,18,31,.8));border-left:4px solid var(--kc);border-radius:14px;padding:26px 28px 20px;margin:20px 0 22px;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:3px 12px;font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}.hero-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--text);line-height:1.25}.hero-time{font-size:12px;color:var(--muted);margin-top:6px}
+.outcomes-box{background:rgba(34,211,238,.04);border:1px solid rgba(34,211,238,.14);border-radius:12px;padding:16px 18px;margin:0 0 20px}.outcomes-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);text-transform:uppercase;margin-bottom:8px}
+.outcomes-list{list-style:none;padding:0;margin:0}.outcomes-list li{font-size:13px;color:var(--text);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}.outcomes-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
+.lead{font-style:italic;color:var(--muted);border-left:3px solid var(--kc);padding:14px 18px;margin:20px 0;font-size:15px;line-height:1.7;border-radius:0 8px 8px 0;background:rgba(255,255,255,.02)}
+.body{color:var(--text);font-size:15px;line-height:1.75;margin:14px 0}.sec-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--cyan);margin:26px 0 10px}
+.hl{background:rgba(240,192,64,.05);border:1px solid rgba(240,192,64,.18);border-radius:10px;padding:14px 18px;margin:16px 0}.hl-label{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.card{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.cn{font-size:11px;color:var(--kc);font-weight:700;margin-bottom:4px}.ct{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}.cd{font-size:12px;color:var(--muted);line-height:1.5}
+.ex{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:20px;margin:20px 0}.ex-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}.ex-ico{font-size:24px}.ex-label{font-size:13px;font-weight:700;color:var(--text)}.ex-sub{font-size:12px;color:var(--muted)}
+.qq{font-size:14px;color:var(--text);margin-bottom:12px;font-weight:500;line-height:1.6}.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;text-align:left;cursor:pointer;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s;display:flex;align-items:flex-start;gap:10px}.qopt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.06)}.qopt:disabled{cursor:not-allowed;opacity:.7}
+.oletter{width:22px;height:22px;border-radius:50%;background:var(--navy);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);flex-shrink:0;margin-top:1px}
+.qopt.correct{border-color:var(--teal);background:rgba(6,182,212,.1)}.qopt.wrong{border-color:#EF4444;background:rgba(239,68,68,.08)}
+.qfb{font-size:13px;padding:10px 12px;border-radius:8px;margin-top:10px;display:none}.qfb.show{display:block}.qfb.correct{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:#6EE7B7}.qfb.wrong{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#FCA5A5}
+.reflect{width:100%;background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;resize:vertical;min-height:90px;outline:none;transition:border .2s}.reflect:focus{border-color:var(--cyan)}.reflect-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.check-group{display:flex;flex-direction:column;gap:8px;margin:10px 0}.check-item{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--text)}.check-item input{width:16px;height:16px;cursor:pointer;accent-color:var(--teal)}
+.tw{background:linear-gradient(135deg,rgba(6,182,212,.07),rgba(240,192,64,.04));border:1px solid rgba(240,192,64,.18);border-radius:14px;padding:20px 22px;margin:22px 0}.tw-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}.tw-text{font-style:italic;font-size:16px;color:var(--text);line-height:1.6;font-weight:500;margin-bottom:6px}.tw-author{font-size:12px;color:var(--muted)}
+.micro-task{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:12px;padding:14px 16px;margin-top:14px}.micro-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}.micro-text{font-size:13px;color:var(--text);line-height:1.6}
+.cert-wrap{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:2px solid var(--gold);border-radius:18px;padding:36px 28px;text-align:center;margin:24px 0}.cert-badge{font-size:48px;margin-bottom:14px}.cert-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:8px}.cert-sub{font-size:14px;color:var(--muted);margin-bottom:20px}
+.cert-name-input{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;width:100%;max-width:320px;text-align:center;outline:none;margin-bottom:14px}
+.cert-btn{background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy);border:none;border-radius:10px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.cert-btn:hover{transform:translateY(-1px)}
+.nav-btns{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}.btn-back{background:none;border:1px solid var(--border);border-radius:10px;padding:10px 20px;color:var(--muted);cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s}.btn-back:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-next{color:white;border:none;border-radius:10px;padding:11px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.btn-next:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,58,237,.3)}.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}.module{display:none}.module.active{display:block}
+.footer{text-align:center;padding:20px;font-size:11px;color:var(--subtle);border-top:1px solid var(--border);margin-top:40px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}.hero-title{font-size:20px}}</style></head><body>
+<nav class="topnav"><a class="back" href="/">← Về Learning Hub</a>
+<div style="display:flex;align-items:center"><span class="nav-logo">PeopleOS</span><span class="nav-sub">Learning Hub &nbsp;by TaHien</span></div>
+<div class="giot-pill">💧 <span id="giot-val">0</span> Giọt</div></nav>
+<div class="breadcrumb"><a href="/">Learning Hub</a><span class="sep">›</span><span>Horizon 🔭</span><span class="sep">›</span><span>People Analytics+</span></div>
+<div class="prog-wrap"><div class="prog-top"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div><div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div></div>
+<div class="dots-wrap" id="dots"></div>
+<div class="wrap">
+<div class="outcomes-box" id="outcomes-box"><div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div><ul class="outcomes-list"><li>Build predictive people analytics models — flight risk, succession readiness, culture signal</li><li>Present workforce intelligence narrative cho Board mà khiến họ action, không chỉ acknowledge</li><li>Design data-driven people strategy gắn với 3-5 year business trajectory của tổ chức</li></ul></div>
+<div class="module active" id="m1">
+<div class="hero"><div class="hero-badge">🔬 Horizon · Bài 1</div>
+<div class="hero-num">Bài 1 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">People Analytics+ — từ reporting đến prediction đến prescription</div></div>
+<div class="lead">"Sau 30 năm, điều Hiền muốn CHRO generation tiếp theo làm được là: predict 12 tháng trước khi problem xảy ra, không phải report 12 tháng sau khi nó đã damage rồi. Đây là difference giữa HR leader và HR reporter."</div>
+<p class="body">Khóa học cuối của Horizon Track. 17 khóa trước build từng layer: Foundation skills → Growth mindset → CHRO tools. K18 tổng hợp tất cả và đẩy lên level cao nhất: <b>People Analytics để predict, không chỉ để describe.</b></p>
+<div class="sec-title">Analytics Maturity Ladder cho CHRO</div>
+<div class="grid2">
+<div class="card"><div class="cn">LEVEL 1 — Operational Reporting</div><div class="ct">Chuyện gì đã xảy ra?</div><div class="cd">Headcount report, turnover rate, time-to-fill. 80% HR teams đang ở đây. Necessary nhưng không sufficient để be strategic partner.</div></div>
+<div class="card"><div class="cn">LEVEL 2 — Diagnostic Analytics</div><div class="ct">Tại sao nó xảy ra?</div><div class="cd">Phân tích pattern, segment, correlate. "Turnover cao tại nhóm Manager mới được promote trong 6 tháng." Actionable insight. 15% HR teams ở đây.</div></div>
+<div class="card"><div class="cn">LEVEL 3 — Predictive Analytics</div><div class="ct">Chuyện gì sẽ xảy ra?</div><div class="cd">Flight risk model, succession readiness score, culture deterioration signal. "5 người có 80% probability nghỉ trong 30 ngày." Act before it happens. 4% HR teams.</div></div>
+<div class="card"><div class="cn">LEVEL 4 — Prescriptive Analytics</div><div class="ct">Chúng ta nên làm gì?</div><div class="cd">"Model suggest: invest 50 triệu vào retention cho 5 người này → prevent 200 triệu turnover cost → ROI 4x." AI recommend, CHRO decide. &lt;1% HR teams. This is frontier.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Bắt đầu từ đâu để move up the ladder</div>
+<p>Không phải technology — mà là <b style="color:var(--cyan)">data discipline trước.</b> CHRO phải ensure: (1) HR data definitions consistent, (2) Data collection reliable, (3) Data accessible trong 1 place. Chỉ sau khi 3 điều này → invest vào analytics tools. Analytics trên dirty data = confident wrong decisions.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Level Assessment</div></div></div>
+<div class="qq">HR team của bạn hiện đang ở Analytics Maturity Level nào?</div>
+<div class="qopts" id="q1-opts">
+<button class="qopt" data-q="1" data-o="A"><span class="oletter">A</span>Level 1 — chủ yếu headcount report và basic HR metrics hàng tháng</button>
+<button class="qopt" data-q="1" data-o="B"><span class="oletter">B</span>Level 2 — có segment analysis và đôi khi diagnostic insights khi cần</button>
+<button class="qopt" data-q="1" data-o="C"><span class="oletter">C</span>Level 3 — đang build hoặc đã có some predictive models</button>
+<button class="qopt" data-q="1" data-o="D"><span class="oletter">D</span>Level 4 — AI-powered prescriptive recommendations cho HR decisions</button>
+</div><div class="qfb" id="q1-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 1</div>
+<div class="tw-text">"Mục tiêu không phải là Level 4 ngay — mà là biết mình đang ở Level nào và có clear roadmap để move up 1 level trong 12 tháng tới."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 1</div>
+<div class="micro-text">Self-assess: HR team của bạn đang ở Level mấy? Identify 3 analytics capabilities cụ thể cần để move lên Level tiếp theo. Đây là your People Analytics Roadmap — làm trong tuần này.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(0)" disabled>← Quay lại</button>
+<button class="btn-next" id="n1" onclick="go(2)" disabled style="background:linear-gradient(135deg,#8B5CF6,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h1">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m2">
+<div class="hero"><div class="hero-badge">🔬 Horizon · Bài 2</div>
+<div class="hero-num">Bài 2 / 6</div><div class="hero-time">⏱ ~5 phút đọc</div>
+<div class="hero-title">Flight Risk Prediction — identify người sắp nghỉ trước khi họ quyết định</div></div>
+<p class="body">Flight risk model là highest-ROI analytics investment trong HR. Lý do: cost của turnover (2-12 tháng lương) vs. cost của retention intervention (thường dưới 1 tháng lương). If you can predict who will leave với 70%+ accuracy 30-60 ngày trước — ROI của intervention là automatic.</p>
+<div class="sec-title">Flight Risk Signals — 8 indicators phổ biến nhất</div>
+<div class="grid2">
+<div class="card"><div class="cn">SIGNAL 01-02</div><div class="ct">Behavioral changes</div><div class="cd"><b>Giảm giờ làm tự nguyện:</b> người từng ở lại overtime bắt đầu về đúng giờ. <b>Giảm participation:</b> ít comment trong meeting, ít volunteer cho project mới.</div></div>
+<div class="card"><div class="cn">SIGNAL 03-04</div><div class="ct">Career indicators</div><div class="cd"><b>Không apply internal promotion:</b> person với track record tốt suddenly không apply cho opening mà trước đây họ sẽ rất interested. <b>LinkedIn activity tăng:</b> update profile, connect với recruiters.</div></div>
+<div class="card"><div class="cn">SIGNAL 05-06</div><div class="ct">Relationship indicators</div><div class="cd"><b>Manager relationship deterioration:</b> skip-level complaint tăng, one-on-one quality giảm. <b>Peer relationship:</b> bắt đầu distance từ team, ít lunch cùng nhóm.</div></div>
+<div class="card"><div class="cn">SIGNAL 07-08</div><div class="ct">Life event triggers</div><div class="cd"><b>Major life event:</b> mới tốt nghiệp, kết hôn, sinh con — thường trigger career reassessment. <b>Compensation event:</b> sau performance review negative hoặc không có raise expected.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Simple Flight Risk Scoring Model — không cần PhD để build</div>
+<p>Tạo spreadsheet với 8 signals, mỗi signal score 0-3. Score ≥ 15: high risk (intervene ngay). Score 8-14: medium risk (monitor và proactive conversation). Score &lt;8: low risk (maintain).<br>
+<b style="color:var(--cyan)">Update monthly cho top talent. Review với line manager trong monthly 1:1. Act within 2 weeks khi High Risk flag fires.</b><br>
+Không cần fancy ML model để start — Excel model với consistent data = 60-70% accuracy. Good enough to act on.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">💭</div><div><div class="ex-label">Application Planning</div></div></div>
+<div class="qq">Nếu bạn build flight risk model cho tổ chức, ai là 3 người bạn sẽ assign High Priority tracking ngay hôm nay? (Không cần nêu tên — describe profile của họ và tại sao.) Đây là real exercise.</div>
+<textarea class="reflect" id="ref2" placeholder="Mô tả 3 profiles cần theo dõi... (ít nhất 30 ký tự)"></textarea>
+<div class="reflect-hint">Nhập ít nhất 30 ký tự để mở bài tiếp theo</div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 2</div>
+<div class="tw-text">"Flight risk model không phải về surveillance — đó là về caring enough to notice và intervene before a good person makes an irreversible decision."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 2</div>
+<div class="micro-text">Chọn 5 người high-value nhất trong team. Score họ trên 8 flight risk signals (0-3 each). Total score cho mỗi người. Ai là High Risk (≥15)? Lên lịch 1:1 với họ trong tuần này — không phải về performance, mà về 'bạn đang cảm thấy thế nào với công việc?'</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(1)" >← Quay lại</button>
+<button class="btn-next" id="n2" onclick="go(3)" disabled style="background:linear-gradient(135deg,#8B5CF6,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h2">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m3">
+<div class="hero"><div class="hero-badge">🔬 Horizon · Bài 3</div>
+<div class="hero-num">Bài 3 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">Workforce Intelligence — present để Board action</div></div>
+<p class="body">Data không thuyết phục Board — <b>narrative với data thuyết phục Board.</b> CHRO phải learn cách package people analytics thành story that drives decisions, not just report that gets acknowledged.</p>
+<div class="sec-title">Board-Level People Analytics Narrative — structure</div>
+<div class="grid2">
+<div class="card"><div class="cn">OPENING</div><div class="ct">The business stake</div><div class="cd">Start với business impact, không phải HR metric. "Workforce capability gap trong Supply Chain division là đang risk 2025 expansion plan — đây là why và scale of impact."</div></div>
+<div class="card"><div class="cn">MIDDLE</div><div class="ct">The evidence</div><div class="cd">3-5 data points maximum. Each one: what it shows, what it means, what would happen if we don't act. No data dump — curated evidence cho specific decision.</div></div>
+<div class="card"><div class="cn">DECISION POINT</div><div class="ct">The choice</div><div class="cd">Present 2-3 options với tradeoffs. Not recommendation yet — show Board the landscape first. "Option A costs X, delivers Y. Option B costs less but risks Z."</div></div>
+<div class="card"><div class="cn">CLOSE</div><div class="ct">The recommendation</div><div class="cd">Một recommendation rõ ràng với rationale. "Hiền recommend Option B with mitigation plan for Z risk — đây là lý do và timeline." Be decisive — Board expect CHRO to have a view.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Pre-Board Preparation — điều CHRO phải làm</div>
+<p>7 ngày trước Board meeting: brief CEO về HR narrative — no surprise. 3 ngày trước: send Board pack với data. 1 ngày trước: walk CFO through numbers để align. Board day: present như đã align với CEO và CFO — Board question, không phải surprise from co-presenters. <b style="color:var(--cyan)">Aligned C-suite = credible Board presentation.</b></p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Tình huống Board Level</div></div></div>
+<div class="qq">CHRO cần present flight risk data cho Board: "3 trong top 5 key leaders của chúng ta có high flight risk signal." Action nào ĐÚNG nhất trước khi present?</div>
+<div class="qopts" id="q3-opts">
+<button class="qopt" data-q="3" data-o="A"><span class="oletter">A</span>Present data nguyên xi với tên người cho Board để họ intervene trực tiếp</button>
+<button class="qopt" data-q="3" data-o="B"><span class="oletter">B</span>Brief CEO trước, agree on retention approach, then present anonymized data + recommended action cho Board</button>
+<button class="qopt" data-q="3" data-o="C"><span class="oletter">C</span>Không present cho Board — đây là sensitive HR data, handle internally</button>
+<button class="qopt" data-q="3" data-o="D"><span class="oletter">D</span>Wait until 1 person actually resigns before reporting to Board</button>
+</div><div class="qfb" id="q3-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 3</div>
+<div class="tw-text">"Board-level people analytics không phải about impressing with data sophistication — đó là about bringing clarity to uncertainty so the Board can make better decisions faster."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 3</div>
+<div class="micro-text">Design 1 Board-ready people analytics slide: business stake (1 sentence) + 3 data points (với business implication) + 2 options + 1 recommendation. Test: nếu Board có 3 phút, họ có đủ để make a decision không?</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(2)" >← Quay lại</button>
+<button class="btn-next" id="n3" onclick="go(4)" disabled style="background:linear-gradient(135deg,#8B5CF6,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h3">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m4">
+<div class="hero"><div class="hero-badge">🔬 Horizon · Bài 4</div>
+<div class="hero-num">Bài 4 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">Data-Driven People Strategy — from insight to action</div></div>
+<p class="body">People Strategy powered by analytics là thứ tạo ra competitive moat khó copy nhất. Competitor có thể copy product, price, location — nhưng không thể copy organizational intelligence được build từ years of disciplined data collection và interpretation.</p>
+<div class="sec-title">5 components của Data-Driven People Strategy</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Workforce Segmentation</div><div class="cd">Không phải 1 strategy cho tất cả — segment workforce và tailor approach. Data reveal: different segments respond differently đến same intervention. Personalization at scale = analytics-enabled HR.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">Leading vs. Lagging</div><div class="cd">Build indicator dashboard: 70% leading indicators (engagement drivers, manager behavior, skip-level sentiment) và 30% lagging (turnover, productivity). Leading = early warning system.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Experiment & Measure</div><div class="cd">Treat HR interventions như experiments: hypothesis → pilot → measure → scale or kill. Stop investing in what doesn't move the needle. Analytics tells you what works, not just what happened.</div></div>
+<div class="card"><div class="cn">04</div><div class="ct">Connect People to Business</div><div class="cd">Every people metric must have a business metric it connects to. Không có standalone HR KPI. Engagement → productivity → revenue. Retention → capability → innovation. Make the connections explicit.</div></div>
+</div>
+<div class="hl"><div class="hl-label">People Strategy 2026-2028 — CHRO của tương lai owns điều này</div>
+<p>CHRO generation tiếp theo sẽ walk into Board meeting với: <b style="color:var(--cyan)">AI-powered flight risk dashboard, real-time culture signal, scenario-modeled workforce cost, và 3-year people strategy gắn chặt với business trajectory.</b> Đây không phải future state — đây là direction mỗi CHRO cần start building hôm nay. PeopleOS 18 khóa đã cho bạn framework. Bây giờ là thực thi.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">✅</div><div><div class="ex-label">Cam kết Analytics Journey</div></div></div>
+<div class="check-group" id="ck5">
+<label class="check-item"><input type="checkbox" onchange="checkCk5k18()"> Tôi sẽ build flight risk scoring model cho top 10 talents trong 2 tuần tới</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k18()"> Tôi sẽ design 1 Board-ready people analytics slide cho quý tới</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k18()"> Tôi sẽ conduct data quality audit — đảm bảo 3 core HR metrics được calculate consistently</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k18()"> Tôi sẽ identify 1 HR experiment để run trong Q3: hypothesis → pilot → measure</label>
+</div><div class="reflect-hint" id="ck5-hint">Chọn ít nhất 2 cam kết</div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 4</div>
+<div class="tw-text">"Data-driven People Strategy không phải về having all the data — đó là về asking the right questions, collecting the right data, và having the courage to act on what the data shows."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 4</div>
+<div class="micro-text">Design People Strategy 2026 cho tổ chức của bạn trên 1 trang: (1) Business direction, (2) People implication, (3) 3 strategic priorities, (4) 5 metrics sẽ track. Present cho CEO trong tháng tới.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(3)" >← Quay lại</button>
+<button class="btn-next" id="n4" onclick="go(5)" disabled style="background:linear-gradient(135deg,#8B5CF6,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h4">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m5">
+<div class="hero"><div class="hero-badge">🔬 Horizon · Bài 5</div>
+<div class="hero-num">Bài 5 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">Từ HR Professional đến People Leader — hành trình không kết thúc</div></div>
+<div class="hl" style="border-color:rgba(139,92,246,.4)"><div class="hl-label" style="color:#A78BFA">🎓 Bạn vừa hoàn thành Horizon Track — K18/18</div>
+<p>18 khóa học. Foundation → Growth → Horizon. Từ EQ tự nhận thức đến People Analytics dự đoán tương lai. Đây không phải điểm kết thúc — đây là điểm bắt đầu thật sự của hành trình CHRO của bạn.</p></div>
+<p class="body">Sau 30 năm trong ngành, điều Hiền học được là: <b>người giỏi nhất không phải người biết nhiều nhất — mà là người học nhanh nhất và apply sớm nhất.</b> 18 khóa học này cho bạn framework. Framework chỉ có giá trị khi bạn mang nó ra thực tế.</p>
+<div class="sec-title">3 cam kết Hiền xin bạn</div>
+<div class="grid2">
+<div class="card"><div class="cn">CAM KẾT 01</div><div class="ct">Apply 1 thing this week</div><div class="cd">Không phải 18 thứ. Không phải "khi có thời gian". 1 micro-task từ bất kỳ bài học nào bạn thấy resonant nhất — làm trong tuần này. Momentum starts with 1 action.</div></div>
+<div class="card"><div class="cn">CAM KẾT 02</div><div class="ct">Share với 1 người</div><div class="cd">1 insight bạn học được — share với 1 đồng nghiệp, 1 subordinate, hoặc 1 peer. Teaching forces clarity. Sharing creates accountability. Community grows when you contribute.</div></div>
+<div class="card"><div class="cn">CAM KẾT 03</div><div class="ct">Come back in 90 days</div><div class="cd">Sau 90 ngày apply, revisit khóa học liên quan nhất. Bạn sẽ thấy thứ bạn miss lần đầu. Mastery is spiral — not linear.</div></div>
+</div>
+<div class="hl"><div class="hl-label">PeopleOS Community — bạn không đi một mình</div>
+<p>Join 1,200+ HR professionals Việt Nam đang học cùng, chia sẻ cùng, và grow cùng nhau. Follow TaHien trên LinkedIn cho weekly insights. <b style="color:var(--cyan)">#PeopleOS #HRxAI #FinanceHRHybrid #CHRO</b><br><br>
+Cảm ơn bạn đã tin tưởng hành trình này. Từ Hiền, với tất cả những gì được biên soạn từ 30 năm thực chiến trong ngành — hãy mang nó ra và tạo ra impact thật sự.</p></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 5</div>
+<div class="tw-text">"HR không phải ngành support — đó là ngành tạo ra competitive advantage bền vững nhất. Người làm HR giỏi không phải luxury — họ là điều kiện cần thiết để business survive và thrive."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 5</div>
+<div class="micro-text">Viết 1 commitment letter cho bản thân: trong 90 ngày tới, bạn sẽ apply điều gì từ 18 khóa học này, đo lường nó như thế nào, và chia sẻ kết quả với ai. Đặt reminder 90 ngày từ hôm nay.</div></div>
+<div class="cert-wrap">
+<div class="cert-badge">🏆</div><div class="cert-title">Chứng Chỉ Hoàn Thành</div>
+<div class="cert-sub">People Analytics+ · Horizon Track · PeopleOS by TaHien</div>
+<input class="cert-name-input" id="cert-name" placeholder="Nhập tên của bạn..."><br>
+<button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
+<div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div></div>
+<div class="nav-btns"><button class="btn-back" onclick="go(4)" >← Quay lại</button>
+<button class="btn-next" id="n5" onclick="window.location.href='/'"  style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button></div>
+</div>
+</div>
+<div class="footer">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+<script>
+var cur=1,tot=6,doneM={};
+var giot=parseInt(localStorage.getItem('pos_giot')||'0');
+document.getElementById('giot-val').textContent=giot;
+var TITLES=["People Analytics+ \u2014 t\u1eeb reporting \u0111\u1ebfn prediction \u0111\u1ebfn prescription", "Flight Risk Prediction \u2014 identify ng\u01b0\u1eddi s\u1eafp ngh\u1ec9 tr\u01b0\u1edbc khi h\u1ecd quy\u1ebft \u0111\u1ecbnh", "Workforce Intelligence \u2014 present \u0111\u1ec3 Board action", "Data-Driven People Strategy \u2014 from insight to action", "T\u1eeb HR Professional \u0111\u1ebfn People Leader \u2014 h\u00e0nh tr\u00ecnh kh\u00f4ng k\u1ebft th\u00fac"];
+function buildDots(){var c=document.getElementById('dots');c.innerHTML='';for(var i=1;i<=tot;i++){var d=document.createElement('div');d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));var tip=document.createElement('div');tip.className='dot-tip';tip.textContent='Bài '+i+': '+TITLES[i-1];d.appendChild(tip);(function(n){d.onclick=function(){if(n<cur||doneM[n-1]||n===1)go(n);}})(i);c.appendChild(d);}}
+function updProg(){var p=Math.round(((cur-1)/tot)*100);document.getElementById('pfill').style.width=p+'%';document.getElementById('ppct').textContent=p+'%';document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;}
+function go(n){document.getElementById('m'+cur).classList.remove('active');if(n>1)document.getElementById('outcomes-box').style.display='none';else document.getElementById('outcomes-box').style.display='block';doneM[cur]=true;cur=n;document.getElementById('m'+cur).classList.add('active');buildDots();updProg();window.scrollTo({top:0,behavior:'smooth'});localStorage.setItem('resume_k18-people-analytics-plus',n);}
+function unlock(b,h){var btn=document.getElementById(b);if(btn)btn.disabled=false;var hint=document.getElementById(h);if(hint)hint.style.display='none';giot+=20;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;}
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="1"]');if(!el)return;document.querySelectorAll('#q1-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q1-fb');el.classList.add('correct');fb.className='qfb show correct';var msgs=['Honest assessment! Level 1 là starting point của 80% HR teams. Next step: build 2-3 diagnostic capabilities. Start với turnover segment analysis.','Great progress! Level 2 = actionable insights. Next step: identify 1 predictive model worth building — flight risk model là ROI cao nhất thường.','Impressive! Level 3 là where real strategic value starts. Focus on model accuracy và business integration. Next: prescriptive recommendations.','World-class! Nếu thật sự ở Level 4, share learnings với HR community — đây là frontier mà ngành cần nhiều practitioners hơn.'];fb.textContent=msgs[['A','B','C','D'].indexOf(el.dataset.o)||0];setTimeout(function(){unlock('n1','h1');},500);});
+document.getElementById('ref2').addEventListener('input',function(){if(this.value.length>=30)unlock('n2','h2');});
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="3"]');if(!el)return;document.querySelectorAll('#q3-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q3-fb');var ok=el.dataset.o==='B';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q3-opts .qopt')[1].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! CEO align first. Anonymize for Board (privacy). Present với action plan. Board should approve direction, not manage individual.':'A = privacy breach + board micromanaging. C = Board has right to know business risk. D = too late, prevention window closed.';setTimeout(function(){unlock('n3','h3');},ok?0:1500);});
+function checkCk5k18(){var c=document.querySelectorAll('#ck5 input:checked').length;if(c>=2)unlock('n5','h5');}
+
+function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "People Analytics+" đã được ghi nhận. #PeopleOS #HRxAI #CHRO';giot+=150;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k18-people-analytics-plus','true');}
+var saved=parseInt(localStorage.getItem('resume_k18-people-analytics-plus')||'1');if(saved>1&&saved<=6){var rb=document.createElement('div');rb.style.cssText='background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 0;gap:12px;';rb.innerHTML='<div style="font-size:13px;color:#F0F6FF">Lần trước bạn học đến <strong style="color:#22D3EE">Bài '+saved+'</strong></div><button onclick="go('+saved+');this.parentNode.remove()" style="background:#22D3EE;color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">Tiếp tục →</button>';var wrap=document.querySelector('.wrap');if(wrap)wrap.insertBefore(rb,wrap.firstChild);}
+buildDots();updProg();</script></body></html>
