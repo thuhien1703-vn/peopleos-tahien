@@ -6,23 +6,18 @@
 <title>Leadership Không Chức Danh · PeopleOS by TaHien</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --navy:#020B18;--navy2:#062040;--navy3:#0A2E50;
-  --cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;
-  --accent:#7C3AED;--accent2:#A78BFA;
-  --text:#E8F4F8;--muted:#8BB8CC;--subtle:#4A7A94;
-  --border:rgba(34,211,238,0.15);--glass:rgba(255,255,255,0.04);
-}
-*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--green:#10B981;--text:#E8F4F8;--muted:#8BB8CC;--subtle:#4A7A94;--border:rgba(34,211,238,0.15);--glass:rgba(255,255,255,0.04);--k7:#7C3AED}
+*{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--navy);color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100vh;line-height:1.7}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(124,58,237,0.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(34,211,238,0.05) 0%,transparent 50%);pointer-events:none;z-index:0}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(124,58,237,0.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(34,211,238,0.04) 0%,transparent 50%);pointer-events:none;z-index:0}
 
-/* NAV */
-.topnav{position:sticky;top:0;height:58px;background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100;white-space:nowrap}
-.back{color:var(--muted);text-decoration:none;font-size:13px;transition:color .2s}.back:hover{color:var(--cyan)}
+/* TOPNAV */
+.topnav{position:sticky;top:0;height:58px;background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
 .nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}
 .nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
-.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;display:flex;gap:5px;align-items:center;white-space:nowrap}
+.back{color:var(--muted);text-decoration:none;font-size:13px;display:flex;align-items:center;gap:6px;transition:color .2s}
+.back:hover{color:var(--cyan)}
+.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;white-space:nowrap;cursor:pointer}
 
 /* BREADCRUMB */
 .breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);padding:10px 24px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border)}
@@ -30,123 +25,108 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .breadcrumb .sep{opacity:.4}
 
 /* PROGRESS */
-.progress-bar{padding:10px 24px;background:rgba(0,0,0,.15)}
-.progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px}
-.progress-track{height:3px;background:var(--navy2);border-radius:2px}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width .4s}
-.prog-detail{font-size:11px;color:var(--muted);text-align:right;margin-top:3px}
+.prog-wrap{padding:10px 24px 0;background:rgba(0,0,0,.15)}
+.prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--navy2);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--k7),var(--cyan));border-radius:4px;transition:width .4s}
 
 /* DOTS */
-.dots{display:flex;justify-content:center;gap:10px;padding:16px}
-.dot{width:10px;height:10px;border-radius:50%;background:var(--navy2);border:1px solid var(--border);cursor:pointer;transition:all .2s;position:relative}
-.dot.active{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,58,237,.2)}
+.dots-wrap{display:flex;justify-content:center;gap:10px;padding:14px 0 4px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--navy3);border:1px solid var(--border);cursor:pointer;transition:all .2s;position:relative}
+.dot.active{background:var(--k7);border-color:var(--k7);box-shadow:0 0 0 3px rgba(124,58,237,.25)}
 .dot.done{background:var(--teal);border-color:var(--teal)}
-.dot-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#0d2a42;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:120px;text-align:center}
-.dot-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:#0d2a42}
+.dot-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#0d2a42;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:140px;text-align:center}
 .dot:hover .dot-tip{opacity:1}
 
-/* MODULE */
-.module{display:none;max-width:760px;margin:0 auto;padding:0 20px 100px}
-.module.active{display:block}
+/* WRAP */
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:1}
 
 /* HERO */
-.hero{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(124,58,237,.05));border:1px solid rgba(124,58,237,.2);border-radius:16px;padding:28px 28px 24px;margin-bottom:24px;position:relative;overflow:hidden}
-.hero::before{content:'影';position:absolute;right:20px;top:10px;font-size:80px;opacity:.06;color:var(--accent2);font-family:serif}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--accent2);font-weight:600;margin-bottom:10px}
+.hero{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(6,18,31,.8));border:1px solid rgba(124,58,237,.2);border-radius:16px;padding:28px 28px 22px;margin:20px 0 24px;position:relative;overflow:hidden}
+.hero::before{content:'⚡';position:absolute;right:24px;top:20px;font-size:48px;opacity:.12}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#C4B5FD;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
 .hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}
-.hero-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--text);line-height:1.3}
-.module-time{font-size:12px;color:var(--muted);margin-top:4px}
+.hero-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--text);line-height:1.3}
+.hero-time{font-size:12px;color:var(--muted);margin-top:6px}
 
 /* OUTCOMES */
-.outcomes-box{background:rgba(34,211,238,.05);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:16px 18px;margin:0 0 18px}
+.outcomes-box{background:rgba(34,211,238,.05);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:16px 18px;margin:0 0 20px}
 .outcomes-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);text-transform:uppercase;margin-bottom:8px}
 .outcomes-list{list-style:none;padding:0;margin:0}
 .outcomes-list li{font-size:13px;color:var(--text);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
 .outcomes-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
 
 /* CONTENT */
-.lead{border-left:3px solid var(--accent);background:rgba(124,58,237,.06);border-radius:0 10px 10px 0;padding:14px 18px;margin:0 0 20px;font-style:italic;color:var(--muted);font-size:14px;line-height:1.7}
-.body{font-size:14px;line-height:1.8;color:var(--text);margin-bottom:16px}
-.body b{color:var(--cyan)}
-.sec-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--accent2);margin:24px 0 12px}
-.hl{background:rgba(124,58,237,.06);border:1px solid rgba(124,58,237,.15);border-radius:12px;padding:16px 18px;margin:16px 0}
-.hl-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--accent2);text-transform:uppercase;margin-bottom:8px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
-.card{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:16px}
-.cn{font-size:11px;color:var(--accent2);font-weight:700;margin-bottom:4px}
-.ct{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.lead{font-style:italic;color:var(--muted);border-left:3px solid var(--k7);padding:12px 16px;margin:20px 0;font-size:15px;line-height:1.7;border-radius:0 8px 8px 0;background:rgba(124,58,237,.05)}
+.body{color:var(--text);font-size:15px;line-height:1.75;margin:14px 0}
+.sec-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cyan);margin:24px 0 10px}
+.hl{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:10px;padding:14px 16px;margin:16px 0}
+.hl-label{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.card{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.cn{font-size:11px;color:var(--k7);font-weight:700;margin-bottom:4px}
+.ct{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
 .cd{font-size:12px;color:var(--muted);line-height:1.5}
-@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+
+/* EXERCISE */
+.ex{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:20px;margin:20px 0}
+.ex-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.ex-ico{font-size:24px}
+.ex-label{font-size:13px;font-weight:700;color:var(--text)}
+.ex-sub{font-size:12px;color:var(--muted)}
+.qq{font-size:14px;color:var(--text);margin-bottom:12px;font-weight:500;line-height:1.6}
+.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;text-align:left;cursor:pointer;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s;display:flex;align-items:flex-start;gap:10px}
+.qopt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.06)}
+.qopt:disabled{cursor:not-allowed;opacity:.7}
+.oletter{width:22px;height:22px;border-radius:50%;background:var(--navy);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);flex-shrink:0;margin-top:1px}
+.qopt.correct{border-color:var(--teal);background:rgba(6,182,212,.1)}
+.qopt.wrong{border-color:#EF4444;background:rgba(239,68,68,.08)}
+.qfb{font-size:13px;padding:10px 12px;border-radius:8px;margin-top:10px;display:none}
+.qfb.show{display:block}
+.qfb.correct{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:#6EE7B7}
+.qfb.wrong{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#FCA5A5}
+.reflect{width:100%;background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;resize:vertical;min-height:90px;outline:none;transition:border .2s}
+.reflect:focus{border-color:var(--cyan)}
+.reflect-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.check-group{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.check-item{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--text)}
+.check-item input{width:16px;height:16px;cursor:pointer;accent-color:var(--teal)}
 
 /* TAKEAWAY */
-.tw{background:linear-gradient(135deg,rgba(240,192,64,.1),rgba(240,192,64,.04));border:1px solid rgba(240,192,64,.25);border-radius:14px;padding:20px 22px;margin:24px 0}
+.tw{background:linear-gradient(135deg,rgba(6,182,212,.09),rgba(240,192,64,.05));border:1px solid rgba(240,192,64,.2);border-radius:14px;padding:20px 22px;margin:22px 0}
 .tw-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
-.tw-text{font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--text);line-height:1.6;margin-bottom:8px}
-.tw-sig{font-size:11px;color:var(--muted)}
-
-/* MICRO TASK */
+.tw-text{font-style:italic;font-size:16px;color:var(--text);line-height:1.6;font-weight:500;margin-bottom:6px}
+.tw-author{font-size:12px;color:var(--muted)}
 .micro-task{background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.22);border-radius:12px;padding:14px 16px;margin-top:14px}
 .micro-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
 .micro-text{font-size:13px;color:var(--text);line-height:1.6}
 
-/* EXERCISE */
-.ex{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:20px;margin:20px 0}
-.ex-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.ex-ico{font-size:22px}
-.ex-label{font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:.06em}
-.ex-sub{font-size:11px;color:var(--muted);margin-top:2px}
-.qq{font-size:14px;color:var(--text);margin-bottom:13px;line-height:1.58;font-weight:500}
-.qopts{display:flex;flex-direction:column;gap:8px}
-.qopt{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:11px 15px;text-align:left;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px}
-.qopt:hover:not(:disabled){border-color:var(--accent);background:rgba(124,58,237,.08)}
-.qopt.correct{border-color:var(--teal);background:rgba(6,182,212,.1);color:var(--teal)}
-.qopt.wrong{border-color:#EF4444;background:rgba(239,68,68,.1);color:#FCA5A5}
-.oletter{width:24px;height:24px;border-radius:50%;background:var(--navy2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
-.qfb{display:none;border-radius:10px;padding:12px 15px;font-size:13px;margin-top:10px;line-height:1.6}
-.qfb.show{display:block}
-.qfb.correct{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.25);color:var(--teal)}
-.qfb.wrong{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#FCA5A5}
+/* CERT */
+.cert-wrap{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:2px solid var(--gold);border-radius:18px;padding:36px 28px;text-align:center;margin:24px 0}
+.cert-badge{font-size:48px;margin-bottom:14px}
+.cert-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:8px}
+.cert-sub{font-size:14px;color:var(--muted);margin-bottom:20px}
+.cert-name-input{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;width:100%;max-width:320px;text-align:center;outline:none;margin-bottom:14px}
+.cert-btn{background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy);border:none;border-radius:10px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}
+.cert-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(240,192,64,.3)}
 
-/* REFLECTION */
-.reflect-prompt{font-size:13px;color:var(--muted);margin-bottom:10px;line-height:1.6}
-.reflect-input{width:100%;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100px;resize:vertical;outline:none;transition:border .2s}
-.reflect-input:focus{border-color:var(--accent)}
-.reflect-count{font-size:11px;color:var(--subtle);margin-top:6px;text-align:right}
+/* NAV BTNS */
+.nav-btns{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}
+.btn-back{background:none;border:1px solid var(--border);border-radius:10px;padding:10px 20px;color:var(--muted);cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s}
+.btn-back:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-next{background:linear-gradient(135deg,var(--k7),#9333EA);color:white;border:none;border-radius:10px;padding:11px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}
+.btn-next:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,58,237,.4)}
+.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
 
-/* CHECKLIST */
-.checklist{display:flex;flex-direction:column;gap:10px}
-.check-item{display:flex;align-items:flex-start;gap:12px;cursor:pointer;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.02);transition:all .2s}
-.check-item:hover{border-color:var(--accent);background:rgba(124,58,237,.06)}
-.check-item.checked{border-color:var(--teal);background:rgba(6,182,212,.06)}
-.check-box{width:20px;height:20px;border-radius:5px;border:2px solid var(--subtle);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.check-item.checked .check-box{background:var(--teal);border-color:var(--teal)}
-.check-text{font-size:13px;color:var(--text);line-height:1.5}
+/* MODULE */
+.module{display:none}.module.active{display:block}
 
-/* NAV BUTTONS */
-.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
-.btn-prev{background:none;border:1px solid var(--border);color:var(--muted);padding:10px 20px;border-radius:10px;font-size:13px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}
-.btn-prev:hover{border-color:var(--cyan);color:var(--cyan)}
-.btn-next{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:11px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}
-.btn-next:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,58,237,.35)}
-.btn-next:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
-.nav-hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px;opacity:0;transition:opacity .5s}
-.nav-hint.vis{opacity:1}
+/* FOOTER */
+.footer{text-align:center;padding:20px;font-size:11px;color:var(--subtle);border-top:1px solid var(--border);margin-top:40px}
 
-/* COMPLETE */
-#complete{display:none;max-width:600px;margin:60px auto;padding:0 20px;text-align:center}
-#complete.active{display:block}
-.cert-icon{font-size:64px;margin-bottom:20px}
-.cert-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--accent2);margin-bottom:12px}
-.cert-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:28px}
-.cert-box{background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(124,58,237,.04));border:1px solid rgba(124,58,237,.25);border-radius:16px;padding:28px;margin-bottom:24px}
-.cert-name-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
-.cert-name{font-family:'Playfair Display',serif;font-size:22px;color:var(--text);margin-bottom:16px}
-.cert-course{font-size:14px;color:var(--accent2);font-weight:600}
-.cert-sig{font-size:12px;color:var(--muted);margin-top:12px}
-.btn-hub{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:13px 28px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;text-decoration:none;display:inline-block;margin-top:8px}
-
-/* ATTRIBUTION */
-.attribution{text-align:center;padding:40px 20px;font-size:11px;color:var(--subtle);border-top:1px solid var(--border)}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}.hero-title{font-size:20px}}
 </style>
 </head>
 <body>
@@ -157,7 +137,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <span class="nav-logo">PeopleOS</span>
     <span class="nav-sub">Learning Hub &nbsp;by TaHien</span>
   </div>
-  <div class="giot-pill">💧 <span id="nav-giot">0</span> Giọt</div>
+  <div class="giot-pill">💧 <span id="giot-val">0</span> Giọt</div>
 </nav>
 
 <div class="breadcrumb">
@@ -166,619 +146,454 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <span>Leadership Không Chức Danh</span>
 </div>
 
-<div class="progress-bar">
-  <div class="progress-label">
+<div class="prog-wrap">
+  <div class="prog-top">
     <span id="plabel">Bài 1 / 6</span>
     <span id="ppct">0%</span>
   </div>
-  <div class="progress-track"><div class="progress-fill" id="pfill" style="width:0%"></div></div>
-  <div class="prog-detail" id="prog-detail"></div>
+  <div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
 </div>
 
-<div class="dots" id="dots"></div>
+<div class="dots-wrap" id="dots"></div>
 
-<!-- ═══════════════ MODULE 1 ═══════════════ -->
+<div class="wrap">
+
+<!-- OUTCOMES (chỉ hiện ở module 1) -->
+<div class="outcomes-box" id="outcomes-box">
+  <div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div>
+  <ul class="outcomes-list">
+    <li>Tạo được ảnh hưởng với manager và đồng nghiệp mà không cần quyền lực chính thức</li>
+    <li>Áp dụng 3 đòn bẩy influence trong các tình huống khó: thuyết phục, thương lượng, liên minh</li>
+    <li>Xây dựng uy tín chuyên môn bền vững trong tổ chức F&B quy mô lớn</li>
+  </ul>
+</div>
+
+<!-- MODULE 1 -->
 <div class="module active" id="m1">
   <div class="hero">
-    <div class="hero-badge">● Leadership Không Chức Danh · Cấp 2</div>
+    <div class="hero-badge">⚡ Growth · Bài 1</div>
     <div class="hero-num">Bài 1 / 6</div>
-    <div class="hero-title">Tại sao người giỏi nhất phòng thường không có chức danh lớn nhất</div>
-    <div class="module-time">⏱ ~4 phút đọc</div>
+    <div class="hero-time">⏱ ~4 phút đọc</div>
+    <div class="hero-title">HR Manager giỏi nhưng không ai nghe — tại sao?</div>
   </div>
 
-  <div class="outcomes-box">
-    <div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div>
-    <ul class="outcomes-list">
-      <li>Ảnh hưởng được quyết định của manager/CEO mà không cần quyền lực chính thức</li>
-      <li>Xây dựng coalition trong tổ chức để HR policy được đón nhận thay vì phải ép buộc</li>
-      <li>Nhận diện và vô hiệu hóa 4 kiểu "người chặn" phổ biến trong chuỗi F&B</li>
-    </ul>
-  </div>
+  <div class="lead">"Hiền từng làm việc với một HR Manager xuất sắc — bằng cấp top, kiến thức sâu, policy chuẩn. Nhưng mỗi lần đề xuất thay đổi quy trình, câu trả lời luôn là 'để xem xét'. Sau 2 năm, cô ấy vẫn đang 'xem xét'. Vấn đề không phải năng lực — mà là ảnh hưởng."</div>
 
-  <div class="lead">"Hiền từng làm việc với một HR Manager — kinh nghiệm 8 năm, bằng thạc sĩ quản trị nhân sự, thuộc lý thuyết vanh vách. Nhưng mỗi lần cô ấy đề xuất thay đổi chính sách, câu trả lời luôn là 'để xem lại'. Sáu tháng sau có một junior từ bộ phận vận hành — không bằng cấp liên quan, mới 3 năm kinh nghiệm — đề xuất đúng chính sách đó. Nó được duyệt trong 2 tuần. Sự khác biệt không phải ý tưởng. Mà là ảnh hưởng."</div>
+  <p class="body">Trong môi trường F&B chuỗi — nơi line manager có 200 nhân viên dưới quyền, COO quyết định trong 5 phút, và finance chiếm ưu thế trong mọi cuộc họp — HR là bộ phận <b>không có quyền lực trực tiếp</b> nhưng phải tạo ra thay đổi hành vi cho toàn tổ chức.</p>
+  <p class="body">Đây là bài toán leadership thuần túy: <b>ảnh hưởng mà không có authority</b>. Và đây là thứ phần lớn chương trình đào tạo HR bỏ qua.</p>
 
-  <p class="body">Trong chuỗi F&B với 600+ nhà hàng như Golden Gate Group, <b>người ra quyết định thật sự và người có chức danh lớn nhất thường là 2 người khác nhau</b>. Hiền quan sát điều này trong 30 năm: Operation Director đưa ra quyết định nhân sự, nhưng người thật sự định hình quyết định đó là Area Manager tin tưởng, hay Finance Director lo ngại về chi phí, hay thậm chí một cashier kỳ cựu được mọi người tôn trọng.</p>
-
-  <div class="sec-title">Chức danh cho bạn quyền lực. Ảnh hưởng cho bạn tác động thực sự.</div>
-  <p class="body">HR có một nghịch lý: chúng ta <b>không trực tiếp quản lý kết quả kinh doanh</b>, nhưng mọi kết quả kinh doanh đều đi qua con người — và con người thuộc về HR. Để thay đổi hành vi của 10,000 nhân viên, HR không thể dùng quyền lực. HR phải dùng ảnh hưởng.</p>
-
+  <div class="sec-title">3 lý do HR không có ảnh hưởng dù giỏi nghiệp vụ</div>
   <div class="grid2">
-    <div class="card">
-      <div class="cn">QUYỀN LỰC</div>
-      <div class="ct">Position Power</div>
-      <div class="cd">Người ta làm vì phải làm. Mất chức danh là mất quyền lực. Tạo compliance, không tạo commitment.</div>
-    </div>
-    <div class="card">
-      <div class="cn">ẢNH HƯỞNG</div>
-      <div class="ct">Influence Power</div>
-      <div class="cd">Người ta làm vì muốn làm. Không cần chức danh. Tạo engagement thật sự và bền vững.</div>
-    </div>
+    <div class="card"><div class="cn">LÝ DO 01</div><div class="ct">Ngôn ngữ sai audience</div><div class="cd">HR nói "engagement score giảm 12%", manager nghe "thêm việc cho tôi". Chưa translate được sang ngôn ngữ business.</div></div>
+    <div class="card"><div class="cn">LÝ DO 02</div><div class="ct">Không có liên minh trước</div><div class="cd">Đề xuất trong phòng họp mà chưa có ai "đã biết" trước = bất ngờ = phản đối. Mọi quyết định lớn được thống nhất trước khi họp.</div></div>
+    <div class="card"><div class="cn">LÝ DO 03</div><div class="ct">Dựa vào policy thay vì quan hệ</div><div class="cd">"Theo quy định..." là câu yếu nhất một HR có thể nói. Policy là nền, nhưng người ta làm vì người — không phải vì quy định.</div></div>
+    <div class="card"><div class="cn">LÝ DO 04</div><div class="ct">Thiếu track record về business impact</div><div class="cd">Nếu không ai nhớ HR đã từng giúp business thật sự, tại sao họ sẽ tin lần này khác?</div></div>
   </div>
 
   <div class="hl">
-    <div class="hl-label">Dữ liệu thực chiến từ Hiền</div>
-    <p class="body">Tại Golden Gate Group, Hiền từng track: <b>73% chính sách HR thất bại không phải vì thiết kế sai — mà vì không được middle manager hấp thụ</b>. Middle manager không phải không hiểu. Họ không tin vào người đề xuất. Leadership không chức danh là về xây dựng sự tin tưởng đó trước khi cần dùng đến nó.</p>
+    <div class="hl-label">+ TaHien bổ sung — yếu tố thứ 5</div>
+    <p>HR thiếu <b style="color:var(--cyan)">Perceived Expertise</b> — uy tín chuyên môn mà người khác chủ động nhận ra. Không phải bằng cấp, không phải chức danh. Là "người duy nhất trong phòng họp biết điều này." Khi bạn có Perceived Expertise, người ta chủ động hỏi ý kiến bạn — đó mới là ảnh hưởng thật sự.</p>
   </div>
 
   <div class="ex">
-    <div class="ex-head">
-      <div class="ex-ico">🎯</div>
-      <div>
-        <div class="ex-label">Kiểm tra nhanh</div>
-        <div class="ex-sub">Tình huống thực tế</div>
-      </div>
-    </div>
-    <div class="qq">HR đề xuất tăng ngân sách training 20%. CFO hỏi: "ROI cụ thể là gì?" Cách trả lời nào thể hiện leadership ảnh hưởng tốt nhất?</div>
+    <div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Kiểm tra nhanh</div><div class="ex-sub">Tình huống thực tế — chọn cách tiếp cận đúng nhất</div></div></div>
+    <div class="qq">HR Manager muốn đề xuất áp dụng exit interview bắt buộc cho toàn chuỗi 300 cửa hàng. Bước đầu tiên nên làm là gì?</div>
     <div class="qopts" id="q1-opts">
-      <button class="qopt" onclick="ansQ1(this,'A')"><span class="oletter">A</span>Giải thích tầm quan trọng của training với nhân viên</button>
-      <button class="qopt" onclick="ansQ1(this,'B')"><span class="oletter">B</span>Trình bày: turnover giảm 15% = tiết kiệm 2.4 tỷ/năm — training cost chỉ 800 triệu</button>
-      <button class="qopt" onclick="ansQ1(this,'C')"><span class="oletter">C</span>Nói rằng training là đầu tư dài hạn, khó đo lường ROI ngắn hạn</button>
-      <button class="qopt" onclick="ansQ1(this,'D')"><span class="oletter">D</span>Xin thêm thời gian để nghiên cứu và trả lời sau</button>
+      <button class="qopt" data-q="1" data-o="A"><span class="oletter">A</span>Gửi email toàn công ty về lợi ích của exit interview</button>
+      <button class="qopt" data-q="1" data-o="B"><span class="oletter">B</span>Gặp riêng 2-3 Area Manager có ảnh hưởng nhất để chia sẻ ý tưởng và nghe phản hồi</button>
+      <button class="qopt" data-q="1" data-o="C"><span class="oletter">C</span>Đưa đề xuất vào slide presentation cho ban lãnh đạo</button>
+      <button class="qopt" data-q="1" data-o="D"><span class="oletter">D</span>Viết policy exit interview và submit lên CHRO phê duyệt</button>
     </div>
     <div class="qfb" id="q1-fb"></div>
   </div>
 
   <div class="tw">
     <div class="tw-label">Câu mang đi · Bài 1</div>
-    <div class="tw-text">"Chức danh cho bạn quyền ra lệnh. Ảnh hưởng cho bạn quyền được lắng nghe — và đó là thứ HR thực sự cần."</div>
-    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+    <div class="tw-text">"Ảnh hưởng không đến từ chức danh — nó đến từ việc bạn là người duy nhất trong phòng họp hiểu rõ vấn đề mà người khác đang cần giải quyết."</div>
+    <div class="tw-author">— TaHien · CHCO Golden Gate Group</div>
   </div>
-  <div class="micro-task">
-    <div class="micro-label">⚡ Áp dụng ngay · Bài 1</div>
-    <div class="micro-text">Nghĩ về 1 đề xuất HR bị từ chối gần đây. Viết lại nó theo ngôn ngữ business (tiết kiệm bao nhiêu, tránh rủi ro gì, tăng doanh thu thế nào) thay vì ngôn ngữ HR.</div>
-  </div>
+  <div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 1</div><div class="micro-text">Xác định 1 đề xuất HR bạn đang muốn thúc đẩy. Liệt kê 3 người có ảnh hưởng nhất với quyết định đó. Kế hoạch gặp riêng họ trước khi đưa vào họp chính thức.</div></div>
 
-  <div class="nav-row">
-    <button class="btn-prev" style="visibility:hidden">← Quay lại</button>
-    <div>
-      <button class="btn-next" id="m1-next" onclick="goTo(2)" disabled>Tiếp theo →</button>
-      <div class="nav-hint" id="m1-hint">Trả lời câu hỏi để mở bài tiếp theo</div>
-    </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="go(1)" disabled>← Quay lại</button>
+    <button class="btn-next" id="n1" onclick="go(2)" disabled>Tiếp theo →</button>
   </div>
+  <div class="hint" id="h1">Trả lời câu hỏi để mở bài tiếp theo</div>
 </div>
 
-<!-- ═══════════════ MODULE 2 ═══════════════ -->
+<!-- MODULE 2 -->
 <div class="module" id="m2">
   <div class="hero">
-    <div class="hero-badge">● Leadership Không Chức Danh · Cấp 2</div>
+    <div class="hero-badge">⚡ Growth · Bài 2</div>
     <div class="hero-num">Bài 2 / 6</div>
-    <div class="hero-title">5 Nguồn Ảnh Hưởng — Bạn Đang Dùng Cái Nào?</div>
-    <div class="module-time">⏱ ~4 phút đọc</div>
+    <div class="hero-time">⏱ ~4 phút đọc</div>
+    <div class="hero-title">3 đòn bẩy influence mà HR có thể dùng ngay</div>
   </div>
 
-  <div class="lead">"Có một HR Director Hiền biết — ảnh hưởng cực lớn trong tổ chức dù không ngồi C-suite. Bí quyết của cô ấy? Mỗi sáng thứ 2, cô chia sẻ một insight về thị trường lao động với 3 VP. Không ai yêu cầu. Không ai trả tiền thêm. Nhưng sau 6 tháng, khi cần quyết định về nhân sự, 3 VP đó đều hỏi ý kiến cô ấy trước."</div>
+  <p class="body">Sau 30 năm quan sát những HR Manager từ "giỏi nghiệp vụ" leo lên CHRO — và những người mãi mãi là Senior Executive không ai nghe — Hiền nhận ra: không phải ai thông minh hơn đều thăng tiến nhanh hơn. Người thăng tiến là người biết <b>dùng đúng đòn bẩy đúng lúc.</b></p>
 
-  <p class="body">John French và Bertram Raven (1959) xác định 5 nguồn quyền lực. Nhưng chỉ 2 trong số đó thật sự có sẵn cho HR không có line authority. Sau 30 năm, Hiền thêm nguồn thứ 6 — nguồn mạnh nhất trong môi trường F&B chain.</p>
-
-  <div class="sec-title">6 Nguồn Ảnh Hưởng — HR Cần Biết Cái Nào Của Mình</div>
-
+  <div class="sec-title">3 đòn bẩy influence không cần authority</div>
   <div class="grid2">
-    <div class="card">
-      <div class="cn">01 — CÓ GIỚI HẠN</div>
-      <div class="ct">Legitimate Power</div>
-      <div class="cd">Quyền lực từ chức danh. Mất chức danh là mất. HR Ops có, HRBP ít hơn.</div>
-    </div>
-    <div class="card">
-      <div class="cn">02 — CÓ GIỚI HẠN</div>
-      <div class="ct">Coercive Power</div>
-      <div class="cd">Quyền phạt, sa thải. HR có nhưng dùng nhiều = mất trust.</div>
-    </div>
-    <div class="card">
-      <div class="cn">03 — CÓ GIỚI HẠN</div>
-      <div class="ct">Reward Power</div>
-      <div class="cd">Quyền thưởng. HR recommend nhưng manager quyết định. Giới hạn.</div>
-    </div>
-    <div class="card">
-      <div class="cn">04 — TIỀM NĂNG CAO</div>
-      <div class="ct" style="color:var(--accent2)">Expert Power</div>
-      <div class="cd">Ảnh hưởng từ chuyên môn. <b>HR có thể build không giới hạn.</b> Không cần xin ai.</div>
-    </div>
-    <div class="card">
-      <div class="cn">05 — TIỀM NĂNG CAO</div>
-      <div class="ct" style="color:var(--accent2)">Referent Power</div>
-      <div class="cd">Ảnh hưởng từ sự tôn trọng cá nhân. <b>Xây bằng hành động nhất quán.</b></div>
-    </div>
-    <div class="card">
-      <div class="cn">06 — TaHien bổ sung</div>
-      <div class="ct" style="color:var(--gold)">Information Power</div>
-      <div class="cd">Ai biết trước, biết sâu hơn về thị trường lao động và insight nhân sự = có ảnh hưởng. <b>HR ngồi vị trí vàng này.</b></div>
-    </div>
+    <div class="card"><div class="cn">ĐÒN BẨY 01</div><div class="ct">Expert Power — Quyền lực tri thức</div><div class="cd">Trở thành người duy nhất biết điều quan trọng nhất. Không phải biết nhiều thứ — mà biết <i>thứ mà người khác cần nhất lúc này.</i></div></div>
+    <div class="card"><div class="cn">ĐÒN BẨY 02</div><div class="ct">Reciprocity — Có qua có lại</div><div class="cd">Giúp manager giải quyết vấn đề của họ trước. Người ta không từ chối người đã từng giúp mình. Đây là currency mạnh nhất trong tổ chức F&B.</div></div>
+    <div class="card"><div class="cn">ĐÒN BẨY 03</div><div class="ct">Coalition Building — Liên minh trước</div><div class="cd">Khi bạn vào phòng họp với 3 manager đã đồng ý, phần còn lại thường theo. Không ai muốn là người duy nhất phản đối.</div></div>
   </div>
 
   <div class="hl">
-    <div class="hl-label">Chiến lược thực chiến cho HR</div>
-    <p class="body"><b>Expert Power:</b> Mỗi quý, publish 1 report về xu hướng lao động F&B cho leadership team. Không ai yêu cầu — nhưng sau vài lần, khi cần quyết định nhân sự, họ sẽ tìm đến bạn.<br><br><b>Information Power:</b> Biết turnover theo từng store, biết ai sắp nghỉ, biết benchmark lương thị trường. Chia sẻ đúng lúc, đúng người = xây influence bank không giới hạn.</p>
+    <div class="hl-label">Cách dùng Expert Power trong F&B</div>
+    <p>Tại Golden Gate Group với 600+ cửa hàng, Hiền build Expert Power bằng cách trở thành <b style="color:var(--cyan)">người duy nhất có data turnover theo ca làm việc</b> — không phải chỉ theo tháng hay phòng ban. Khi một Area Director hỏi "tại sao thứ Hai ca sáng nhảy việc nhiều hơn?", Hiền là người duy nhất có câu trả lời. Từ đó, mọi quyết định scheduling đều cần HR tham gia.</p>
+  </div>
+
+  <div class="sec-title">Framework: PREP để build influence</div>
+  <p class="body">Trước mỗi cuộc gặp quan trọng với stakeholder, chuẩn bị theo PREP:</p>
+  <div class="grid2">
+    <div class="card"><div class="cn">P — Problem</div><div class="ct">Vấn đề của họ là gì?</div><div class="cd">Không phải vấn đề của HR. Vấn đề của người ngồi trước mặt bạn. Hỏi: "Anh đang lo nhất điều gì trong 3 tháng tới?"</div></div>
+    <div class="card"><div class="cn">R — Relevance</div><div class="ct">HR liên quan thế nào?</div><div class="cd">Link giải pháp HR với vấn đề của họ. "Turnover của anh đang 60%/năm = mất 6 tháng lương mỗi nhân viên nghỉ." Đó là ngôn ngữ của họ.</div></div>
+    <div class="card"><div class="cn">E — Evidence</div><div class="ct">Bằng chứng cụ thể</div><div class="cd">Số liệu thực, case study thật. Không có bằng chứng = ý kiến. Có bằng chứng = insight. Người ta mua insight, không mua ý kiến.</div></div>
+    <div class="card"><div class="cn">P — Proposal</div><div class="ct">Đề xuất cụ thể, nhỏ</div><div class="cd">Đừng đề xuất "cải tổ văn hóa". Đề xuất "thử pilot 1 tháng tại 5 cửa hàng, đo KPI này, tôi báo cáo kết quả." Người ta dễ đồng ý với cái nhỏ.</div></div>
   </div>
 
   <div class="ex">
-    <div class="ex-head">
-      <div class="ex-ico">💭</div>
-      <div>
-        <div class="ex-label">Phản tư cá nhân</div>
-        <div class="ex-sub">Tối thiểu 30 chữ để mở bài tiếp theo</div>
-      </div>
+    <div class="ex-head"><div class="ex-ico">📊</div><div><div class="ex-label">Tự đánh giá</div><div class="ex-sub">Bạn đang dùng đòn bẩy nào chủ yếu?</div></div></div>
+    <div class="qq">Trong 3 tháng gần đây, bạn tạo được ảnh hưởng chủ yếu qua cách nào?</div>
+    <div class="qopts" id="q2-opts">
+      <button class="qopt" data-q="2" data-o="A"><span class="oletter">A</span>Dựa vào policy và quy định</button>
+      <button class="qopt" data-q="2" data-o="B"><span class="oletter">B</span>Chủ yếu qua Expert Power — data và insight</button>
+      <button class="qopt" data-q="2" data-o="C"><span class="oletter">C</span>Xây liên minh với các manager có ảnh hưởng</button>
+      <button class="qopt" data-q="2" data-o="D"><span class="oletter">D</span>Nhờ cấp trên yêu cầu hộ</button>
     </div>
-    <p class="reflect-prompt">Bạn đang dùng nguồn ảnh hưởng nào nhiều nhất trong công việc hiện tại? Và nguồn nào bạn chưa đầu tư mà muốn phát triển?</p>
-    <textarea class="reflect-input" id="r2-input" placeholder="Viết suy nghĩ của bạn..." oninput="checkReflect2()"></textarea>
-    <div class="reflect-count" id="r2-count">0 / 30 ký tự tối thiểu</div>
+    <div class="qfb" id="q2-fb"></div>
   </div>
 
   <div class="tw">
     <div class="tw-label">Câu mang đi · Bài 2</div>
-    <div class="tw-text">"Trong F&B chain, ai nắm insight nhân sự thật sự — không phải ai cầm headcount budget — mới là người có ảnh hưởng thật sự."</div>
-    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+    <div class="tw-text">"Người có influence không hỏi 'làm sao tôi thuyết phục họ' — họ hỏi 'vấn đề nào của họ mà tôi đang giúp giải quyết?'"</div>
+    <div class="tw-author">— TaHien · CHCO Golden Gate Group</div>
   </div>
-  <div class="micro-task">
-    <div class="micro-label">⚡ Áp dụng ngay · Bài 2</div>
-    <div class="micro-text">Lên lịch chia sẻ 1 insight HR với 1 VP/Director tuần này — turnover trend, market benchmark, hoặc bất kỳ data nào bạn có mà họ chưa biết.</div>
-  </div>
+  <div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 2</div><div class="micro-text">Chọn 1 stakeholder khó nhất bạn đang muốn tác động. Dùng PREP để chuẩn bị cuộc gặp: viết ra Problem của họ, Relevance HR, Evidence bạn có, và Proposal nhỏ nhất có thể.</div></div>
 
-  <div class="nav-row">
-    <button class="btn-prev" onclick="goTo(1)">← Quay lại</button>
-    <div>
-      <button class="btn-next" id="m2-next" onclick="goTo(3)" disabled>Tiếp theo →</button>
-      <div class="nav-hint vis" id="m2-hint">Viết phản tư để mở bài tiếp theo</div>
-    </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="go(1)">← Quay lại</button>
+    <button class="btn-next" id="n2" onclick="go(3)" disabled>Tiếp theo →</button>
   </div>
+  <div class="hint" id="h2">Trả lời câu hỏi để mở bài tiếp theo</div>
 </div>
 
-<!-- ═══════════════ MODULE 3 ═══════════════ -->
+<!-- MODULE 3 -->
 <div class="module" id="m3">
   <div class="hero">
-    <div class="hero-badge">● Leadership Không Chức Danh · Cấp 2</div>
+    <div class="hero-badge">⚡ Growth · Bài 3</div>
     <div class="hero-num">Bài 3 / 6</div>
-    <div class="hero-title">Case Study: HR Thay Đổi Văn Hóa 18 Cửa Hàng Không Cần Memo</div>
-    <div class="module-time">⏱ ~4 phút đọc</div>
+    <div class="hero-time">⏱ ~4 phút đọc</div>
+    <div class="hero-title">Case study: HR Manager thay đổi 40 cửa hàng mà không có quyền ra lệnh</div>
   </div>
 
-  <div class="lead">"Năm 2019, một chuỗi F&B 18 cửa hàng muốn cải thiện tỷ lệ giữ chân nhân viên bếp — vốn đang ở 78%/năm (tức cứ 4 người thì mất 3 trong 1 năm). HR được giao nhiệm vụ. Không có ngân sách extra. Không có quyền điều động nhân sự. Chỉ có ảnh hưởng."</div>
+  <p class="body"><b>Context:</b> Chuỗi bán lẻ thời trang 40 cửa hàng, Hà Nội và TP.HCM. Turnover nhân viên bán hàng đạt 78%/năm — cao gấp đôi benchmark ngành. HR Manager Linh (5 năm kinh nghiệm) được giao nhiệm vụ giảm xuống dưới 50% trong 12 tháng. Không có thêm headcount, không có budget đặc biệt.</p>
 
-  <div class="sec-title">Phương pháp: Coalition Building</div>
-  <p class="body">Thay vì viết policy và gửi memo cho tất cả 18 store manager, HRBP của chuỗi này làm 3 việc theo thứ tự:</p>
+  <div class="sec-title">Linh đã làm gì?</div>
+  <div class="card" style="margin:14px 0;border-color:rgba(124,58,237,.3)">
+    <div class="cn" style="color:var(--k7)">THÁNG 1-2: Build Expert Power</div>
+    <div class="cd" style="font-size:13px;margin-top:6px">Linh phân tích exit interview data 6 tháng — tìm ra pattern: 67% nhân viên nghỉ trong 90 ngày đầu. Và 80% trong số đó chỉ làm với 1 store manager cụ thể. Đây là insight không ai trong công ty có. Linh không đề xuất ngay — cô chia sẻ data này với COO một cách tự nhiên trong cuộc họp monthly review.</div>
+  </div>
+  <div class="card" style="margin:14px 0;border-color:rgba(240,192,64,.2)">
+    <div class="cn" style="color:var(--gold)">THÁNG 3-4: Build Coalition</div>
+    <div class="cd" style="font-size:13px;margin-top:6px">Linh xác định 5 Store Manager có turnover thấp nhất (dưới 30%/năm). Gặp riêng từng người, hỏi họ làm gì khác biệt. Không phải để copy — mà để họ trở thành "experts" được nhờ chia sẻ với peer. Người ta dễ thay đổi khi nghe từ đồng nghiệp hơn từ HR.</div>
+  </div>
+  <div class="card" style="margin:14px 0;border-color:rgba(6,182,212,.2)">
+    <div class="cn" style="color:var(--cyan)">THÁNG 5-12: Pilot và Scale</div>
+    <div class="cd" style="font-size:13px;margin-top:6px">Linh đề xuất "buddy system" — nhân viên mới ghép với nhân viên kỳ cựu trong 60 ngày đầu. Không phải policy bắt buộc — mà là "thử xem ở 10 cửa hàng, tôi sẽ theo dõi và báo cáo kết quả." 3 tháng sau, turnover 10 cửa hàng đó giảm từ 78% xuống 44%. Các Store Manager còn lại tự hỏi tại sao mình chưa làm.</div>
+  </div>
+
+  <p class="body"><b>Kết quả:</b> Tháng 12, turnover toàn chuỗi: 47%. Linh không ra một lệnh nào. Không có budget thêm. Không có chức danh mới. Chỉ có data, liên minh, và một pilot đủ nhỏ để mọi người đồng ý thử.</p>
 
   <div class="hl">
-    <div class="hl-label">Bước 1 — Tìm Early Adopters (Tuần 1–2)</div>
-    <p class="body">Xác định <b>3 store manager có retention rate cao nhất</b> và hỏi họ đang làm gì khác. Không phải viết policy chung — mà học từ người đang thành công. Tìm ra: các store tốt đều có 1 buổi 15 phút sáng thứ 2 để "check in" bếp trưởng — không phải họp chính thức, chỉ là hỏi thăm.</p>
+    <div class="hl-label">Khi Hiền làm sai lần đầu</div>
+    <p>Năm đầu tiên Hiền phụ trách L&D tại một chuỗi nhà hàng 50 outlet, Hiền đã làm ngược lại: đề xuất thẳng lên board một "chương trình chuẩn hóa manager trên toàn chuỗi" — nghe hay, nhưng board hỏi "chi phí?" và "ai chạy?" mà Hiền không có câu trả lời. Đề xuất chết ngay tại bàn. <b>Bài học: không bao giờ đề xuất cái to trước khi pilot cái nhỏ.</b></p>
   </div>
-
-  <div class="hl">
-    <div class="hl-label">Bước 2 — Pilot với Coalition (Tháng 1–2)</div>
-    <p class="body">Đề nghị 3 store manager thành công đó <b>thử thêm 2 store lân cận</b> — chia sẻ cách làm của họ, không phải policy của HR. HR đóng vai facilitator. Sau 6 tuần: 5 stores cùng làm, retention cải thiện bình quân 12%.</p>
-  </div>
-
-  <div class="hl">
-    <div class="hl-label">Bước 3 — Codify & Scale (Tháng 3–4)</div>
-    <p class="body">Khi có data từ 5 stores, HR mới viết "hướng dẫn thực hành" — không gọi là "policy". Đưa tên 3 store manager thành công vào document. <b>Khi manager thấy tên đồng nghiệp thành công — không phải yêu cầu từ HR — tỷ lệ adoption lên 89%.</b> Toàn bộ 18 stores áp dụng trong 4 tháng.</p>
-  </div>
-
-  <p class="body"><b>Kết quả sau 6 tháng:</b> Turnover bếp giảm từ 78% xuống 51%. Không có thêm ngân sách. Không có memo bắt buộc. Chỉ có ảnh hưởng được xây đúng cách.</p>
 
   <div class="ex">
-    <div class="ex-head">
-      <div class="ex-ico">🎯</div>
-      <div>
-        <div class="ex-label">Kiểm tra nhanh</div>
-        <div class="ex-sub">Chọn đáp án đúng nhất</div>
-      </div>
-    </div>
-    <div class="qq">Tại sao HR đưa tên store manager (không phải tên HR) vào tài liệu hướng dẫn là quyết định đúng?</div>
-    <div class="qopts" id="q3-opts">
-      <button class="qopt" onclick="ansQ3(this,'A')"><span class="oletter">A</span>Vì HR muốn chia sẻ công trạng với các manager</button>
-      <button class="qopt" onclick="ansQ3(this,'B')"><span class="oletter">B</span>Vì peer credibility cao hơn HR credibility — manager tin đồng nghiệp hơn tin HR</button>
-      <button class="qopt" onclick="ansQ3(this,'C')"><span class="oletter">C</span>Vì đây là quy định phải ghi nhận người đóng góp</button>
-      <button class="qopt" onclick="ansQ3(this,'D')"><span class="oletter">D</span>Vì HR không muốn nhận trách nhiệm nếu thất bại</button>
-    </div>
-    <div class="qfb" id="q3-fb"></div>
+    <div class="ex-head"><div class="ex-ico">💭</div><div><div class="ex-label">Reflection</div><div class="ex-sub">Kết nối với thực tế của bạn</div></div></div>
+    <div class="qq">Trong tình huống tương tự — muốn thay đổi hành vi của team manager mà không có authority — bạn sẽ bắt đầu từ đâu?</div>
+    <textarea class="reflect" id="ref3" placeholder="Chia sẻ cách tiếp cận của bạn... (ít nhất 20 ký tự)"></textarea>
+    <div class="reflect-hint">Nhập ít nhất 20 ký tự để mở bài tiếp theo</div>
   </div>
 
   <div class="tw">
     <div class="tw-label">Câu mang đi · Bài 3</div>
-    <div class="tw-text">"Policy HR viết ra được đọc. Policy được đồng nghiệp tốt nhất xác nhận được làm theo."</div>
-    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+    <div class="tw-text">"Pilot nhỏ thắng policy lớn — vì người ta không thể từ chối thứ đã được chứng minh ngay trước mắt họ."</div>
+    <div class="tw-author">— TaHien · CHCO Golden Gate Group</div>
   </div>
-  <div class="micro-task">
-    <div class="micro-label">⚡ Áp dụng ngay · Bài 3</div>
-    <div class="micro-text">Xác định 1 "early adopter" trong tổ chức của bạn — người đang làm tốt thứ HR muốn scale. Đặt lịch nói chuyện với họ tuần này, không phải để yêu cầu mà để học.</div>
-  </div>
+  <div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 3</div><div class="micro-text">Xác định 1 thay đổi bạn đang muốn thúc đẩy trong tổ chức. Thiết kế một pilot: 30 ngày, 3-5 đơn vị, 1 KPI đo lường cụ thể. Đề xuất pilot này thay vì đề xuất toàn bộ chương trình.</div></div>
 
-  <div class="nav-row">
-    <button class="btn-prev" onclick="goTo(2)">← Quay lại</button>
-    <div>
-      <button class="btn-next" id="m3-next" onclick="goTo(4)" disabled>Tiếp theo →</button>
-      <div class="nav-hint vis" id="m3-hint">Trả lời câu hỏi để mở bài tiếp theo</div>
-    </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="go(2)">← Quay lại</button>
+    <button class="btn-next" id="n3" onclick="go(4)" disabled>Tiếp theo →</button>
   </div>
+  <div class="hint" id="h3">Chia sẻ suy nghĩ của bạn để mở bài tiếp theo</div>
 </div>
 
-<!-- ═══════════════ MODULE 4 ═══════════════ -->
+<!-- MODULE 4 -->
 <div class="module" id="m4">
   <div class="hero">
-    <div class="hero-badge">● Leadership Không Chức Danh · Cấp 2</div>
+    <div class="hero-badge">⚡ Growth · Bài 4</div>
     <div class="hero-num">Bài 4 / 6</div>
-    <div class="hero-title">4 Kiểu "Người Chặn" và Cách Vô Hiệu Hóa Họ</div>
-    <div class="module-time">⏱ ~4 phút đọc</div>
+    <div class="hero-time">⏱ ~3 phút đọc</div>
+    <div class="hero-title">3 bẫy làm HR mất ảnh hưởng nhanh nhất</div>
   </div>
 
-  <div class="lead">"Mỗi khi HR có một sáng kiến tốt, đều có ít nhất 1 người sẽ chặn nó — không phải vì họ xấu, mà vì họ có lý do của họ. Sau 30 năm, Hiền phân loại được 4 kiểu người chặn điển hình trong chuỗi F&B. Và mỗi kiểu cần một cách tiếp cận khác nhau."</div>
+  <p class="body">Hiền đã quan sát đủ nhiều HR Manager burn influence của mình chỉ trong vài tháng. Thường không phải vì làm sai — mà vì <b>làm đúng theo sách nhưng sai với context.</b></p>
 
-  <div class="sec-title">4 Kiểu Người Chặn — Và Cách Xử Lý</div>
+  <div class="sec-title">Bẫy 1: Thủ thế Policy</div>
+  <p class="body">"Theo quy định của công ty..." là câu giết chết mọi cuộc trò chuyện. Manager nghe câu này = HR đang dùng rule để thắng cuộc tranh luận thay vì cùng giải quyết vấn đề. Kết quả: họ tìm cách đi vòng HR lần sau.</p>
+  <p class="body"><b>Dấu hiệu nhận biết:</b> Manager bắt đầu quyết định nhân sự rồi mới báo HR. <b>Cách thoát:</b> Đặt câu hỏi trước khi trích policy: "Anh đang cố giải quyết vấn đề gì? Tôi muốn hiểu trước khi nói về quy trình."</p>
 
-  <div class="grid2">
-    <div class="card">
-      <div class="cn">KIỂU 1</div>
-      <div class="ct" style="color:#EF4444">The Skeptic — Người Hoài Nghi</div>
-      <div class="cd"><b>Dấu hiệu:</b> "Cái này nghe hay đấy nhưng có chắc không?" Hỏi nhiều, cam kết ít.<br><br><b>Cách xử lý:</b> Cho họ data nhỏ trước. Pilot 1 store, 1 bộ phận. Khi thấy bằng chứng thật, Skeptic thường trở thành champion mạnh nhất.</div>
-    </div>
-    <div class="card">
-      <div class="cn">KIỂU 2</div>
-      <div class="ct" style="color:#F59E0B">The Protector — Người Bảo Vệ Lãnh Thổ</div>
-      <div class="cd"><b>Dấu hiệu:</b> "Bộ phận tôi đang ổn, không cần thay đổi." Lo HR xâm phạm quyền hạn.<br><br><b>Cách xử lý:</b> Framing lại — không phải "HR đến giúp" mà "anh/chị cần gì từ HR để team của mình tốt hơn?" Biến họ từ object thành subject.</div>
-    </div>
-    <div class="card">
-      <div class="cn">KIỂU 3</div>
-      <div class="ct" style="color:#8B5CF6">The Bureaucrat — Người Quy Trình</div>
-      <div class="cd"><b>Dấu hiệu:</b> "Cần phải có văn bản, phê duyệt từ A, B, C trước." Không ngăn chặn mà làm chậm đến chết.<br><br><b>Cách xử lý:</b> Làm đúng quy trình nhưng song song — build momentum với người khác trong khi paperwork đang chờ.</div>
-    </div>
-    <div class="card">
-      <div class="cn">KIỂU 4</div>
-      <div class="ct" style="color:#06B6D4">The Aloof — Người Thờ Ơ</div>
-      <div class="cd"><b>Dấu hiệu:</b> Không phản đối, cũng không ủng hộ. "Thì tùy." Nguy hiểm nhất vì khó detect.<br><br><b>Cách xử lý:</b> Tìm điều họ care về và kết nối initiative của HR với điều đó. Mọi người đều có ít nhất 1 thứ họ quan tâm.</div>
-  </div>
-  </div>
+  <div class="sec-title">Bẫy 2: Over-promising</div>
+  <p class="body">HR thường muốn được thừa nhận nên hay hứa nhiều: "Chương trình này sẽ giảm turnover 30%." Nếu kết quả chỉ đạt 15% — dù vẫn tốt — người ta nhớ sự thất vọng, không nhớ sự cải thiện. <b>Hứa ít, làm nhiều hơn.</b> Trong chuỗi F&B, nơi mọi thứ đều được đo bằng số, đây là nguyên tắc sống còn.</p>
+
+  <div class="sec-title">Bẫy 3: Chỉ báo cáo lên, không build lateral</div>
+  <p class="body">HR thường tập trung vào CHRO/CEO mà quên rằng <b>ảnh hưởng trong tổ chức lớn đi ngang trước khi đi dọc.</b> Nếu Finance, Operations, và Marketing không tin HR, CHRO đơn độc không đủ để tạo thay đổi. Mỗi tuần, Hiền dành 2 giờ để gặp 1 stakeholder ngang cấp — không phải để "làm việc" mà để duy trì quan hệ.</p>
 
   <div class="ex">
-    <div class="ex-head">
-      <div class="ex-ico">🔍</div>
-      <div>
-        <div class="ex-label">Nhận diện tình huống</div>
-        <div class="ex-sub">Chọn kiểu người chặn phù hợp</div>
-      </div>
-    </div>
-    <div class="qq">Store Manager Thành nói: "Tôi thấy chương trình onboarding mới của HR có vẻ hay, nhưng bây giờ mùa cao điểm tôi không có thời gian train theo quy trình mới. Sau tháng 10 tính." Đây là kiểu nào?</div>
+    <div class="ex-head"><div class="ex-ico">🔍</div><div><div class="ex-label">Tự kiểm tra</div><div class="ex-sub">Bạn đang mắc bẫy nào?</div></div></div>
+    <div class="qq">Trong 3 tháng gần đây, tình huống nào gần đúng với bạn nhất?</div>
     <div class="qopts" id="q4-opts">
-      <button class="qopt" onclick="ansQ4(this,'A')"><span class="oletter">A</span>The Skeptic — Hoài nghi về hiệu quả của chương trình</button>
-      <button class="qopt" onclick="ansQ4(this,'B')"><span class="oletter">B</span>The Aloof — Thờ ơ, không quan tâm</button>
-      <button class="qopt" onclick="ansQ4(this,'C')"><span class="oletter">C</span>The Bureaucrat — Chờ đến lúc phù hợp, trì hoãn bằng thời gian</button>
-      <button class="qopt" onclick="ansQ4(this,'D')"><span class="oletter">D</span>The Protector — Bảo vệ quyền tự quyết của store</button>
+      <button class="qopt" data-q="4" data-o="A"><span class="oletter">A</span>Tôi hay trích policy khi gặp phản đối từ manager</button>
+      <button class="qopt" data-q="4" data-o="B"><span class="oletter">B</span>Tôi hứa kết quả cụ thể với CHRO/CEO nhưng khó đạt đúng con số</button>
+      <button class="qopt" data-q="4" data-o="C"><span class="oletter">C</span>Tôi tập trung báo cáo lên trên hơn là build quan hệ ngang cấp</button>
+      <button class="qopt" data-q="4" data-o="D"><span class="oletter">D</span>Tôi không nhận ra mình đang ở trong bẫy nào</button>
     </div>
     <div class="qfb" id="q4-fb"></div>
   </div>
 
   <div class="tw">
     <div class="tw-label">Câu mang đi · Bài 4</div>
-    <div class="tw-text">"Người chặn không phải kẻ thù — họ là người chưa thấy lợi ích của họ trong đề xuất của bạn. Nhiệm vụ của HR là giúp họ tìm thấy."</div>
-    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+    <div class="tw-text">"Ảnh hưởng bị mất không bao giờ vì một sai lầm lớn — nó bị bào mòn từng chút một bởi những thói quen nhỏ sai."</div>
+    <div class="tw-author">— TaHien · CHCO Golden Gate Group</div>
   </div>
-  <div class="micro-task">
-    <div class="micro-label">⚡ Áp dụng ngay · Bài 4</div>
-    <div class="micro-text">Nghĩ về 1 người đang "chặn" một initiative HR của bạn. Phân loại họ vào 1 trong 4 kiểu và viết ra 1 cách tiếp cận cụ thể cho kiểu đó.</div>
-  </div>
+  <div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 4</div><div class="micro-text">Xác định bẫy bạn đang mắc nhiều nhất. Thiết lập 1 quy tắc cá nhân để tránh: ví dụ "trước khi trích policy, tôi hỏi 1 câu về vấn đề của họ." Cam kết áp dụng trong 2 tuần tới.</div></div>
 
-  <div class="nav-row">
-    <button class="btn-prev" onclick="goTo(3)">← Quay lại</button>
-    <div>
-      <button class="btn-next" id="m4-next" onclick="goTo(5)" disabled>Tiếp theo →</button>
-      <div class="nav-hint vis" id="m4-hint">Trả lời câu hỏi để mở bài tiếp theo</div>
-    </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="go(3)">← Quay lại</button>
+    <button class="btn-next" id="n4" onclick="go(5)" disabled>Tiếp theo →</button>
   </div>
+  <div class="hint" id="h4">Trả lời câu hỏi để mở bài tiếp theo</div>
 </div>
 
-<!-- ═══════════════ MODULE 5 ═══════════════ -->
+<!-- MODULE 5 -->
 <div class="module" id="m5">
   <div class="hero">
-    <div class="hero-badge">● Leadership Không Chức Danh · Cấp 2</div>
+    <div class="hero-badge">⚡ Growth · Bài 5</div>
     <div class="hero-num">Bài 5 / 6</div>
-    <div class="hero-title">Influence Toolkit — 5 Công Cụ HR Cần Nắm Trong Năm 2026</div>
-    <div class="module-time">⏱ ~4 phút đọc</div>
+    <div class="hero-time">⏱ ~4 phút đọc</div>
+    <div class="hero-title">Công cụ: Influence Map — biết ai cần build trước</div>
   </div>
 
-  <div class="lead">"Nhiều HR Manager Hiền gặp hiểu lý thuyết ảnh hưởng rất tốt nhưng khi vào phòng họp thì bối rối không biết bắt đầu từ đâu. Vấn đề không phải thiếu kiến thức — mà thiếu công cụ cụ thể để dùng ngay hôm nay."</div>
+  <p class="body">Không phải mọi người đều quan trọng như nhau trong việc tạo thay đổi. <b>Influence Map</b> giúp bạn tập trung đúng người, đúng thời điểm, thay vì dàn đều năng lượng cho tất cả.</p>
 
-  <div class="sec-title">5 Công Cụ Ảnh Hưởng Thực Chiến</div>
-
-  <div class="hl">
-    <div class="hl-label">Công cụ 1 — Pre-Meeting Alignment (PMA)</div>
-    <p class="body">Trước bất kỳ cuộc họp quyết định nào, gặp riêng từng người có tiếng nói ít nhất 48 giờ trước. Không phải lobby — mà là <b>lắng nghe lo ngại của họ và điều chỉnh đề xuất trước khi vào phòng họp</b>. Khi vào họp chính thức, đã có 70% agreement — chỉ cần confirm.</p>
+  <div class="sec-title">Cách xây Influence Map trong 20 phút</div>
+  <div class="card" style="margin:14px 0">
+    <div class="cn">BƯỚC 1 — Liệt kê stakeholders</div>
+    <div class="cd" style="margin-top:6px;font-size:13px">Viết tên tất cả người có thể ảnh hưởng hoặc bị ảnh hưởng bởi sáng kiến của bạn. Thường 8-15 người cho một dự án cỡ trung.</div>
   </div>
-
-  <div class="hl">
-    <div class="hl-label">Công cụ 2 — Data Storytelling (không phải Data Dump)</div>
-    <p class="body">Đừng bỏ 30 slides số liệu. Dùng cấu trúc: <b>1 số gây sốc → 1 câu chuyện người thật → 1 đề xuất cụ thể → 1 con số ROI</b>. Ví dụ: "Tháng trước mất 7 bếp trưởng (số gây sốc). Anh Minh — 5 năm kinh nghiệm, khách quen nhận ra anh ấy — nghỉ vì thiếu lộ trình thăng tiến (câu chuyện). Nếu có chương trình internal promotion, chi phí tuyển dụng giảm 40% (ROI)."</p>
+  <div class="card" style="margin:14px 0">
+    <div class="cn">BƯỚC 2 — Đánh giá 2 chiều</div>
+    <div class="cd" style="margin-top:6px;font-size:13px">Cho mỗi người: (1) <b>Power</b> — họ có bao nhiêu quyền quyết định? (1-5) và (2) <b>Alignment</b> — họ đang ủng hộ hay chống đối? (-2 đến +2). Vẽ matrix 2×2.</div>
   </div>
-
-  <div class="hl">
-    <div class="hl-label">Công cụ 3 — "Yes, And" Framing</div>
-    <p class="body">Khi ai đó phản đối, đừng bắt đầu bằng "Nhưng..." Dùng <b>"Đúng, và thêm vào đó..."</b> Ví dụ: Manager nói "Training mất thời gian lắm" → HR nói "Đúng, và đó là lý do chúng ta thiết kế module 15 phút ngay tại ca làm việc, không cần nghỉ thêm." Không tranh luận — extend và redirect.</p>
+  <div class="card" style="margin:14px 0">
+    <div class="cn">BƯỚC 3 — Phân loại và ưu tiên</div>
+    <div class="cd" style="margin-top:6px;font-size:13px"><b>High power + Aligned:</b> Giữ họ thông tin đầy đủ, nhờ sponsor.<br><b>High power + Resistant:</b> Đây là người cần invest nhiều nhất — tìm hiểu lo ngại thật sự.<br><b>Low power + Aligned:</b> Dùng làm coalition voice.<br><b>Low power + Resistant:</b> Monitor, không tốn quá nhiều energy.</div>
   </div>
-
-  <div class="hl">
-    <div class="hl-label">Công cụ 4 — Influence Bank</div>
-    <p class="body">Theo dõi "tài khoản ảnh hưởng" với mỗi stakeholder key: <b>mỗi lần bạn giúp họ (giải quyết vấn đề, chia sẻ info, kết nối nguồn lực) = nạp tiền vào. Mỗi lần bạn cần thứ gì từ họ = rút tiền ra</b>. Đừng bao giờ rút khi tài khoản âm. HR hay thất bại khi liên tục "rút" mà quên "nạp".</p>
+  <div class="card" style="margin:14px 0">
+    <div class="cn">BƯỚC 4 — Action plan per person</div>
+    <div class="cd" style="margin-top:6px;font-size:13px">Với mỗi người High Power: xác định (1) lo ngại chính của họ là gì, (2) tôi cần họ làm gì cụ thể, (3) tôi sẽ gặp họ khi nào. Không để trống bất kỳ High Power stakeholder nào.</div>
   </div>
 
   <div class="hl">
-    <div class="hl-label">Công cụ 5 — Strategic Silence</div>
-    <p class="body">Trong cuộc họp, đừng nói tất cả những gì bạn biết. <b>Chờ đúng moment — khi topic liên quan — rồi đưa ra 1 insight sắc bén</b>. Người nói nhiều thường bị nghe ít hơn. Người nói ít nhưng chính xác được lắng nghe nhiều hơn.</p>
+    <div class="hl-label">Template Influence Map — dùng ngay</div>
+    <p>Tạo 1 bảng Google Sheet với 5 cột: <b style="color:var(--cyan)">Tên | Chức danh | Power (1-5) | Alignment (-2 to +2) | Action tiếp theo</b>. Sắp xếp theo Power × |Alignment|. Top 3 người = 80% effort của bạn trong tháng đầu.</p>
   </div>
 
   <div class="ex">
-    <div class="ex-head">
-      <div class="ex-ico">✅</div>
-      <div>
-        <div class="ex-label">Cam kết áp dụng</div>
-        <div class="ex-sub">Chọn ít nhất 2 công cụ để áp dụng tuần tới</div>
-      </div>
+    <div class="ex-head"><div class="ex-ico">✅</div><div><div class="ex-label">Cam kết hành động</div><div class="ex-sub">Chọn ít nhất 2 điều bạn sẽ làm tuần này</div></div></div>
+    <div class="check-group" id="ck5">
+      <label class="check-item"><input type="checkbox" onchange="checkCommit5()"> Tôi sẽ tạo Influence Map cho 1 dự án đang cần stakeholder buy-in</label>
+      <label class="check-item"><input type="checkbox" onchange="checkCommit5()"> Tôi sẽ identify người High Power + Resistant và lên kế hoạch gặp riêng</label>
+      <label class="check-item"><input type="checkbox" onchange="checkCommit5()"> Tôi sẽ gặp 1 potential coalition ally và chia sẻ dự án đang muốn thúc đẩy</label>
+      <label class="check-item"><input type="checkbox" onchange="checkCommit5()"> Tôi sẽ chuẩn bị 1 cuộc gặp theo framework PREP trong tuần này</label>
     </div>
-    <div class="checklist" id="tools-checklist">
-      <div class="check-item" onclick="toggleCheck(this,'tools')">
-        <div class="check-box" id="check-t1"></div>
-        <div class="check-text"><b>PMA:</b> Đặt lịch 1:1 với 2 stakeholder trước cuộc họp quyết định tuần tới</div>
-      </div>
-      <div class="check-item" onclick="toggleCheck(this,'tools')">
-        <div class="check-box" id="check-t2"></div>
-        <div class="check-text"><b>Data Storytelling:</b> Reformat 1 báo cáo HR theo cấu trúc: Số gây sốc → Câu chuyện → Đề xuất → ROI</div>
-      </div>
-      <div class="check-item" onclick="toggleCheck(this,'tools')">
-        <div class="check-box" id="check-t3"></div>
-        <div class="check-text"><b>Yes And:</b> Trong 3 cuộc họp tới, không dùng "Nhưng" khi phản hồi ý kiến</div>
-      </div>
-      <div class="check-item" onclick="toggleCheck(this,'tools')">
-        <div class="check-box" id="check-t4"></div>
-        <div class="check-text"><b>Influence Bank:</b> Liệt kê 3 stakeholder key và ghi lại "số dư tài khoản" hiện tại với mỗi người</div>
-      </div>
-      <div class="check-item" onclick="toggleCheck(this,'tools')">
-        <div class="check-box" id="check-t5"></div>
-        <div class="check-text"><b>Strategic Silence:</b> Trong cuộc họp tiếp theo, chỉ phát biểu tối đa 3 lần — nhưng 3 lần đó phải sắc bén</div>
-      </div>
-    </div>
-    <div id="tools-msg" style="font-size:12px;color:var(--muted);margin-top:10px">Chọn ít nhất 2 công cụ để tiếp tục</div>
+    <div class="reflect-hint" id="ck5-hint">Chọn ít nhất 2 hành động để mở bài tiếp theo</div>
   </div>
 
   <div class="tw">
     <div class="tw-label">Câu mang đi · Bài 5</div>
-    <div class="tw-text">"Ảnh hưởng không được xây bằng lời nói — mà bằng những khoảnh khắc nhỏ nhặt bạn giúp người khác thành công hơn."</div>
-    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+    <div class="tw-text">"Biết ai cần thuyết phục trước không phải là chính trị — đó là chiến lược. Làm ngược lại mới là lãng phí."</div>
+    <div class="tw-author">— TaHien · CHCO Golden Gate Group</div>
   </div>
-  <div class="micro-task">
-    <div class="micro-label">⚡ Áp dụng ngay · Bài 5</div>
-    <div class="micro-text">Chọn 1 stakeholder key và "nạp vào Influence Bank" với họ tuần này — chia sẻ 1 thông tin hữu ích, giải quyết 1 vấn đề nhỏ, hoặc kết nối họ với 1 người họ cần gặp.</div>
-  </div>
+  <div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 5</div><div class="micro-text">Xây Influence Map cho 1 dự án cụ thể trong tuần này. Dùng Google Sheet, tạo 5 cột như template. Top 3 người High Power — lên lịch gặp trong 2 tuần tới.</div></div>
 
-  <div class="nav-row">
-    <button class="btn-prev" onclick="goTo(4)">← Quay lại</button>
-    <div>
-      <button class="btn-next" id="m5-next" onclick="goTo(6)" disabled>Tiếp theo →</button>
-      <div class="nav-hint vis" id="m5-hint">Chọn ít nhất 2 công cụ để tiếp tục</div>
-    </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="go(4)">← Quay lại</button>
+    <button class="btn-next" id="n5" onclick="go(6)" disabled>Tiếp theo →</button>
   </div>
+  <div class="hint" id="h5">Chọn ít nhất 2 cam kết để mở bài tiếp theo</div>
 </div>
 
-<!-- ═══════════════ MODULE 6 ═══════════════ -->
+<!-- MODULE 6 -->
 <div class="module" id="m6">
   <div class="hero">
-    <div class="hero-badge">● Leadership Không Chức Danh · Cấp 2</div>
+    <div class="hero-badge">⚡ Growth · Bài 6</div>
     <div class="hero-num">Bài 6 / 6</div>
-    <div class="hero-title">Xây Dựng Thương Hiệu Cá Nhân HR Trong Tổ Chức</div>
-    <div class="module-time">⏱ ~3 phút đọc</div>
+    <div class="hero-time">⏱ ~3 phút đọc</div>
+    <div class="hero-title">Leadership không chức danh — hành trình dài hạn</div>
   </div>
 
-  <div class="lead">"Hiền có một quan sát: HR Manager được nhớ đến bởi 1 trong 3 thứ — thứ họ ngăn cản, thứ họ cho phép, hoặc thứ họ tạo ra. Nhóm cuối cùng mới có ảnh hưởng thực sự. Nhóm đầu tiên chỉ được nhớ là người gây khó."</div>
+  <p class="body">Influence không phải thứ build được trong 1 cuộc gặp hay 1 project. Đây là <b>reputation được tích lũy từng tháng</b> — từ mỗi lần bạn deliver đúng hứa, mỗi lần bạn nói thẳng mà không gây chiến, mỗi lần bạn có data trong khi người khác chỉ có opinion.</p>
 
-  <p class="body">Leadership không chức danh suy cho cùng là về <b>thương hiệu cá nhân trong tổ chức</b>. Không phải hình ảnh bên ngoài — mà là câu trả lời cho câu hỏi: "Khi nghĩ đến HR trong tổ chức này, người ta nghĩ đến điều gì?"</p>
-
-  <div class="sec-title">3 Trụ Cột Thương Hiệu HR Trong Tổ Chức</div>
-
+  <div class="sec-title">3 thói quen tích lũy influence hàng tháng</div>
   <div class="grid2">
-    <div class="card">
-      <div class="cn">TRỤ CỘT 1</div>
-      <div class="ct">Reliability — Đáng Tin Cậy</div>
-      <div class="cd">Nói được làm được. Deadline commit là deadline deliver. Trong chuỗi F&B vận hành 24/7, người đáng tin là người được hỏi đầu tiên khi có vấn đề.</div>
-    </div>
-    <div class="card">
-      <div class="cn">TRỤ CỘT 2</div>
-      <div class="ct">Expertise — Chuyên Môn Rõ Ràng</div>
-      <div class="cd">Bạn được biết đến là người giỏi nhất về điều gì? Retention? Talent? Compliance? Không cần giỏi tất cả — cần nổi tiếng về 1 thứ.</div>
-    </div>
-    <div class="card">
-      <div class="cn">TRỤ CỘT 3</div>
-      <div class="ct">Accessibility — Dễ Tiếp Cận</div>
-      <div class="cd">HR dễ gặp hay khó gặp? Manager có dám hỏi HR về vấn đề nhạy cảm không? Accessibility xây trust — trust tạo influence.</div>
-    </div>
-    <div class="card">
-      <div class="cn">TRỤ CỘT 4 — TaHien bổ sung</div>
-      <div class="ct" style="color:var(--gold)">Consistency — Nhất Quán</div>
-      <div class="cd">Ứng xử nhất quán dù đang nói với CEO hay nhân viên bếp. Người không nhất quán bị mất trust nhanh nhất trong tổ chức chuỗi có nhiều layer.</div>
-    </div>
+    <div class="card"><div class="cn">HABIT 01</div><div class="ct">Biết trước 1 thứ quan trọng</div><div class="cd">Mỗi tháng, identify 1 metric hoặc insight mà leader cần nhưng chưa có. Đây là cách build Expert Power liên tục.</div></div>
+    <div class="card"><div class="cn">HABIT 02</div><div class="ct">Coffee chat 1 lần/tuần</div><div class="cd">Gặp 1 stakeholder ngang cấp mỗi tuần — không phải để làm việc, mà để maintain quan hệ. Influence cần được maintain, không chỉ được build.</div></div>
+    <div class="card"><div class="cn">HABIT 03</div><div class="ct">Deliver nhỏ, đúng hẹn</div><div class="cd">Mỗi tháng, hoàn thành ít nhất 1 cam kết đúng deadline với stakeholder quan trọng. Reliability là currency không thể mua được.</div></div>
   </div>
 
   <div class="hl">
-    <div class="hl-label">30 ngày xây thương hiệu HR — Kế hoạch cụ thể</div>
-    <p class="body"><b>Tuần 1:</b> Xác định 1 chủ đề chuyên môn bạn sẽ "own" trong tổ chức.<br><b>Tuần 2:</b> Chia sẻ 1 insight liên quan với 3 stakeholder khác nhau.<br><b>Tuần 3:</b> Giải quyết 1 vấn đề manager đang có mà không cần được yêu cầu.<br><b>Tuần 4:</b> Tổng hợp và chia sẻ kết quả — tạo evidence trail của expertise.</p>
+    <div class="hl-label">Bridge sang K8 — Tư duy Hệ thống</div>
+    <p>Bạn đã biết cách tạo ảnh hưởng với từng người. Bài học tiếp theo: <b style="color:var(--cyan)">làm thế nào để tư duy về tổ chức như một hệ thống</b> — thấy được nguyên nhân gốc rễ của vấn đề thay vì chỉ giải quyết triệu chứng. Đó là bước nâng cấp tiếp theo từ Manager lên Strategic Leader.</p>
   </div>
 
-  <div class="ex">
-    <div class="ex-head">
-      <div class="ex-ico">🏆</div>
-      <div>
-        <div class="ex-label">Hoàn thành khóa học</div>
-        <div class="ex-sub">Cam kết cá nhân để nhận chứng chỉ</div>
-      </div>
-    </div>
-    <p class="reflect-prompt">Viết tuyên ngôn ảnh hưởng cá nhân của bạn: Bạn muốn được biết đến vì điều gì trong tổ chức? Và bạn sẽ làm gì cụ thể trong 30 ngày tới để xây dựng điều đó?</p>
-    <textarea class="reflect-input" id="r6-input" placeholder="Ví dụ: Tôi muốn được biết đến là người giải quyết được các vấn đề retention phức tạp. Trong 30 ngày tới tôi sẽ..." oninput="checkReflect6()"></textarea>
-    <div class="reflect-count" id="r6-count">0 / 50 ký tự tối thiểu</div>
-  </div>
-
-  <div class="tw">
+  <div class="tw" style="margin-top:24px">
     <div class="tw-label">Câu mang đi · Bài 6</div>
-    <div class="tw-text">"HR leadership không bắt đầu từ chức danh CHRO. Nó bắt đầu từ quyết định hôm nay: tôi sẽ ảnh hưởng như thế nào — bằng quyền lực hay bằng giá trị?"</div>
-    <div class="tw-sig">— TaHien · CHCO Golden Gate Group</div>
+    <div class="tw-text">"Leadership không cần chức danh — nhưng cần sự nhất quán. Người có influence là người mà cả tổ chức biết: khi họ cam kết điều gì, điều đó sẽ xảy ra."</div>
+    <div class="tw-author">— TaHien · CHCO Golden Gate Group</div>
   </div>
-  <div class="micro-task">
-    <div class="micro-label">⚡ Áp dụng ngay · Bài 6</div>
-    <div class="micro-text">Viết ra 1 câu mô tả thương hiệu HR của bạn trong tổ chức — như thể bạn đang giới thiệu với CEO mới: "Khi cần [vấn đề cụ thể], mọi người tìm đến tôi vì [lý do cụ thể]."</div>
+  <div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 6</div><div class="micro-text">Xác định 3 thói quen trên và chọn 1 để bắt đầu tuần này. Đặt reminder hàng tuần. Influence được build từ thói quen nhỏ, nhất quán — không phải từ effort lớn nhưng gián đoạn.</div></div>
+
+  <div class="cert-wrap">
+    <div class="cert-badge">🏆</div>
+    <div class="cert-title">Chứng Chỉ Hoàn Thành</div>
+    <div class="cert-sub">Leadership Không Chức Danh · Growth Track · PeopleOS by TaHien</div>
+    <input class="cert-name-input" id="cert-name" placeholder="Nhập tên của bạn...">
+    <br>
+    <button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
+    <div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div>
   </div>
 
-  <div class="nav-row">
-    <button class="btn-prev" onclick="goTo(5)">← Quay lại</button>
-    <div>
-      <button class="btn-next" id="m6-next" onclick="showComplete()" disabled>Hoàn thành khóa học 🎉</button>
-      <div class="nav-hint vis" id="m6-hint">Viết cam kết cá nhân để hoàn thành</div>
-    </div>
+  <div class="nav-btns">
+    <button class="btn-back" onclick="go(5)">← Quay lại</button>
+    <button class="btn-next" onclick="window.location.href='/'" style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button>
   </div>
 </div>
 
-<!-- COMPLETE -->
-<div id="complete">
-  <div class="cert-icon">🏆</div>
-  <div class="cert-title">Chúc mừng!</div>
-  <div class="cert-sub">Bạn đã hoàn thành khóa học<br><b>K7 — Leadership Không Chức Danh</b><br>Growth Track · PeopleOS Learning Hub</div>
-  <div class="cert-box">
-    <div class="cert-name-label">Cấp cho</div>
-    <div class="cert-name" id="cert-name">HR Professional</div>
-    <div class="cert-course">K7 · Leadership Không Chức Danh · Growth Track 🌿</div>
-    <div class="cert-sig">— TaHien · CHCO Golden Gate Group · PeopleOS Community 2026</div>
-  </div>
-  <a href="/" class="btn-hub">← Về Learning Hub</a>
-</div>
+</div><!-- /wrap -->
 
-<div class="attribution">
-  TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>
-  PeopleOS Community · 2026
-</div>
+<div class="footer">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
 
 <script>
 var cur=1,tot=6,doneM={};
-var TITLES=['Tại sao người giỏi nhất phòng thường không có chức danh lớn nhất','5 Nguồn Ảnh Hưởng — Bạn Đang Dùng Cái Nào?','Case Study: HR Thay Đổi Văn Hóa 18 Cửa Hàng','4 Kiểu Người Chặn và Cách Vô Hiệu Hóa','Influence Toolkit — 5 Công Cụ HR Cần Nắm','Xây Dựng Thương Hiệu Cá Nhân HR Trong Tổ Chức'];
-var TIMES=[4,4,4,4,4,3];
 var giot=parseInt(localStorage.getItem('pos_giot')||'0');
+document.getElementById('giot-val').textContent=giot;
+
+var TITLES=['HR Manager giỏi nhưng không ai nghe','3 đòn bẩy influence','Case study 40 cửa hàng','3 bẫy mất ảnh hưởng','Influence Map tool','Hành trình dài hạn'];
+var TIMES=[4,4,4,3,4,3];
 
 function buildDots(){
   var c=document.getElementById('dots');c.innerHTML='';
   for(var i=1;i<=tot;i++){
-    var d=document.createElement('div');d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));
-    var tip=document.createElement('div');tip.className='dot-tip';tip.textContent='Bài '+i+': '+TITLES[i-1];
-    d.appendChild(tip);
-    (function(n){d.onclick=function(){if(n<=cur||doneM[n-1])goTo(n);};})(i);
+    var d=document.createElement('div');
+    d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));
+    var tip=document.createElement('div');tip.className='dot-tip';
+    tip.textContent='Bài '+i+': '+TITLES[i-1];d.appendChild(tip);
+    (function(n){d.onclick=function(){if(n<cur||doneM[n-1]||n===1)go(n);};})(i);
     c.appendChild(d);
   }
 }
 function updProg(){
-  var done=Object.keys(doneM).length;
   var p=Math.round(((cur-1)/tot)*100);
   document.getElementById('pfill').style.width=p+'%';
   document.getElementById('ppct').textContent=p+'%';
   document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;
-  document.getElementById('prog-detail').textContent=done+'/'+tot+' bài · ~'+TIMES.slice(0,done).reduce(function(a,b){return a+b;},0)+'/'+TIMES.reduce(function(a,b){return a+b;},0)+' phút';
-  var gv=document.getElementById('nav-giot');if(gv)gv.textContent=giot;
 }
-function goTo(n){
+function go(n){
   document.getElementById('m'+cur).classList.remove('active');
-  doneM[cur]=true;
-  localStorage.setItem('peopleos_k7_m'+cur,'done');
-  cur=n;
-  var el=document.getElementById('m'+cur);if(el)el.classList.add('active');
-  buildDots();updProg();
-  window.scrollTo({top:0,behavior:'smooth'});
-  var hint=document.getElementById('m'+n+'-hint');if(hint){setTimeout(function(){hint.classList.add('vis');},600);}
+  if(n>1)document.getElementById('outcomes-box').style.display='none';
+  else document.getElementById('outcomes-box').style.display='block';
+  doneM[cur]=true;cur=n;
+  document.getElementById('m'+cur).classList.add('active');
+  buildDots();updProg();window.scrollTo({top:0,behavior:'smooth'});
+  // save
+  localStorage.setItem('resume_k7-leadership-khong-chuc-danh',n);
 }
-function unlock(bid,hid){
-  var b=document.getElementById(bid);if(b)b.disabled=false;
-  var h=document.getElementById(hid);if(h)h.style.display='none';
+function unlock(b,h){
+  var btn=document.getElementById(b);if(btn)btn.disabled=false;
+  var hint=document.getElementById(h);if(hint)hint.style.display='none';
   giot+=20;localStorage.setItem('pos_giot',giot);
-  var gv=document.getElementById('nav-giot');if(gv)gv.textContent=giot;
-}
-function showComplete(){
-  document.getElementById('m6').classList.remove('active');
-  document.getElementById('complete').classList.add('active');
-  doneM[6]=true;localStorage.setItem('peopleos_k7_m6','done');
-  giot+=50;localStorage.setItem('pos_giot',giot);
-  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('giot-val').textContent=giot;
 }
 
-// Quiz handlers
-function ansQ1(el,ans){
-  document.querySelectorAll('#q1-opts .qopt').forEach(function(o){o.disabled=true;});
-  var fb=document.getElementById('q1-fb');
-  if(ans==='B'){el.classList.add('correct');fb.className='qfb show correct';fb.textContent='Đúng! Ngôn ngữ CFO là ROI và số tiền cụ thể. Khi HR nói "training cost 800 triệu tiết kiệm 2.4 tỷ", CFO nghe ra ngay. Đó là Expert Power + Information Power kết hợp.';unlock('m1-next','m1-hint');}
-  else{el.classList.add('wrong');document.querySelectorAll('#q1-opts .qopt')[1].classList.add('correct');fb.className='qfb show wrong';fb.textContent='Chưa đúng. Đáp án B mạnh nhất vì nó dùng ngôn ngữ của CFO — không phải ngôn ngữ của HR. Ảnh hưởng bắt đầu từ việc nói cùng ngôn ngữ với người bạn muốn thuyết phục.';setTimeout(function(){unlock('m1-next','m1-hint');},1500);}
-}
-function ansQ3(el,ans){
-  document.querySelectorAll('#q3-opts .qopt').forEach(function(o){o.disabled=true;});
-  var fb=document.getElementById('q3-fb');
-  if(ans==='B'){el.classList.add('correct');fb.className='qfb show correct';fb.textContent='Chính xác! Peer credibility cao hơn HR credibility trong hầu hết tổ chức. Manager tin "anh Hoàng store 5 đang làm vậy và hiệu quả" hơn tin "HR yêu cầu làm vậy".';unlock('m3-next','m3-hint');}
-  else{el.classList.add('wrong');document.querySelectorAll('#q3-opts .qopt')[1].classList.add('correct');fb.className='qfb show wrong';fb.textContent='Chưa đúng. Lý do cốt lõi là tâm lý: người ta tin đồng nghiệp cùng cấp hơn tin chức năng HR. Đây là nguyên tắc social proof trong môi trường doanh nghiệp.';setTimeout(function(){unlock('m3-next','m3-hint');},1500);}
-}
-function ansQ4(el,ans){
-  document.querySelectorAll('#q4-opts .qopt').forEach(function(o){o.disabled=true;});
-  var fb=document.getElementById('q4-fb');
-  if(ans==='C'){el.classList.add('correct');fb.className='qfb show correct';fb.textContent='Đúng! "Sau tháng 10" là classic Bureaucrat pattern — không phải phản đối nội dung, mà trì hoãn bằng thời gian. Giải pháp: làm pilot nhỏ song song trong khi chờ.';unlock('m4-next','m4-hint');}
-  else{el.classList.add('wrong');document.querySelectorAll('#q4-opts .qopt')[2].classList.add('correct');fb.className='qfb show wrong';fb.textContent='Chưa đúng. Dấu hiệu "tháng 10 tính" là Bureaucrat — dùng thời gian để trì hoãn, không phản đối thẳng.';setTimeout(function(){unlock('m4-next','m4-hint');},1500);}
-}
-
-// Checklist
-var toolsChecked=0;
-function toggleCheck(el,group){
-  el.classList.toggle('checked');
-  var box=el.querySelector('.check-box');
-  if(el.classList.contains('checked')){box.textContent='✓';box.style.color='#020B18';toolsChecked++;}
-  else{box.textContent='';toolsChecked--;}
-  if(toolsChecked>=2){unlock('m5-next','m5-hint');document.getElementById('tools-msg').textContent='✓ Cam kết đã ghi lại — bài tiếp theo đã mở!';}
-  else{document.getElementById('tools-msg').textContent='Chọn ít nhất '+Math.max(0,2-toolsChecked)+' công cụ nữa';}
-}
+// Quiz answers
+document.addEventListener('click',function(e){
+  var el=e.target.closest('.qopt');
+  if(!el)return;
+  var q=el.dataset.q,o=el.dataset.o;
+  if(!q||!o)return;
+  document.querySelectorAll('#q'+q+'-opts .qopt').forEach(function(b){b.disabled=true;});
+  var fb=document.getElementById('q'+q+'-fb');
+  var correct={1:'B',2:'B',4:'D'};
+  var feedbacks={
+    1:{B:'Đúng! Gặp riêng trước là chiến lược influence chuẩn nhất. Bạn nghe, bạn điều chỉnh đề xuất, và họ trở thành người ủng hộ thay vì người phản đối trong cuộc họp.',wrong:'Chưa đúng. Đề xuất rộng hoặc submit policy trước khi có sự đồng thuận = đề xuất chết yểu. Mọi thay đổi lớn cần được build từ những cuộc gặp nhỏ trước.'},
+    2:{B:'Insight tốt! Expert Power là đòn bẩy bền nhất vì nó gắn với năng lực thật — không ai lấy được từ bạn. Tiếp tục build data advantage.',other:'Không có đáp án sai ở đây — đây là self-reflection. Điều quan trọng là bạn nhận ra mình đang dùng đòn bẩy nào và có thể bổ sung thêm đòn bẩy nào.'},
+    4:{D:'Thành thật nhất! Phần lớn HR Manager đang ở trong ít nhất 1 bẫy mà không biết. Nhận ra được là bước đầu tiên — và quan trọng nhất.',other:'Cảm ơn sự thành thật. Nhận diện được bẫy mình đang mắc là bước quan trọng nhất. Giờ bạn có thể thiết kế cách thoát.'}
+  };
+  var isCorrect=(o===correct[q]);
+  el.classList.add(isCorrect?'correct':'wrong');
+  if(isCorrect&&correct[q]){
+    document.querySelectorAll('#q'+q+'-opts .qopt').forEach(function(b){if(b.dataset.o===correct[q])b.classList.add('correct');});
+  }
+  fb.className='qfb show '+(isCorrect?'correct':'wrong');
+  var qfb=feedbacks[q];
+  fb.textContent=qfb?((isCorrect||q==='2')?qfb[o]||qfb.other||qfb.wrong:qfb.wrong||qfb.other):'';
+  if(isCorrect||q==='2'||q==='4'){
+    if(q==='1')unlock('n1','h1');
+    if(q==='2')unlock('n2','h2');
+    if(q==='4')unlock('n4','h4');
+    if(!isCorrect)setTimeout(function(){unlock('n'+q,'h'+q);},1500);
+  } else {
+    setTimeout(function(){unlock('n'+q,'h'+q);},1500);
+  }
+});
 
 // Reflection
-function checkReflect2(){
-  var v=document.getElementById('r2-input').value.trim();
-  document.getElementById('r2-count').textContent=v.length+' / 30 ký tự tối thiểu';
-  if(v.length>=30)unlock('m2-next','m2-hint');
+document.getElementById('ref3').addEventListener('input',function(){
+  if(this.value.length>=20)unlock('n3','h3');
+});
+
+// Checklist module 5
+function checkCommit5(){
+  var checked=document.querySelectorAll('#ck5 input:checked').length;
+  if(checked>=2)unlock('n5','h5');
 }
-function checkReflect6(){
-  var v=document.getElementById('r6-input').value.trim();
-  document.getElementById('r6-count').textContent=v.length+' / 50 ký tự tối thiểu';
-  if(v.length>=50)unlock('m6-next','m6-hint');
+
+// Certificate
+function generateCert(){
+  var name=document.getElementById('cert-name').value.trim();
+  if(!name){alert('Vui lòng nhập tên của bạn!');return;}
+  document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "Leadership Không Chức Danh" đã được ghi nhận. Share lên LinkedIn với hashtag #PeopleOS #HRxAI để nhận +50 Giọt!';
+  giot+=100;localStorage.setItem('pos_giot',giot);
+  document.getElementById('giot-val').textContent=giot;
+  localStorage.setItem('pos_done_k7','true');
 }
 
 // Resume
-(function(){
-  for(var i=1;i<=6;i++){if(localStorage.getItem('peopleos_k7_m'+i))doneM[i]=true;}
-  var last=0;for(var i=6;i>=1;i--){if(doneM[i]){last=i+1;break;}}
-  if(last>1&&last<=6){
-    var rb=document.createElement('div');
-    rb.style.cssText='background:rgba(124,58,237,.07);border:1px solid rgba(124,58,237,.2);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:12px 20px;gap:12px;';
-    rb.innerHTML='<div style="font-size:13px;color:var(--text)">Lần trước bạn học đến <b style="color:var(--accent2)">Bài '+last+'</b></div><button onclick="goTo('+last+')" style="background:var(--accent);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Tiếp tục →</button>';
-    var dots=document.getElementById('dots');dots.parentNode.insertBefore(rb,dots);
-  }
-})();
+var saved=parseInt(localStorage.getItem('resume_k7-leadership-khong-chuc-danh')||'1');
+if(saved>1&&saved<=6){
+  var rb=document.createElement('div');
+  rb.style.cssText='background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.2);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 20px;gap:12px;';
+  rb.innerHTML='<div style="font-size:13px;color:#F0F6FF">Lần trước bạn học đến <strong style="color:#22D3EE">Bài '+saved+'</strong></div><button onclick="go('+saved+');this.parentNode.remove()" style="background:#22D3EE;color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">Tiếp tục →</button>';
+  var wrap=document.querySelector('.wrap');
+  if(wrap)wrap.insertBefore(rb,wrap.firstChild);
+}
 
 buildDots();updProg();
-
-// Show hint after scroll
-setTimeout(function(){
-  var hints=['m1-hint'];
-  hints.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
-},800);
 </script>
-
 </body>
 </html>
