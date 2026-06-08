@@ -197,7 +197,37 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
 <div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div></div>
 <div class="nav-btns"><button class="btn-back" onclick="go(4)" >← Quay lại</button>
-<button class="btn-next" id="n5" onclick="window.location.href='/'"  style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button></div>
+<button class="btn-next" id="n5" onclick="go(6)" disabled style="background:linear-gradient(135deg,#7C3AED,#6366F1)">Tiếp theo →</button></div>
+</div>
+<div class="module" id="m6">
+<div class="hero"><div class="hero-badge">🔭 Horizon · Bài 6</div><div class="hero-num">Bài 6 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">Tổng kết & Hành trình tiếp theo</div></div>
+<div class="hl"><div class="hl-label">Bridge sang K16 — Workforce Strategy Stagility</div>
+<p>AI không chỉ thay đổi CÁCH làm việc — nó thay đổi AI CẦN LÀM VIỆC. <b style="color:var(--cyan)">K16 Workforce Strategy Stagility</b> sẽ dạy bạn design workforce architecture có thể flex với AI disruption, economic uncertainty, và rapid business change.</p></div>
+<p class="body">AI Strategy không phải project có deadline — đó là continuous learning practice. CHRO giỏi nhất trong AI era không phải người biết nhiều AI nhất — mà người học nhanh nhất và govern best nhất.</p>
+<div class="sec-title">AI Governance habit cho CHRO</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Monthly AI use case review</div><div class="cd">Mỗi tháng, review AI tools đang dùng trong HR: đang perform như expected không? Có bias signal nào không? Có employee concern nào không? Governance không phải one-time setup.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">Quarterly AI readiness check</div><div class="cd">Mỗi quý, assess: team HR đang dùng AI nhiều hơn hay ít hơn quý trước? Blocker là gì? Fear? Skill? Tool? Address systematically.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Annual ethics review</div><div class="cd">Mỗi năm, review AI Ethics Charter: vẫn relevant không? Có AI use case mới nào cần address không? Có regulatory change nào tại Vietnam không? Keep it living document.</div></div>
+</div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 6</div>
+<div class="tw-text">"CHRO AI Strategy không phải về being technology expert — đó là về being responsible technology leader trong một domain có thể affect millions of people's livelihoods."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 6</div>
+<div class="micro-text">Commit 30 phút tuần này: experiment với 1 AI tool mới cho 1 HR use case. Không cần perfect — cần learn. Document: (1) Nó làm được gì? (2) Nó không làm được gì? (3) Risk nào cần manage? 12 tuần × 30 phút = AI strategy foundation.</div></div>
+<div class="cert-wrap">
+<div class="cert-badge">🏆</div>
+<div class="cert-title">Chứng Chỉ Hoàn Thành</div>
+<div class="cert-sub">K15 · Horizon Track · PeopleOS by TaHien</div>
+<input class="cert-name-input" id="cert-name" placeholder="Nhập tên của bạn..."><br>
+<button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
+<div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div>
+</div>
+<div class="nav-btns">
+<button class="btn-back" onclick="go(5)">← Quay lại</button>
+<button class="btn-next" onclick="window.location.href='/'" style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button>
+</div>
 </div>
 </div>
 <div class="footer">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
@@ -205,7 +235,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 var cur=1,tot=6,doneM={};
 var giot=parseInt(localStorage.getItem('pos_giot')||'0');
 document.getElementById('giot-val').textContent=giot;
-var TITLES=["AI kh\u00f4ng thay th\u1ebf HR \u2014 AI thay th\u1ebf HR kh\u00f4ng h\u1ecdc AI", "Ethical AI trong HR \u2014 ranh gi\u1edbi CHRO ph\u1ea3i gi\u1eef", "Build AI Capability trong HR Team", "Reskilling Workforce trong AI Era", "AI Strategy cho CHRO \u2014 t\u1eeb follower \u0111\u1ebfn frontier"];
+var TITLES=["AI kh\u00f4ng thay th\u1ebf HR \u2014 AI thay th\u1ebf HR kh\u00f4ng h\u1ecdc AI", "Ethical AI trong HR \u2014 ranh gi\u1edbi CHRO ph\u1ea3i gi\u1eef", "Build AI Capability trong HR Team", "Reskilling Workforce trong AI Era", "AI Strategy cho CHRO \u2014 t\u1eeb follower \u0111\u1ebfn frontier","Tổng kết & Hành trình tiếp theo"];
 function buildDots(){var c=document.getElementById('dots');c.innerHTML='';for(var i=1;i<=tot;i++){var d=document.createElement('div');d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));var tip=document.createElement('div');tip.className='dot-tip';tip.textContent='Bài '+i+': '+TITLES[i-1];d.appendChild(tip);(function(n){d.onclick=function(){if(n<cur||doneM[n-1]||n===1)go(n);}})(i);c.appendChild(d);}}
 function updProg(){var p=Math.round(((cur-1)/tot)*100);document.getElementById('pfill').style.width=p+'%';document.getElementById('ppct').textContent=p+'%';document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;}
 function go(n){document.getElementById('m'+cur).classList.remove('active');if(n>1)document.getElementById('outcomes-box').style.display='none';else document.getElementById('outcomes-box').style.display='block';doneM[cur]=true;cur=n;document.getElementById('m'+cur).classList.add('active');buildDots();updProg();window.scrollTo({top:0,behavior:'smooth'});localStorage.setItem('resume_k15-ai-strategy-chro',n);}
