@@ -57,6 +57,10 @@
     {
       "source": "/k8-finance-hr-hybrid",
       "destination": "/k8-finance-hr-hybrid.html"
+    },
+    {
+      "source": "/k9-talent-management",
+      "destination": "/k9-talent-management.html"
     }
   ]
 }
