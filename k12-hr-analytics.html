@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HR Analytics Cơ Bản · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--text:#E8F4F8;--muted:#8BB8CC;--subtle:#4A7A94;--border:rgba(34,211,238,0.15);--kc:#8B5CF6}
+*{box-sizing:border-box;margin:0;padding:0}body{background:var(--navy);color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100vh;line-height:1.7}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(34,211,238,.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.topnav{position:sticky;top:0;height:58px;background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
+.back{color:var(--muted);text-decoration:none;font-size:13px;transition:color .2s}.back:hover{color:var(--cyan)}
+.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;white-space:nowrap}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);padding:10px 24px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border)}
+.breadcrumb a{color:var(--cyan);text-decoration:none}.breadcrumb .sep{opacity:.4}
+.prog-wrap{padding:10px 24px 0;background:rgba(0,0,0,.15)}.prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--navy2);border-radius:4px;overflow:hidden}.prog-fill{height:100%;background:linear-gradient(90deg,var(--kc),var(--cyan));border-radius:4px;transition:width .4s}
+.dots-wrap{display:flex;justify-content:center;gap:10px;padding:14px 0 4px}.dot{width:10px;height:10px;border-radius:50%;background:var(--navy3);border:1px solid var(--border);cursor:pointer;transition:all .2s;position:relative}
+.dot.active{background:var(--kc);border-color:var(--kc);box-shadow:0 0 0 3px rgba(34,211,238,.15)}.dot.done{background:var(--teal);border-color:var(--teal)}
+.dot-tip{position:absolute;bottom:calc(100%+8px);left:50%;transform:translateX(-50%);background:#0d2a42;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:140px;text-align:center}.dot:hover .dot-tip{opacity:1}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:1}
+.hero{background:linear-gradient(135deg,rgba(6,18,31,.9),rgba(6,18,31,.7));border-left:4px solid var(--kc);border-radius:14px;padding:24px;margin:20px 0 24px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 12px;font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}.hero-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--text);line-height:1.3}.hero-time{font-size:12px;color:var(--muted);margin-top:6px}
+.outcomes-box{background:rgba(34,211,238,.04);border:1px solid rgba(34,211,238,.15);border-radius:12px;padding:16px 18px;margin:0 0 20px}.outcomes-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);text-transform:uppercase;margin-bottom:8px}
+.outcomes-list{list-style:none;padding:0;margin:0}.outcomes-list li{font-size:13px;color:var(--text);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}.outcomes-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
+.lead{font-style:italic;color:var(--muted);border-left:3px solid var(--kc);padding:12px 16px;margin:20px 0;font-size:15px;line-height:1.7;border-radius:0 8px 8px 0;background:rgba(255,255,255,.02)}
+.body{color:var(--text);font-size:15px;line-height:1.75;margin:14px 0}.sec-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cyan);margin:24px 0 10px}
+.hl{background:rgba(240,192,64,.05);border:1px solid rgba(240,192,64,.18);border-radius:10px;padding:14px 16px;margin:16px 0}.hl-label{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.card{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.cn{font-size:11px;color:var(--kc);font-weight:700;margin-bottom:4px}.ct{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}.cd{font-size:12px;color:var(--muted);line-height:1.5}
+.ex{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:20px;margin:20px 0}.ex-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}.ex-ico{font-size:24px}.ex-label{font-size:13px;font-weight:700;color:var(--text)}.ex-sub{font-size:12px;color:var(--muted)}
+.qq{font-size:14px;color:var(--text);margin-bottom:12px;font-weight:500;line-height:1.6}.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;text-align:left;cursor:pointer;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s;display:flex;align-items:flex-start;gap:10px}.qopt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.06)}.qopt:disabled{cursor:not-allowed;opacity:.7}
+.oletter{width:22px;height:22px;border-radius:50%;background:var(--navy);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);flex-shrink:0;margin-top:1px}
+.qopt.correct{border-color:var(--teal);background:rgba(6,182,212,.1)}.qopt.wrong{border-color:#EF4444;background:rgba(239,68,68,.08)}
+.qfb{font-size:13px;padding:10px 12px;border-radius:8px;margin-top:10px;display:none}.qfb.show{display:block}.qfb.correct{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:#6EE7B7}.qfb.wrong{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#FCA5A5}
+.reflect{width:100%;background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;resize:vertical;min-height:90px;outline:none;transition:border .2s}.reflect:focus{border-color:var(--cyan)}.reflect-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.check-group{display:flex;flex-direction:column;gap:8px;margin:10px 0}.check-item{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--text)}.check-item input{width:16px;height:16px;cursor:pointer;accent-color:var(--teal)}
+.tw{background:linear-gradient(135deg,rgba(6,182,212,.08),rgba(240,192,64,.04));border:1px solid rgba(240,192,64,.18);border-radius:14px;padding:20px 22px;margin:22px 0}.tw-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}.tw-text{font-style:italic;font-size:16px;color:var(--text);line-height:1.6;font-weight:500;margin-bottom:6px}.tw-author{font-size:12px;color:var(--muted)}
+.micro-task{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:12px;padding:14px 16px;margin-top:14px}.micro-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}.micro-text{font-size:13px;color:var(--text);line-height:1.6}
+.cert-wrap{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:2px solid var(--gold);border-radius:18px;padding:36px 28px;text-align:center;margin:24px 0}.cert-badge{font-size:48px;margin-bottom:14px}.cert-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:8px}.cert-sub{font-size:14px;color:var(--muted);margin-bottom:20px}
+.cert-name-input{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;width:100%;max-width:320px;text-align:center;outline:none;margin-bottom:14px}
+.cert-btn{background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy);border:none;border-radius:10px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}
+.nav-btns{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}.btn-back{background:none;border:1px solid var(--border);border-radius:10px;padding:10px 20px;color:var(--muted);cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s}.btn-back:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-next{color:white;border:none;border-radius:10px;padding:11px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.btn-next:hover:not(:disabled){transform:translateY(-1px)}.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}.module{display:none}.module.active{display:block}
+.footer{text-align:center;padding:20px;font-size:11px;color:var(--subtle);border-top:1px solid var(--border);margin-top:40px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}.hero-title{font-size:20px}}</style></head><body>
+<nav class="topnav"><a class="back" href="/">← Về Learning Hub</a>
+<div style="display:flex;align-items:center"><span class="nav-logo">PeopleOS</span><span class="nav-sub">Learning Hub &nbsp;by TaHien</span></div>
+<div class="giot-pill">💧 <span id="giot-val">0</span> Giọt</div></nav>
+<div class="breadcrumb"><a href="/">Learning Hub</a><span class="sep">›</span><span>Growth 🌿</span><span class="sep">›</span><span>HR Analytics Cơ Bản</span></div>
+<div class="prog-wrap"><div class="prog-top"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div><div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div></div>
+<div class="dots-wrap" id="dots"></div>
+<div class="wrap">
+<div class="outcomes-box" id="outcomes-box"><div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div><ul class="outcomes-list"><li>Phân biệt được HR metrics, HR analytics và people insights — và biết khi nào dùng gì</li><li>Xây dựng được HR dashboard cơ bản với 5-7 metrics có business relevance</li><li>Present people data theo cách CEO và CFO hiểu và tin tưởng để ra quyết định</li></ul></div>
+<div class="module active" id="m1">
+<div class="hero"><div class="hero-badge">📈 Growth · Bài 1</div><div class="hero-num">Bài 1 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div><div class="hero-title">HR Analytics là gì — và tại sao HR hay nhầm với reporting</div></div>
+<div class="lead">"Hiền từng nhận một báo cáo HR 40 trang từ team — đầy đủ data, biểu đồ đẹp, format chuyên nghiệp. Nhưng khi CHRO hỏi 'Và chúng ta cần làm gì với điều này?', không ai trả lời được. Đó là reporting — không phải analytics."</div>
+<p class="body">HR Analytics không phải về việc collect nhiều data hay làm dashboard đẹp. Đó là về việc <b>trả lời câu hỏi business bằng data</b> — và từ đó recommend action cụ thể.</p>
+<div class="sec-title">3 cấp độ HR Data Maturity</div>
+<div class="grid2">
+<div class="card"><div class="cn">CẤP 1 — DESCRIPTIVE</div><div class="ct">Chuyện gì đã xảy ra?</div><div class="cd">"Turnover tháng này là 8%." Đây là reporting. Cần thiết nhưng không đủ. Phần lớn HR đang ở đây.</div></div>
+<div class="card"><div class="cn">CẤP 2 — DIAGNOSTIC</div><div class="ct">Tại sao nó xảy ra?</div><div class="cd">"Turnover 8% — tập trung ở nhân viên dưới 6 tháng, và 70% ở 3 store có cùng Area Manager." Đây là analytics. Bắt đầu actionable.</div></div>
+<div class="card"><div class="cn">CẤP 3 — PREDICTIVE</div><div class="ct">Chuyện gì sẽ xảy ra?</div><div class="cd">"Dự báo 5 nhân viên có nguy cơ nghỉ trong 30 ngày tới dựa trên pattern: giảm giờ làm, tăng late check-in, không apply cho promotion." Đây là advanced analytics.</div></div>
+</div>
+<div class="hl"><div class="hl-label">+ TaHien bổ sung — Cấp 0: Data không ai tin</div>
+<p>Trước khi nói đến analytics, HR phải vượt qua Cấp 0: <b style="color:var(--cyan)">data quality và consistency</b>. Nếu turnover tháng 1 do HR tính khác tháng 2 do Ops tính — không ai tin data của HR. Data governance phải đến trước analytics sophistication.</p></div>
+<div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Kiểm tra nhanh</div></div></div>
+<div class="qq">CHRO nhận report: "Engagement score giảm từ 72% xuống 65% trong Q3." Đây là loại analytics nào?</div>
+<div class="qopts" id="q1-opts">
+<button class="qopt" data-q="1" data-o="A"><span class="oletter">A</span>Descriptive analytics — mô tả chuyện gì đã xảy ra</button>
+<button class="qopt" data-q="1" data-o="B"><span class="oletter">B</span>Diagnostic analytics — giải thích tại sao xảy ra</button>
+<button class="qopt" data-q="1" data-o="C"><span class="oletter">C</span>Predictive analytics — dự báo tương lai</button>
+<button class="qopt" data-q="1" data-o="D"><span class="oletter">D</span>Prescriptive analytics — recommend action</button>
+</div><div class="qfb" id="q1-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 1</div><div class="tw-text">"HR Reporting kể chuyện gì đã xảy ra. HR Analytics giải thích tại sao và gợi ý điều gì nên làm tiếp. Chỉ loại thứ hai mới đáng để CHRO thức đêm đọc."</div><div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 1</div><div class="micro-text">Review 1 HR report bạn đã gửi gần đây. Phân loại từng số liệu: đây là descriptive hay diagnostic? Nếu chủ yếu là descriptive — đây là cơ hội để nâng cấp.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(0)" disabled>← Quay lại</button>
+<button class="btn-next" id="n1" onclick="go(2)" disabled style="background:linear-gradient(135deg,#8B5CF6,#6366F1)">Tiếp theo →</button></div>
+<div class="hint" id="h1">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m2">
+<div class="hero"><div class="hero-badge">📈 Growth · Bài 2</div><div class="hero-num">Bài 2 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div><div class="hero-title">5 metrics HR phải track — và 5 metrics không cần track</div></div>
+<p class="body">Một trong những sai lầm lớn nhất của HR là track quá nhiều metrics. Khi everything is a priority, nothing is a priority. Hiền đã từng review một HR dashboard có 47 metrics — không ai có thể nói ngay số nào quan trọng nhất.</p>
+<div class="sec-title">5 metrics HR PHẢI track — và tại sao</div>
+<div class="grid2">
+<div class="card"><div class="cn">METRIC 01</div><div class="ct">Turnover Rate (by segment)</div><div class="cd">Không phải tổng — mà theo: cấp bậc, bộ phận, manager, thời gian làm việc. Turnover cao ở nhân viên dưới 90 ngày = onboarding problem. Cao ở 12-18 tháng = development problem.</div></div>
+<div class="card"><div class="cn">METRIC 02</div><div class="ct">Time-to-Fill (critical positions)</div><div class="cd">Vị trí trống bao lâu mới có người. Chỉ track critical positions — không phải tất cả. Kéo dài = revenue lost (vì thiếu người vận hành). Đây là HR metric có giá trị bằng tiền cụ thể.</div></div>
+<div class="card"><div class="cn">METRIC 03</div><div class="ct">Internal Hire Rate</div><div class="cd">% leadership roles được filled từ nội bộ. Dưới 50% = succession pipeline yếu. Trên 70% = talent development đang work. Số này CEO thích nhìn.</div></div>
+<div class="card"><div class="cn">METRIC 04</div><div class="ct">Manager Effectiveness Score</div><div class="cd">Team turnover theo manager. Team engagement theo manager. Nhân viên perform tốt nhất ở manager nào. Đây là data giúp identify great managers và struggling managers.</div></div>
+<div class="card"><div class="cn">METRIC 05</div><div class="ct">RevPAMH (Revenue Per Available Man-Hour)</div><div class="cd">Như đã học ở K11 — metric kết nối HR với business outcome trực tiếp nhất. Nếu chỉ track 1 metric, đây là metric đó.</div></div>
+</div>
+<div class="hl"><div class="hl-label">5 metrics KHÔNG cần track (hoặc track ít hơn)</div>
+<p>❌ Số giờ training per employee (activity, không phải outcome)<br>
+❌ Engagement score tổng (quá aggregate, không actionable)<br>
+❌ Headcount so với budget (operational, không strategic)<br>
+❌ Number of HR programs implemented (vanity metric)<br>
+❌ Employee satisfaction score (lagging indicator, thường too late)</p></div>
+<div class="ex"><div class="ex-head"><div class="ex-ico">💭</div><div><div class="ex-label">Reflection</div></div></div>
+<div class="qq">Nhìn vào HR metrics bạn đang track hiện tại. Bao nhiêu cái là "outcome metrics" (gắn với business result)? Bao nhiêu cái là "activity metrics" (đo số lượng HR activities)? Điều gì cần thay đổi?</div>
+<textarea class="reflect" id="ref2" placeholder="Chia sẻ... (ít nhất 20 ký tự)"></textarea>
+<div class="reflect-hint">Nhập ít nhất 20 ký tự để mở bài tiếp theo</div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 2</div><div class="tw-text">"5 metrics đúng, được track consistently và presented với context, mạnh hơn 50 metrics được collect vì 'cần đầy đủ'."</div><div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 2</div><div class="micro-text">Review HR dashboard hiện tại. Highlight màu xanh: outcome metrics gắn business. Highlight màu đỏ: activity metrics không ai hỏi đến. Nếu đỏ > xanh — redesign dashboard tháng này.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(1)" >← Quay lại</button>
+<button class="btn-next" id="n2" onclick="go(3)" disabled style="background:linear-gradient(135deg,#8B5CF6,#6366F1)">Tiếp theo →</button></div>
+<div class="hint" id="h2">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m3">
+<div class="hero"><div class="hero-badge">📈 Growth · Bài 3</div><div class="hero-num">Bài 3 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div><div class="hero-title">Case study: Dùng HR data để prevent 200 million VND loss</div></div>
+<p class="body"><b>Context:</b> Chuỗi nhà hàng 35 outlet tại TP.HCM. HR Manager Tuấn nhận thấy trong 3 tháng liên tiếp, có pattern lạ trong data: turnover của nhóm kitchen staff tăng dần — từ 5% lên 8% lên 12%/tháng — nhưng chỉ tại 7 outlet có cùng Executive Chef phụ trách training.</p>
+<div class="sec-title">Tuấn đã làm gì với data này?</div>
+<div class="card" style="margin:14px 0;border-color:rgba(139,92,246,.3)">
+<div class="cn" style="color:#A78BFA">BƯỚC 1: Segment và diagnose</div>
+<div class="cd" style="margin-top:6px;font-size:13px">Tuấn không present "turnover tăng" ngay. Anh segment: turnover tăng tập trung ở kitchen staff có dưới 3 tháng, cụ thể sau khi qua training của Executive Chef X. Exit interview data: 67% cite "không được hướng dẫn đúng cách trong giai đoạn đầu."</div></div>
+<div class="card" style="margin:14px 0;border-color:rgba(240,192,64,.2)">
+<div class="cn" style="color:var(--gold)">BƯỚC 2: Quantify business impact</div>
+<div class="cd" style="margin-top:6px;font-size:13px">Cost mỗi kitchen staff turnover: tuyển (2 triệu) + training 3 tháng (1.5 triệu lost productivity) + replacement onboarding (1 triệu) = ~4.5 triệu/người. 7 outlets × 8 turnover/tháng extra so với baseline × 4.5 triệu = ~25 triệu/tháng extra cost = 300 triệu/năm nếu không fix.</div></div>
+<div class="card" style="margin:14px 0;border-color:rgba(6,182,212,.2)">
+<div class="cn" style="color:var(--cyan)">BƯỚC 3: Present và propose</div>
+<div class="cd" style="margin-top:6px;font-size:13px">Tuấn đi gặp COO với: data pattern, cost calculation, và 1 proposal đơn giản: redesign training program của Executive Chef X với structured onboarding checklist + buddy system. Investment: 15 triệu. Expected saving: 300 triệu/năm. COO approve trong 5 phút.</div></div>
+<p class="body"><b>Kết quả 6 tháng sau:</b> Turnover kitchen staff nhóm này về baseline (5%), saving ~150 triệu VND trong nửa năm. Tuấn được promote lên Senior HR Manager.</p>
+<div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Kiểm tra nhanh</div></div></div>
+<div class="qq">Điều gì làm cho analysis của Tuấn thuyết phục COO trong 5 phút?</div>
+<div class="qopts" id="q3-opts">
+<button class="qopt" data-q="3" data-o="A"><span class="oletter">A</span>Dashboard đẹp với nhiều biểu đồ và data points</button>
+<button class="qopt" data-q="3" data-o="B"><span class="oletter">B</span>Segment rõ ràng, cost quantified bằng tiền cụ thể, và proposal với ROI rõ ràng</button>
+<button class="qopt" data-q="3" data-o="C"><span class="oletter">C</span>Tuấn đã present với senior presence và communication skills tốt</button>
+<button class="qopt" data-q="3" data-o="D"><span class="oletter">D</span>Tuấn có relationship tốt với COO trước đó</button>
+</div><div class="qfb" id="q3-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 3</div><div class="tw-text">"HR data thuyết phục không phải ở số lượng data — mà ở việc convert people data thành business impact bằng ngôn ngữ tiền và ROI."</div><div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 3</div><div class="micro-text">Identify 1 HR metric đang bất thường trong tổ chức của bạn. Apply 3 bước của Tuấn: (1) Segment để tìm pattern, (2) Quantify business impact bằng tiền, (3) Prepare 1 proposal với ROI rõ ràng.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(2)" >← Quay lại</button>
+<button class="btn-next" id="n3" onclick="go(4)" disabled style="background:linear-gradient(135deg,#8B5CF6,#6366F1)">Tiếp theo →</button></div>
+<div class="hint" id="h3">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m4">
+<div class="hero"><div class="hero-badge">📈 Growth · Bài 4</div><div class="hero-num">Bài 4 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div><div class="hero-title">Xây HR Dashboard — đơn giản nhưng có action</div></div>
+<p class="body">Một HR dashboard tốt phải trả lời được 3 câu hỏi trong 30 giây: Chúng ta đang ở đâu? Chúng ta đang đi về đâu? Chúng ta cần làm gì ngay?</p>
+<div class="sec-title">Cấu trúc HR Dashboard chuẩn — 4 section</div>
+<div class="grid2">
+<div class="card"><div class="cn">SECTION 1</div><div class="ct">Business Pulse (3 số)</div><div class="cd">Revenue vs. target của tuần/tháng, headcount vs. plan, và RevPAMH. Context để mọi HR metric phía sau có ý nghĩa.</div></div>
+<div class="card"><div class="cn">SECTION 2</div><div class="ct">People Health (4-5 metrics)</div><div class="cd">Turnover rate (với trend), time-to-fill critical positions, internal hire rate, và manager effectiveness score. Màu đỏ/vàng/xanh rõ ràng.</div></div>
+<div class="card"><div class="cn">SECTION 3</div><div class="ct">Early Warnings (2-3 items)</div><div class="cd">Những gì đang build up mà leadership cần biết trước khi nó thành vấn đề. "Cửa hàng X có 3 nhân viên key đang giảm giờ làm — flight risk signal."</div></div>
+<div class="card"><div class="cn">SECTION 4</div><div class="ct">Recommended Actions</div><div class="cd">Không phải "để tham khảo." Mà là "Hiền đề xuất 3 action này trong tháng tới, với expected outcome là X." HR phải own the recommendation.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Data visualization principle cho HR</div>
+<p><b style="color:var(--cyan)">1. Trend quan trọng hơn snapshot:</b> "Turnover 8%" ít có nghĩa hơn "Turnover tăng từ 5% lên 8% trong 3 tháng liên tiếp."<br>
+<b style="color:var(--cyan)">2. Comparison tạo context:</b> "Turnover 8%" ít có nghĩa hơn "Turnover 8% — cao hơn 3% so với benchmark ngành và 2% so với cùng kỳ năm ngoái."<br>
+<b style="color:var(--cyan)">3. Ít màu sắc hơn, ý nghĩa hơn:</b> Chỉ dùng đỏ/vàng/xanh. Màu đỏ phải gây phản ứng ngay.</p></div>
+<div class="ex"><div class="ex-head"><div class="ex-ico">✅</div><div><div class="ex-label">Cam kết hành động</div></div></div>
+<div class="check-group" id="ck5">
+<label class="check-item"><input type="checkbox" onchange="checkCk5k12()"> Tôi sẽ redesign HR dashboard xuống còn 4 section và tối đa 7 metrics</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k12()"> Tôi sẽ add "Recommended Actions" section vào báo cáo HR tháng tới</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k12()"> Tôi sẽ add trend line (3 tháng) cho mỗi key metric thay vì chỉ show tháng hiện tại</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k12()"> Tôi sẽ add benchmark comparison (ngành hoặc cùng kỳ năm ngoái) cho ít nhất 2 metrics</label>
+</div><div class="reflect-hint" id="ck5-hint">Chọn ít nhất 2 hành động</div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 4</div><div class="tw-text">"Dashboard tốt nhất không phải cái có nhiều data nhất — mà cái khiến người xem biết ngay phải làm gì tiếp theo."</div><div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 4</div><div class="micro-text">Thiết kế HR dashboard mới theo 4 section: Business Pulse, People Health, Early Warnings, Recommended Actions. Dùng Google Sheets hoặc bất kỳ tool nào bạn đang có. Chia sẻ draft với business leader 1 lần trước khi finalize.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(3)" >← Quay lại</button>
+<button class="btn-next" id="n4" onclick="go(5)" disabled style="background:linear-gradient(135deg,#8B5CF6,#6366F1)">Tiếp theo →</button></div>
+<div class="hint" id="h4">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m5">
+<div class="hero"><div class="hero-badge">📈 Growth · Bài 5</div><div class="hero-num">Bài 5 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div><div class="hero-title">Present HR data — từ report đến recommendation</div></div>
+<p class="body">Biết data không đủ. Biết present data mới là kỹ năng tạo ra impact. Hiền đã observe hàng trăm buổi HR presentation với leadership — và nhận ra pattern rõ ràng giữa những presentation được chú ý và những cái bị skip.</p>
+<div class="sec-title">Framework STAR cho HR Data Presentation</div>
+<div class="grid2">
+<div class="card"><div class="cn">S — SITUATION</div><div class="ct">Context trong 30 giây</div><div class="cd">"Trong Q3, turnover của chúng ta là 12% — cao hơn Q2 4 điểm và cao hơn benchmark ngành 3 điểm." Không cần backstory dài.</div></div>
+<div class="card"><div class="cn">T — TREND</div><div class="ct">Pattern trong data</div><div class="cd">"Khi nhìn vào segment, 80% turnover tập trung ở nhân viên dưới 6 tháng, và 70% ở 5 cửa hàng có chung pattern là vừa có Area Manager mới." Đây là diagnostic layer.</div></div>
+<div class="card"><div class="cn">A — ACTION</div><div class="ct">Recommendation cụ thể</div><div class="cd">"Hiền đề xuất: 90-day onboarding program cho nhân viên mới và coaching 1:1 cho 5 Area Manager mới. Investment: 30 triệu. Expected saving: 150 triệu/quý." Số, không phải ý kiến.</div></div>
+<div class="card"><div class="cn">R — RESULT</div><div class="ct">Expected outcome với timeline</div><div class="cd">"Nếu approve tháng này, dự kiến thấy tác động từ tháng 3 — turnover nhóm này giảm về dưới 8% vào Q1 năm sau." Cụ thể, đo được, có accountability.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Bridge hoàn thành Growth Track → Horizon</div>
+<p>Bạn vừa hoàn thành 6 khóa Growth Track — từ Leadership không chức danh → Finance-HR → Talent Management → HRBP Mindset → Performance RevPAMH → HR Analytics. <b style="color:var(--cyan)">Bước tiếp theo: Horizon Track</b> — nơi bạn tư duy như CHRO: Executive Presence, Tầm nhìn & Văn hóa, AI Strategy, Workforce Stagility, và People Analytics+.</p></div>
+
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 5</div><div class="tw-text">"HR data không thuyết phục vì nó đúng — nó thuyết phục vì người trình bày biết convert numbers thành story và story thành action."</div><div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 5</div><div class="micro-text">Lấy 1 HR insight bạn muốn share với leadership. Apply STAR framework: Situation (30 giây), Trend (pattern trong data), Action (recommendation với số tiền cụ thể), Result (expected outcome có timeline). Present version này thay vì version cũ.</div></div>
+<div class="cert-wrap">
+<div class="cert-badge">🏆</div>
+<div class="cert-title">Chứng Chỉ Hoàn Thành</div>
+<div class="cert-sub">HR Analytics Cơ Bản · Growth Track · PeopleOS by TaHien</div>
+<input class="cert-name-input" id="cert-name" placeholder="Nhập tên của bạn..."><br>
+<button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
+<div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div>
+</div>
+<div class="nav-btns"><button class="btn-back" onclick="go(4)" >← Quay lại</button>
+<button class="btn-next" id="n5" onclick="window.location.href='/'"  style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button></div>
+</div>
+
+</div>
+<div class="footer">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+<script>
+var cur=1,tot=6,doneM={};
+var giot=parseInt(localStorage.getItem('pos_giot')||'0');
+document.getElementById('giot-val').textContent=giot;
+var TITLES=["HR Analytics l\u00e0 g\u00ec \u2014 v\u00e0 t\u1ea1i sao HR hay nh\u1ea7m v\u1edbi reporting", "5 metrics HR ph\u1ea3i track \u2014 v\u00e0 5 metrics kh\u00f4ng c\u1ea7n track", "Case study: D\u00f9ng HR data \u0111\u1ec3 prevent 200 million VND loss", "X\u00e2y HR Dashboard \u2014 \u0111\u01a1n gi\u1ea3n nh\u01b0ng c\u00f3 action", "Present HR data \u2014 t\u1eeb report \u0111\u1ebfn recommendation"];
+function buildDots(){var c=document.getElementById('dots');c.innerHTML='';for(var i=1;i<=tot;i++){var d=document.createElement('div');d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));var tip=document.createElement('div');tip.className='dot-tip';tip.textContent='Bài '+i+': '+TITLES[i-1];d.appendChild(tip);(function(n){d.onclick=function(){if(n<cur||doneM[n-1]||n===1)go(n);}})(i);c.appendChild(d);}}
+function updProg(){var p=Math.round(((cur-1)/tot)*100);document.getElementById('pfill').style.width=p+'%';document.getElementById('ppct').textContent=p+'%';document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;}
+function go(n){document.getElementById('m'+cur).classList.remove('active');if(n>1)document.getElementById('outcomes-box').style.display='none';else document.getElementById('outcomes-box').style.display='block';doneM[cur]=true;cur=n;document.getElementById('m'+cur).classList.add('active');buildDots();updProg();window.scrollTo({top:0,behavior:'smooth'});localStorage.setItem('resume_k12-hr-analytics',n);}
+function unlock(b,h){var btn=document.getElementById(b);if(btn)btn.disabled=false;var hint=document.getElementById(h);if(hint)hint.style.display='none';giot+=20;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;}
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="1"]');if(!el)return;document.querySelectorAll('#q1-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q1-fb');var ok=el.dataset.o==='A';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q1-opts .qopt')[0].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! Biết engagement giảm là descriptive — biết tại sao giảm và phải làm gì mới là diagnostic và prescriptive.':'Chưa đúng. Report này chỉ nói "chuyện gì xảy ra" — chưa giải thích tại sao hay gợi ý action. Đó là định nghĩa của descriptive analytics.';setTimeout(function(){unlock('n1','h1');},ok?0:1500);});
+document.getElementById('ref2').addEventListener('input',function(){if(this.value.length>=20)unlock('n2','h2');});
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="3"]');if(!el)return;document.querySelectorAll('#q3-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q3-fb');var ok=el.dataset.o==='B';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q3-opts .qopt')[1].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! Segmentation + cost in VND + clear ROI = business case không ai từ chối được.':'Chưa đúng. Communication skills và relationship help — nhưng data và ROI là thứ khiến decision maker phải approve.';setTimeout(function(){unlock('n3','h3');},ok?0:1500);});
+function checkCk5k12(){var c=document.querySelectorAll('#ck5 input:checked').length;if(c>=2)unlock('n5','h5');}
+
+function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "HR Analytics Cơ Bản" đã được ghi nhận. #PeopleOS #HRxAI';giot+=100;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k12-hr-analytics','true');}
+var saved=parseInt(localStorage.getItem('resume_k12-hr-analytics')||'1');if(saved>1&&saved<=6){var rb=document.createElement('div');rb.style.cssText='background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 0;gap:12px;';rb.innerHTML='<div style="font-size:13px;color:#F0F6FF">Lần trước bạn học đến <strong style="color:#22D3EE">Bài '+saved+'</strong></div><button onclick="go('+saved+');this.parentNode.remove()" style="background:#22D3EE;color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">Tiếp tục →</button>';var wrap=document.querySelector('.wrap');if(wrap)wrap.insertBefore(rb,wrap.firstChild);}
+buildDots();updProg();</script></body></html>
