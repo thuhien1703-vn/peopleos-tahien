@@ -73,6 +73,30 @@
     {
       "source": "/k12-hr-analytics",
       "destination": "/k12-hr-analytics.html"
+    },
+    {
+      "source": "/k13-executive-presence",
+      "destination": "/k13-executive-presence.html"
+    },
+    {
+      "source": "/k14-tam-nhin-van-hoa",
+      "destination": "/k14-tam-nhin-van-hoa.html"
+    },
+    {
+      "source": "/k15-ai-strategy-chro",
+      "destination": "/k15-ai-strategy-chro.html"
+    },
+    {
+      "source": "/k16-workforce-stagility",
+      "destination": "/k16-workforce-stagility.html"
+    },
+    {
+      "source": "/k17-finance-hr-advanced",
+      "destination": "/k17-finance-hr-advanced.html"
+    },
+    {
+      "source": "/k18-people-analytics-plus",
+      "destination": "/k18-people-analytics-plus.html"
     }
   ]
 }
