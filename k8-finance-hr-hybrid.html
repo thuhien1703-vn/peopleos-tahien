@@ -713,6 +713,19 @@ function checkReflect6(){
 
 buildDots();updProg();
 setTimeout(function(){var h=document.getElementById('m1-hint');if(h)h.classList.add('vis');},800);
+
+// Resume learning
+var _saved8 = parseInt(localStorage.getItem('resume_k8-finance-hr-hybrid')||'1');
+if(_saved8 > 1 && _saved8 <= 6) {
+  var _rb8 = document.createElement('div');
+  _rb8.style.cssText = 'background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 0;gap:12px;';
+  _rb8.innerHTML = '<div style="font-size:13px;color:#F0F6FF">Lần trước bạn học đến <strong style="color:#22D3EE">Bài '+_saved8+'</strong></div><button onclick="go('+_saved8+');this.parentNode.remove()" style="background:#22D3EE;color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">Tiếp tục →</button>';
+  var _wrap8 = document.querySelector('.wrap'); if(_wrap8) _wrap8.insertBefore(_rb8, _wrap8.firstChild);
+}
+// Patch go() to save position
+var _go8orig = window.go;
+window.go = function(n) { if(_go8orig) _go8orig(n); localStorage.setItem('resume_k8-finance-hr-hybrid', n); };
+
 </script>
 </body>
 </html>
