@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI Strategy cho CHRO · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--text:#E8F4F8;--muted:#8BB8CC;--subtle:#4A7A94;--border:rgba(34,211,238,0.15);--kc:#7C3AED}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100vh;line-height:1.7}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(124,58,237,.06) 0%,transparent 55%),radial-gradient(ellipse at 70% 60%,rgba(34,211,238,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+.topnav{position:sticky;top:0;height:58px;background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
+.back{color:var(--muted);text-decoration:none;font-size:13px;transition:color .2s}.back:hover{color:var(--cyan)}
+.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;white-space:nowrap}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);padding:10px 24px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border)}
+.breadcrumb a{color:var(--cyan);text-decoration:none}.breadcrumb .sep{opacity:.4}
+.prog-wrap{padding:10px 24px 0;background:rgba(0,0,0,.15)}.prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--navy2);border-radius:4px;overflow:hidden}.prog-fill{height:100%;background:linear-gradient(90deg,var(--kc),var(--cyan));border-radius:4px;transition:width .4s}
+.dots-wrap{display:flex;justify-content:center;gap:10px;padding:14px 0 4px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--navy3);border:1px solid var(--border);cursor:pointer;transition:all .2s;position:relative}
+.dot.active{background:var(--kc);border-color:var(--kc);box-shadow:0 0 0 3px rgba(124,58,237,.2)}.dot.done{background:var(--teal);border-color:var(--teal)}
+.dot-tip{position:absolute;bottom:calc(100%+8px);left:50%;transform:translateX(-50%);background:#0d2a42;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:150px;text-align:center}.dot:hover .dot-tip{opacity:1}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:1}
+.hero{background:linear-gradient(135deg,rgba(6,18,31,.95),rgba(6,18,31,.8));border-left:4px solid var(--kc);border-radius:14px;padding:26px 28px 20px;margin:20px 0 22px;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:3px 12px;font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}.hero-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--text);line-height:1.25}.hero-time{font-size:12px;color:var(--muted);margin-top:6px}
+.outcomes-box{background:rgba(34,211,238,.04);border:1px solid rgba(34,211,238,.14);border-radius:12px;padding:16px 18px;margin:0 0 20px}.outcomes-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);text-transform:uppercase;margin-bottom:8px}
+.outcomes-list{list-style:none;padding:0;margin:0}.outcomes-list li{font-size:13px;color:var(--text);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}.outcomes-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
+.lead{font-style:italic;color:var(--muted);border-left:3px solid var(--kc);padding:14px 18px;margin:20px 0;font-size:15px;line-height:1.7;border-radius:0 8px 8px 0;background:rgba(255,255,255,.02)}
+.body{color:var(--text);font-size:15px;line-height:1.75;margin:14px 0}.sec-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--cyan);margin:26px 0 10px}
+.hl{background:rgba(240,192,64,.05);border:1px solid rgba(240,192,64,.18);border-radius:10px;padding:14px 18px;margin:16px 0}.hl-label{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.card{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.cn{font-size:11px;color:var(--kc);font-weight:700;margin-bottom:4px}.ct{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}.cd{font-size:12px;color:var(--muted);line-height:1.5}
+.ex{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:20px;margin:20px 0}.ex-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}.ex-ico{font-size:24px}.ex-label{font-size:13px;font-weight:700;color:var(--text)}.ex-sub{font-size:12px;color:var(--muted)}
+.qq{font-size:14px;color:var(--text);margin-bottom:12px;font-weight:500;line-height:1.6}.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;text-align:left;cursor:pointer;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s;display:flex;align-items:flex-start;gap:10px}.qopt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.06)}.qopt:disabled{cursor:not-allowed;opacity:.7}
+.oletter{width:22px;height:22px;border-radius:50%;background:var(--navy);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);flex-shrink:0;margin-top:1px}
+.qopt.correct{border-color:var(--teal);background:rgba(6,182,212,.1)}.qopt.wrong{border-color:#EF4444;background:rgba(239,68,68,.08)}
+.qfb{font-size:13px;padding:10px 12px;border-radius:8px;margin-top:10px;display:none}.qfb.show{display:block}.qfb.correct{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:#6EE7B7}.qfb.wrong{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#FCA5A5}
+.reflect{width:100%;background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;resize:vertical;min-height:90px;outline:none;transition:border .2s}.reflect:focus{border-color:var(--cyan)}.reflect-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.check-group{display:flex;flex-direction:column;gap:8px;margin:10px 0}.check-item{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--text)}.check-item input{width:16px;height:16px;cursor:pointer;accent-color:var(--teal)}
+.tw{background:linear-gradient(135deg,rgba(6,182,212,.07),rgba(240,192,64,.04));border:1px solid rgba(240,192,64,.18);border-radius:14px;padding:20px 22px;margin:22px 0}.tw-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}.tw-text{font-style:italic;font-size:16px;color:var(--text);line-height:1.6;font-weight:500;margin-bottom:6px}.tw-author{font-size:12px;color:var(--muted)}
+.micro-task{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:12px;padding:14px 16px;margin-top:14px}.micro-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}.micro-text{font-size:13px;color:var(--text);line-height:1.6}
+.cert-wrap{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:2px solid var(--gold);border-radius:18px;padding:36px 28px;text-align:center;margin:24px 0}.cert-badge{font-size:48px;margin-bottom:14px}.cert-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:8px}.cert-sub{font-size:14px;color:var(--muted);margin-bottom:20px}
+.cert-name-input{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;width:100%;max-width:320px;text-align:center;outline:none;margin-bottom:14px}
+.cert-btn{background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy);border:none;border-radius:10px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.cert-btn:hover{transform:translateY(-1px)}
+.nav-btns{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}.btn-back{background:none;border:1px solid var(--border);border-radius:10px;padding:10px 20px;color:var(--muted);cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s}.btn-back:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-next{color:white;border:none;border-radius:10px;padding:11px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.btn-next:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,58,237,.3)}.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}.module{display:none}.module.active{display:block}
+.footer{text-align:center;padding:20px;font-size:11px;color:var(--subtle);border-top:1px solid var(--border);margin-top:40px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}.hero-title{font-size:20px}}</style></head><body>
+<nav class="topnav"><a class="back" href="/">← Về Learning Hub</a>
+<div style="display:flex;align-items:center"><span class="nav-logo">PeopleOS</span><span class="nav-sub">Learning Hub &nbsp;by TaHien</span></div>
+<div class="giot-pill">💧 <span id="giot-val">0</span> Giọt</div></nav>
+<div class="breadcrumb"><a href="/">Learning Hub</a><span class="sep">›</span><span>Horizon 🔭</span><span class="sep">›</span><span>AI Strategy cho CHRO</span></div>
+<div class="prog-wrap"><div class="prog-top"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div><div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div></div>
+<div class="dots-wrap" id="dots"></div>
+<div class="wrap">
+<div class="outcomes-box" id="outcomes-box"><div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div><ul class="outcomes-list"><li>Phát triển được AI Strategy cho HR — không phải AI tool list, mà là strategic framework</li><li>Navigate được ethical dilemmas khi deploy AI trong hiring, performance, và workforce planning</li><li>Build AI readiness roadmap cho HR team trong 12 tháng, cân bằng efficiency và human touch</li></ul></div>
+<div class="module active" id="m1">
+<div class="hero"><div class="hero-badge">🤖 Horizon · Bài 1</div>
+<div class="hero-num">Bài 1 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">AI không thay thế HR — AI thay thế HR không học AI</div></div>
+<div class="lead">"Năm 2024, Hiền bắt đầu dùng AI để draft job descriptions. Tiết kiệm 2 giờ/tuần. Năm 2025, dùng AI để analyze exit interview data, identify pattern turnover. Tiết kiệm 8 giờ/tuần và tìm được insights mà team HR 5 người làm 3 tháng mới ra. Không phải AI thay thế Hiền — AI cho Hiền 3 tháng để làm thứ quan trọng hơn."</div>
+<p class="body">CHRO cần AI Strategy — không phải vì trend, mà vì <b>tổ chức đang có AI ambition nhưng HR đang lag behind về AI capability.</b> Khi Finance dùng AI để model headcount cost, khi Ops dùng AI để predict churn, HR vẫn đang làm manual survey — CHRO đang lose seat at the table về workforce decisions.</p>
+<div class="sec-title">AI trong HR — 3 cấp độ maturity</div>
+<div class="grid2">
+<div class="card"><div class="cn">CẤP 1 — EFFICIENCY AI</div><div class="ct">Automate HR tasks</div><div class="cd">JD writing, interview scheduling, FAQ answering, report drafting, policy translation. ROI rõ ràng, risk thấp. Đây là entry point — không phải end goal.</div></div>
+<div class="card"><div class="cn">CẤP 2 — INSIGHT AI</div><div class="ct">People Analytics at scale</div><div class="cd">Turnover prediction, performance pattern, culture signal detection, flight risk identification. CHRO với Insight AI có 6-12 tháng advantage để act trước khi problem visible.</div></div>
+<div class="card"><div class="cn">CẤP 3 — STRATEGY AI</div><div class="ct">Workforce scenario modeling</div><div class="cd">Model: "Nếu mở 200 cửa hàng mới trong 18 tháng, chúng ta cần build/buy/borrow bao nhiêu capability gì, và cost scenario là gì?" Đây là nơi CHRO trở thành strategic partner thật sự của CEO.</div></div>
+</div>
+<div class="hl"><div class="hl-label">AI Fear Index trong HR team của bạn</div>
+<p>Trước khi build AI strategy, CHRO cần understand AI readiness của team HR. 3 signal của AI fear: <b style="color:var(--cyan)">(1) "AI sẽ lấy việc của chúng ta" (không hiểu AI augment, không replace), (2) "data của chúng ta không đủ tốt" (perfectionism paralysis), (3) "senior leaders chưa ready" (chờ permission thay vì build pilot).</b> Address 3 fear này trước khi launch bất kỳ AI initiative nào.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Kiểm tra nhanh</div></div></div>
+<div class="qq">CHRO muốn dùng AI để support hiring decisions — AI sẽ score candidates dựa trên resume và screening test. Action nào là ĐÚNG nhất từ góc độ ethical AI?</div>
+<div class="qopts" id="q1-opts">
+<button class="qopt" data-q="1" data-o="A"><span class="oletter">A</span>Deploy ngay — AI objective hơn con người, giảm bias hiệu quả</button>
+<button class="qopt" data-q="1" data-o="B"><span class="oletter">B</span>Test với small group trước, audit output cho bias, luôn có human review trước final decision, và disclose cho candidates rằng AI được dùng</button>
+<button class="qopt" data-q="1" data-o="C"><span class="oletter">C</span>Không dùng AI cho hiring vì quá nhiều risk</button>
+<button class="qopt" data-q="1" data-o="D"><span class="oletter">D</span>Dùng AI để screen bước đầu, human decide phần còn lại, không cần disclose cho candidates</button>
+</div><div class="qfb" id="q1-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 1</div>
+<div class="tw-text">"AI trong HR không phải về technology — đó là về CHRO dũng cảm đủ để experiment, responsible đủ để govern, và strategic đủ để biết AI nào create value và AI nào create risk."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 1</div>
+<div class="micro-text">Audit HR processes hiện tại: identify 3 tasks đang làm tốn nhiều thời gian nhất. Với mỗi task, hỏi: AI có thể automate phần nào? (không phải toàn bộ — phần nào?) Bắt đầu pilot với task risk thấp nhất.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(0)" disabled>← Quay lại</button>
+<button class="btn-next" id="n1" onclick="go(2)" disabled style="background:linear-gradient(135deg,#7C3AED,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h1">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m2">
+<div class="hero"><div class="hero-badge">🤖 Horizon · Bài 2</div>
+<div class="hero-num">Bài 2 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">Ethical AI trong HR — ranh giới CHRO phải giữ</div></div>
+<p class="body">AI trong HR powerful và nguy hiểm theo cùng 1 cách: nó scale — cả decisions tốt lẫn decisions sai. Khi HR manager bias 1 hiring decision, ảnh hưởng 1 người. Khi AI bias, ảnh hưởng 10,000 người trước khi ai phát hiện.</p>
+<div class="sec-title">4 ethical risk zone của AI trong HR</div>
+<div class="grid2">
+<div class="card"><div class="cn" style="color:#EF4444">RISK ZONE 01</div><div class="ct">AI Hiring Bias</div><div class="cd">AI train trên historical hiring data → reproduce historical bias. Amazon's AI resume screener ví dụ nổi tiếng: discriminate against women vì train data reflect male-dominated past hires. CHRO phải audit AI output theo gender, age, background.</div></div>
+<div class="card"><div class="cn" style="color:#EF4444">RISK ZONE 02</div><div class="ct">Surveillance overreach</div><div class="cd">AI monitoring (keyboard tracking, email sentiment analysis, meeting participation score) có thể improve productivity nhưng destroy trust. CHRO phải define: what data is needed vs. what data is invasive. Thin line — và người define line đó phải là CHRO.</div></div>
+<div class="card"><div class="cn" style="color:#EF4444">RISK ZONE 03</div><div class="ct">AI Performance Decisions</div><div class="cd">AI predict ai sẽ perform kém → HR dùng để terminate hay deprioritize. Sai: prediction ≠ determinism. Người bị "flagged" có thể change với right support. AI là input cho conversation, không phải substitute cho conversation.</div></div>
+<div class="card"><div class="cn" style="color:#EF4444">RISK ZONE 04</div><div class="ct">Transparency & Consent</div><div class="cd">Nhân viên có quyền biết AI đang được dùng để đánh giá họ như thế nào. Không disclose = trust breach khi phát hiện. GDPR và ILO guidelines ngày càng strict về AI transparency trong employment.</div></div>
+</div>
+<div class="hl"><div class="hl-label">AI Ethics Charter cho HR — CHRO cần own điều này</div>
+<p>CHRO phải draft và publish AI Ethics Charter cho HR, gồm: <b style="color:var(--cyan)">(1) AI nào được dùng trong HR decisions, (2) Human oversight requirements cho mỗi AI use case, (3) Audit frequency cho bias, (4) Employee rights và transparency, (5) Prohibited uses của AI trong HR.</b> Không có Charter = legal exposure và culture risk khi AI deployment goes wrong.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">💭</div><div><div class="ex-label">Reflection — Ethical Decision Making</div></div></div>
+<div class="qq">Tổ chức của bạn đang cân nhắc dùng AI để monitor remote worker productivity (track keyboard activity, webcam on during work hours). HR Director đề xuất và CEO muốn pilot. Với tư cách CHRO, bạn sẽ làm gì?</div>
+<textarea class="reflect" id="ref2" placeholder="Phân tích ethical dilemma này... (ít nhất 30 ký tự)"></textarea>
+<div class="reflect-hint">Nhập ít nhất 30 ký tự để mở bài tiếp theo</div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 2</div>
+<div class="tw-text">"CHRO là người duy nhất trong C-suite được expect để nói 'không' với AI deployment ngay cả khi nó efficient — vì efficiency không phải giá trị duy nhất trong people decisions."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 2</div>
+<div class="micro-text">Review mọi AI tool HR đang dùng hoặc đang plan dùng. Với mỗi tool: (1) Nó ảnh hưởng đến người như thế nào? (2) Có transparency với người bị ảnh hưởng không? (3) Có human override mechanism không? Đây là quick AI ethics audit.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(1)" >← Quay lại</button>
+<button class="btn-next" id="n2" onclick="go(3)" disabled style="background:linear-gradient(135deg,#7C3AED,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h2">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m3">
+<div class="hero"><div class="hero-badge">🤖 Horizon · Bài 3</div>
+<div class="hero-num">Bài 3 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">Build AI Capability trong HR Team</div></div>
+<p class="body"><b>Context:</b> HR Director của một tập đoàn bán lẻ 200 cửa hàng nhận nhiệm vụ từ CHRO: "Trong 12 tháng, HR team phải có capability để dùng AI trong ít nhất 3 core HR processes." Starting point: team 8 người, AI knowledge = 0, budget limited.</p>
+<div class="sec-title">12-Month HR AI Capability Roadmap</div>
+<div class="grid2">
+<div class="card"><div class="cn">THÁNG 1-3: FOUNDATION</div><div class="ct">Literacy & Quick Wins</div><div class="cd">AI literacy training cho cả team. Identify 3 "quick win" use cases — low risk, high time saving. Pilot với 1 process đầu tiên: AI-assisted JD writing. Prove value với leadership.</div></div>
+<div class="card"><div class="cn">THÁNG 4-6: EXPAND</div><div class="ct">Scale to 3 Processes</div><div class="cd">Roll out 2 more use cases: AI exit interview analysis và AI screening question generator. Build Standard Operating Procedures cho mỗi AI-assisted process. Train team on human oversight.</div></div>
+<div class="card"><div class="cn">THÁNG 7-9: INSIGHT</div><div class="ct">Move to Analytics</div><div class="cd">Connect HR data với AI analytics: turnover prediction model, engagement signal detection. Partner với IT/Data team. CHRO presents first AI-powered people insight to board.</div></div>
+<div class="card"><div class="cn">THÁNG 10-12: STRATEGY</div><div class="ct">Strategic Scenarios</div><div class="cd">Build workforce scenario models. "Nếu expand 50 stores, talent gap là gì?" Integrate AI insight vào annual people planning. CHRO has AI-powered narrative for board.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Build vs. Buy vs. Partner</div>
+<p>CHRO phải decide AI strategy không chỉ về "dùng AI nào" mà còn "build in-house, buy vendor tool, hay partner với AI company":<br>
+<b style="color:var(--cyan)">Build:</b> tốn kém, slow, nhưng tạo competitive advantage nếu data là differentiator.<br>
+<b style="color:var(--cyan)">Buy:</b> nhanh, proven, nhưng vendor-dependent và có thể not fit unique context của F&B chain Vietnam.<br>
+<b style="color:var(--cyan)">Partner:</b> hybrid — buy platform, customize với data riêng. Thường là best choice cho mid-size organization.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Strategic Decision</div></div></div>
+<div class="qq">Bạn là CHRO của chuỗi F&B 300 cửa hàng. CEO hỏi: "Chúng ta nên invest vào AI HR platform hay hire thêm 3 HR analytics specialist?" Câu trả lời nào thể hiện CHRO-level thinking tốt nhất?</div>
+<div class="qopts" id="q3-opts">
+<button class="qopt" data-q="3" data-o="A"><span class="oletter">A</span>AI platform — faster, cheaper, và objective hơn người</button>
+<button class="qopt" data-q="3" data-o="B"><span class="oletter">B</span>3 HR analytics specialists — technology cần người để run và interpret</button>
+<button class="qopt" data-q="3" data-o="C"><span class="oletter">C</span>Cần analysis trước: use case cụ thể là gì, data readiness của chúng ta đến đâu, và ROI của mỗi option trên 3 năm là bao nhiêu — sau đó mới decide</button>
+<button class="qopt" data-q="3" data-o="D"><span class="oletter">D</span>Cả hai — platform cần người để run, người cần platform để work efficiently</button>
+</div><div class="qfb" id="q3-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 3</div>
+<div class="tw-text">"AI Strategy trong HR không phải về technology selection — đó là về CHRO build organizational capability để leverage technology đúng cách, đúng lúc, và đúng purpose."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 3</div>
+<div class="micro-text">Draft 12-month HR AI Roadmap cho team của bạn: month 1-3 (foundation), month 4-6 (expand), month 7-9 (insight), month 10-12 (strategy). Chia sẻ draft với CEO trong cuộc họp chiến lược tiếp theo.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(2)" >← Quay lại</button>
+<button class="btn-next" id="n3" onclick="go(4)" disabled style="background:linear-gradient(135deg,#7C3AED,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h3">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m4">
+<div class="hero"><div class="hero-badge">🤖 Horizon · Bài 4</div>
+<div class="hero-num">Bài 4 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">Reskilling Workforce trong AI Era</div></div>
+<p class="body">CHRO không chỉ phải build AI capability cho HR team — mà phải lead reskilling strategy cho toàn bộ workforce khi AI automate nhiều roles. Trong F&B chain, nhiều roles cashier, order taker, và basic kitchen prep sẽ bị automate trong 5-7 năm tới.</p>
+<div class="sec-title">3 chiến lược Reskilling mà CHRO phải có answer</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Map roles by automation risk</div><div class="cd">Sử dụng AI automation probability data để map toàn bộ roles. Roles với 70%+ automation probability trong 5 năm cần reskilling plan ngay hôm nay. CHRO phải brief board về này — proactively.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">Build transferable skills</div><div class="cd">Khi role bị automate, người giữ được việc là người có transferable skills: problem solving, customer empathy, cross-function collaboration. L&D phải pivot sang skills này trước khi displacement happens.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Honest conversation về future of work</div><div class="cd">CHRO phải be honest với workforce — và với board. "Trong 3 năm, role này sẽ thay đổi như thế nào, và đây là những gì chúng ta đang làm để prepare người của chúng ta." Transparency builds trust — silence builds anxiety.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Human-AI Collaboration Model cho F&B</div>
+<p>Không phải AI replace người — mà AI + người = new hybrid model: <b style="color:var(--cyan)">AI handles: order taking, inventory prediction, scheduling optimization, quality control via camera.</b> Người handles: customer relationship, complaint resolution, team culture, creative menu development, community building. CHRO phải define clearly where AI ends and human begins trong mỗi role — và train người cho the human parts.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">✅</div><div><div class="ex-label">Cam kết AI Strategy</div></div></div>
+<div class="check-group" id="ck5">
+<label class="check-item"><input type="checkbox" onchange="checkCk5k15()"> Tôi sẽ draft AI Ethics Charter cho HR trong tháng tới</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k15()"> Tôi sẽ build 12-month HR AI Capability Roadmap và present cho CEO</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k15()"> Tôi sẽ map automation risk cho top 10 roles trong tổ chức trong Q3 này</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k15()"> Tôi sẽ pilot 1 AI use case trong HR process trong 60 ngày tới</label>
+</div><div class="reflect-hint" id="ck5-hint">Chọn ít nhất 2 cam kết</div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 4</div>
+<div class="tw-text">"CHRO trong AI era không cần là AI engineer — nhưng cần là AI strategist: biết đủ để ask the right questions, govern responsibly, và lead workforce through the transition."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 4</div>
+<div class="micro-text">Map automation risk cho 5 roles quan trọng nhất trong tổ chức của bạn (scale 1-5: 1=very safe, 5=high automation risk). Với role có risk 4-5: design 1 reskilling intervention có thể bắt đầu trong 6 tháng tới.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(3)" >← Quay lại</button>
+<button class="btn-next" id="n4" onclick="go(5)" disabled style="background:linear-gradient(135deg,#7C3AED,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h4">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m5">
+<div class="hero"><div class="hero-badge">🤖 Horizon · Bài 5</div>
+<div class="hero-num">Bài 5 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">AI Strategy cho CHRO — từ follower đến frontier</div></div>
+<p class="body">CHRO trong AI era phải choose: follower (đợi industry best practice rồi adopt) hay frontier (experiment, learn, và shape best practice cho ngành). Trong F&B Vietnam, không ai đang lead AI HR seriously — đây là cơ hội cho CHRO muốn own this space.</p>
+<div class="sec-title">CHRO Frontier Mindset</div>
+<div class="grid2">
+<div class="card"><div class="cn">EXPERIMENT CONTINUOUSLY</div><div class="ct">Small bets, fast learning</div><div class="cd">Không cần 1 big AI initiative. 5-6 small pilots mỗi năm, learn fast, kill quickly những gì không work, scale những gì work. AI strategy phải be agile — không phải 5-year plan.</div></div>
+<div class="card"><div class="cn">SHARE WHAT YOU LEARN</div><div class="ct">Build industry credibility</div><div class="cd">CHRO share AI HR learnings qua LinkedIn, industry conference, HR community → build personal brand như AI HR thought leader. TaHien làm điều này với PeopleOS Community. Bạn có thể làm tương tự.</div></div>
+</div>
+<div class="hl"><div class="hl-label">Bridge sang K16 — Workforce Strategy Stagility</div>
+<p>Bạn đã có AI Strategy foundation. Bài tiếp theo: <b style="color:var(--cyan)">Workforce Strategy Stagility</b> — framework độc quyền TaHien kết hợp stability và agility trong workforce planning. Trong world của AI disruption và economic uncertainty, Stagility là approach CHRO cần để navigate without losing people or business momentum.</p></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 5</div>
+<div class="tw-text">"CHRO không thể lead AI HR strategy nếu chính CHRO sợ AI. Curiosity là leadership prerequisite — thứ còn lại là execution."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 5</div>
+<div class="micro-text">Commit 30 phút/tuần để experiment với 1 AI tool mới cho HR use case. Document learning sau mỗi session: worked/didn't work/next step. Sau 12 tuần, bạn có 12 AI experiments — đủ để build informed strategy.</div></div>
+<div class="cert-wrap">
+<div class="cert-badge">🏆</div><div class="cert-title">Chứng Chỉ Hoàn Thành</div>
+<div class="cert-sub">AI Strategy cho CHRO · Horizon Track · PeopleOS by TaHien</div>
+<input class="cert-name-input" id="cert-name" placeholder="Nhập tên của bạn..."><br>
+<button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
+<div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div></div>
+<div class="nav-btns"><button class="btn-back" onclick="go(4)" >← Quay lại</button>
+<button class="btn-next" id="n5" onclick="window.location.href='/'"  style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button></div>
+</div>
+</div>
+<div class="footer">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+<script>
+var cur=1,tot=6,doneM={};
+var giot=parseInt(localStorage.getItem('pos_giot')||'0');
+document.getElementById('giot-val').textContent=giot;
+var TITLES=["AI kh\u00f4ng thay th\u1ebf HR \u2014 AI thay th\u1ebf HR kh\u00f4ng h\u1ecdc AI", "Ethical AI trong HR \u2014 ranh gi\u1edbi CHRO ph\u1ea3i gi\u1eef", "Build AI Capability trong HR Team", "Reskilling Workforce trong AI Era", "AI Strategy cho CHRO \u2014 t\u1eeb follower \u0111\u1ebfn frontier"];
+function buildDots(){var c=document.getElementById('dots');c.innerHTML='';for(var i=1;i<=tot;i++){var d=document.createElement('div');d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));var tip=document.createElement('div');tip.className='dot-tip';tip.textContent='Bài '+i+': '+TITLES[i-1];d.appendChild(tip);(function(n){d.onclick=function(){if(n<cur||doneM[n-1]||n===1)go(n);}})(i);c.appendChild(d);}}
+function updProg(){var p=Math.round(((cur-1)/tot)*100);document.getElementById('pfill').style.width=p+'%';document.getElementById('ppct').textContent=p+'%';document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;}
+function go(n){document.getElementById('m'+cur).classList.remove('active');if(n>1)document.getElementById('outcomes-box').style.display='none';else document.getElementById('outcomes-box').style.display='block';doneM[cur]=true;cur=n;document.getElementById('m'+cur).classList.add('active');buildDots();updProg();window.scrollTo({top:0,behavior:'smooth'});localStorage.setItem('resume_k15-ai-strategy-chro',n);}
+function unlock(b,h){var btn=document.getElementById(b);if(btn)btn.disabled=false;var hint=document.getElementById(h);if(hint)hint.style.display='none';giot+=20;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;}
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="1"]');if(!el)return;document.querySelectorAll('#q1-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q1-fb');var ok=el.dataset.o==='B';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q1-opts .qopt')[1].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! Responsible AI deployment: test → audit bias → human in loop → disclose. Không có shortcut nào an toàn hơn.':'AI không objective — AI amplify bias trong training data. Deploy without audit = systematic discrimination at scale. Option C quá conservative. D thiếu transparency — vấn đề pháp lý và trust.';setTimeout(function(){unlock('n1','h1');},ok?0:1500);});
+document.getElementById('ref2').addEventListener('input',function(){if(this.value.length>=30)unlock('n2','h2');});
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="3"]');if(!el)return;document.querySelectorAll('#q3-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q3-fb');var ok=el.dataset.o==='C';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q3-opts .qopt')[2].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! CHRO-level thinking = diagnose before prescribe. Data readiness, use case clarity, và 3-year ROI analysis phải come first.':'Chưa đủ strategic. A và B là solution-first thinking. D không sai nhưng không có analysis để support. C = diagnose first, đây là executive decision making.';setTimeout(function(){unlock('n3','h3');},ok?0:1500);});
+function checkCk5k15(){var c=document.querySelectorAll('#ck5 input:checked').length;if(c>=2)unlock('n5','h5');}
+
+function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "AI Strategy cho CHRO" đã được ghi nhận. #PeopleOS #HRxAI #CHRO';giot+=150;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k15-ai-strategy-chro','true');}
+var saved=parseInt(localStorage.getItem('resume_k15-ai-strategy-chro')||'1');if(saved>1&&saved<=6){var rb=document.createElement('div');rb.style.cssText='background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 0;gap:12px;';rb.innerHTML='<div style="font-size:13px;color:#F0F6FF">Lần trước bạn học đến <strong style="color:#22D3EE">Bài '+saved+'</strong></div><button onclick="go('+saved+');this.parentNode.remove()" style="background:#22D3EE;color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">Tiếp tục →</button>';var wrap=document.querySelector('.wrap');if(wrap)wrap.insertBefore(rb,wrap.firstChild);}
+buildDots();updProg();</script></body></html>
