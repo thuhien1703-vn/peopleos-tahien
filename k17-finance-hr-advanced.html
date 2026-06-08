@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Finance-HR Hybrid Advanced · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--text:#E8F4F8;--muted:#8BB8CC;--subtle:#4A7A94;--border:rgba(34,211,238,0.15);--kc:#F59E0B}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100vh;line-height:1.7}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(124,58,237,.06) 0%,transparent 55%),radial-gradient(ellipse at 70% 60%,rgba(34,211,238,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+.topnav{position:sticky;top:0;height:58px;background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
+.back{color:var(--muted);text-decoration:none;font-size:13px;transition:color .2s}.back:hover{color:var(--cyan)}
+.giot-pill{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--cyan);font-weight:600;white-space:nowrap}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);padding:10px 24px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border)}
+.breadcrumb a{color:var(--cyan);text-decoration:none}.breadcrumb .sep{opacity:.4}
+.prog-wrap{padding:10px 24px 0;background:rgba(0,0,0,.15)}.prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--navy2);border-radius:4px;overflow:hidden}.prog-fill{height:100%;background:linear-gradient(90deg,var(--kc),var(--cyan));border-radius:4px;transition:width .4s}
+.dots-wrap{display:flex;justify-content:center;gap:10px;padding:14px 0 4px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--navy3);border:1px solid var(--border);cursor:pointer;transition:all .2s;position:relative}
+.dot.active{background:var(--kc);border-color:var(--kc);box-shadow:0 0 0 3px rgba(124,58,237,.2)}.dot.done{background:var(--teal);border-color:var(--teal)}
+.dot-tip{position:absolute;bottom:calc(100%+8px);left:50%;transform:translateX(-50%);background:#0d2a42;border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;min-width:150px;text-align:center}.dot:hover .dot-tip{opacity:1}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:1}
+.hero{background:linear-gradient(135deg,rgba(6,18,31,.95),rgba(6,18,31,.8));border-left:4px solid var(--kc);border-radius:14px;padding:26px 28px 20px;margin:20px 0 22px;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:3px 12px;font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.hero-num{font-size:12px;color:var(--muted);margin-bottom:4px}.hero-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--text);line-height:1.25}.hero-time{font-size:12px;color:var(--muted);margin-top:6px}
+.outcomes-box{background:rgba(34,211,238,.04);border:1px solid rgba(34,211,238,.14);border-radius:12px;padding:16px 18px;margin:0 0 20px}.outcomes-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);text-transform:uppercase;margin-bottom:8px}
+.outcomes-list{list-style:none;padding:0;margin:0}.outcomes-list li{font-size:13px;color:var(--text);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}.outcomes-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px}
+.lead{font-style:italic;color:var(--muted);border-left:3px solid var(--kc);padding:14px 18px;margin:20px 0;font-size:15px;line-height:1.7;border-radius:0 8px 8px 0;background:rgba(255,255,255,.02)}
+.body{color:var(--text);font-size:15px;line-height:1.75;margin:14px 0}.sec-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--cyan);margin:26px 0 10px}
+.hl{background:rgba(240,192,64,.05);border:1px solid rgba(240,192,64,.18);border-radius:10px;padding:14px 18px;margin:16px 0}.hl-label{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.card{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.cn{font-size:11px;color:var(--kc);font-weight:700;margin-bottom:4px}.ct{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}.cd{font-size:12px;color:var(--muted);line-height:1.5}
+.ex{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:20px;margin:20px 0}.ex-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}.ex-ico{font-size:24px}.ex-label{font-size:13px;font-weight:700;color:var(--text)}.ex-sub{font-size:12px;color:var(--muted)}
+.qq{font-size:14px;color:var(--text);margin-bottom:12px;font-weight:500;line-height:1.6}.qopts{display:flex;flex-direction:column;gap:8px}
+.qopt{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;text-align:left;cursor:pointer;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s;display:flex;align-items:flex-start;gap:10px}.qopt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.06)}.qopt:disabled{cursor:not-allowed;opacity:.7}
+.oletter{width:22px;height:22px;border-radius:50%;background:var(--navy);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);flex-shrink:0;margin-top:1px}
+.qopt.correct{border-color:var(--teal);background:rgba(6,182,212,.1)}.qopt.wrong{border-color:#EF4444;background:rgba(239,68,68,.08)}
+.qfb{font-size:13px;padding:10px 12px;border-radius:8px;margin-top:10px;display:none}.qfb.show{display:block}.qfb.correct{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:#6EE7B7}.qfb.wrong{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#FCA5A5}
+.reflect{width:100%;background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:13px;resize:vertical;min-height:90px;outline:none;transition:border .2s}.reflect:focus{border-color:var(--cyan)}.reflect-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.check-group{display:flex;flex-direction:column;gap:8px;margin:10px 0}.check-item{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--text)}.check-item input{width:16px;height:16px;cursor:pointer;accent-color:var(--teal)}
+.tw{background:linear-gradient(135deg,rgba(6,182,212,.07),rgba(240,192,64,.04));border:1px solid rgba(240,192,64,.18);border-radius:14px;padding:20px 22px;margin:22px 0}.tw-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}.tw-text{font-style:italic;font-size:16px;color:var(--text);line-height:1.6;font-weight:500;margin-bottom:6px}.tw-author{font-size:12px;color:var(--muted)}
+.micro-task{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:12px;padding:14px 16px;margin-top:14px}.micro-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}.micro-text{font-size:13px;color:var(--text);line-height:1.6}
+.cert-wrap{background:linear-gradient(135deg,var(--navy2),var(--navy3));border:2px solid var(--gold);border-radius:18px;padding:36px 28px;text-align:center;margin:24px 0}.cert-badge{font-size:48px;margin-bottom:14px}.cert-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:8px}.cert-sub{font-size:14px;color:var(--muted);margin-bottom:20px}
+.cert-name-input{background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;width:100%;max-width:320px;text-align:center;outline:none;margin-bottom:14px}
+.cert-btn{background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy);border:none;border-radius:10px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.cert-btn:hover{transform:translateY(-1px)}
+.nav-btns{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}.btn-back{background:none;border:1px solid var(--border);border-radius:10px;padding:10px 20px;color:var(--muted);cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;transition:all .2s}.btn-back:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-next{color:white;border:none;border-radius:10px;padding:11px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.btn-next:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,58,237,.3)}.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}.module{display:none}.module.active{display:block}
+.footer{text-align:center;padding:20px;font-size:11px;color:var(--subtle);border-top:1px solid var(--border);margin-top:40px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}.hero-title{font-size:20px}}</style></head><body>
+<nav class="topnav"><a class="back" href="/">← Về Learning Hub</a>
+<div style="display:flex;align-items:center"><span class="nav-logo">PeopleOS</span><span class="nav-sub">Learning Hub &nbsp;by TaHien</span></div>
+<div class="giot-pill">💧 <span id="giot-val">0</span> Giọt</div></nav>
+<div class="breadcrumb"><a href="/">Learning Hub</a><span class="sep">›</span><span>Horizon 🔭</span><span class="sep">›</span><span>Finance-HR Hybrid Advanced</span></div>
+<div class="prog-wrap"><div class="prog-top"><span id="plabel">Bài 1 / 6</span><span id="ppct">0%</span></div><div class="prog-bar"><div class="prog-fill" id="pfill" style="width:0%"></div></div></div>
+<div class="dots-wrap" id="dots"></div>
+<div class="wrap">
+<div class="outcomes-box" id="outcomes-box"><div class="outcomes-label">Sau khóa học này bạn sẽ làm được</div><ul class="outcomes-list"><li>Đọc và interpret P&L, Balance Sheet và Cash Flow từ góc nhìn workforce impact</li><li>Build workforce cost model và ROI framework cho mọi HR investment</li><li>Present HR financial case cho Board và CFO với language và rigor của Finance</li></ul></div>
+<div class="module active" id="m1">
+<div class="hero"><div class="hero-badge">💰 Horizon · Bài 1</div>
+<div class="hero-num">Bài 1 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">CHRO cần Finance IQ bao nhiêu? Nhiều hơn bạn nghĩ.</div></div>
+<div class="lead">"Trong một board meeting, CFO present rằng 'workforce cost chiếm 32% revenue — cần target xuống 28%.' CHRO im lặng vì không biết con số này tốt hay xấu so với benchmark, và không biết 4% đó sẽ impact business như thế nào nếu cắt bằng cách sai. Sau buổi họp, CFO đề xuất board cắt 15% headcount. Không có counter-proposal nào từ HR. Đó là cost của việc CHRO không có Finance IQ."</div>
+<p class="body">Finance-HR Hybrid không phải về việc CHRO trở thành accountant. Đó về việc CHRO <b>understand financial mechanics đủ để translate every people decision thành financial impact — và every financial pressure thành workforce implication.</b></p>
+<div class="sec-title">5 Financial Concepts CHRO phải master</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Labor Cost % of Revenue</div><div class="cd">Trong F&B Vietnam: benchmark 25-30%. Trên 35% = warning. Dưới 20% = understaffed hoặc underpaid (both are risk). CHRO phải know company's number và trend — không phải chỉ HR budget.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">Cost per Hire (fully loaded)</div><div class="cd">Không chỉ recruitment fee — mà include: interviewing time cost, onboarding cost, time-to-productivity gap cost, và manager time spent. Full-loaded cost per hire trong F&B Vietnam: 2-8 triệu tùy cấp.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Human Capital ROI</div><div class="cd">Formula: (Revenue - Operating Costs excluding HC) / Total HC Cost. Tỷ lệ > 2.5x = strong. Đây là metric CFO dùng để evaluate HR. CHRO phải biết số này và trend.</div></div>
+<div class="card"><div class="cn">04</div><div class="ct">Turnover Cost (fully loaded)</div><div class="cd">Không chỉ tuyển dụng — include: exit cost, lost productivity, recruitment, onboarding, time-to-full-contribution. Entry-level F&B: 2-4 tháng lương. Manager: 6-12 tháng lương. CHRO phải be able to calculate this.</div></div>
+</div>
+<div class="hl"><div class="hl-label">RevPAMH + Human Capital ROI = CHRO financial dual lens</div>
+<p>RevPAMH (đã học K11) đo productivity per hour. Human Capital ROI đo return per dollar invested in people. <b style="color:var(--cyan)">CHRO cần cả hai: RevPAMH để optimize operations, HCROI để justify investment. Dùng cả hai = bạn speak CFO's language fluently.</b></p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">Kiểm tra nhanh</div></div></div>
+<div class="qq">CFO nói: "HR cost tăng 20% nhưng revenue chỉ tăng 8%. HR không hiệu quả." CHRO nào respond đúng nhất?</div>
+<div class="qopts" id="q1-opts">
+<button class="qopt" data-q="1" data-o="A"><span class="oletter">A</span>"Chúng tôi đang invest vào long-term capability — results sẽ thấy trong 2-3 năm"</button>
+<button class="qopt" data-q="1" data-o="B"><span class="oletter">B</span>"HR cost tăng 20% vì chúng ta vừa onboard 150 người cho expansion. Human Capital ROI của nhóm này là 2.8x — cao hơn company average 2.3x. Investment đang work."</button>
+<button class="qopt" data-q="1" data-o="C"><span class="oletter">C</span>"Chúng tôi cần thêm thời gian để measure impact chính xác"</button>
+<button class="qopt" data-q="1" data-o="D"><span class="oletter">D</span>"Tôi đề xuất review lại cách tính HR cost — có thể có mislabeling"</button>
+</div><div class="qfb" id="q1-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 1</div>
+<div class="tw-text">"CHRO không thể defend HR investment bằng emotional arguments — chỉ có financial data với đúng context mới close a CFO challenge."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 1</div>
+<div class="micro-text">Calculate Human Capital ROI cho tổ chức của bạn trong năm vừa rồi: (Revenue - OpEx excluding HC) / Total HC Cost. So sánh với benchmark ngành (F&B: 2.0-2.5x). Nếu dưới benchmark — điều gì cần improve?</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(0)" disabled>← Quay lại</button>
+<button class="btn-next" id="n1" onclick="go(2)" disabled style="background:linear-gradient(135deg,#F59E0B,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h1">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m2">
+<div class="hero"><div class="hero-badge">💰 Horizon · Bài 2</div>
+<div class="hero-num">Bài 2 / 6</div><div class="hero-time">⏱ ~5 phút đọc</div>
+<div class="hero-title">Workforce Cost Modeling — build P&L cho people decisions</div></div>
+<p class="body">Mỗi HR decision đều có P&L implication. CHRO giỏi không chỉ biết impact — họ có thể model nó trước khi decision được made. Đây là skill tạo sự khác biệt giữa CHRO được invite vào business planning và CHRO được inform sau khi decision xong.</p>
+<div class="sec-title">Workforce Cost Modeling — 4 scenarios phổ biến nhất</div>
+<div class="grid2">
+<div class="card"><div class="cn">SCENARIO 01</div><div class="ct">Hire vs. Automate</div><div class="cd">Cost of hire (salary + benefit + overhead) vs. Cost of automation (capex + maintenance + retraining). Decision matrix: payback period, capability sustainability, và workforce impact.</div></div>
+<div class="card"><div class="cn">SCENARIO 02</div><div class="ct">Training ROI</div><div class="cd">Investment (trainer, material, time off floor) vs. Return (RevPAMH improvement × headcount × months). Hiền standard: training với ROI dưới 3x trong 12 tháng — reconsider. Trên 5x — scale immediately.</div></div>
+<div class="card"><div class="cn">SCENARIO 03</div><div class="ct">Retention vs. Replacement</div><div class="cd">Cost of retention intervention (salary increase, benefit upgrade, development investment) vs. Cost of replacement (turnover cost per level × turnover probability). Thường retention 2-3x cheaper — but CHRO phải model it to prove it.</div></div>
+<div class="card"><div class="cn">SCENARIO 04</div><div class="ct">Headcount Expansion Cost</div><div class="cd">Full loaded cost của expansion: salary, benefit, recruitment, onboarding, management overhead, facilities. Plus revenue contribution timeline: khi nào người mới đạt full productivity? Cash flow implication?</div></div>
+</div>
+<div class="hl"><div class="hl-label">Cost Model Template — Finance-HR Simple Version</div>
+<p>Tạo 1 Google Sheet với 3 tabs: <b style="color:var(--cyan)">Tab 1: Input (salary, benefit, overhead, recruitment, training costs). Tab 2: Scenario Calculator (3 scenarios với assumptions rõ ràng). Tab 3: Output (NPV, IRR, payback period, và recommendation).</b> Không cần phức tạp hơn. CHRO phải be able to present this trong 5 phút — không phải 50 phút.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">💭</div><div><div class="ex-label">Case Analysis</div></div></div>
+<div class="qq">CEO muốn invest 500 triệu VND vào L&D program cho 200 Store Managers. CFO challenges ROI. Bạn cần build business case. Key inputs nào bạn sẽ collect để model ROI?</div>
+<textarea class="reflect" id="ref2" placeholder="Liệt kê inputs cần thiết... (ít nhất 30 ký tự)"></textarea>
+<div class="reflect-hint">Nhập ít nhất 30 ký tự để mở bài tiếp theo</div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 2</div>
+<div class="tw-text">"Mỗi HR proposal không có financial model là một proposal đang đợi bị rejected. CHRO phải bring the numbers — not wait for Finance to challenge them."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 2</div>
+<div class="micro-text">Pick 1 HR initiative bạn đang planning. Build simple cost model: total investment, expected outcome metric, revenue/cost impact, và payback period. Present model — không phải just the initiative — vào meeting tiếp theo.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(1)" >← Quay lại</button>
+<button class="btn-next" id="n2" onclick="go(3)" disabled style="background:linear-gradient(135deg,#F59E0B,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h2">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m3">
+<div class="hero"><div class="hero-badge">💰 Horizon · Bài 3</div>
+<div class="hero-num">Bài 3 / 6</div><div class="hero-time">⏱ ~4 phút đọc</div>
+<div class="hero-title">IPO Readiness từ góc độ People — CHRO và pre-IPO journey</div></div>
+<p class="body">Khi tổ chức prepare cho IPO, HR phải transform — vì investor không chỉ mua business model, họ mua <b>management team quality và organizational capability.</b> CHRO phải lead HR component của IPO readiness.</p>
+<div class="sec-title">5 điều HR phải prepare cho IPO</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Management Team Quality & Depth</div><div class="cd">Investor sẽ ask: "Nếu CEO rời đi, ai có thể step up?" CHRO phải present succession plan cho top 3 cấp — với evidence của capability, không chỉ tên người. Board want depth, not dependency.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">Compensation Benchmark</div><div class="cd">C-suite và key management compensation phải be market-competitive và defensible. Investor sẽ scrutinize: quá cao = governance concern, quá thấp = flight risk. CHRO phải have benchmark data và rationale.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Labor Compliance Track Record</div><div class="cd">Trong Vietnam: BHXH, minimum wage compliance, overtime record, union relations nếu có. Investor due diligence sẽ dig here. CHRO phải have clean record và documentation. Hidden compliance issue = IPO delay.</div></div>
+<div class="card"><div class="cn">04</div><div class="ct">Culture and Engagement Data</div><div class="cd">Investor muốn biết culture là asset hay liability. Engagement data, turnover trend, và Glassdoor rating (nếu có) will be reviewed. CHRO phải curate và present people narrative confidently.</div></div>
+</div>
+<div class="hl"><div class="hl-label">ESOP/Phantom Share — CHRO phải design, không phải Finance</div>
+<p>Trong pre-IPO, ESOP (Employee Stock Ownership Plan) là retention tool cho key talent. CHRO phải work với Finance và Legal để design: <b style="color:var(--cyan)">pool size, eligibility criteria, vesting schedule (thường 3-4 năm với cliff), valuation method, và communication plan.</b> Không có CHRO involvement = ESOP designed as financial instrument, không phải retention tool. Kết quả: wrong people get shares, right people don't feel retained.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">🎯</div><div><div class="ex-label">CHRO Strategy</div></div></div>
+<div class="qq">CFO tells CHRO: "Chúng ta IPO trong 18 tháng. HR cần present nhân sự readiness cho investor roadshow." Prioritization nào ĐÚNG nhất?</div>
+<div class="qopts" id="q3-opts">
+<button class="qopt" data-q="3" data-o="A"><span class="oletter">A</span>Focus vào engagement survey để show employee satisfaction cao</button>
+<button class="qopt" data-q="3" data-o="B"><span class="oletter">B</span>Build succession depth cho top 3 management tiers + ESOP design + compliance audit — trong 6 tháng đầu</button>
+<button class="qopt" data-q="3" data-o="C"><span class="oletter">C</span>Hire culture consultant để rebrand culture cho investor</button>
+<button class="qopt" data-q="3" data-o="D"><span class="oletter">D</span>Focus vào reducing headcount để show lean operation</button>
+</div><div class="qfb" id="q3-fb"></div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 3</div>
+<div class="tw-text">"IPO readiness từ HR perspective không phải về making HR look good — đó là about proving organizational capability đủ để sustain business post-IPO mà không depend vào 1-2 key individuals."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 3</div>
+<div class="micro-text">Nếu tổ chức của bạn IPO trong 24 tháng, HR có 3 risk areas nào lớn nhất? Viết ra và design 1 action plan cho risk area nguy hiểm nhất. Ngay cả khi không IPO — exercise này reveal strategic HR gaps quan trọng.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(2)" >← Quay lại</button>
+<button class="btn-next" id="n3" onclick="go(4)" disabled style="background:linear-gradient(135deg,#F59E0B,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h3">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m4">
+<div class="hero"><div class="hero-badge">💰 Horizon · Bài 4</div>
+<div class="hero-num">Bài 4 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">Labor Law & Compliance — CHRO không thể delegate hoàn toàn</div></div>
+<p class="body">CHRO không cần là luật sư — nhưng cần biết đủ để không bị surprised bởi compliance issue, và biết khi nào cần escalate cho legal. Trong Vietnam, 5 area CHRO phải stay current:</p>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">Labor Code updates</div><div class="cd">Việt Nam update Labor Code thường xuyên. 2024: changes về overtime cap, severance calculation, và probation rules. CHRO phải subscribe to Ministry of Labor updates — không đợi legal department filter.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">BHXH compliance</div><div class="cd">BHXH audit đang tăng frequency. Common issues: underreporting base salary, missing enrollment windows, incorrect contribution calculation cho special allowances. Each violation = 75-150M VND fine + backpay.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Foreign worker compliance</div><div class="cd">Cho tập đoàn với expat: work permit, tax treaty, và social insurance exemption requirements. Violation risk: immediate deportation + company fine + reputation damage. Zero tolerance area.</div></div>
+<div class="card"><div class="cn">04</div><div class="ct">Data privacy (PDPD)</div><div class="cd">Vietnam Personal Data Protection Decree (2023): employee data handling requirements. HR collect và store biometric, health, và financial data — all regulated. CHRO must have data handling policy aligned với PDPD.</div></div>
+</div>
+<div class="hl"><div class="hl-label">CHRO Compliance Checklist — annual review</div>
+<p>Mỗi năm, CHRO phải sign-off trên: <b style="color:var(--cyan)">(1) BHXH reconciliation vs. payroll, (2) Overtime records vs. legal cap, (3) All employment contracts có đúng clauses không, (4) Foreign worker documentation current, (5) Data handling policy updated.</b> Không có CHRO sign-off = shared responsibility disappears.</p></div><div class="ex"><div class="ex-head"><div class="ex-ico">✅</div><div><div class="ex-label">Finance-HR Commitment</div></div></div>
+<div class="check-group" id="ck5">
+<label class="check-item"><input type="checkbox" onchange="checkCk5k17()"> Tôi sẽ calculate Human Capital ROI cho tổ chức trong năm vừa rồi và present cho CFO</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k17()"> Tôi sẽ build workforce cost model template cho 2 HR decisions lớn đang pending</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k17()"> Tôi sẽ conduct annual compliance review và sign-off trên 5 checklist items</label>
+<label class="check-item"><input type="checkbox" onchange="checkCk5k17()"> Tôi sẽ request P&L briefing với CFO để hiểu rõ hơn về labor cost trong context của business</label>
+</div><div class="reflect-hint" id="ck5-hint">Chọn ít nhất 2 cam kết</div></div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 4</div>
+<div class="tw-text">"Finance-HR Hybrid CHRO không phải khi CHRO biết hết về finance — mà khi CHRO không phải bị dạy về financial implication của their own decisions."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 4</div>
+<div class="micro-text">Calculate fully-loaded turnover cost cho 1 cấp nhân viên cụ thể trong tổ chức: recruitment + onboarding + time-to-full-productivity gap. Bring số này vào cuộc họp leadership tiếp theo khi turnover được discuss.</div></div>
+
+<div class="nav-btns"><button class="btn-back" onclick="go(3)" >← Quay lại</button>
+<button class="btn-next" id="n4" onclick="go(5)" disabled style="background:linear-gradient(135deg,#F59E0B,#7C3AED)">Tiếp theo →</button></div>
+<div class="hint" id="h4">Trả lời câu hỏi để mở bài tiếp theo</div></div>
+<div class="module" id="m5">
+<div class="hero"><div class="hero-badge">💰 Horizon · Bài 5</div>
+<div class="hero-num">Bài 5 / 6</div><div class="hero-time">⏱ ~3 phút đọc</div>
+<div class="hero-title">Finance-HR Hybrid — CHRO tư duy như CFO partner</div></div>
+<div class="hl"><div class="hl-label">Bridge sang K18 — People Analytics+</div>
+<p>Bạn đã có Finance-HR Hybrid foundation. Bài cuối của Horizon Track: <b style="color:var(--cyan)">People Analytics+ — advanced analytics cho CHRO: predictive modeling, workforce intelligence, và cách build data-driven people strategy mà board sẽ trust.</b> Đây là capstone của toàn bộ 18 khóa PeopleOS.</p></div>
+<p class="body">CFO và CHRO là 2 roles phải speak đủ language của nhau để đưa ra decisions tốt. Khi CFO hiểu workforce implications của financial decisions — và CHRO hiểu financial implications của people decisions — tổ chức move faster, smarter, và với less regret.</p>
+<div class="sec-title">3 dấu hiệu CHRO đã là Finance-HR Hybrid thật sự</div>
+<div class="grid2">
+<div class="card"><div class="cn">01</div><div class="ct">CFO invite CHRO vào financial planning — không phải inform sau</div><div class="cd">Khi CFO xây revenue forecast và ngay lập tức hỏi "workforce implication là gì?" — bạn đã có seat at the strategic table.</div></div>
+<div class="card"><div class="cn">02</div><div class="ct">HR budget discussion starts với ROI, not cost</div><div class="cd">Khi CFO hỏi "HR cần gì năm sau?" và bạn respond với ROI framework thay vì budget list — conversation fundamentally changes.</div></div>
+<div class="card"><div class="cn">03</div><div class="ct">Board mentions HR as competitive advantage</div><div class="cd">Khi investor hay board documents mention people capability và culture as key business driver — CHRO đã successfully translate people into financial narrative.</div></div>
+</div>
+<div class="tw"><div class="tw-label">Câu mang đi · Bài 5</div>
+<div class="tw-text">"Finance-HR Hybrid không phải vì CHRO biết nhiều về finance — đó là vì CHRO make Finance irrelevant khi comes to blocking HR investment. Với ROI model đúng, không có CFO nào có thể nói không."</div>
+<div class="tw-author">— TaHien · CHCO Golden Gate Group</div></div>
+<div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 5</div>
+<div class="micro-text">Trong tuần tới, request 30 phút với CFO — không phải để discuss HR budget, mà để ask: 'Từ góc nhìn của anh, people decision nào đang có financial impact lớn nhất mà chúng ta chưa measure đúng?' Listen, ghi chép, và đó là your next Finance-HR project.</div></div>
+<div class="cert-wrap">
+<div class="cert-badge">🏆</div><div class="cert-title">Chứng Chỉ Hoàn Thành</div>
+<div class="cert-sub">Finance-HR Hybrid Advanced · Horizon Track · PeopleOS by TaHien</div>
+<input class="cert-name-input" id="cert-name" placeholder="Nhập tên của bạn..."><br>
+<button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
+<div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div></div>
+<div class="nav-btns"><button class="btn-back" onclick="go(4)" >← Quay lại</button>
+<button class="btn-next" id="n5" onclick="window.location.href='/'"  style="background:linear-gradient(135deg,var(--gold),#E6A820);color:var(--navy)">Về Learning Hub 🏠</button></div>
+</div>
+</div>
+<div class="footer">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
+<script>
+var cur=1,tot=6,doneM={};
+var giot=parseInt(localStorage.getItem('pos_giot')||'0');
+document.getElementById('giot-val').textContent=giot;
+var TITLES=["CHRO c\u1ea7n Finance IQ bao nhi\u00eau? Nhi\u1ec1u h\u01a1n b\u1ea1n ngh\u0129.", "Workforce Cost Modeling \u2014 build P&L cho people decisions", "IPO Readiness t\u1eeb g\u00f3c \u0111\u1ed9 People \u2014 CHRO v\u00e0 pre-IPO journey", "Labor Law & Compliance \u2014 CHRO kh\u00f4ng th\u1ec3 delegate ho\u00e0n to\u00e0n", "Finance-HR Hybrid \u2014 CHRO t\u01b0 duy nh\u01b0 CFO partner"];
+function buildDots(){var c=document.getElementById('dots');c.innerHTML='';for(var i=1;i<=tot;i++){var d=document.createElement('div');d.className='dot'+(i===cur?' active':(doneM[i]?' done':''));var tip=document.createElement('div');tip.className='dot-tip';tip.textContent='Bài '+i+': '+TITLES[i-1];d.appendChild(tip);(function(n){d.onclick=function(){if(n<cur||doneM[n-1]||n===1)go(n);}})(i);c.appendChild(d);}}
+function updProg(){var p=Math.round(((cur-1)/tot)*100);document.getElementById('pfill').style.width=p+'%';document.getElementById('ppct').textContent=p+'%';document.getElementById('plabel').textContent='Bài '+cur+' / '+tot;}
+function go(n){document.getElementById('m'+cur).classList.remove('active');if(n>1)document.getElementById('outcomes-box').style.display='none';else document.getElementById('outcomes-box').style.display='block';doneM[cur]=true;cur=n;document.getElementById('m'+cur).classList.add('active');buildDots();updProg();window.scrollTo({top:0,behavior:'smooth'});localStorage.setItem('resume_k17-finance-hr-advanced',n);}
+function unlock(b,h){var btn=document.getElementById(b);if(btn)btn.disabled=false;var hint=document.getElementById(h);if(hint)hint.style.display='none';giot+=20;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;}
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="1"]');if(!el)return;document.querySelectorAll('#q1-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q1-fb');var ok=el.dataset.o==='B';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q1-opts .qopt')[1].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! Counter với data: explain context + present HCROI + show it's working better than average. Đây là Finance-HR Hybrid thinking.':'Chưa đúng. A và C = defer without data. D = deflect. Chỉ B = respond with financial data and context — đây là cách CHRO close a CFO challenge.';setTimeout(function(){unlock('n1','h1');},ok?0:1500);});
+document.getElementById('ref2').addEventListener('input',function(){if(this.value.length>=30)unlock('n2','h2');});
+document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="3"]');if(!el)return;document.querySelectorAll('#q3-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q3-fb');var ok=el.dataset.o==='B';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q3-opts .qopt')[1].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! Succession depth, ESOP, và compliance là 3 non-negotiable cho investor due diligence. Và 6 tháng đầu = đúng sequence.':'Survey là nice-to-have. Culture rebrand là cosmetic. Lean op by cutting people = wrong message. Chỉ B addresses real investor concerns.';setTimeout(function(){unlock('n3','h3');},ok?0:1500);});
+function checkCk5k17(){var c=document.querySelectorAll('#ck5 input:checked').length;if(c>=2)unlock('n5','h5');}
+
+function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "Finance-HR Hybrid Advanced" đã được ghi nhận. #PeopleOS #HRxAI #CHRO';giot+=150;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k17-finance-hr-advanced','true');}
+var saved=parseInt(localStorage.getItem('resume_k17-finance-hr-advanced')||'1');if(saved>1&&saved<=6){var rb=document.createElement('div');rb.style.cssText='background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 0;gap:12px;';rb.innerHTML='<div style="font-size:13px;color:#F0F6FF">Lần trước bạn học đến <strong style="color:#22D3EE">Bài '+saved+'</strong></div><button onclick="go('+saved+');this.parentNode.remove()" style="background:#22D3EE;color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">Tiếp tục →</button>';var wrap=document.querySelector('.wrap');if(wrap)wrap.insertBefore(rb,wrap.firstChild);}
+buildDots();updProg();</script></body></html>
