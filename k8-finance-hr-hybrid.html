@@ -597,6 +597,11 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <div class="cert-course">K8 · Finance-HR Hybrid · Growth Track 🌿</div>
     <div class="cert-sig">— TaHien · CHCO Golden Gate Group · PeopleOS Community 2026</div>
   </div>
+  <div class="share-cta" style="margin:18px auto 14px;max-width:440px;padding:16px;border:1px solid var(--border2,rgba(34,211,238,.25));border-radius:12px;background:var(--glass,rgba(255,255,255,.04))">
+    <div style="font-size:13px;color:var(--muted,#8BB8CC);margin-bottom:10px">Chia sẻ thành tựu lên LinkedIn → nhận thêm <b style="color:var(--gold,#F0C040)">+50 Giọt</b> 💧 &nbsp;<span style="color:var(--subtle,#4A7A94)">#PeopleOS #HRxAI</span></div>
+    <button onclick="shareLinkedIn()" style="background:#0A66C2;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer">Chia sẻ lên LinkedIn 🔗</button>
+    <div id="share-out" style="margin-top:10px;font-size:12px;color:var(--teal,#06B6D4)"></div>
+  </div>
   <a href="/" class="btn-hub">← Về Learning Hub</a>
 </div>
 <div class="attribution">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
@@ -645,6 +650,18 @@ function showComplete(){
   doneM[6]=true;localStorage.setItem('peopleos_k8_m6','done');
   giot+=50;localStorage.setItem('pos_giot',giot);
   window.scrollTo({top:0,behavior:'smooth'});
+}
+function shareLinkedIn(){
+  window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://peopleos-tahien.vercel.app/k8-finance-hr-hybrid','_blank','noopener');
+  var out=document.getElementById('share-out');
+  if(!localStorage.getItem('pos_share_k8')){
+    localStorage.setItem('pos_share_k8','1');
+    giot+=50;localStorage.setItem('pos_giot',giot);
+    var gv=document.getElementById('nav-giot');if(gv)gv.textContent=giot;
+    out.innerHTML='🎉 +50 Giọt! Gợi ý caption: <i>"Mình vừa hoàn thành khóa Finance-HR Hybrid trên PeopleOS by TaHien — HR nói được ngôn ngữ tài chính 💧 #PeopleOS #HRxAI #CHRO"</i>';
+  }else{
+    out.textContent='Bạn đã nhận 50 Giọt cho lần chia sẻ này rồi 💧';
+  }
 }
 
 // Quiz

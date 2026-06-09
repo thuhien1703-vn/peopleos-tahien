@@ -219,6 +219,11 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <input class="cert-name-input" id="cert-name" placeholder="Nhập tên của bạn..."><br>
 <button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
 <div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div>
+<div class="share-cta" style="margin:18px auto 4px;max-width:440px;padding:16px;border:1px solid var(--border2,rgba(34,211,238,.25));border-radius:12px;background:var(--glass,rgba(255,255,255,.04))">
+<div style="font-size:13px;color:var(--muted,#8BB8CC);margin-bottom:10px">Chia sẻ thành tựu lên LinkedIn → nhận thêm <b style="color:var(--gold,#F0C040)">+50 Giọt</b> 💧 &nbsp;<span style="color:var(--subtle,#4A7A94)">#PeopleOS #HRxAI</span></div>
+<button onclick="shareLinkedIn()" style="background:#0A66C2;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer">Chia sẻ lên LinkedIn 🔗</button>
+<div id="share-out" style="margin-top:10px;font-size:12px;color:var(--teal)"></div>
+</div>
 </div>
 <div class="nav-btns">
 <button class="btn-back" onclick="go(5)">← Quay lại</button>
@@ -242,5 +247,17 @@ document.addEventListener('click',function(e){var el=e.target.closest('.qopt[dat
 function checkCk5k16(){var c=document.querySelectorAll('#ck5 input:checked').length;if(c>=2)unlock('n5','h5');}
 
 function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "Workforce Strategy Stagility" đã được ghi nhận. #PeopleOS #HRxAI #CHRO';giot+=150;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k16-workforce-stagility','true');}
+function shareLinkedIn(){
+  window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://peopleos-tahien.vercel.app/k16-workforce-stagility','_blank','noopener');
+  var out=document.getElementById('share-out');
+  if(!localStorage.getItem('pos_share_k16')){
+    localStorage.setItem('pos_share_k16','1');
+    giot+=50;localStorage.setItem('pos_giot',giot);
+    var gv=document.getElementById('giot-val');if(gv)gv.textContent=giot;
+    out.innerHTML='🎉 +50 Giọt! Gợi ý caption: <i>"Mình vừa hoàn thành khóa Workforce Stagility trên PeopleOS by TaHien — build workforce vừa ổn định vừa linh hoạt 💧 #PeopleOS #HRxAI #CHRO"</i>';
+  }else{
+    out.textContent='Bạn đã nhận 50 Giọt cho lần chia sẻ này rồi 💧';
+  }
+}
 var saved=parseInt(localStorage.getItem('resume_k16-workforce-stagility')||'1');if(saved>1&&saved<=6){var rb=document.createElement('div');rb.style.cssText='background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 0;gap:12px;';rb.innerHTML='<div style="font-size:13px;color:#F0F6FF">Lần trước bạn học đến <strong style="color:#22D3EE">Bài '+saved+'</strong></div><button onclick="go('+saved+');this.parentNode.remove()" style="background:#22D3EE;color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">Tiếp tục →</button>';var wrap=document.querySelector('.wrap');if(wrap)wrap.insertBefore(rb,wrap.firstChild);}
 buildDots();updProg();</script></body></html>
