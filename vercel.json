@@ -35,6 +35,7 @@
     { "source": "/k16-workforce-stagility", "destination": "/k16-workforce-stagility.html" },
     { "source": "/k17-finance-hr-advanced", "destination": "/k17-finance-hr-advanced.html" },
     { "source": "/k18-people-analytics-plus", "destination": "/k18-people-analytics-plus.html" },
-    { "source": "/kiem-tra-trinh-do", "destination": "/kiem-tra-trinh-do.html" }
+    { "source": "/kiem-tra-trinh-do", "destination": "/kiem-tra-trinh-do.html" },
+    { "source": "/bridge-assessment", "destination": "/bridge-assessment.html" }
   ]
 }
