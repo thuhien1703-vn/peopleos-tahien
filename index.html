@@ -709,17 +709,35 @@ footer{background:var(--navy);padding:40px 24px 24px}
 <!-- LEADERBOARD -->
 <div class="lb-section" id="leaderboard">
   <div class="wrap">
-    <div class="section-tag">BẢNG TUẦN</div>
+    <div class="section-tag">BẢNG XẾP HẠNG</div>
     <h2 class="section-h2">Bảng xếp hạng live</h2>
     <p class="section-sub">Ai đang dẫn đầu Giọt ngay lúc này?</p>
+
+    <!-- Tab switcher -->
+    <div style="display:flex;gap:8px;margin-bottom:20px">
+      <button id="lb-tab-all" onclick="switchLBTab('all')"
+        style="padding:8px 20px;border-radius:20px;border:1px solid var(--cyan);background:var(--cyan);color:var(--navy);font-weight:700;font-size:13px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif">
+        🏆 Tất cả thời gian
+      </button>
+      <button id="lb-tab-week" onclick="switchLBTab('week')"
+        style="padding:8px 20px;border-radius:20px;border:1px solid var(--border);background:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif">
+        ⚡ Tuần này
+      </button>
+    </div>
+
     <div class="lb-grid">
       <div class="lb-card">
-        <div class="lb-topbar">⚡ Xếp hạng theo thời gian thực</div>
-        <div id="lb-rows"></div>
-        <div class="lb-me-row">
-          <div style="width:28px;text-align:center;font-size:13px;color:var(--muted)">96</div>
-          <div class="lb-me-avatar">H</div>
-          <div style="flex:1"><div class="lb-me-name">Bạn</div><div style="font-size:11px;color:var(--muted)">Foundation 🌱</div></div>
+        <div class="lb-topbar" id="lb-topbar-label">🏆 Top learners · Tất cả thời gian</div>
+        <div id="lb-list"></div>
+
+        <!-- Current user sticky row -->
+        <div class="lb-me-row" id="lb-me-row" style="display:none">
+          <div style="width:28px;text-align:center;font-size:13px;font-weight:700;color:var(--gold)" id="lb-my-rank">—</div>
+          <div class="lb-me-avatar" id="lb-my-avatar">?</div>
+          <div style="flex:1">
+            <div class="lb-me-name" id="lb-my-name">Bạn</div>
+            <div style="font-size:11px;color:var(--muted)" id="lb-my-detail">0 khóa · 🔥 0 ngày</div>
+          </div>
           <div class="lb-me-xp" id="me-xp">0 💧</div>
         </div>
       </div>
@@ -1526,15 +1544,35 @@ function _toast(msg) {
 }
 
 // ── LEADERBOARD ────────────────────────────────────────────────
+var _lbTab = 'all';
+
+function switchLBTab(tab) {
+  _lbTab = tab;
+  var btnAll  = document.getElementById('lb-tab-all');
+  var btnWeek = document.getElementById('lb-tab-week');
+  var label   = document.getElementById('lb-topbar-label');
+  if (tab === 'all') {
+    if (btnAll)  { btnAll.style.background='var(--cyan)';btnAll.style.color='var(--navy)';btnAll.style.borderColor='var(--cyan)'; }
+    if (btnWeek) { btnWeek.style.background='none';btnWeek.style.color='var(--muted)';btnWeek.style.borderColor='var(--border)'; }
+    if (label)   label.textContent = '🏆 Top learners · Tất cả thời gian';
+  } else {
+    if (btnWeek) { btnWeek.style.background='var(--gold)';btnWeek.style.color='var(--navy)';btnWeek.style.borderColor='var(--gold)'; }
+    if (btnAll)  { btnAll.style.background='none';btnAll.style.color='var(--muted)';btnAll.style.borderColor='var(--border)'; }
+    if (label)   label.textContent = '⚡ Top learners · 7 ngày qua';
+  }
+  loadLeaderboard();
+}
+
 function loadLeaderboard() {
   var list = document.getElementById('lb-list');
   if (!list) return;
   list.innerHTML = '<div class="lb-loading">Đang tải...</div>';
-  fetch('/api/leaderboard')
+  var email = _authUser ? encodeURIComponent(_authUser.email) : '';
+  fetch('/api/leaderboard?tab=' + _lbTab + (email ? '&email=' + email : ''))
     .then(function(r){ return r.json(); })
     .then(function(d){
       if (!d.users || d.users.length === 0) {
-        list.innerHTML = '<div class="lb-empty">Chưa có dữ liệu. Hãy là người đầu tiên! 🚀</div>';
+        list.innerHTML = '<div class="lb-empty">Chưa có dữ liệu' + (_lbTab==='week' ? ' tuần này' : '') + '. Hãy là người đầu tiên! 🚀</div>';
         return;
       }
       var myEmail = _authUser ? _authUser.email : null;
@@ -1545,7 +1583,7 @@ function loadLeaderboard() {
                        rank === 2 ? '<span class="lb-rank silver">🥈</span>' :
                        rank === 3 ? '<span class="lb-rank bronze">🥉</span>' :
                        '<span class="lb-rank">' + rank + '</span>';
-        var isMe = myEmail && (u.email === myEmail || (i < 50 && _authUser && u.name === _authUser.name));
+        var isMe = myEmail && u.email === myEmail;
         var rowClass = isMe ? 'lb-row me' : 'lb-row';
         var initial = (u.name||'?').charAt(0).toUpperCase();
         html += '<div class="' + rowClass + '">' +
