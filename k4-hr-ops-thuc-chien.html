@@ -877,6 +877,22 @@ function done(){
   document.getElementById('plabel').textContent='Hoàn thành!';
   buildDots();window.scrollTo({top:0,behavior:'smooth'});
   localStorage.setItem('peopleos_k4_done','true');
+  // ── Firebase sync ──
+  (function(){
+    try {
+      var email = localStorage.getItem('pos_auth_user');
+      if(!email) return;
+      var totalGiot = parseInt(localStorage.getItem('pos_giot')||'0');
+      var doneList = JSON.parse(localStorage.getItem('pos_done_list')||'[]');
+      if(doneList.indexOf('k4')<0) doneList.push('k4');
+      localStorage.setItem('pos_done_list', JSON.stringify(doneList));
+      fetch('/api/update-giot',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email:email, giot:totalGiot, done:doneList})
+      }).catch(function(){});
+    } catch(e) {}
+  })();
 }
 buildDots();updP();
 </script>
