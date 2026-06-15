@@ -518,6 +518,15 @@ footer{background:var(--navy);padding:40px 24px 24px}
 .lb-loading{text-align:center;color:var(--muted);font-size:13px;padding:20px 0;animation:pulse 1.5s ease infinite}
 @keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
 
+.resume-banner{background:linear-gradient(135deg,rgba(34,211,238,.08),rgba(6,182,212,.04));
+  border:1px solid rgba(34,211,238,.25);border-radius:12px;padding:14px 20px;
+  display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;margin:12px 0}
+.resume-banner:hover{border-color:rgba(34,211,238,.4);background:rgba(34,211,238,.12)}
+.resume-icon{font-size:24px;flex-shrink:0}
+.resume-text{flex:1}
+.resume-title{font-size:13px;font-weight:700;color:var(--cyan);margin-bottom:2px}
+.resume-sub{font-size:12px;color:var(--muted)}
+.resume-arrow{font-size:16px;color:var(--cyan)}
 </style>
 </head>
 <body>
@@ -879,52 +888,52 @@ const COURSES = [
   // ── GROWTH TRACK (K7–K12) — sắp ra ─────────────────────────────────────
   {id:201,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"⚡",title:"Leadership Không Chức Danh",
    sub:"HRBP ảnh hưởng không có line authority — siêu năng lực của HR",
-   dur:"~20 phút",level:"Growth 🌿",  hot:true, soon:true,xp:132},
+   dur:"~20 phút",level:"Growth 🌿",  hot:true,xp:132},
 
   {id:202,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"🧩",title:"Tư Duy Hệ Thống & Quyết Định",
    sub:"HR Manager giỏi không giải quyết triệu chứng — họ fix hệ thống",
-   dur:"~20 phút",level:"Growth 🌿",  hot:false,soon:true,xp:132},
+   dur:"~20 phút",level:"Growth 🌿",  hot:false,xp:132},
 
   {id:203,cat:"EQ & Lãnh Đạo",    color:"#22D3EE",emoji:"🔄",title:"Quản Trị Thay Đổi & Văn Hóa",
    sub:"70% change initiatives thất bại — HR chính là lý do, và cũng là giải pháp",
-   dur:"~20 phút",level:"Growth 🌿",  hot:false,soon:true,xp:132},
+   dur:"~20 phút",level:"Growth 🌿",  hot:false,xp:132},
 
   {id:210,cat:"Finance-HR",        color:"#F0C040",emoji:"💼",title:"HRBP Mindset",
    sub:"Từ HR chấp hành sang HR chiến lược — bước nhảy quan trọng nhất",
-   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,xp:144},
+   dur:"~22 phút",level:"Growth 🌿",  hot:true,xp:144},
 
   {id:211,cat:"Finance-HR",        color:"#F0C040",emoji:"📈",title:"Performance Mgmt · RevPAMH ★",
    sub:"Đánh giá hiệu suất là công cụ quản trị mạnh nhất — nếu làm đúng",
-   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,xp:144},
+   dur:"~22 phút",level:"Growth 🌿",  hot:true,xp:144},
 
   {id:212,cat:"People Analytics",  color:"#34D399",emoji:"📊",title:"HR Analytics Cơ Bản ★",
    sub:"Data không nói dối — nhưng HR hay đọc sai. Đây là cách đọc đúng",
-   dur:"~22 phút",level:"Growth 🌿",  hot:true, soon:true,xp:144},
+   dur:"~22 phút",level:"Growth 🌿",  hot:true,xp:144},
 
   // ── HORIZON TRACK (K13–K18) — sắp ra ───────────────────────────────────
   {id:301,cat:"CHRO Mindset",      color:"#FB923C",emoji:"👑",title:"Executive Presence & Ảnh Hưởng",
    sub:"CHRO ngồi cùng bàn với CEO — cần ngôn ngữ, tư thế và tư duy khác",
-   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:156},
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,xp:156},
 
   {id:302,cat:"CHRO Mindset",      color:"#FB923C",emoji:"🌱",title:"Văn Hóa & Culture Design",
    sub:"Văn hóa không phải poster trên tường — là quyết định CEO đưa ra khi không ai nhìn",
-   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:156},
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,xp:156},
 
   {id:303,cat:"AI-First HR",       color:"#A78BFA",emoji:"🤖",title:"AI Strategy Cho CHRO",
    sub:"CHRO định hình AI trong tổ chức — không phải IT, không phải CEO, là HR",
-   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:156},
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,xp:156},
 
   {id:304,cat:"CHRO Mindset",      color:"#FB923C",emoji:"🌊",title:"Stagility & Workforce Design ★",
    sub:"Vừa stable (hệ thống) vừa agile (con người) — không mâu thuẫn",
-   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:168},
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,xp:168},
 
   {id:305,cat:"Finance-HR",        color:"#F0C040",emoji:"💰",title:"Finance-HR Hybrid ★",
    sub:"CHRO biết tài chính là CHRO không bị qua mặt — bởi CFO hay bởi CEO",
-   dur:"~25 phút",level:"Horizon 🌌", hot:true, soon:true,xp:168},
+   dur:"~25 phút",level:"Horizon 🌌", hot:true,xp:168},
 
   {id:306,cat:"People Analytics",  color:"#34D399",emoji:"🔭",title:"People Analytics Nâng Cao · RevPAMH+ ★",
    sub:"Từ báo cáo nhìn lại sang dự báo nhìn tới — CHRO thế hệ mới",
-   dur:"~25 phút",level:"Horizon 🌌", hot:false,soon:true,xp:168},
+   dur:"~25 phút",level:"Horizon 🌌", hot:false,xp:168},
 ];
 
 const SKILLS = [
@@ -1403,6 +1412,40 @@ function _applyAuthUI(user) {
   var pp = document.getElementById('progress-panel');
   if(pp) pp.style.display = 'block';
   if(typeof updateUI === 'function') updateUI();
+  // Adapt hub CTA based on progress
+  _adaptHubCTA();
+  var _dl=JSON.parse(localStorage.getItem('pos_done_list')||'[]'); _showResumeBanner(_dl);
+}
+
+function _adaptHubCTA() {
+  try {
+    var bridgePassed = localStorage.getItem('pos_bridge_passed');
+    var growthUnlocked = localStorage.getItem('pos_growth_unlocked');
+    // Update hero CTA if Foundation complete
+    var doneList = JSON.parse(localStorage.getItem('pos_done_list')||'[]');
+    var foundDone = ['k1','k2','k3','k4','k5','k6'].filter(function(k){ return doneList.indexOf(k)>=0; }).length;
+    if(foundDone >= 6 && !bridgePassed) {
+      // Foundation done, nudge to Bridge Assessment
+      var heroCTA = document.querySelector('.btn-primary');
+      if(heroCTA) {
+        heroCTA.textContent = '🌿 Làm Bridge Assessment →';
+        heroCTA.onclick = function(){ window.location.href='/bridge-assessment'; };
+      }
+    }
+    if(growthUnlocked) {
+      // Show growth unlocked badge somewhere
+      var ppanel = document.getElementById('progress-panel');
+      if(ppanel && ppanel.querySelector && !ppanel.querySelector('.growth-badge')) {
+        var badge = document.createElement('div');
+        badge.className = 'growth-badge';
+        badge.style.cssText = 'text-align:center;padding:8px;font-size:12px;color:#10B981;font-weight:700;margin-top:8px';
+        badge.textContent = '🌿 Growth Track đã mở khóa! Bắt đầu K7 →';
+        badge.style.cursor = 'pointer';
+        badge.onclick = function(){ window.location.href='/k7-leadership-khong-chuc-danh'; };
+        ppanel.querySelector('.wrap').appendChild(badge);
+      }
+    }
+  } catch(e) {}
 }
 
 // ── Open / Close ──────────────────────────────────────────────
