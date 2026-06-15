@@ -677,6 +677,12 @@ body::after{content:'水';position:fixed;right:-50px;top:50%;
     <div class="cert-course">Cấp 1 — HR Staff & Specialist · 6 modules · ~18 phút</div>
     <div class="cert-sig">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
   </div>
+  
+  <div style="margin:18px auto 14px;max-width:440px;padding:16px;border:1px solid rgba(34,211,238,.25);border-radius:12px;background:rgba(255,255,255,.04)">
+    <div style="font-size:13px;color:#8BB8CC;margin-bottom:10px">Chia sẻ thành tựu lên LinkedIn → nhận thêm <b style="color:#F0C040">+50 Giọt</b> 💧 &nbsp;<span style="color:#4A7A94">#PeopleOS #HRxAI</span></div>
+    <button onclick="shareLinkedIn()" style="background:#0A66C2;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer">Chia sẻ lên LinkedIn 🔗</button>
+    <div id="share-out-k1" style="margin-top:10px;font-size:12px;color:#06B6D4"></div>
+  </div>
   <button class="btncert" onclick="downloadCertPDF()">Tải chứng chỉ PDF</button>
   <button class="btnnext2" onclick="window.location.href='/k2-giao-tiep-anh-huong'" style="background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#020B18;font-weight:700;border:none;border-radius:10px;padding:12px 24px;font-size:14px;cursor:pointer;margin:8px 4px">Tiếp theo: Giao Tiếp & Ảnh Hưởng →</button>
   <button class="btnnext2" onclick="window.location.href='/'">← Về Learning Hub</button>
@@ -686,6 +692,20 @@ body::after{content:'水';position:fixed;right:-50px;top:50%;
 
 <script>
 
+
+function shareLinkedIn(){
+  window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://peopleos-tahien.vercel.app/k1-eq-selfmastery','_blank','noopener');
+  var out=document.getElementById('share-out-k1');
+  if(!localStorage.getItem('pos_share_k1')){
+    localStorage.setItem('pos_share_k1','1');
+    var g=parseInt(localStorage.getItem('pos_giot')||'0')+50;
+    localStorage.setItem('pos_giot',g);
+    var gv=document.getElementById('nav-giot-display');if(gv)gv.textContent=g;
+    if(out)out.innerHTML='🎉 +50 Giọt! Gợi ý caption: <i>\"EQ là kỹ năng cốt lõi của HR — cảm xúc dẫn dắt hiệu suất 🧠 #PeopleOS #HRxAI\"</i>';
+  }else{
+    if(out)out.textContent='Bạn đã nhận 50 Giọt cho lần chia sẻ này rồi 💧';
+  }
+}
 function downloadCertPDF(){
   var nm=localStorage.getItem('pos_auth_user_name')||localStorage.getItem('pos_auth_user')||'HR Professional';
   var dt=new Date().toLocaleDateString('vi-VN',{year:'numeric',month:'long',day:'numeric'});
