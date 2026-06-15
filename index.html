@@ -604,6 +604,13 @@ footer{background:var(--navy);padding:40px 24px 24px}
 <div class="stats-bar">
   <div class="stats-bar-inner">
     <div class="stat-big"><div class="stat-big-num">👩‍💼 1,200+</div><div class="stat-big-label">HR Professionals</div></div>
+<!-- SEARCH BOX -->
+<div class="search-wrap">
+  <input type="text" class="search-box" id="course-search"
+    placeholder="🔍 Tìm khóa học... EQ, Finance, Analytics, HRBP..."
+    oninput="searchCourses(this.value)" onblur="setTimeout(hideSearch,200)">
+  <div class="search-results" id="search-results"></div>
+</div>
 
 <!-- ═══ PROGRESS PANEL (shows after login) ═══════════════════════ -->
 <div id="progress-panel" style="display:none;background:var(--navy2);border-top:1px solid var(--border);padding:20px 24px">
