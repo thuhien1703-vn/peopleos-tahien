@@ -244,6 +244,19 @@ Không cần fancy ML model để start — Excel model với consistent data = 
 <div class="micro-task"><div class="micro-label">⚡ Áp dụng ngay · Bài 4</div>
 <div class="micro-text">Design People Strategy 2026 cho tổ chức của bạn trên 1 trang: (1) Business direction, (2) People implication, (3) 3 strategic priorities, (4) 5 metrics sẽ track. Present cho CEO trong tháng tới.</div></div>
 
+
+<div class="ex-block" style="margin:20px 0;padding:18px;background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.2);border-radius:12px">
+  <div style="font-size:11px;font-weight:700;color:#A78BFA;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">🎯 CHRO Decision Scenario · Bài 4</div>
+  <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px;line-height:1.6">Board hỏi CHRO: <b>"Tăng 20% revenue với headcount hiện tại — được không?"</b><br><span style="font-size:13px;color:var(--muted)">Approach nào thể hiện Data-Driven People Strategy cao nhất?</span></div>
+  <div id="opts-k18-4" style="display:flex;flex-direction:column;gap:8px">
+    <button onclick="ansK184(0,this)" style="text-align:left;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--navy2);color:var(--text);cursor:pointer;font-family:inherit;font-size:13px"><span style="color:var(--muted);margin-right:8px;font-weight:700">A</span>Nói "Cần phân tích thêm" và xin thêm 2 tuần</button>
+    <button onclick="ansK184(1,this)" style="text-align:left;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--navy2);color:var(--text);cursor:pointer;font-family:inherit;font-size:13px"><span style="color:var(--muted);margin-right:8px;font-weight:700">B</span>Pull RevPAMH + capacity utilization ngay, model 3 scenarios: optimize / targeted hire / redesign workflow</button>
+    <button onclick="ansK184(2,this)" style="text-align:left;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--navy2);color:var(--text);cursor:pointer;font-family:inherit;font-size:13px"><span style="color:var(--muted);margin-right:8px;font-weight:700">C</span>Trình bày industry benchmark: F&B trung bình tăng 20% revenue cần +15% headcount</button>
+    <button onclick="ansK184(3,this)" style="text-align:left;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--navy2);color:var(--text);cursor:pointer;font-family:inherit;font-size:13px"><span style="color:var(--muted);margin-right:8px;font-weight:700">D</span>Hỏi CEO muốn tăng ở segment nào trước khi answer về headcount</button>
+  </div>
+  <div id="fb-k18-4" style="margin-top:12px;padding:12px;border-radius:10px;font-size:13px;line-height:1.6;display:none"></div>
+</div>
+
 <div class="nav-btns"><button class="btn-back" onclick="go(3)" >← Quay lại</button>
 <button class="btn-next" id="n4" onclick="go(5)" disabled style="background:linear-gradient(135deg,#8B5CF6,#7C3AED)">Tiếp theo →</button></div>
 <div class="hint" id="h4">Trả lời câu hỏi để mở bài tiếp theo</div></div>
@@ -275,6 +288,17 @@ Cảm ơn bạn đã tin tưởng hành trình này. Từ Hiền, với tất c�
 <button class="cert-btn" onclick="generateCert()">Tạo chứng chỉ 🎓</button>
 <button class="cert-btn" onclick="downloadCertPDF()" style="background:linear-gradient(135deg,#F0C040,#E6A820);color:#020B18;font-weight:700;border:none;border-radius:10px;padding:11px 22px;font-size:13px;cursor:pointer;margin-top:12px">Tải chứng chỉ PDF 🎓</button>
 <div id="cert-out" style="margin-top:16px;font-size:13px;color:var(--teal)"></div></div>
+
+<div class="ex-block" style="margin:20px 0;padding:18px;background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.2);border-radius:12px">
+  <div style="font-size:11px;font-weight:700;color:#A78BFA;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">💭 CFO Challenge · Bài 5</div>
+  <div style="font-size:14px;color:var(--text);margin-bottom:12px;line-height:1.6">CFO phản đối: <i>"HR metrics không có số cứng."</i><br>Argument mạnh nhất để thuyết phục Board đầu tư $200K vào People Analytics là gì?</div>
+  <textarea id="refl-k18-5" rows="4" placeholder="Viết argument của bạn — ít nhất 30 ký tự..." oninput="chkR185()" style="width:100%;padding:12px;background:var(--navy3);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:13px;resize:vertical;outline:none"></textarea>
+  <div id="msg-k18-5" style="font-size:12px;color:var(--muted);margin-top:6px"></div>
+  <div id="hint-k18-5" style="display:none;margin-top:12px;padding:12px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:10px;font-size:13px;color:#C4B5FD;line-height:1.7">
+    <b>Gợi ý của Hiền:</b> "Turnover 1 Manager = 6-12 tháng lương. Analytics giảm Manager turnover 25%→18% trong pool 200 người = 14 người × 50tr = 700 triệu/năm tiết kiệm. $200K investment = 3.5 tháng payback. Đây là số cứng."
+  </div>
+</div>
+
 <div class="nav-btns"><button class="btn-back" onclick="go(4)" >← Quay lại</button>
 <button class="btn-next" id="n5" onclick="go(6)" disabled style="background:linear-gradient(135deg,#8B5CF6,#6366F1)">Tiếp theo →</button></div>
 </div>
