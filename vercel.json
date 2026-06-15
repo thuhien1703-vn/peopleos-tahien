@@ -97,6 +97,10 @@
     {
       "source": "/k18-people-analytics-plus",
       "destination": "/k18-people-analytics-plus.html"
+    },
+    {
+      "source": "/kiem-tra-trinh-do",
+      "destination": "/kiem-tra-trinh-do.html"
     }
   ]
 }
