@@ -585,6 +585,22 @@ function generateCert(){
   giot+=100;localStorage.setItem('pos_giot',giot);
   document.getElementById('giot-val').textContent=giot;
   localStorage.setItem('pos_done_k7','true');
+  // ── Firebase sync ──
+  (function(){
+    try {
+      var email = localStorage.getItem('pos_auth_user');
+      if(!email) return;
+      var totalGiot = parseInt(localStorage.getItem('pos_giot')||'0');
+      var doneList = JSON.parse(localStorage.getItem('pos_done_list')||'[]');
+      if(doneList.indexOf('k7')<0) doneList.push('k7');
+      localStorage.setItem('pos_done_list', JSON.stringify(doneList));
+      fetch('/api/update-giot',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email:email, giot:totalGiot, done:doneList})
+      }).catch(function(){});
+    } catch(e) {}
+  })();
 }
 
 // Resume
