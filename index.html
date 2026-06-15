@@ -1597,6 +1597,29 @@ function loadLeaderboard() {
         '</div>';
       });
       list.innerHTML = html;
+
+      // Sticky user row — show if user not in top 50
+      if (_authUser) {
+        var meRow=document.getElementById('lb-me-row');
+        var myInTop=d.users.some(function(u){return u.email===_authUser.email;});
+        if(meRow){
+          meRow.style.display=myInTop?'none':'flex';
+          if(!myInTop){
+            var rk=document.getElementById('lb-my-rank');
+            var av=document.getElementById('lb-my-avatar');
+            var nm=document.getElementById('lb-my-name');
+            var dt=document.getElementById('lb-my-detail');
+            var xp=document.getElementById('me-xp');
+            if(rk)rk.textContent=d.myRank?'#'+d.myRank:'—';
+            if(av)av.textContent=(_authUser.name||'?').charAt(0).toUpperCase();
+            if(nm)nm.textContent=_authUser.name||'Bạn';
+            var mg=parseInt(localStorage.getItem('pos_giot')||'0');
+            var md=JSON.parse(localStorage.getItem('pos_done_list')||'[]').length;
+            if(dt)dt.textContent=md+' khóa · đang học';
+            if(xp)xp.textContent=mg+' 💧';
+          }
+        }
+      }
     })
     .catch(function(){
       list.innerHTML = '<div class="lb-empty">Không tải được bảng xếp hạng. Thử lại sau.</div>';
