@@ -47,7 +47,40 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .btn-next{color:white;border:none;border-radius:10px;padding:11px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s}.btn-next:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,58,237,.3)}.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}.module{display:none}.module.active{display:block}
 .footer{text-align:center;padding:20px;font-size:11px;color:var(--subtle);border-top:1px solid var(--border);margin-top:40px}
-@media(max-width:600px){.grid2{grid-template-columns:1fr}.hero-title{font-size:20px}}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+@media(max-width:600px){.grid2{grid-template-columns:1fr}.hero-title{font-size:20px}}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+function ansScenK18M4(idx, btn) {
+  document.querySelectorAll('#scen-k18-m4 .opt').forEach(function(b){b.disabled=true;});
+  var fb = document.getElementById('scen-k18-m4-fb');
+  if(idx===1) {
+    btn.classList.add('correct');
+    fb.className='feedback show ok';
+    fb.innerHTML='✅ <b>Chính xác — Data-Driven cao nhất!</b> B kết hợp 3 thứ: (1) pull existing data ngay — không xin thêm thời gian, (2) frame bằng productivity metrics CFO hiểu, (3) đưa ra 3 scenarios thay vì 1 answer duy nhất. C cũng tốt nhưng là strategic question, không phải data answer. D dùng benchmark — useful nhưng không personalized.';
+  } else if(idx===2) {
+    btn.classList.add('correct');
+    fb.className='feedback show ok';
+    fb.innerHTML='✅ <b>Tốt — strategic thinking!</b> C là câu hỏi chiến lược đúng để clarify scope. Nhưng B mạnh hơn vì dùng internal data ngay thay vì xin clarification — CHRO giỏi làm cả hai: clarify VÀ pull data cùng lúc.';
+    document.querySelectorAll('#scen-k18-m4 .opt')[1].classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('#scen-k18-m4 .opt')[1].classList.add('correct');
+    fb.className='feedback show no';
+    fb.innerHTML='❌ ' + (idx===0?'Xin thêm thời gian khi board đang hỏi = mất credibility. CHRO phải pull data ngay.':idx===3?'Industry benchmark = lazy answer. Board muốn biết về TỔ CHỨC NÀY, không phải average industry.':'');
+  }
+}
+function checkReflK18M5(){
+  var v=document.getElementById('refl-k18-m5').value;
+  var msg=document.getElementById('refl-k18-m5-msg');
+  var hint=document.getElementById('refl-k18-m5-hint');
+  if(v.length>=30){
+    msg.textContent='✅ Argument của bạn ghi nhận. Xem gợi ý của Hiền bên dưới:';
+    msg.style.color='var(--teal)';
+    if(hint)hint.style.display='block';
+  } else {
+    msg.textContent=(30-v.length)+' ký tự nữa...';msg.style.color='var(--muted)';
+    if(hint)hint.style.display='none';
+  }
+}
+</script>
 </head><body>
 <nav class="topnav"><a class="back" href="/">← Về Learning Hub</a>
 <div style="display:flex;align-items:center"><span class="nav-logo">PeopleOS</span><span class="nav-sub">Learning Hub &nbsp;by TaHien</span></div>
