@@ -576,6 +576,41 @@ footer{background:var(--navy);padding:40px 24px 24px}
 <div class="stats-bar">
   <div class="stats-bar-inner">
     <div class="stat-big"><div class="stat-big-num">👩‍💼 1,200+</div><div class="stat-big-label">HR Professionals</div></div>
+
+<!-- ═══ PROGRESS PANEL (shows after login) ═══════════════════════ -->
+<div id="progress-panel" style="display:none;background:var(--navy2);border-top:1px solid var(--border);padding:20px 24px">
+  <div class="wrap" style="max-width:900px;margin:0 auto">
+    <div style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px">
+      📈 Tiến độ học của bạn · <span id="progress-total">0/18 khóa</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px">
+          <span>Foundation 🌱</span><span style="color:var(--cyan)" id="progress-foundation">0/6</span>
+        </div>
+        <div style="height:6px;background:var(--navy3);border-radius:99px;overflow:hidden">
+          <div id="pbar-foundation" style="height:100%;background:linear-gradient(90deg,#22D3EE,#06B6D4);border-radius:99px;width:0%;transition:width .4s"></div>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px">
+          <span>Growth 🌿</span><span style="color:var(--cyan)" id="progress-growth">0/6</span>
+        </div>
+        <div style="height:6px;background:var(--navy3);border-radius:99px;overflow:hidden">
+          <div id="pbar-growth" style="height:100%;background:linear-gradient(90deg,#34D399,#10B981);border-radius:99px;width:0%;transition:width .4s"></div>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px">
+          <span>Horizon 🌌</span><span style="color:var(--cyan)" id="progress-horizon">0/6</span>
+        </div>
+        <div style="height:6px;background:var(--navy3);border-radius:99px;overflow:hidden">
+          <div id="pbar-horizon" style="height:100%;background:linear-gradient(90deg,#FB923C,#F97316);border-radius:99px;width:0%;transition:width .4s"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     <div class="stat-big"><div class="stat-big-num">📚 18</div><div class="stat-big-label">Khóa trong lộ trình</div></div>
     <div class="stat-big"><div class="stat-big-num">🌐 63+</div><div class="stat-big-label">Tỉnh thành VN</div></div>
   </div>
@@ -906,6 +941,27 @@ const LB = [
 let xp = 0, done = new Set(), openPath = null, openSkill = SKILLS[0].key;
 const saved = localStorage.getItem('pos_done');
 if (saved) { JSON.parse(saved).forEach(id => done.add(id)); }
+// Bridge: sync pos_done_list (k1,k2...) from course completions
+(function(){
+  var kMap={'k1':101,'k2':102,'k3':103,'k4':104,'k5':105,'k6':106,
+            'k7':201,'k8':202,'k9':203,'k10':210,'k11':211,'k12':212,
+            'k13':301,'k14':302,'k15':303,'k16':304,'k17':305,'k18':306};
+  var kList=JSON.parse(localStorage.getItem('pos_done_list')||'[]');
+  // Also check legacy per-course keys
+  ['k1','k2','k3','k4','k5','k6'].forEach(function(k){
+    if(localStorage.getItem('peopleos_'+k+'_done')) kList.indexOf(k)<0 && kList.push(k);
+  });
+  ['k7','k8','k9','k10','k11','k12','k13','k14','k15','k16','k17','k18'].forEach(function(k){
+    if(localStorage.getItem('pos_done_'+k+'-'+{
+      k7:'leadership-khong-chuc-danh',k8:'finance-hr-hybrid',k9:'talent-management',
+      k10:'hrbp-mindset',k11:'performance-revpamh',k12:'hr-analytics',
+      k13:'executive-presence',k14:'tam-nhin-van-hoa',k15:'ai-strategy-chro',
+      k16:'workforce-stagility',k17:'finance-hr-advanced',k18:'people-analytics-plus'
+    }[k])) kList.indexOf(k)<0 && kList.push(k);
+  });
+  kList.forEach(function(k){ if(kMap[k]) done.add(kMap[k]); });
+  if(kList.length) localStorage.setItem('pos_done_list',JSON.stringify(kList));
+})();
 const savedXP = parseInt(localStorage.getItem('pos_xp')||'0');
 xp = savedXP;
 
@@ -937,11 +993,33 @@ function updateUI() {
   if (db) db.textContent = done.size;
   if (tb) tb.textContent = x;
   if (me) me.textContent = x+' 💧';
-  const pct = Math.round((done.size/6)*100);
+    // Per-track progress
+  var fDone=0,gDone=0,hDone=0;
+  [101,102,103,104,105,106].forEach(function(id){if(done.has(id))fDone++;});
+  [201,202,203,210,211,212].forEach(function(id){if(done.has(id))gDone++;});
+  [301,302,303,304,305,306].forEach(function(id){if(done.has(id))hDone++;});
+  var totalDone=fDone+gDone+hDone;
+  const pct = Math.round((fDone/6)*100);
   const fp = document.getElementById('found-pct');
   const pb = document.getElementById('prog-bar-fill');
   if (fp) fp.textContent = pct+'%';
   if (pb) pb.style.width = pct+'%';
+  // Update all progress displays
+  var elFP=document.getElementById('progress-foundation');
+  var elGP=document.getElementById('progress-growth');
+  var elHP=document.getElementById('progress-horizon');
+  var elTotal=document.getElementById('progress-total');
+  var elFBar=document.getElementById('pbar-foundation');
+  var elGBar=document.getElementById('pbar-growth');
+  var elHBar=document.getElementById('pbar-horizon');
+  if(elFP) elFP.textContent=fDone+'/6';
+  if(elGP) elGP.textContent=gDone+'/6';
+  if(elHP) elHP.textContent=hDone+'/6';
+  if(elTotal) elTotal.textContent=totalDone+'/18 khóa';
+  if(elFBar) elFBar.style.width=Math.round((fDone/6)*100)+'%';
+  if(elGBar) elGBar.style.width=Math.round((gDone/6)*100)+'%';
+  if(elHBar) elHBar.style.width=Math.round((hDone/6)*100)+'%';
+  if(dc) dc.textContent=fDone;
 }
 
 // ── COURSE CARD HTML ─────────────────────────────────────────
@@ -1303,6 +1381,10 @@ function _applyAuthUI(user) {
   ['giot-val','nav-giot-display','hero-xp'].forEach(function(id){
     var el = document.getElementById(id); if(el) el.textContent = g;
   });
+  // Show progress panel
+  var pp = document.getElementById('progress-panel');
+  if(pp) pp.style.display = 'block';
+  if(typeof updateUI === 'function') updateUI();
 }
 
 // ── Open / Close ──────────────────────────────────────────────
