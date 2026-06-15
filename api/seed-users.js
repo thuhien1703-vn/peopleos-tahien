@@ -11,7 +11,12 @@ function initFirebase() {
 }
 
 // 10 HR professionals — tên thật, tỉnh thành thực tế VN, progress realistic
+// Weekly active users — lastActive within 7 days (refreshed on each seed call)
+const NOW = Date.now();
+const DAY = 24 * 60 * 60 * 1000;
+
 const SEED_USERS = [
+  // ── Top 5: active this week (show in both All-time & Weekly tab) ──
   {
     email: 'linh.nguyen.hrm@gmail.com',
     name: 'Nguyễn Thị Linh',
@@ -20,8 +25,8 @@ const SEED_USERS = [
     streak: 24,
     city: 'Hà Nội',
     role: 'HR Manager · Masan Group',
-    lastActive: Date.now() - 1 * 24 * 60 * 60 * 1000,
-    createdAt: Date.now() - 45 * 24 * 60 * 60 * 1000,
+    lastActive: NOW - 0.5 * DAY,
+    createdAt: NOW - 45 * DAY,
   },
   {
     email: 'minh.tran.hrbp@gmail.com',
@@ -31,8 +36,8 @@ const SEED_USERS = [
     streak: 18,
     city: 'TP. Hồ Chí Minh',
     role: 'HRBP · Vingroup',
-    lastActive: Date.now() - 2 * 24 * 60 * 60 * 1000,
-    createdAt: Date.now() - 38 * 24 * 60 * 60 * 1000,
+    lastActive: NOW - 1 * DAY,
+    createdAt: NOW - 38 * DAY,
   },
   {
     email: 'huong.pham.talent@gmail.com',
@@ -42,8 +47,8 @@ const SEED_USERS = [
     streak: 15,
     city: 'Đà Nẵng',
     role: 'Talent Acquisition Lead · FPT Software',
-    lastActive: Date.now() - 1 * 24 * 60 * 60 * 1000,
-    createdAt: Date.now() - 32 * 24 * 60 * 60 * 1000,
+    lastActive: NOW - 2 * DAY,
+    createdAt: NOW - 32 * DAY,
   },
   {
     email: 'nam.le.hrd@gmail.com',
@@ -53,8 +58,8 @@ const SEED_USERS = [
     streak: 12,
     city: 'TP. Hồ Chí Minh',
     role: 'HRD · Công ty CP Bán lẻ Kỹ thuật số',
-    lastActive: Date.now() - 3 * 24 * 60 * 60 * 1000,
-    createdAt: Date.now() - 28 * 24 * 60 * 60 * 1000,
+    lastActive: NOW - 3 * DAY,
+    createdAt: NOW - 28 * DAY,
   },
   {
     email: 'thuy.vo.lnd@gmail.com',
@@ -64,9 +69,10 @@ const SEED_USERS = [
     streak: 9,
     city: 'Hải Phòng',
     role: 'L&D Specialist · Techcombank',
-    lastActive: Date.now() - 2 * 24 * 60 * 60 * 1000,
-    createdAt: Date.now() - 22 * 24 * 60 * 60 * 1000,
+    lastActive: NOW - 4 * DAY,
+    createdAt: NOW - 22 * DAY,
   },
+  // ── Bottom 5: older activity (All-time tab only) ──
   {
     email: 'cuong.hoang.hrops@gmail.com',
     name: 'Hoàng Văn Cường',
@@ -75,8 +81,8 @@ const SEED_USERS = [
     streak: 7,
     city: 'Cần Thơ',
     role: 'HR Executive · Grab Vietnam',
-    lastActive: Date.now() - 4 * 24 * 60 * 60 * 1000,
-    createdAt: Date.now() - 18 * 24 * 60 * 60 * 1000,
+    lastActive: NOW - 10 * DAY,
+    createdAt: NOW - 18 * DAY,
   },
   {
     email: 'mai.dang.recruiter@gmail.com',
@@ -86,8 +92,8 @@ const SEED_USERS = [
     streak: 5,
     city: 'Bình Dương',
     role: 'Recruiter · Unilever Vietnam',
-    lastActive: Date.now() - 3 * 24 * 60 * 60 * 1000,
-    createdAt: Date.now() - 14 * 24 * 60 * 60 * 1000,
+    lastActive: NOW - 12 * DAY,
+    createdAt: NOW - 14 * DAY,
   },
   {
     email: 'ha.nguyen.hrstaf@gmail.com',
@@ -97,8 +103,8 @@ const SEED_USERS = [
     streak: 4,
     city: 'Hà Nội',
     role: 'HR Staff · Vinamilk',
-    lastActive: Date.now() - 5 * 24 * 60 * 60 * 1000,
-    createdAt: Date.now() - 10 * 24 * 60 * 60 * 1000,
+    lastActive: NOW - 14 * DAY,
+    createdAt: NOW - 10 * DAY,
   },
   {
     email: 'long.bui.hrjunior@gmail.com',
@@ -108,8 +114,8 @@ const SEED_USERS = [
     streak: 3,
     city: 'Đồng Nai',
     role: 'HR Junior · Novaland',
-    lastActive: Date.now() - 6 * 24 * 60 * 60 * 1000,
-    createdAt: Date.now() - 7 * 24 * 60 * 60 * 1000,
+    lastActive: NOW - 16 * DAY,
+    createdAt: NOW - 7 * DAY,
   },
   {
     email: 'trang.phan.hrnew@gmail.com',
@@ -119,8 +125,8 @@ const SEED_USERS = [
     streak: 2,
     city: 'Quảng Nam',
     role: 'HR Fresher · Công ty CP Dệt may',
-    lastActive: Date.now() - 7 * 24 * 60 * 60 * 1000,
-    createdAt: Date.now() - 5 * 24 * 60 * 60 * 1000,
+    lastActive: NOW - 20 * DAY,
+    createdAt: NOW - 5 * DAY,
   },
 ];
 
@@ -143,8 +149,9 @@ module.exports = async function handler(req, res) {
     for (const user of SEED_USERS) {
       const ref = db.collection('users').doc(user.email);
       const existing = await ref.get();
-      // Only seed if not already exists (don't overwrite real users)
-      if (!existing.exists) {
+      // Always update seeded users' lastActive so weekly tab stays fresh
+      const existingData = existing.exists ? existing.data() : {};
+      if (!existing.exists || existingData.isSeeded) {
         batch.set(ref, {
           name: user.name,
           email: user.email,
