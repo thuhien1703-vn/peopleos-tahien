@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiểm Tra Trình Độ · PeopleOS by TaHien</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--green:#10B981;--text:#E8F4F8;--muted:#8BB8CC;--subtle:#4A7A94;--border:rgba(34,211,238,0.15);--glass:rgba(255,255,255,0.04)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100vh;line-height:1.7}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(34,211,238,.05) 0%,transparent 55%);pointer-events:none;z-index:0}
+
+/* NAV */
+.topnav{position:sticky;top:0;height:58px;background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}
+.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
+.back{color:var(--muted);text-decoration:none;font-size:13px;transition:color .2s}.back:hover{color:var(--cyan)}
+
+/* WRAP */
+.wrap{max-width:720px;margin:0 auto;padding:40px 20px 80px;position:relative;z-index:1}
+
+/* SCREENS */
+.screen{display:none}.screen.active{display:block}
+
+/* INTRO SCREEN */
+.intro-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.25);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--cyan);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px}
+.intro-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--text);margin-bottom:12px;line-height:1.2}
+.intro-sub{font-size:15px;color:var(--muted);margin-bottom:32px;line-height:1.7}
+.tracks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:28px 0}
+.track-card{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:18px 16px;text-align:center;transition:all .2s}
+.track-card:hover{border-color:rgba(34,211,238,.3);transform:translateY(-2px)}
+.track-icon{font-size:28px;margin-bottom:8px}
+.track-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.track-range{font-size:11px;color:var(--muted)}
+.start-btn{background:linear-gradient(135deg,var(--cyan),var(--teal));color:var(--navy);border:none;border-radius:12px;padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s;width:100%;margin-top:12px}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(34,211,238,.3)}
+.note{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
+
+/* QUIZ SCREEN */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.quiz-prog-label{font-size:13px;color:var(--muted)}
+.quiz-prog-num{font-size:13px;font-weight:700;color:var(--cyan)}
+.prog-bar-wrap{height:6px;background:var(--navy2);border-radius:6px;overflow:hidden;margin-bottom:28px}
+.prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--teal));border-radius:6px;transition:width .5s}
+.q-num{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.q-track{display:inline-block;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);border-radius:12px;padding:2px 10px;font-size:11px;color:var(--cyan);margin-bottom:14px}
+.q-text{font-size:17px;font-weight:600;color:var(--text);line-height:1.6;margin-bottom:20px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-align:left;cursor:pointer;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;transition:all .2s;display:flex;align-items:flex-start;gap:12px;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--cyan);background:rgba(34,211,238,.06);transform:translateX(4px)}
+.opt:disabled{cursor:not-allowed}
+.opt.correct{border-color:var(--teal);background:rgba(6,182,212,.1)}
+.opt.wrong{border-color:#EF4444;background:rgba(239,68,68,.08)}
+.oletter{width:26px;height:26px;border-radius:50%;background:var(--navy3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);flex-shrink:0;margin-top:1px}
+.feedback{border-radius:10px;padding:12px 16px;margin-top:14px;font-size:13px;line-height:1.6;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.25);color:#6EE7B7}
+.feedback.no{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:#FCA5A5}
+.next-btn{background:linear-gradient(135deg,var(--cyan),var(--teal));color:var(--navy);border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;transition:all .2s;margin-top:20px;display:none;width:100%}
+.next-btn.show{display:block}
+.next-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(34,211,238,.3)}
+
+/* RESULT SCREEN */
+.result-wrap{text-align:center;padding:20px 0}
+.result-icon{font-size:72px;margin-bottom:16px}
+.result-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:var(--text);margin-bottom:8px}
+.result-score{font-size:48px;font-weight:800;margin:16px 0;background:linear-gradient(135deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.result-label{font-size:14px;color:var(--muted);margin-bottom:28px}
+.result-track{background:var(--navy2);border:1px solid var(--border);border-radius:16px;padding:24px;margin:24px 0;text-align:left}
+.result-track-title{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.result-track-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;margin-bottom:6px}
+.result-track-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.result-cta{background:linear-gradient(135deg,var(--cyan),var(--teal));color:var(--navy);border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;width:100%;margin-top:8px;transition:all .2s;text-decoration:none;display:block;text-align:center}
+.result-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(34,211,238,.3)}
+.result-retry{background:none;border:1px solid var(--border);border-radius:12px;padding:12px;font-size:14px;color:var(--muted);cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;width:100%;margin-top:10px;transition:all .2s}
+.result-retry:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* SCORE BREAKDOWN */
+.breakdown{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:20px 0}
+.bd-item{background:var(--navy3);border-radius:10px;padding:12px;text-align:center}
+.bd-num{font-size:22px;font-weight:800;margin-bottom:2px}
+.bd-label{font-size:11px;color:var(--muted)}
+
+@media(max-width:600px){.tracks{grid-template-columns:1fr}.breakdown{grid-template-columns:1fr 1fr}.intro-title{font-size:24px}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="back" href="/">← Về Learning Hub</a>
+  <div style="display:flex;align-items:center">
+    <span class="nav-logo">PeopleOS</span>
+    <span class="nav-sub">Learning Hub &nbsp;by TaHien</span>
+  </div>
+  <div></div>
+</nav>
+
+<div class="wrap">
+
+<!-- SCREEN 1: INTRO -->
+<div class="screen active" id="s-intro">
+  <div class="intro-badge">🎯 Diagnostic Assessment</div>
+  <div class="intro-title">Bạn nên bắt đầu từ đâu?</div>
+  <div class="intro-sub">15 câu hỏi · ~6 phút · Kết quả ngay lập tức<br>
+  Trả lời thật — không có câu nào đúng hay sai về mặt cá nhân. Kết quả sẽ gợi ý track phù hợp nhất với trình độ hiện tại của bạn.</div>
+
+  <div class="tracks">
+    <div class="track-card">
+      <div class="track-icon">🌱</div>
+      <div class="track-name">Foundation</div>
+      <div class="track-range">K1 – K6 · HR Staff</div>
+    </div>
+    <div class="track-card">
+      <div class="track-icon">🌿</div>
+      <div class="track-name">Growth</div>
+      <div class="track-range">K7 – K12 · HR Manager</div>
+    </div>
+    <div class="track-card">
+      <div class="track-icon">🔭</div>
+      <div class="track-name">Horizon</div>
+      <div class="track-range">K13 – K18 · CHRO Level</div>
+    </div>
+  </div>
+
+  <button class="start-btn" onclick="startQuiz()">Bắt đầu kiểm tra →</button>
+  <div class="note">Kết quả chỉ để tham khảo — bạn vẫn có thể học bất kỳ khóa nào.</div>
+</div>
+
+<!-- SCREEN 2: QUIZ -->
+<div class="screen" id="s-quiz">
+  <div class="quiz-header">
+    <div class="quiz-prog-label">Câu hỏi <span id="qnum">1</span>/15</div>
+    <div class="quiz-prog-num" id="qtrack-label">Foundation</div>
+  </div>
+  <div class="prog-bar-wrap">
+    <div class="prog-bar-fill" id="prog-fill" style="width:0%"></div>
+  </div>
+
+  <div class="q-num" id="q-num-label">CÂU 1</div>
+  <div class="q-track" id="q-track-chip">Foundation 🌱</div>
+  <div class="q-text" id="q-text">Loading...</div>
+  <div class="opts" id="q-opts"></div>
+  <div class="feedback" id="q-feedback"></div>
+  <button class="next-btn" id="next-btn" onclick="nextQ()">Câu tiếp theo →</button>
+</div>
+
+<!-- SCREEN 3: RESULT -->
+<div class="screen" id="s-result">
+  <div class="result-wrap">
+    <div class="result-icon" id="result-icon">🎓</div>
+    <div class="result-title" id="result-title">Kết quả kiểm tra</div>
+    <div class="result-score" id="result-score">0/15</div>
+    <div class="result-label" id="result-label">điểm</div>
+
+    <div class="breakdown">
+      <div class="bd-item">
+        <div class="bd-num" id="bd-foundation" style="color:#22D3EE">0/5</div>
+        <div class="bd-label">Foundation 🌱</div>
+      </div>
+      <div class="bd-item">
+        <div class="bd-num" id="bd-growth" style="color:#10B981">0/5</div>
+        <div class="bd-label">Growth 🌿</div>
+      </div>
+      <div class="bd-item">
+        <div class="bd-num" id="bd-horizon" style="color:#A78BFA">0/5</div>
+        <div class="bd-label">Horizon 🔭</div>
+      </div>
+    </div>
+
+    <div class="result-track">
+      <div class="result-track-title">Gợi ý starting point của bạn</div>
+      <div class="result-track-name" id="rec-track-name">Foundation Track 🌱</div>
+      <div class="result-track-desc" id="rec-track-desc">Bắt đầu từ K1 để xây nền tảng vững chắc.</div>
+    </div>
+
+    <a href="/" class="result-cta" id="rec-cta">Bắt đầu học ngay →</a>
+    <button class="result-retry" onclick="reset()">Làm lại từ đầu</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+const QS = [
+  // ── FOUNDATION (Q1-Q5) ──
+  {
+    track: "Foundation 🌱", cat: "foundation",
+    q: "Nhân viên A vừa nhận phản hồi tiêu cực về hiệu suất từ manager. Họ im lặng, gật đầu, rồi ra về mà không hỏi gì. Hôm sau họ đến muộn và làm việc cầm chừng. Theo EQ framework, cảm xúc chính họ đang trải qua là gì?",
+    opts: ["Tức giận bị che giấu — họ không đồng ý nhưng không nói ra", "Chấp nhận và đang xử lý thông tin", "Không có cảm xúc — đây là phản ứng bình thường", "Buồn chán vì công việc"],
+    ans: 0,
+    fb_ok: "Đúng! Im lặng + hành vi thay đổi ngay sau phản hồi = tức giận bị suppress. EQ cao là nhận ra tín hiệu phi ngôn ngữ này và address trước khi nó escalate.",
+    fb_no: "Chưa đúng. Hành vi thay đổi ngay (đến muộn, làm cầm chừng) là behavioral signal của cảm xúc tiêu cực bị kìm nén — thường là tức giận. HR có EQ cao cần đọc được pattern này."
+  },
+  {
+    track: "Foundation 🌱", cat: "foundation",
+    q: "Manager Ops yêu cầu HR gửi danh sách toàn bộ nhân viên có ngày sinh trong tháng 12 — để tổ chức tiệc sinh nhật. Bước đầu tiên HR nên làm là gì theo Labor Code và PDPD?",
+    opts: ["Gửi ngay — đây là yêu cầu hợp lý từ internal stakeholder", "Xác nhận mục đích sử dụng data và đảm bảo có consent trước khi share", "Từ chối — data cá nhân không được chia sẻ với bộ phận khác", "Hỏi ý kiến CHRO trước khi quyết định"],
+    ans: 1,
+    fb_ok: "Chính xác! PDPD 2023 yêu cầu xác định mục đích rõ ràng và đảm bảo có legal basis trước khi share personal data — dù là internal request. Mục đích 'tiệc sinh nhật' là legitimate nhưng vẫn cần document.",
+    fb_no: "Chưa đúng. Ngay cả internal data sharing cũng phải tuân PDPD 2023. Không phải 'từ chối' hay 'hỏi CHRO' — mà là 'xác nhận mục đích và consent' rồi mới share."
+  },
+  {
+    track: "Foundation 🌱", cat: "foundation",
+    q: "JD cho vị trí Store Manager của một chuỗi F&B có đoạn: 'Ứng viên có khả năng lãnh đạo tốt, giao tiếp hiệu quả, và tư duy chiến lược.' Vấn đề lớn nhất của mô tả này là gì?",
+    opts: ["Quá ngắn — cần thêm ít nhất 10 yêu cầu nữa", "Không có con số hoặc kết quả kỳ vọng — không ai biết 'tốt' là như thế nào", "Thiếu thông tin về phúc lợi và mức lương", "Cần thêm yêu cầu về bằng cấp và kinh nghiệm số năm"],
+    ans: 1,
+    fb_ok: "Đúng! 'Lãnh đạo tốt', 'giao tiếp hiệu quả' là soft language không thể đánh giá. JD chuẩn phải có: 'Dẫn dắt team 15-20 người đạt RevPAMH X triệu/giờ' — cụ thể, đo được.",
+    fb_no: "Chưa đúng. Vấn đề lớn nhất không phải độ dài hay thông tin lương — mà là mọi yêu cầu đều là adjective không đo được. Không ai biết 'giao tiếp hiệu quả' là như thế nào trong thực tế."
+  },
+  {
+    track: "Foundation 🌱", cat: "foundation",
+    q: "L&D Manager nhận yêu cầu: 'Làm training về customer service cho 200 nhân viên phục vụ trước Tết.' Bước đầu tiên đúng theo quy trình L&D là gì?",
+    opts: ["Đặt phòng training và chuẩn bị slide ngay", "Hỏi: 'Vấn đề hiện tại về customer service đang biểu hiện như thế nào? Số liệu gì chứng minh cần training?'", "Thuê trainer ngoài chuyên về customer service", "Gửi survey cho 200 nhân viên để hỏi họ cần học gì"],
+    ans: 1,
+    fb_ok: "Chuẩn! TNA (Training Needs Analysis) phải đến trước thiết kế. 'Trước Tết' là deadline, không phải reason. L&D giỏi hỏi: vấn đề gì? Đo bằng gì? Training có phải giải pháp không?",
+    fb_no: "Chưa đúng. Làm slide, thuê trainer hay survey đều bỏ qua TNA. Training không phải giải pháp cho mọi vấn đề — đôi khi vấn đề là quy trình, công cụ, hay motivation, không phải thiếu skill."
+  },
+  {
+    track: "Foundation 🌱", cat: "foundation",
+    q: "Nhân viên B (thử việc tháng 2) bị terminate vì không đạt yêu cầu. Họ yêu cầu lương tháng 13 và phép năm chưa nghỉ. Theo Bộ Luật Lao Động 2019, HR nên trả lời thế nào?",
+    opts: ["Trả cả hai — nhân viên có quyền khi đã làm việc", "Không trả gì — nhân viên thử việc không có quyền lợi này", "Tháng 13: không có nghĩa vụ (phụ thuộc thỏa thuận). Phép năm: được tính pro-rata theo số ngày làm việc thực tế", "Trả tháng 13 nhưng không trả phép năm"],
+    ans: 2,
+    fb_ok: "Chính xác! Tháng 13 là discretionary (theo thỏa thuận/quy chế công ty). Phép năm phải được thanh toán pro-rata khi chấm dứt HĐ — kể cả thử việc — theo Điều 113 BLLĐ 2019.",
+    fb_no: "Chưa đúng. Đây là điểm HR hay sai. Tháng 13 phụ thuộc thỏa thuận, KHÔNG bắt buộc. Nhưng phép năm phải trả pro-rata — đây là quyền pháp lý, không phải phúc lợi tùy ý."
+  },
+
+  // ── GROWTH (Q6-Q10) ──
+  {
+    track: "Growth 🌿", cat: "growth",
+    q: "Một HRBP nhận thấy turnover của vị trí Shift Leader tăng từ 15% lên 34% trong 2 quý. Area Manager cho rằng 'do lương thấp'. HRBP nên làm gì tiếp theo?",
+    opts: ["Đề xuất tăng lương cho Shift Leader ngay", "Segment data: turnover tăng tập trung ở store nào, giai đoạn nào trong tenure, và có pattern nào không?", "Survey toàn bộ Shift Leader về lý do họ ở lại hay muốn nghỉ", "Báo cáo lên CHRO và đề nghị budget review"],
+    ans: 1,
+    fb_ok: "Chính xác! HRBP không accept framing 'do lương'. Diagnostic thinking: segment data trước. Nếu chỉ tăng ở 3 store cụ thể, hay chỉ trong 3-6 tháng đầu tenure — root cause không phải lương.",
+    fb_no: "Chưa đúng. Tăng lương dựa trên 1 giả thuyết của Area Manager mà không có data = expensive mistake. Survey hỏi nhân viên thường cho biased answers. Cần diagnostic trước."
+  },
+  {
+    track: "Growth 🌿", cat: "growth",
+    q: "HR Manager muốn present lên CEO: 'Engagement score của chúng ta giảm từ 72% xuống 65%.' CEO ngắt lời: 'Và sao?' Phản hồi nào của HR Manager thể hiện Finance-HR Hybrid tốt nhất?",
+    opts: ["'Engagement thấp ảnh hưởng đến văn hóa và tinh thần nhân viên, lâu dài sẽ có hậu quả nghiêm trọng'", "'Dựa trên data của chúng ta: engagement giảm 7 điểm tương quan với turnover tăng 4.2 điểm %. Với cost-per-hire hiện tại 4.5 triệu/người, nếu không action, ước tính thêm 2.7 tỷ chi phí tuyển dụng trong 12 tháng tới'", "'Engagement là leading indicator quan trọng cần được track nghiêm túc theo best practice'", "'Tôi sẽ prepare thêm data và quay lại report sau'"],
+    ans: 1,
+    fb_ok: "Đây là Finance-HR Hybrid chuẩn! Chuyển engagement (HR metric) thành turnover cost (business metric) bằng formula cụ thể. CEO không từ chối được con số — chỉ từ chối được ý kiến.",
+    fb_no: "Chưa đúng. CEO hỏi 'và sao?' = muốn business impact, không phải HR justification. Chỉ option B chuyển được HR metric thành số tiền CEO quan tâm."
+  },
+  {
+    track: "Growth 🌿", cat: "growth",
+    q: "Trong buổi Talent Review, 3 manager đều xếp người của mình vào ô 'High-High' của 9-Box. Kết quả: 70% team được rate 'High Potential'. HR Lead nên làm gì?",
+    opts: ["Accept kết quả — managers biết nhân viên của họ nhất", "Yêu cầu mỗi manager cung cấp ít nhất 2 evidence cụ thể cho mỗi người được rate High Potential trước khi finalize", "Áp đặt forced distribution: tối đa 20% High Potential mỗi team", "Tổ chức thêm một vòng review với CHRO tham dự"],
+    ans: 1,
+    fb_ok: "Đúng! Evidence requirement là approach đúng nhất — vừa giảm inflation bias, vừa không áp đặt cứng. Forced distribution (C) có thể sai với team nhỏ thực sự có nhiều HiPo. Evidence chứng minh mới là gold standard.",
+    fb_no: "Chưa đúng. 70% High Potential là statistical impossibility trong hầu hết tổ chức. Accept mà không challenge = bias được formalize. Forced distribution có thể sai context. Evidence-based calibration là đúng nhất."
+  },
+  {
+    track: "Growth 🌿", cat: "growth",
+    q: "RevPAMH của chuỗi A là 450,000 VND/giờ. Chuỗi B (cùng brand, cùng menu giá) là 380,000 VND/giờ. HR Analyst nên investigate nguyên nhân gì trước tiên?",
+    opts: ["Số lượng nhân viên — chuỗi B có thể đang overstaffed", "Doanh thu theo ca và scheduling pattern — xem nhân giờ cao điểm có khớp với staffing không", "Chất lượng nhân viên — chuỗi B có thể đang thiếu người giỏi", "Mức lương — chuỗi B trả lương thấp hơn nên RevPAMH thấp"],
+    ans: 1,
+    fb_ok: "Đúng hướng! RevPAMH thấp hơn 19% với cùng brand/giá = vấn đề về revenue generation per hour, không phải về headcount. Scheduling mismatch (nhiều người trong giờ thấp điểm) là nguyên nhân phổ biến nhất.",
+    fb_no: "Chưa đúng. RevPAMH đo doanh thu/giờ lao động — số nhân viên hay mức lương không trực tiếp giải thích gap này. Scheduling pattern (có đang dùng đúng người vào đúng giờ?) là hypothesis đúng nhất để investigate đầu tiên."
+  },
+  {
+    track: "Growth 🌿", cat: "growth",
+    q: "CHRO yêu cầu HR Analytics team: 'Tuần sau tôi cần predict ai trong top management có nguy cơ nghỉ việc cao nhất trong 6 tháng tới.' Team analytics có 2 năm data HRIS nhưng chưa bao giờ build predictive model. Bước đầu tiên thực tế nhất là gì?",
+    opts: ["Từ chối — 1 tuần không đủ thời gian build predictive model chính xác", "Build regression model ngay với data có sẵn", "Audit data quality trước: kiểm tra xem 2 năm data HRIS có đủ consistent và đáng tin không", "Thuê data science consultant để build model"],
+    ans: 2,
+    fb_ok: "Đúng! Garbage in, garbage out. Predictive model trên dirty data = confident wrong predictions. Data quality audit là bước 0 không thể bỏ qua. 1 tuần chỉ đủ để assess, không đủ để build và validate model.",
+    fb_no: "Chưa đúng. Build model ngay mà không audit data = model đẹp nhưng unreliable. Từ chối không phải culture của HRBP giỏi. Consultant cần thời gian onboard. Data audit trong 1 tuần là realistic và valuable nhất."
+  },
+
+  // ── HORIZON (Q11-Q15) ──
+  {
+    track: "Horizon 🔭", cat: "horizon",
+    q: "Board đang xem xét mở thêm 200 cửa hàng trong 18 tháng — từ 400 lên 600. CHRO được hỏi: 'People implications là gì?' Câu trả lời CHRO-level tốt nhất là gì?",
+    opts: ["'Chúng ta cần tuyển thêm khoảng 4,000-6,000 nhân viên — tôi sẽ prepare recruiting plan'", "'Tôi cần 2 tuần để analyze và quay lại với con số cụ thể'", "'Dựa trên data expansion từ 200 lên 400 cửa hàng: time-to-productivity của Store Manager là 6 tháng, pipeline hiện tại chỉ cover 40% nhu cầu. Bottleneck là middle management, không phải frontline. Đây là 3 scenario với risk và cost khác nhau...'", "'Chúng ta phải đảm bảo culture không bị dilute trong quá trình expansion'"],
+    ans: 2,
+    fb_ok: "Đây là CHRO-level thinking! Dùng historical data, identify specific bottleneck (middle management), và present scenarios với tradeoffs — không phải chỉ headcount number hay 'cần thêm thời gian'.",
+    fb_no: "Chưa đúng. Option A là HR thinking, B là stalling, D là vague. CHRO phải present data-backed scenarios ngay trong phòng họp — đó là lý do họ cần seat at the table."
+  },
+  {
+    track: "Horizon 🔭", cat: "horizon",
+    q: "CFO đề xuất: 'Dùng AI để score tất cả CV trong hiring — loại 60% ứng viên tự động trước khi HR review.' Phản hồi nào của CHRO thể hiện Ethical AI Leadership tốt nhất?",
+    opts: ["Đồng ý — AI objective hơn human, giảm unconscious bias", "Từ chối hoàn toàn — AI không nên tham gia hiring decisions", "Đồng ý pilot với điều kiện: audit output cho bias sau 3 tháng đầu, human review 100% ứng viên bị reject AI, và disclose cho candidates rằng AI được dùng", "Yêu cầu Legal team review trước khi quyết định"],
+    ans: 2,
+    fb_ok: "Đây là Ethical AI Leadership chuẩn! Không phải 'yes' hay 'no' — mà là 'yes, với governance'. AI audit cho bias, human oversight cho borderline cases, và transparency với ứng viên là 3 pillars bắt buộc.",
+    fb_no: "AI không objective — AI amplify bias trong training data. Từ chối hoàn toàn bỏ lỡ efficiency gain thực sự. 'Để legal review' là stalling. CHRO phải own AI governance, không delegate nó."
+  },
+  {
+    track: "Horizon 🔭", cat: "horizon",
+    q: "Sau 18 tháng, culture survey cho thấy employee trust score giảm từ 78% xuống 61% — dù tổ chức không có incident lớn nào. CHRO investigate và nhận ra: 5 manager được promote trong năm qua đều có management style 'thành tích bất chấp quy trình'. Vấn đề gốc rễ là gì?",
+    opts: ["Survey methodology không chính xác — cần làm lại với tool tốt hơn", "Culture problem tự nhiên khi tổ chức grow nhanh — cần chờ ổn định", "Reward system đang reinforce sai behaviors — người 'thành tích bất chấp' được promote = signal rõ ràng về 'real culture' vs. 'stated culture'", "5 manager mới cần được coaching về leadership style"],
+    ans: 2,
+    fb_ok: "Đây là Culture diagnostic sắc bén nhất! 'Stated culture' vs. 'real culture' gap — và reward system (promotion) là signal mạnh nhất của real culture. Coaching 5 người không fix systemic problem.",
+    fb_no: "Survey không sai — trend 17 điểm là significant. Chờ ổn định = passive. Coaching cá nhân không fix systemic issue. Root cause: khi org rewards 'thành tích bất chấp', mọi người học được đó mới là real value."
+  },
+  {
+    track: "Horizon 🔭", cat: "horizon",
+    q: "Board đang cân nhắc IPO trong 24 tháng. Investor Due Diligence team sẽ review HR. CHRO cần prioritize gì NHẤT trong 6 tháng đầu?",
+    opts: ["Làm đẹp employee engagement score để show investors", "Audit và clean toàn bộ compliance records (BHXH, labor contracts, PDPD) + build succession depth cho top 3 management tiers", "Hire PR firm để manage employer brand trước IPO", "Tăng lương C-suite để giữ người cho IPO journey"],
+    ans: 1,
+    fb_ok: "Đây là IPO-ready HR thinking! Compliance audit = non-negotiable (1 violation có thể delay IPO). Succession depth = investor concern #1 (họ mua capability, không mua dependence vào 1-2 người). Đây là foundation trước mọi thứ khác.",
+    fb_no: "Engagement score đẹp mà compliance có lỗ hổng = IPO bị delay. PR và salary review là tactical, không strategic. Investor nhìn vào legal compliance và management depth — đây là 2 thứ CHRO phải clean trước."
+  },
+  {
+    track: "Horizon 🔭", cat: "horizon",
+    q: "Workforce của một chuỗi 500 cửa hàng hiện có: 95% permanent full-time, 5% part-time. Peak season (Tết, lễ) cần thêm 30% headcount trong 3 tuần. Vấn đề Stagility nào đây và solution là gì?",
+    opts: ["Cần tuyển thêm 25% permanent để có buffer cho peak season", "Portfolio architecture sai — thiếu Flex và Dynamic tier. Solution: build 25-30% Flex pool (part-time pre-trained) và 10% Dynamic pool (alumni network + agency), không tăng Core tier", "Vấn đề scheduling — cần optimize shift để existing headcount cover peak", "Cần tăng lương để nhân viên chịu làm overtime peak season"],
+    ans: 1,
+    fb_ok: "Đúng — đây là Stagility diagnosis chuẩn! 95% Core với zero Flex/Dynamic = zero agility. Tuyển thêm permanent = expensive và tạo overcapacity off-season. Solution là redesign portfolio, không tăng Core.",
+    fb_no: "Tuyển thêm permanent = overcapacity 11 tháng còn lại. Scheduling không giải quyết được shortage 30%. Overtime không sustainable và tốn kém. Root cause là portfolio architecture — thiếu Flex buffer."
+  }
+];
+
+let cur = 0, score = 0, answered = false;
+let scoreByTrack = {foundation: 0, growth: 0, horizon: 0};
+
+function startQuiz() {
+  showScreen('s-quiz');
+  renderQ();
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function renderQ() {
+  const q = QS[cur];
+  document.getElementById('qnum').textContent = cur + 1;
+  document.getElementById('q-num-label').textContent = 'CÂU ' + (cur + 1);
+  document.getElementById('q-track-chip').textContent = q.track;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('q-feedback').className = 'feedback';
+  document.getElementById('next-btn').className = 'next-btn';
+  document.getElementById('qtrack-label').textContent = q.track;
+  document.getElementById('prog-fill').style.width = (cur / QS.length * 100) + '%';
+
+  const opts = document.getElementById('q-opts');
+  opts.innerHTML = '';
+  ['A','B','C','D'].forEach((letter, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.innerHTML = `<span class="oletter">${letter}</span>${q.opts[i]}`;
+    btn.onclick = () => answer(i, btn);
+    opts.appendChild(btn);
+  });
+  answered = false;
+}
+
+function answer(idx, btn) {
+  if (answered) return;
+  answered = true;
+  const q = QS[cur];
+  const opts = document.querySelectorAll('.opt');
+  opts.forEach(o => o.disabled = true);
+  const fb = document.getElementById('q-feedback');
+
+  if (idx === q.ans) {
+    btn.classList.add('correct');
+    score++;
+    scoreByTrack[q.cat]++;
+    fb.textContent = '✅ ' + q.fb_ok;
+    fb.className = 'feedback show ok';
+    // Add giot
+    try { let g = parseInt(localStorage.getItem('pos_giot')||'0'); g += 5; localStorage.setItem('pos_giot', g); } catch(e) {}
+  } else {
+    btn.classList.add('wrong');
+    opts[q.ans].classList.add('correct');
+    fb.textContent = '❌ ' + q.fb_no;
+    fb.className = 'feedback show no';
+  }
+
+  const nBtn = document.getElementById('next-btn');
+  nBtn.textContent = cur < QS.length - 1 ? 'Câu tiếp theo →' : 'Xem kết quả →';
+  nBtn.className = 'next-btn show';
+}
+
+function nextQ() {
+  cur++;
+  if (cur >= QS.length) {
+    showResult();
+  } else {
+    renderQ();
+  }
+}
+
+function showResult() {
+  document.getElementById('prog-fill').style.width = '100%';
+  showScreen('s-result');
+
+  document.getElementById('result-score').textContent = score + '/15';
+  document.getElementById('bd-foundation').textContent = scoreByTrack.foundation + '/5';
+  document.getElementById('bd-growth').textContent = scoreByTrack.growth + '/5';
+  document.getElementById('bd-horizon').textContent = scoreByTrack.horizon + '/5';
+
+  let icon, title, trackName, desc, cta, ctaHref;
+  const pct = score / 15;
+
+  if (pct < 0.4) {
+    icon = '🌱'; title = 'Foundation là điểm khởi đầu tốt nhất cho bạn';
+    trackName = 'Foundation Track 🌱 — K1 đến K6';
+    desc = 'Bạn đang ở giai đoạn xây nền tảng — đây là thời điểm tốt nhất để học đúng cách từ đầu. Foundation Track sẽ cho bạn framework tư duy và công cụ cơ bản để phát triển bền vững.';
+    ctaHref = '/k1-eq-selfmastery'; cta = 'Bắt đầu từ K1 →';
+  } else if (scoreByTrack.foundation >= 3 && pct < 0.67) {
+    icon = '🌿'; title = 'Bạn đã vững Foundation — Growth Track đang chờ';
+    trackName = 'Growth Track 🌿 — K7 đến K12';
+    desc = 'Foundation của bạn khá vững. Growth Track sẽ nâng bạn lên tư duy Manager và Strategic HR — từ influence không chức danh đến Finance-HR Hybrid và People Analytics.';
+    ctaHref = '/k7-leadership-khong-chuc-danh'; cta = 'Bắt đầu từ K7 →';
+  } else if (scoreByTrack.growth >= 3 && pct >= 0.67) {
+    icon = '🔭'; title = 'Bạn có tư duy Manager rõ — Horizon đang chờ';
+    trackName = 'Horizon Track 🔭 — K13 đến K18';
+    desc = 'Growth competencies của bạn đã được chứng minh. Horizon Track sẽ đưa bạn vào tư duy CHRO: Executive Presence, Culture Strategy, AI Governance, và People Analytics+.';
+    ctaHref = '/k13-executive-presence'; cta = 'Bắt đầu từ K13 →';
+  } else {
+    icon = '🌿'; title = 'Growth Track phù hợp với bạn';
+    trackName = 'Growth Track 🌿 — K7 đến K12';
+    desc = 'Bạn có nền tảng tốt ở một số area nhưng vẫn có gaps ở tư duy strategic. Growth Track sẽ củng cố và nâng cấp toàn diện trước khi bước vào Horizon.';
+    ctaHref = '/k7-leadership-khong-chuc-danh'; cta = 'Bắt đầu từ K7 →';
+  }
+
+  document.getElementById('result-icon').textContent = icon;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('rec-track-name').textContent = trackName;
+  document.getElementById('rec-track-desc').textContent = desc;
+  document.getElementById('rec-cta').textContent = cta;
+  document.getElementById('rec-cta').href = ctaHref;
+  document.getElementById('result-label').textContent = 'điểm đúng / 15 câu · +' + (score * 5) + ' Giọt';
+
+  // Save result
+  try {
+    localStorage.setItem('diagnostic_score', score);
+    localStorage.setItem('diagnostic_done', 'true');
+  } catch(e) {}
+}
+
+function reset() {
+  cur = 0; score = 0; answered = false;
+  scoreByTrack = {foundation: 0, growth: 0, horizon: 0};
+  showScreen('s-intro');
+}
+</script>
+</body>
+</html>
