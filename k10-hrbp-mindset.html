@@ -241,6 +241,16 @@ document.addEventListener('click',function(e){var el=e.target.closest('.qopt[dat
 document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="4"]');if(!el)return;document.querySelectorAll('#q4-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q4-fb');el.classList.add('correct');fb.className='qfb show correct';var msgs=['Xuất sắc! Đây chính xác là HRBP mindset — proactive, insight-driven, không đợi được hỏi.','Tốt! Khi có vấn đề là reactive. Bước tiếp: proactive ngay cả khi mọi thứ đang ổn — đó mới là strategic.','Đây là starting point. Mục tiêu: ít nhất 1 proactive insight/tháng với mỗi business unit bạn support.','Không đúng — HRBP chính là người business expect điều đó từ họ. Đây là core value của role này.'];fb.textContent=msgs[['A','B','C','D'].indexOf(el.dataset.o)||0];setTimeout(function(){unlock('n4','h4');},500);});
 function checkCk5(){var c=document.querySelectorAll('#ck5 input:checked').length;if(c>=2)unlock('n5','h5');}
 
-function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "HRBP Mindset" đã được ghi nhận. #PeopleOS #HRxAI';giot+=100;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k10-hrbp-mindset','true');}
+function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "HRBP Mindset" đã được ghi nhận. #PeopleOS #HRxAI';giot+=100;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k10-hrbp-mindset','true');
+  (function(){try{
+    var email=localStorage.getItem('pos_auth_user');
+    if(!email)return;
+    var totalGiot=parseInt(localStorage.getItem('pos_giot')||'0');
+    var doneList=JSON.parse(localStorage.getItem('pos_done_list')||'[]');
+    if(doneList.indexOf('k10')<0)doneList.push('k10');
+    localStorage.setItem('pos_done_list',JSON.stringify(doneList));
+    fetch('/api/update-giot',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,giot:totalGiot,done:doneList})}).catch(function(){});
+  }catch(e){}})(  );}
 var saved=parseInt(localStorage.getItem('resume_k10-hrbp-mindset')||'1');if(saved>1&&saved<=6){var rb=document.createElement('div');rb.style.cssText='background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 0;gap:12px;';rb.innerHTML='<div style="font-size:13px;color:#F0F6FF">Lần trước bạn học đến <strong style="color:#22D3EE">Bài '+saved+'</strong></div><button onclick="go('+saved+');this.parentNode.remove()" style="background:#22D3EE;color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">Tiếp tục →</button>';var wrap=document.querySelector('.wrap');if(wrap)wrap.insertBefore(rb,wrap.firstChild);}
 buildDots();updProg();</script></body></html>
