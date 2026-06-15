@@ -727,7 +727,8 @@ function shareLinkedIn(){
   }
 }
 function downloadCertPDF(){
-  var nm=localStorage.getItem('pos_auth_user_name')||localStorage.getItem('pos_auth_user')||'HR Professional';
+  var _au=localStorage.getItem('pos_auth_user');var nm='HR Professional';
+  try{var _obj=JSON.parse(_au);nm=_obj.name||_obj.email||'HR Professional';}catch(e){if(_au&&_au.indexOf('@')<0)nm=_au;}
   var dt=new Date().toLocaleDateString('vi-VN',{year:'numeric',month:'long',day:'numeric'});
   try{
     var doc=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
