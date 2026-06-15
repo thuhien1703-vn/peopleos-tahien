@@ -1397,10 +1397,15 @@ function verifyOTP() {
         _applyAuthUI(_authUser);
         updateUI && updateUI();
         closeAuth();
-        // Show welcome toast
-        _toast('🎉 Chào mừng ' + (d.user.name||'bạn') + ' đến PeopleOS!');
-        // Refresh leaderboard
-        loadLeaderboard();
+        // Nếu lần đầu đăng nhập (chưa làm diagnostic) → redirect ngay
+        var _diagDone = localStorage.getItem('diagnostic_done');
+        if (!_diagDone) {
+          _toast('🎉 Chào mừng ' + (d.user.name||'bạn') + '! Trả lời 15 câu để tìm track phù hợp nhất cho bạn...');
+          setTimeout(function(){ window.location.href = '/kiem-tra-trinh-do'; }, 1800);
+        } else {
+          _toast('🎉 Chào mừng ' + (d.user.name||'bạn') + ' trở lại PeopleOS!');
+          loadLeaderboard && loadLeaderboard();
+        }
       } else {
         msg.textContent = d.error||'Mã không đúng'; msg.className='auth-msg err';
         btn.disabled=false; btn.textContent='Xác nhận →';
