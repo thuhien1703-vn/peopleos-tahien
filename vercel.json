@@ -105,6 +105,10 @@
     {
       "source": "/bridge-assessment",
       "destination": "/bridge-assessment.html"
+    },
+    {
+      "source": "/career-path-guide",
+      "destination": "/career-path-guide.html"
     }
   ],
   "crons": [
