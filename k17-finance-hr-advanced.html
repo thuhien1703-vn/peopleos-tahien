@@ -244,6 +244,16 @@ document.getElementById('ref2').addEventListener('input',function(){if(this.valu
 document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="3"]');if(!el)return;document.querySelectorAll('#q3-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q3-fb');var ok=el.dataset.o==='B';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q3-opts .qopt')[1].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! Succession depth, ESOP, và compliance là 3 non-negotiable cho investor due diligence. Và 6 tháng đầu = đúng sequence.':'Survey là nice-to-have. Culture rebrand là cosmetic. Lean op by cutting people = wrong message. Chỉ B addresses real investor concerns.';setTimeout(function(){unlock('n3','h3');},ok?0:1500);});
 function checkCk5k17(){var c=document.querySelectorAll('#ck5 input:checked').length;if(c>=2)unlock('n5','h5');}
 
-function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "Finance-HR Hybrid Advanced" đã được ghi nhận. #PeopleOS #HRxAI #CHRO';giot+=150;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k17-finance-hr-advanced','true');}
+function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "Finance-HR Hybrid Advanced" đã được ghi nhận. #PeopleOS #HRxAI #CHRO';giot+=150;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k17-finance-hr-advanced','true');
+  (function(){try{
+    var email=localStorage.getItem('pos_auth_user');
+    if(!email)return;
+    var totalGiot=parseInt(localStorage.getItem('pos_giot')||'0');
+    var doneList=JSON.parse(localStorage.getItem('pos_done_list')||'[]');
+    if(doneList.indexOf('k17')<0)doneList.push('k17');
+    localStorage.setItem('pos_done_list',JSON.stringify(doneList));
+    fetch('/api/update-giot',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,giot:totalGiot,done:doneList})}).catch(function(){});
+  }catch(e){}})(  );}
 var saved=parseInt(localStorage.getItem('resume_k17-finance-hr-advanced')||'1');if(saved>1&&saved<=6){var rb=document.createElement('div');rb.style.cssText='background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.18);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 0;gap:12px;';rb.innerHTML='<div style="font-size:13px;color:#F0F6FF">Lần trước bạn học đến <strong style="color:#22D3EE">Bài '+saved+'</strong></div><button onclick="go('+saved+');this.parentNode.remove()" style="background:#22D3EE;color:#020B18;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">Tiếp tục →</button>';var wrap=document.querySelector('.wrap');if(wrap)wrap.insertBefore(rb,wrap.firstChild);}
 buildDots();updProg();</script></body></html>
