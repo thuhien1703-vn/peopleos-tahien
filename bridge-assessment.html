@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bridge Assessment · Foundation → Growth · PeopleOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#020B18;--navy2:#062040;--navy3:#0A2E50;--cyan:#22D3EE;--teal:#06B6D4;--gold:#F0C040;--green:#10B981;--text:#E8F4F8;--muted:#8BB8CC;--subtle:#4A7A94;--border:rgba(34,211,238,0.15)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'Be Vietnam Pro',sans-serif;min-height:100vh;line-height:1.7}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(34,211,238,.06) 0%,transparent 55%);pointer-events:none;z-index:0}
+.topnav{position:sticky;top:0;height:58px;background:rgba(2,11,24,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cyan)}
+.nav-sub{font-size:11px;color:var(--muted);margin-left:8px}
+.back{color:var(--muted);text-decoration:none;font-size:13px}.back:hover{color:var(--cyan)}
+.wrap{max-width:680px;margin:0 auto;padding:40px 20px 80px;position:relative;z-index:1}
+.screen{display:none}.screen.active{display:block}
+
+/* INTRO */
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:20px;padding:5px 14px;font-size:12px;color:#10B981;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px}
+.title{font-family:'Playfair Display',serif;font-size:30px;font-weight:800;margin-bottom:10px;line-height:1.2}
+.sub{font-size:15px;color:var(--muted);margin-bottom:28px;line-height:1.7}
+.prereq-box{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:24px}
+.prereq-title{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.prereq-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.prereq-item:last-child{border-bottom:none}
+.check{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.check.done{background:rgba(16,185,129,.15);color:#10B981}
+.check.todo{background:var(--navy3);color:var(--muted)}
+.start-btn{background:linear-gradient(135deg,var(--green),#059669);color:#fff;border:none;border-radius:12px;padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;width:100%;margin-top:4px;transition:all .2s}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,185,129,.3)}
+.start-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.note{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
+
+/* QUIZ */
+.qprog{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.qprog-label{font-size:13px;color:var(--muted)}
+.qprog-num{font-size:13px;font-weight:700;color:var(--green)}
+.pbar-wrap{height:6px;background:var(--navy2);border-radius:6px;overflow:hidden;margin-bottom:28px}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--teal));border-radius:6px;transition:width .5s}
+.q-badge{display:inline-block;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:2px 10px;font-size:11px;color:#10B981;margin-bottom:14px}
+.q-text{font-size:17px;font-weight:600;line-height:1.6;margin-bottom:20px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-align:left;cursor:pointer;color:var(--text);font-family:'Be Vietnam Pro',sans-serif;font-size:14px;transition:all .2s;display:flex;align-items:flex-start;gap:12px;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--green);background:rgba(16,185,129,.06);transform:translateX(4px)}
+.opt:disabled{cursor:not-allowed}
+.opt.correct{border-color:var(--green);background:rgba(16,185,129,.1)}
+.opt.wrong{border-color:#EF4444;background:rgba(239,68,68,.08)}
+.oletter{width:26px;height:26px;border-radius:50%;background:var(--navy3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);flex-shrink:0;margin-top:1px}
+.feedback{border-radius:10px;padding:12px 16px;margin-top:14px;font-size:13px;line-height:1.6;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);color:#6EE7B7}
+.feedback.no{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:#FCA5A5}
+.next-btn{background:linear-gradient(135deg,var(--green),#059669);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;width:100%;margin-top:20px;display:none}
+.next-btn.show{display:block}
+
+/* RESULT */
+.result-wrap{text-align:center;padding:16px 0}
+.result-icon{font-size:72px;margin-bottom:16px}
+.result-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;margin-bottom:8px}
+.result-score{font-size:52px;font-weight:800;margin:16px 0;background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.result-label{font-size:14px;color:var(--muted);margin-bottom:24px}
+
+.unlock-card{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(6,182,212,.05));border:1px solid rgba(16,185,129,.3);border-radius:16px;padding:24px;margin:20px 0;text-align:left}
+.unlock-title{font-size:12px;font-weight:700;color:#10B981;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.unlock-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;margin-bottom:6px}
+.unlock-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.unlock-courses{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.unlock-course{background:var(--navy2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:12px}
+.unlock-course-name{font-weight:700;color:var(--text);margin-bottom:2px}
+.unlock-course-sub{color:var(--muted)}
+
+.retry-card{background:rgba(251,146,60,.05);border:1px solid rgba(251,146,60,.2);border-radius:16px;padding:20px;margin:20px 0;text-align:left}
+.retry-title{font-size:12px;font-weight:700;color:#FB923C;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.retry-gaps{list-style:none;padding:0}
+.retry-gaps li{font-size:13px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);display:flex;gap:8px}
+.retry-gaps li:last-child{border-bottom:none}
+
+.cta-primary{background:linear-gradient(135deg,var(--green),#059669);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;width:100%;margin-top:8px;text-decoration:none;display:block;text-align:center;transition:all .2s}
+.cta-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,185,129,.3)}
+.cta-secondary{background:none;border:1px solid var(--border);border-radius:12px;padding:12px;font-size:14px;color:var(--muted);cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;width:100%;margin-top:10px;transition:all .2s}
+.cta-secondary:hover{border-color:var(--cyan);color:var(--cyan)}
+
+.giot-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(240,192,64,.1);border:1px solid rgba(240,192,64,.25);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:700;color:var(--gold);margin:12px 0}
+
+@media(max-width:600px){.unlock-courses{grid-template-columns:1fr}.title{font-size:24px}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="back" href="/">← Về Learning Hub</a>
+  <div style="display:flex;align-items:center">
+    <span class="nav-logo">PeopleOS</span>
+    <span class="nav-sub">Learning Hub &nbsp;by TaHien</span>
+  </div>
+  <div style="font-size:13px;color:var(--muted)">💧 <span id="nav-giot">0</span> Giọt</div>
+</nav>
+
+<div class="wrap">
+
+<!-- SCREEN 1: INTRO -->
+<div class="screen active" id="s-intro">
+  <div class="badge">🌿 Bridge Assessment</div>
+  <div class="title">Sẵn sàng lên Growth Track chưa?</div>
+  <div class="sub">5 câu hỏi tổng hợp kiến thức Foundation · ~3 phút<br>Đạt 4/5 để unlock Growth Track 🌿 và nhận <b style="color:var(--gold)">+150 Giọt</b></div>
+
+  <div class="prereq-box">
+    <div class="prereq-title">Điều kiện — Foundation Track</div>
+    <div class="prereq-item"><div class="check done" id="ck1">✓</div><span>K1 · EQ & Self-Mastery</span><span id="lbl1" style="margin-left:auto;font-size:11px;color:var(--muted)">Kiểm tra...</span></div>
+    <div class="prereq-item"><div class="check done" id="ck2">✓</div><span>K2 · Giao Tiếp & Ảnh Hưởng</span><span id="lbl2" style="margin-left:auto;font-size:11px;color:var(--muted)">Kiểm tra...</span></div>
+    <div class="prereq-item"><div class="check done" id="ck3">✓</div><span>K3 · AI Literacy Cho HR</span><span id="lbl3" style="margin-left:auto;font-size:11px;color:var(--muted)">Kiểm tra...</span></div>
+    <div class="prereq-item"><div class="check done" id="ck4">✓</div><span>K4 · HR Ops Thực Chiến</span><span id="lbl4" style="margin-left:auto;font-size:11px;color:var(--muted)">Kiểm tra...</span></div>
+    <div class="prereq-item"><div class="check done" id="ck5">✓</div><span>K5 · Recruiting Cơ Bản</span><span id="lbl5" style="margin-left:auto;font-size:11px;color:var(--muted)">Kiểm tra...</span></div>
+    <div class="prereq-item"><div class="check done" id="ck6">✓</div><span>K6 · L&D Thực Chiến</span><span id="lbl6" style="margin-left:auto;font-size:11px;color:var(--muted)">Kiểm tra...</span></div>
+  </div>
+
+  <button class="start-btn" id="start-btn" onclick="startQuiz()">Bắt đầu kiểm tra →</button>
+  <div class="note" id="start-note">Bạn vẫn có thể làm bài kể cả khi chưa hoàn thành đủ 6 khóa.</div>
+</div>
+
+<!-- SCREEN 2: QUIZ -->
+<div class="screen" id="s-quiz">
+  <div class="qprog">
+    <div class="qprog-label">Câu <span id="qnum">1</span>/5</div>
+    <div class="qprog-num" id="qarea">Foundation Tổng Hợp</div>
+  </div>
+  <div class="pbar-wrap"><div class="pbar-fill" id="pbar" style="width:0%"></div></div>
+  <div class="q-badge" id="q-badge">EQ & Giao Tiếp</div>
+  <div class="q-text" id="q-text">Loading...</div>
+  <div class="opts" id="q-opts"></div>
+  <div class="feedback" id="q-fb"></div>
+  <button class="next-btn" id="next-btn" onclick="nextQ()">Tiếp theo →</button>
+</div>
+
+<!-- SCREEN 3: RESULT -->
+<div class="screen" id="s-result">
+  <div class="result-wrap">
+    <div class="result-icon" id="r-icon">🎓</div>
+    <div class="result-title" id="r-title">Kết quả Bridge Assessment</div>
+    <div class="result-score" id="r-score">0/5</div>
+    <div class="result-label" id="r-label">điểm đúng</div>
+    <div class="giot-badge" id="r-giot">💧 +0 Giọt</div>
+    <div id="r-unlock"></div>
+    <a href="/" id="r-cta" class="cta-primary">Về Learning Hub</a>
+    <button class="cta-secondary" onclick="reset()">Làm lại</button>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ── Init Giọt ──
+var giot = parseInt(localStorage.getItem('pos_giot')||'0');
+document.getElementById('nav-giot').textContent = giot;
+
+// ── Check prerequisite courses ──
+var PREREQ_KEYS = [
+  ['k1','peopleos_k1_done'], ['k2','peopleos_k2_done'],
+  ['k3','peopleos_k3_done'], ['k4','peopleos_k4_done'],
+  ['k5','peopleos_k5_done'], ['k6','peopleos_k6_done'],
+];
+var doneList = JSON.parse(localStorage.getItem('pos_done_list')||'[]');
+var foundationDone = 0;
+
+PREREQ_KEYS.forEach(function(pair, i) {
+  var k = pair[0], legacyKey = pair[1];
+  var idx = i + 1;
+  var isDone = doneList.indexOf(k) >= 0 || localStorage.getItem(legacyKey);
+  var ck = document.getElementById('ck'+(idx));
+  var lbl = document.getElementById('lbl'+(idx));
+  if (isDone) {
+    ck.className = 'check done'; ck.textContent = '✓';
+    if (lbl) lbl.textContent = '✅ Hoàn thành';
+    foundationDone++;
+  } else {
+    ck.className = 'check todo'; ck.textContent = '○';
+    if (lbl) lbl.innerHTML = '<a href="/k'+k.replace('k','')+'-' + ['eq-selfmastery','giao-tiep-anh-huong','ai-literacy-hr','hr-ops-thuc-chien','recruiting-co-ban','ld-thuc-chien'][i] + '" style="color:var(--cyan);font-size:11px">Học ngay →</a>';
+  }
+});
+
+// ── Questions ──
+var QS = [
+  {
+    area: 'EQ & Giao Tiếp',
+    q: 'HR Manager nhận được feedback từ CEO: "Team nhân sự phản ứng chậm và thiếu chủ động." Phản hồi EQ+Giao tiếp cao nhất của HR Manager là gì?',
+    opts: [
+      'Giải thích ngay: "Chúng tôi có rất nhiều việc và không có đủ người"',
+      '"Cảm ơn anh/chị đã phản hồi. Anh/chị có thể chia sẻ 1-2 ví dụ cụ thể để tôi hiểu rõ hơn kỳ vọng của anh/chị không?"',
+      'Im lặng và về làm việc ngay để chứng minh bằng kết quả',
+      'Hỏi ngay: "Ai trong team đã phản ứng chậm?"'
+    ],
+    ans: 1,
+    fb_ok: 'Đúng! EQ cao = không defend, không counter-attack. Thay vào đó: acknowledge, clarify với câu hỏi mở, và gather specific evidence. "1-2 ví dụ cụ thể" là bridge từ general feedback sang actionable insight.',
+    fb_no: 'Chưa đúng. Option A là defensive. C là passive-aggressive. D là blame-seeking. B thể hiện EQ cao nhất: không phán xét, không defend — chỉ tìm hiểu để hiểu đúng.'
+  },
+  {
+    area: 'HR Ops & Labor Law',
+    q: 'Nhân viên bị terminate "thỏa thuận" sau 3 năm làm việc. Họ hỏi HR: "Tôi có được nhận trợ cấp thôi việc không?" Câu trả lời đúng theo BLLĐ 2019 là gì?',
+    opts: [
+      'Không — thỏa thuận chấm dứt có nghĩa là tự nguyện, không có trợ cấp',
+      'Có — nhân viên trên 12 tháng luôn được trợ cấp thôi việc bất kể lý do',
+      'Phụ thuộc nội dung thỏa thuận — trợ cấp thôi việc phải được thống nhất rõ trong biên bản',
+      'Chỉ được nếu công ty có lợi nhuận trong năm đó'
+    ],
+    ans: 2,
+    fb_ok: 'Chính xác! Khi chấm dứt "thỏa thuận" (Điều 34.3 BLLĐ), trợ cấp thôi việc không automatic — phải được thỏa thuận rõ trong biên bản. HR giỏi luôn document rõ khoản này trước khi ký.',
+    fb_no: 'Chưa đúng. B sai vì thỏa thuận không tự động trigger trợ cấp. A cũng sai theo hướng ngược lại. Câu trả lời đúng là C — phụ thuộc nội dung biên bản thỏa thuận.'
+  },
+  {
+    area: 'Recruiting & Talent',
+    q: 'Sau 3 tháng, vị trí Store Manager mới tuyển bị terminate vì "không fit culture". JD đã rõ, interview đủ vòng. Root cause khả năng cao nhất là gì?',
+    opts: [
+      'Ứng viên đã nói dối trong phỏng vấn',
+      'Culture fit không được định nghĩa thành behavioral indicators cụ thể trong structured interview',
+      'Onboarding không đủ thời gian',
+      'Lương không đủ hấp dẫn để giữ người phù hợp'
+    ],
+    ans: 1,
+    fb_ok: '"Culture fit" là lý do terminate phổ biến nhất nhưng thường là symptom của design flaw: không có behavioral indicators cụ thể trong interview. Nếu "fit" không đo được, không thể screen được.',
+    fb_no: 'Chưa đúng. Lý do phổ biến nhất không phải ứng viên nói dối hay onboarding ngắn — mà là "culture fit" không được operationalize thành câu hỏi có thể evaluate trong interview.'
+  },
+  {
+    area: 'L&D & AI Literacy',
+    q: 'L&D Manager muốn dùng AI để cá nhân hóa learning path cho 500 nhân viên. Rủi ro đầu tiên cần address là gì?',
+    opts: [
+      'AI chưa đủ thông minh để làm việc này',
+      'Chi phí implementation quá cao',
+      'Data quality của HRIS — AI recommendation chỉ tốt khi input data (skill gaps, performance, role) đủ clean và accurate',
+      'Nhân viên sẽ không tin tưởng AI recommendations'
+    ],
+    ans: 2,
+    fb_ok: 'Đúng! Garbage in → garbage out. AI personalization chỉ tốt khi skill taxonomy rõ, performance data accurate, và role mapping đúng. Đây là data infrastructure problem trước khi là AI problem.',
+    fb_no: 'Chưa đúng. AI đã đủ capable (A sai). Chi phí có thể optimize (B không phải rủi ro #1). Trust có thể build (D là secondary). Data quality luôn là prerequisite của mọi AI initiative.'
+  },
+  {
+    area: 'Foundation Integration',
+    q: 'CHRO yêu cầu HR team: "Tuần tới tôi cần dashboard 5 metrics quan trọng nhất về people." HR Manager Foundation-level tốt nhất nên làm gì đầu tiên?',
+    opts: [
+      'Tự chọn 5 metrics phổ biến nhất trong industry và build dashboard ngay',
+      'Hỏi CHRO: "5 business decisions quan trọng nhất anh/chị sẽ dùng dashboard này để đưa ra là gì?" — rồi từ đó back-track ra metrics',
+      'Lấy tất cả data có sẵn trong HRIS và để CHRO chọn',
+      'Research best practice HR dashboard trên LinkedIn và copy format'
+    ],
+    ans: 1,
+    fb_ok: 'Đây là Foundation → Growth mindset! Metrics serve decisions, không phải ngược lại. "Business decisions gì?" → "Cần biết gì để đưa quyết định đó?" → "Metric nào đo được thứ đó?" Đây là backward design đúng chuẩn.',
+    fb_no: 'Chưa đúng. Self-select (A) hay để CHRO chọn từ dump data (C) hay copy best practice (D) đều bỏ qua câu hỏi quan trọng nhất: dashboard này phục vụ DECISION gì? Metrics must follow decisions, not the other way around.'
+  }
+];
+
+var cur = 0, score = 0, answered = false;
+var wrongAreas = [];
+
+function startQuiz() {
+  showScreen('s-quiz');
+  renderQ();
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderQ() {
+  var q = QS[cur];
+  document.getElementById('qnum').textContent = cur + 1;
+  document.getElementById('q-badge').textContent = q.area;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('pbar').style.width = (cur / QS.length * 100) + '%';
+  document.getElementById('q-fb').className = 'feedback';
+  document.getElementById('next-btn').className = 'next-btn';
+
+  var opts = document.getElementById('q-opts');
+  opts.innerHTML = '';
+  ['A','B','C','D'].forEach(function(letter, i) {
+    var btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.innerHTML = '<span class="oletter">'+letter+'</span>' + QS[cur].opts[i];
+    btn.onclick = (function(idx){ return function(){ answer(idx, btn); }; })(i);
+    opts.appendChild(btn);
+  });
+  answered = false;
+}
+
+function answer(idx, btn) {
+  if (answered) return;
+  answered = true;
+  var q = QS[cur];
+  document.querySelectorAll('.opt').forEach(function(o){ o.disabled = true; });
+  var fb = document.getElementById('q-fb');
+  if (idx === q.ans) {
+    btn.classList.add('correct');
+    score++;
+    fb.textContent = '✅ ' + q.fb_ok;
+    fb.className = 'feedback show ok';
+    try { giot += 20; localStorage.setItem('pos_giot', giot); document.getElementById('nav-giot').textContent = giot; } catch(e){}
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.opt')[q.ans].classList.add('correct');
+    fb.textContent = '❌ ' + q.fb_no;
+    fb.className = 'feedback show no';
+    wrongAreas.push(q.area);
+  }
+  var nb = document.getElementById('next-btn');
+  nb.textContent = cur < QS.length - 1 ? 'Câu tiếp theo →' : 'Xem kết quả →';
+  nb.className = 'next-btn show';
+}
+
+function nextQ() {
+  cur++;
+  if (cur >= QS.length) showResult();
+  else renderQ();
+}
+
+function showResult() {
+  document.getElementById('pbar').style.width = '100%';
+  showScreen('s-result');
+
+  var passed = score >= 4;
+  var bonus = passed ? 150 : score * 20;
+  try {
+    giot += (passed ? 150 - score * 20 : 0); // already added 20 per correct
+    localStorage.setItem('pos_giot', giot);
+    if (passed) {
+      localStorage.setItem('pos_bridge_passed', 'true');
+      localStorage.setItem('pos_growth_unlocked', 'true');
+      // Sync to Firebase
+      var email = localStorage.getItem('pos_auth_user');
+      if (email) {
+        try { email = JSON.parse(email).email; } catch(e) {}
+        if (email) fetch('/api/update-giot', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({email: email, giot: giot, done: JSON.parse(localStorage.getItem('pos_done_list')||'[]')})
+        }).catch(function(){});
+      }
+    }
+  } catch(e) {}
+
+  document.getElementById('r-score').textContent = score + '/5';
+  document.getElementById('r-giot').textContent = '💧 +' + bonus + ' Giọt tích lũy';
+
+  var unlockEl = document.getElementById('r-unlock');
+
+  if (passed) {
+    document.getElementById('r-icon').textContent = '🌿';
+    document.getElementById('r-title').textContent = 'Xuất sắc! Growth Track đã mở khóa';
+    document.getElementById('r-label').textContent = 'điểm đúng — Foundation vững chắc ✅';
+    document.getElementById('r-cta').href = '/k7-leadership-khong-chuc-danh';
+    document.getElementById('r-cta').textContent = 'Bắt đầu Growth: K7 →';
+    unlockEl.innerHTML =
+      '<div class="unlock-card">' +
+        '<div class="unlock-title">🔓 Growth Track đã mở khóa</div>' +
+        '<div class="unlock-name">Growth Track 🌿 — K7 đến K12</div>' +
+        '<div class="unlock-desc">Bạn đã chứng minh Foundation vững chắc. Growth Track sẽ nâng bạn lên tư duy HR Manager & HRBP — từ influence không chức danh đến Finance-HR Hybrid và People Analytics cơ bản.</div>' +
+        '<div class="unlock-courses">' +
+          '<div class="unlock-course"><div class="unlock-course-name">K7 · Leadership Không Chức Danh</div><div class="unlock-course-sub">Bắt đầu ngay</div></div>' +
+          '<div class="unlock-course"><div class="unlock-course-name">K8 · Finance-HR Hybrid ★</div><div class="unlock-course-sub">Flagship · ưu tiên cao</div></div>' +
+          '<div class="unlock-course"><div class="unlock-course-name">K10 · HRBP Mindset</div><div class="unlock-course-sub">Strategic HR pivot</div></div>' +
+          '<div class="unlock-course"><div class="unlock-course-name">K12 · HR Analytics</div><div class="unlock-course-sub">Data-driven HR</div></div>' +
+        '</div>' +
+      '</div>';
+  } else {
+    document.getElementById('r-icon').textContent = '📚';
+    document.getElementById('r-title').textContent = 'Cần củng cố thêm — gần rồi!';
+    document.getElementById('r-label').textContent = 'điểm đúng — cần ít nhất 4/5 để unlock';
+    document.getElementById('r-cta').href = '/';
+    document.getElementById('r-cta').textContent = 'Về Learning Hub để ôn thêm';
+    var gapHtml = '<div class="retry-card"><div class="retry-title">📈 Area cần ôn lại</div><ul class="retry-gaps">';
+    wrongAreas.forEach(function(a) { gapHtml += '<li><span>→</span>' + a + '</li>'; });
+    gapHtml += '</ul><div style="font-size:12px;color:var(--muted);margin-top:12px">Ôn lại các khóa liên quan rồi quay lại làm Bridge Assessment. Bạn có thể làm lại sau 24 giờ.</div></div>';
+    unlockEl.innerHTML = gapHtml;
+  }
+}
+
+function reset() {
+  cur = 0; score = 0; answered = false; wrongAreas = [];
+  showScreen('s-intro');
+}
+</script>
+</body>
+</html>
