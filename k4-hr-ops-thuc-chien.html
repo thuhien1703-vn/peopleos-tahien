@@ -699,6 +699,12 @@ body::after{content:'律';position:fixed;right:-40px;top:50%;transform:translate
     <div class="cert-course">Cấp 1 — HR Staff & Specialist · 6 modules · ~20 phút</div>
     <div class="cert-sig">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
   </div>
+  
+  <div style="margin:18px auto 14px;max-width:440px;padding:16px;border:1px solid rgba(34,211,238,.25);border-radius:12px;background:rgba(255,255,255,.04)">
+    <div style="font-size:13px;color:#8BB8CC;margin-bottom:10px">Chia sẻ thành tựu lên LinkedIn → nhận thêm <b style="color:#F0C040">+50 Giọt</b> 💧 &nbsp;<span style="color:#4A7A94">#PeopleOS #HRxAI</span></div>
+    <button onclick="shareLinkedIn()" style="background:#0A66C2;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer">Chia sẻ lên LinkedIn 🔗</button>
+    <div id="share-out-k4" style="margin-top:10px;font-size:12px;color:#06B6D4"></div>
+  </div>
   <button class="btncert" onclick="downloadCertPDF()">Tải chứng chỉ PDF</button>
   <button class="btnnext2" onclick="window.location.href='/k5-recruiting-co-ban'">Học tiếp → K5: Recruiting Cơ Bản</button>
 </div>
@@ -706,6 +712,20 @@ body::after{content:'律';position:fixed;right:-40px;top:50%;transform:translate
 
 <script>
 
+
+function shareLinkedIn(){
+  window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://peopleos-tahien.vercel.app/k4-hr-ops-thuc-chien','_blank','noopener');
+  var out=document.getElementById('share-out-k4');
+  if(!localStorage.getItem('pos_share_k4')){
+    localStorage.setItem('pos_share_k4','1');
+    var g=parseInt(localStorage.getItem('pos_giot')||'0')+50;
+    localStorage.setItem('pos_giot',g);
+    var gv=document.getElementById('nav-giot-display');if(gv)gv.textContent=g;
+    if(out)out.innerHTML='🎉 +50 Giọt! Gợi ý caption: <i>\"Làm đúng từ đầu — sai một ly đi một dặm trong HR Ops 📋 #PeopleOS #HRxAI\"</i>';
+  }else{
+    if(out)out.textContent='Bạn đã nhận 50 Giọt cho lần chia sẻ này rồi 💧';
+  }
+}
 function downloadCertPDF(){
   var nm=localStorage.getItem('pos_auth_user_name')||localStorage.getItem('pos_auth_user')||'HR Professional';
   var dt=new Date().toLocaleDateString('vi-VN',{year:'numeric',month:'long',day:'numeric'});
