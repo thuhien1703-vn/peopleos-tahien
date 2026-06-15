@@ -246,7 +246,17 @@ document.getElementById('ref2').addEventListener('input',function(){if(this.valu
 document.addEventListener('click',function(e){var el=e.target.closest('.qopt[data-q="3"]');if(!el)return;document.querySelectorAll('#q3-opts .qopt').forEach(function(b){b.disabled=true;});var fb=document.getElementById('q3-fb');var ok=el.dataset.o==='B';el.classList.add(ok?'correct':'wrong');if(!ok)document.querySelectorAll('#q3-opts .qopt')[1].classList.add('correct');fb.className='qfb show '+(ok?'correct':'wrong');fb.textContent=ok?'Chính xác! Trước khi build pool, phải biết: bao nhiêu người, khi nào, làm gì. Demand analysis = design spec cho flex pool.':'Chưa đúng. Agency = expensive và không culture-fit. Internal part-time = limited scale. Alumni contact = good tactic nhưng bước 2, không phải bước 1. Analysis về demand pattern là foundation.';setTimeout(function(){unlock('n3','h3');},ok?0:1500);});
 function checkCk5k16(){var c=document.querySelectorAll('#ck5 input:checked').length;if(c>=2)unlock('n5','h5');}
 
-function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "Workforce Strategy Stagility" đã được ghi nhận. #PeopleOS #HRxAI #CHRO';giot+=150;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k16-workforce-stagility','true');}
+function generateCert(){var name=document.getElementById('cert-name').value.trim();if(!name){alert('Vui lòng nhập tên!');return;}document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "Workforce Strategy Stagility" đã được ghi nhận. #PeopleOS #HRxAI #CHRO';giot+=150;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;localStorage.setItem('pos_done_k16-workforce-stagility','true');
+  (function(){try{
+    var email=localStorage.getItem('pos_auth_user');
+    if(!email)return;
+    var totalGiot=parseInt(localStorage.getItem('pos_giot')||'0');
+    var doneList=JSON.parse(localStorage.getItem('pos_done_list')||'[]');
+    if(doneList.indexOf('k16')<0)doneList.push('k16');
+    localStorage.setItem('pos_done_list',JSON.stringify(doneList));
+    fetch('/api/update-giot',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,giot:totalGiot,done:doneList})}).catch(function(){});
+  }catch(e){}})(  );}
 function shareLinkedIn(){
   window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://peopleos-tahien.vercel.app/k16-workforce-stagility','_blank','noopener');
   var out=document.getElementById('share-out');
