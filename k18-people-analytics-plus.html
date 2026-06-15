@@ -252,6 +252,20 @@ Cảm ơn bạn đã tin tưởng hành trình này. Từ Hiền, với tất c�
 <div class="footer">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
 <script>
 
+
+function shareLinkedIn(){
+  window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://peopleos-tahien.vercel.app/k18-people-analytics-plus','_blank','noopener');
+  var out=document.getElementById('share-out-k18');
+  if(!localStorage.getItem('pos_share_k18')){
+    localStorage.setItem('pos_share_k18','1');
+    var g=parseInt(localStorage.getItem('pos_giot')||'0')+50;
+    localStorage.setItem('pos_giot',g);
+    var gv=document.getElementById('nav-giot-display');if(gv)gv.textContent=g;
+    if(out)out.innerHTML='🎉 +50 Giọt! Gợi ý caption: <i>\"Từ báo cáo nhìn lại sang dự báo nhìn tới — CHRO thế hệ mới 🔭 #PeopleOS #HRxAI\"</i>';
+  }else{
+    if(out)out.textContent='Bạn đã nhận 50 Giọt cho lần chia sẻ này rồi 💧';
+  }
+}
 function downloadCertPDF(){
   var nm=localStorage.getItem('pos_auth_user_name')||localStorage.getItem('pos_auth_user')||'HR Professional';
   var dt=new Date().toLocaleDateString('vi-VN',{year:'numeric',month:'long',day:'numeric'});
