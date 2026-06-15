@@ -215,7 +215,26 @@ body::after{content:'學';position:fixed;right:-40px;top:50%;transform:translate
 #nav-hint.vis{opacity:1}
 
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+function checkReflK6M2(){
+  var v=document.getElementById('refl-k6-m2').value;
+  var msg=document.getElementById('refl-k6-m2-msg');
+  if(v.length>=20){
+    msg.textContent='✅ Tốt! Tiếp tục bài học.';msg.style.color='var(--teal)';
+  } else {
+    msg.textContent=(20-v.length)+' ký tự nữa...';msg.style.color='var(--muted)';
+  }
+}
+function checkReflK6M4(){
+  var v=document.getElementById('refl-k6-m4').value;
+  var msg=document.getElementById('refl-k6-m4-msg');
+  if(v.length>=20){
+    msg.textContent='✅ Tốt! Tiếp tục bài học.';msg.style.color='var(--teal)';
+  } else {
+    msg.textContent=(20-v.length)+' ký tự nữa...';msg.style.color='var(--muted)';
+  }
+}
+</script>
 </head>
 <body>
 <div class="app">
