@@ -5,37 +5,112 @@
     {
       "source": "/(.*).html",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
-        { "key": "Pragma", "value": "no-cache" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        }
       ]
     },
     {
       "source": "/",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
       ]
     }
   ],
   "rewrites": [
-    { "source": "/k1-eq-selfmastery", "destination": "/k1-eq-selfmastery.html" },
-    { "source": "/k2-giao-tiep-anh-huong", "destination": "/k2-giao-tiep-anh-huong.html" },
-    { "source": "/k3-ai-literacy-hr", "destination": "/k3-ai-literacy-hr.html" },
-    { "source": "/k4-hr-ops-thuc-chien", "destination": "/k4-hr-ops-thuc-chien.html" },
-    { "source": "/k5-recruiting-co-ban", "destination": "/k5-recruiting-co-ban.html" },
-    { "source": "/k6-ld-thuc-chien", "destination": "/k6-ld-thuc-chien.html" },
-    { "source": "/k7-leadership-khong-chuc-danh", "destination": "/k7-leadership-khong-chuc-danh.html" },
-    { "source": "/k8-finance-hr-hybrid", "destination": "/k8-finance-hr-hybrid.html" },
-    { "source": "/k9-talent-management", "destination": "/k9-talent-management.html" },
-    { "source": "/k10-hrbp-mindset", "destination": "/k10-hrbp-mindset.html" },
-    { "source": "/k11-performance-revpamh", "destination": "/k11-performance-revpamh.html" },
-    { "source": "/k12-hr-analytics", "destination": "/k12-hr-analytics.html" },
-    { "source": "/k13-executive-presence", "destination": "/k13-executive-presence.html" },
-    { "source": "/k14-tam-nhin-van-hoa", "destination": "/k14-tam-nhin-van-hoa.html" },
-    { "source": "/k15-ai-strategy-chro", "destination": "/k15-ai-strategy-chro.html" },
-    { "source": "/k16-workforce-stagility", "destination": "/k16-workforce-stagility.html" },
-    { "source": "/k17-finance-hr-advanced", "destination": "/k17-finance-hr-advanced.html" },
-    { "source": "/k18-people-analytics-plus", "destination": "/k18-people-analytics-plus.html" },
-    { "source": "/kiem-tra-trinh-do", "destination": "/kiem-tra-trinh-do.html" },
-    { "source": "/bridge-assessment", "destination": "/bridge-assessment.html" }
+    {
+      "source": "/k1-eq-selfmastery",
+      "destination": "/k1-eq-selfmastery.html"
+    },
+    {
+      "source": "/k2-giao-tiep-anh-huong",
+      "destination": "/k2-giao-tiep-anh-huong.html"
+    },
+    {
+      "source": "/k3-ai-literacy-hr",
+      "destination": "/k3-ai-literacy-hr.html"
+    },
+    {
+      "source": "/k4-hr-ops-thuc-chien",
+      "destination": "/k4-hr-ops-thuc-chien.html"
+    },
+    {
+      "source": "/k5-recruiting-co-ban",
+      "destination": "/k5-recruiting-co-ban.html"
+    },
+    {
+      "source": "/k6-ld-thuc-chien",
+      "destination": "/k6-ld-thuc-chien.html"
+    },
+    {
+      "source": "/k7-leadership-khong-chuc-danh",
+      "destination": "/k7-leadership-khong-chuc-danh.html"
+    },
+    {
+      "source": "/k8-finance-hr-hybrid",
+      "destination": "/k8-finance-hr-hybrid.html"
+    },
+    {
+      "source": "/k9-talent-management",
+      "destination": "/k9-talent-management.html"
+    },
+    {
+      "source": "/k10-hrbp-mindset",
+      "destination": "/k10-hrbp-mindset.html"
+    },
+    {
+      "source": "/k11-performance-revpamh",
+      "destination": "/k11-performance-revpamh.html"
+    },
+    {
+      "source": "/k12-hr-analytics",
+      "destination": "/k12-hr-analytics.html"
+    },
+    {
+      "source": "/k13-executive-presence",
+      "destination": "/k13-executive-presence.html"
+    },
+    {
+      "source": "/k14-tam-nhin-van-hoa",
+      "destination": "/k14-tam-nhin-van-hoa.html"
+    },
+    {
+      "source": "/k15-ai-strategy-chro",
+      "destination": "/k15-ai-strategy-chro.html"
+    },
+    {
+      "source": "/k16-workforce-stagility",
+      "destination": "/k16-workforce-stagility.html"
+    },
+    {
+      "source": "/k17-finance-hr-advanced",
+      "destination": "/k17-finance-hr-advanced.html"
+    },
+    {
+      "source": "/k18-people-analytics-plus",
+      "destination": "/k18-people-analytics-plus.html"
+    },
+    {
+      "source": "/kiem-tra-trinh-do",
+      "destination": "/kiem-tra-trinh-do.html"
+    },
+    {
+      "source": "/bridge-assessment",
+      "destination": "/bridge-assessment.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/weekly-digest?key=peopleos-weekly-2026",
+      "schedule": "0 8 * * 1"
+    }
   ]
 }
