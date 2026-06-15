@@ -80,6 +80,37 @@ function checkReflK18M5(){
     if(hint)hint.style.display='none';
   }
 }
+
+function ansK184(idx,btn){
+  document.querySelectorAll('#opts-k18-4 .opt').forEach(function(b){b.disabled=true;b.style.cursor='default';});
+  var fb=document.getElementById('fb-k18-4'); fb.style.display='block';
+  if(idx===1){
+    btn.style.borderColor='var(--green)';btn.style.background='rgba(16,185,129,.1)';
+    fb.style.background='rgba(16,185,129,.08)';fb.style.borderLeft='3px solid var(--green)';
+    fb.innerHTML='✅ <b>Đúng!</b> B kết hợp: (1) dùng data có sẵn ngay — không xin thêm thời gian, (2) frame bằng RevPAMH mà CFO hiểu, (3) đưa 3 scenarios thay vì 1 answer. CHRO data-driven = trả lời bằng số, không bằng "cần nghiên cứu thêm".';
+    document.getElementById('n4').disabled=false;document.getElementById('h4').style.display='none';
+  } else {
+    btn.style.borderColor='#EF4444';btn.style.background='rgba(239,68,68,.08)';
+    document.querySelectorAll('#opts-k18-4 .opt')[1].style.borderColor='var(--green)';
+    document.querySelectorAll('#opts-k18-4 .opt')[1].style.background='rgba(16,185,129,.1)';
+    fb.style.background='rgba(239,68,68,.07)';fb.style.borderLeft='3px solid #EF4444';
+    var msgs=['Xin thêm thời gian khi board hỏi = mất credibility. Data phải pull được ngay.','','Industry benchmark = lazy answer. Board muốn biết về TỔ CHỨC NÀY.','Câu hỏi chiến lược tốt — nhưng B mạnh hơn vì dùng data ngay, không chờ clarify.'];
+    fb.innerHTML='❌ ' + msgs[idx] + ' <b>Đáp án tốt nhất là B.</b>';
+  }
+}
+function chkR185(){
+  var v=document.getElementById('refl-k18-5').value;
+  var m=document.getElementById('msg-k18-5');
+  var h=document.getElementById('hint-k18-5');
+  if(v.length>=30){
+    m.textContent='✅ Argument ghi nhận. Xem gợi ý của Hiền:';m.style.color='var(--teal)';
+    if(h)h.style.display='block';
+    document.getElementById('n5').disabled=false;document.getElementById('h5').style.display='none';
+  } else {
+    m.textContent=(30-v.length)+' ký tự nữa';m.style.color='var(--muted)';
+    if(h)h.style.display='none';
+  }
+}
 </script>
 </head><body>
 <nav class="topnav"><a class="back" href="/">← Về Learning Hub</a>
