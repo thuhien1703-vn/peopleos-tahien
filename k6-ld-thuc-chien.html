@@ -215,6 +215,7 @@ body::after{content:'學';position:fixed;right:-40px;top:50%;transform:translate
 #nav-hint.vis{opacity:1}
 
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 <div class="app">
@@ -742,12 +743,46 @@ body::after{content:'學';position:fixed;right:-40px;top:50%;transform:translate
     <div class="cert-course">Cấp 1 — HR Staff & Specialist · 6 modules · ~20 phút</div>
     <div class="cert-sig">TaHien — CHCO Golden Gate Group — biên soạn cho cộng đồng HR Vietnam.<br>PeopleOS Community · 2026</div>
   </div>
-  <button class="btncert" onclick="alert('Tính năng xuất PDF sẽ có trong phiên bản đầy đủ!')">Tải chứng chỉ PDF</button>
+  <button class="btncert" onclick="downloadCertPDF()">Tải chứng chỉ PDF</button>
   <button class="btnnext2" onclick="window.location.href='/'">← Về Hub · Bắt đầu Cấp 2</button>
 </div>
 </div>
 
 <script>
+
+function downloadCertPDF(){
+  var nm=localStorage.getItem('pos_auth_user_name')||localStorage.getItem('pos_auth_user')||'HR Professional';
+  var dt=new Date().toLocaleDateString('vi-VN',{year:'numeric',month:'long',day:'numeric'});
+  try{
+    var doc=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+    var W=297,H=210;
+    doc.setFillColor(2,11,24);doc.rect(0,0,W,H,'F');
+    doc.setDrawColor(34,211,238);doc.setLineWidth(1.5);doc.rect(8,8,W-16,H-16,'S');
+    doc.setDrawColor(240,192,64);doc.setLineWidth(0.5);doc.rect(11,11,W-22,H-22,'S');
+    doc.setFont('helvetica','bold');doc.setTextColor(34,211,238);doc.setFontSize(30);
+    doc.text('PeopleOS',W/2,38,{align:'center'});
+    doc.setTextColor(139,184,204);doc.setFontSize(11);doc.setFont('helvetica','normal');
+    doc.text('Learning Hub  by TaHien',W/2,47,{align:'center'});
+    doc.setTextColor(240,192,64);doc.setFontSize(12);doc.setFont('helvetica','bold');
+    doc.text('CHUNG CHI HOAN THANH',W/2,63,{align:'center'});
+    doc.setTextColor(139,184,204);doc.setFontSize(12);doc.setFont('helvetica','normal');
+    doc.text('Cap cho',W/2,76,{align:'center'});
+    doc.setTextColor(232,244,248);doc.setFontSize(28);doc.setFont('helvetica','bolditalic');
+    doc.text(nm,W/2,90,{align:'center'});
+    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(139,184,204);
+    doc.text('da hoan thanh xuat sac khoa hoc',W/2,102,{align:'center'});
+    doc.setFont('helvetica','bold');doc.setTextColor(232,244,248);doc.setFontSize(17);
+    doc.text('L&D Thực Chiến',W/2,114,{align:'center'});
+    doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(139,184,204);
+    doc.text('Foundation Track  6 modules  +120 Giot',W/2,124,{align:'center'});
+    doc.setDrawColor(34,211,238);doc.setLineWidth(0.4);doc.line(50,132,W-50,132);
+    doc.setFontSize(10);doc.setTextColor(74,122,148);
+    doc.text('Cap ngay: '+dt,W/2,142,{align:'center'});
+    doc.setTextColor(139,184,204);
+    doc.text('TaHien  CHCO Golden Gate Group  bien soan cho cong dong HR Vietnam  PeopleOS 2026',W/2,151,{align:'center'});
+    doc.save('PeopleOS-L-D-Th-c-Chi-n.pdf');
+  }catch(e){alert('Loi xuat PDF: '+e.message);}
+}
 var cur=1,tot=6,dm={};
 function buildDots(){
   var c=document.getElementById('dots');c.innerHTML='';
