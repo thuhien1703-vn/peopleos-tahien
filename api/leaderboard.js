@@ -14,25 +14,58 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
   if (req.method === 'OPTIONS') return res.status(200).end();
+
+  const { tab = 'all', email = '' } = req.query;
+
   try {
     initFirebase();
     const db = getFirestore();
-    const snap = await db.collection('users')
-      .orderBy('giot', 'desc')
-      .limit(50)
-      .get();
+
+    let query = db.collection('users').orderBy('giot', 'desc').limit(50);
+
+    // Weekly: filter lastActive within 7 days
+    if (tab === 'week') {
+      const since = Date.now() - 7 * 24 * 60 * 60 * 1000;
+      query = db.collection('users')
+        .where('lastActive', '>=', since)
+        .orderBy('lastActive', 'desc')
+        .orderBy('giot', 'desc')
+        .limit(50);
+    }
+
+    const snap = await query.get();
     const users = snap.docs.map((doc, i) => {
       const d = doc.data();
       return {
         rank: i + 1,
+        email: doc.id,
         name: d.name || 'Ẩn danh',
         giot: d.giot || 0,
-        done: (d.done || []).length,
+        done: Array.isArray(d.done) ? d.done.length : 0,
         streak: d.streak || 0,
-        createdAt: d.createdAt?.toDate?.()?.toISOString() || null,
+        lastActive: d.lastActive || 0,
       };
     });
-    return res.status(200).json({ users });
+
+    // Find current user rank if email provided
+    let myRank = null;
+    if (email) {
+      const meIdx = users.findIndex(u => u.email === email);
+      if (meIdx >= 0) {
+        myRank = meIdx + 1;
+      } else {
+        // Not in top 50 — get their actual rank
+        const meSnap = await db.collection('users').doc(email).get();
+        if (meSnap.exists) {
+          const meGiot = meSnap.data().giot || 0;
+          const aboveSnap = await db.collection('users')
+            .where('giot', '>', meGiot).count().get();
+          myRank = aboveSnap.data().count + 1;
+        }
+      }
+    }
+
+    return res.status(200).json({ users, myRank, tab });
   } catch (err) {
     console.error('leaderboard error:', err);
     return res.status(500).json({ error: err.message });
