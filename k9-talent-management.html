@@ -404,7 +404,16 @@ function generateCert(){
   document.getElementById('cert-out').textContent='🎉 Chúc mừng '+name+'! Chứng chỉ "Talent Management Chiến Lược" đã được ghi nhận. Share lên LinkedIn với hashtag #PeopleOS #HRxAI!';
   giot+=100;localStorage.setItem('pos_giot',giot);document.getElementById('giot-val').textContent=giot;
   localStorage.setItem('pos_done_k9-talent-management','true');
-}
+  (function(){try{
+    var email=localStorage.getItem('pos_auth_user');
+    if(!email)return;
+    var totalGiot=parseInt(localStorage.getItem('pos_giot')||'0');
+    var doneList=JSON.parse(localStorage.getItem('pos_done_list')||'[]');
+    if(doneList.indexOf('k9')<0)doneList.push('k9');
+    localStorage.setItem('pos_done_list',JSON.stringify(doneList));
+    fetch('/api/update-giot',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,giot:totalGiot,done:doneList})}).catch(function(){});
+  }catch(e){}})(  );}
 var saved=parseInt(localStorage.getItem('resume_k9-talent-management')||'1');
 if(saved>1&&saved<=6){
   var rb=document.createElement('div');rb.style.cssText='background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.2);border-radius:12px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;margin:16px 0;gap:12px;';
