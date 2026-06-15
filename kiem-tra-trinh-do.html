@@ -149,33 +149,64 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <div class="screen" id="s-result">
   <div class="result-wrap">
     <div class="result-icon" id="result-icon">🎓</div>
-    <div class="result-title" id="result-title">Kết quả kiểm tra</div>
+    <div class="result-title" id="result-title">Kết quả của bạn</div>
     <div class="result-score" id="result-score">0/15</div>
-    <div class="result-label" id="result-label">điểm</div>
+    <div class="result-label" id="result-label">điểm đúng</div>
 
+    <!-- Score breakdown per track -->
     <div class="breakdown">
       <div class="bd-item">
         <div class="bd-num" id="bd-foundation" style="color:#22D3EE">0/5</div>
         <div class="bd-label">Foundation 🌱</div>
+        <div style="height:4px;background:var(--navy3);border-radius:99px;margin-top:6px;overflow:hidden">
+          <div id="bar-f" style="height:100%;background:#22D3EE;border-radius:99px;width:0%;transition:width .6s"></div>
+        </div>
       </div>
       <div class="bd-item">
         <div class="bd-num" id="bd-growth" style="color:#10B981">0/5</div>
         <div class="bd-label">Growth 🌿</div>
+        <div style="height:4px;background:var(--navy3);border-radius:99px;margin-top:6px;overflow:hidden">
+          <div id="bar-g" style="height:100%;background:#10B981;border-radius:99px;width:0%;transition:width .6s"></div>
+        </div>
       </div>
       <div class="bd-item">
         <div class="bd-num" id="bd-horizon" style="color:#A78BFA">0/5</div>
         <div class="bd-label">Horizon 🔭</div>
+        <div style="height:4px;background:var(--navy3);border-radius:99px;margin-top:6px;overflow:hidden">
+          <div id="bar-h" style="height:100%;background:#A78BFA;border-radius:99px;width:0%;transition:width .6s"></div>
+        </div>
       </div>
     </div>
 
-    <div class="result-track">
-      <div class="result-track-title">Gợi ý starting point của bạn</div>
-      <div class="result-track-name" id="rec-track-name">Foundation Track 🌱</div>
-      <div class="result-track-desc" id="rec-track-desc">Bắt đầu từ K1 để xây nền tảng vững chắc.</div>
+    <!-- Main recommendation -->
+    <div class="result-track" id="rec-main">
+      <div class="result-track-title">🎯 Khóa học đầu tiên cho bạn</div>
+      <div class="result-track-name" id="rec-track-name">—</div>
+      <div style="font-size:12px;color:var(--cyan);font-weight:700;margin:4px 0 8px" id="rec-why-label">Tại sao khóa này?</div>
+      <div class="result-track-desc" id="rec-track-desc">—</div>
     </div>
 
-    <a href="/" class="result-cta" id="rec-cta">Bắt đầu học ngay →</a>
-    <button class="result-retry" onclick="reset()">Làm lại từ đầu</button>
+    <!-- Priority roadmap -->
+    <div id="rec-roadmap" style="background:var(--navy3);border:1px solid var(--border);border-radius:14px;padding:18px;margin:16px 0;text-align:left">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">📍 Lộ trình gợi ý của bạn</div>
+      <div id="rec-roadmap-items"></div>
+    </div>
+
+    <!-- Strength & gap -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0">
+      <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:14px">
+        <div style="font-size:11px;font-weight:700;color:#10B981;margin-bottom:6px">💪 Điểm mạnh</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.5" id="rec-strength">—</div>
+      </div>
+      <div style="background:rgba(251,146,60,.06);border:1px solid rgba(251,146,60,.2);border-radius:12px;padding:14px">
+        <div style="font-size:11px;font-weight:700;color:#FB923C;margin-bottom:6px">📈 Cần phát triển</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.5" id="rec-gap">—</div>
+      </div>
+    </div>
+
+    <a href="/" class="result-cta" id="rec-cta" style="margin-top:8px">Bắt đầu học ngay →</a>
+    <button class="result-retry" onclick="reset()" style="margin-top:10px">Làm lại từ đầu</button>
+    <div style="font-size:11px;color:var(--subtle);text-align:center;margin-top:14px">Kết quả chỉ để tham khảo — bạn vẫn có thể học bất kỳ khóa nào.</div>
   </div>
 </div>
 
@@ -388,48 +419,134 @@ function showResult() {
   document.getElementById('prog-fill').style.width = '100%';
   showScreen('s-result');
 
-  document.getElementById('result-score').textContent = score + '/15';
-  document.getElementById('bd-foundation').textContent = scoreByTrack.foundation + '/5';
-  document.getElementById('bd-growth').textContent = scoreByTrack.growth + '/5';
-  document.getElementById('bd-horizon').textContent = scoreByTrack.horizon + '/5';
-
-  let icon, title, trackName, desc, cta, ctaHref;
+  const f = scoreByTrack.foundation, g = scoreByTrack.growth, h = scoreByTrack.horizon;
   const pct = score / 15;
 
-  if (pct < 0.4) {
-    icon = '🌱'; title = 'Foundation là điểm khởi đầu tốt nhất cho bạn';
-    trackName = 'Foundation Track 🌱 — K1 đến K6';
-    desc = 'Bạn đang ở giai đoạn xây nền tảng — đây là thời điểm tốt nhất để học đúng cách từ đầu. Foundation Track sẽ cho bạn framework tư duy và công cụ cơ bản để phát triển bền vững.';
-    ctaHref = '/k1-eq-selfmastery'; cta = 'Bắt đầu từ K1 →';
-  } else if (scoreByTrack.foundation >= 3 && pct < 0.67) {
-    icon = '🌿'; title = 'Bạn đã vững Foundation — Growth Track đang chờ';
-    trackName = 'Growth Track 🌿 — K7 đến K12';
-    desc = 'Foundation của bạn khá vững. Growth Track sẽ nâng bạn lên tư duy Manager và Strategic HR — từ influence không chức danh đến Finance-HR Hybrid và People Analytics.';
-    ctaHref = '/k7-leadership-khong-chuc-danh'; cta = 'Bắt đầu từ K7 →';
-  } else if (scoreByTrack.growth >= 3 && pct >= 0.67) {
-    icon = '🔭'; title = 'Bạn có tư duy Manager rõ — Horizon đang chờ';
-    trackName = 'Horizon Track 🔭 — K13 đến K18';
-    desc = 'Growth competencies của bạn đã được chứng minh. Horizon Track sẽ đưa bạn vào tư duy CHRO: Executive Presence, Culture Strategy, AI Governance, và People Analytics+.';
-    ctaHref = '/k13-executive-presence'; cta = 'Bắt đầu từ K13 →';
+  // Score display
+  document.getElementById('result-score').textContent = score + '/15';
+  document.getElementById('result-label').textContent = 'điểm đúng · +' + (score * 5) + ' Giọt tích lũy';
+  document.getElementById('bd-foundation').textContent = f + '/5';
+  document.getElementById('bd-growth').textContent = g + '/5';
+  document.getElementById('bd-horizon').textContent = h + '/5';
+  setTimeout(function(){
+    document.getElementById('bar-f').style.width = (f/5*100)+'%';
+    document.getElementById('bar-g').style.width = (g/5*100)+'%';
+    document.getElementById('bar-h').style.width = (h/5*100)+'%';
+  }, 200);
+
+  // ── LOGIC GỢI Ý CỤ THỂ THEO ĐIỂM TỪNG TRACK ──
+  var firstCourse, firstUrl, whyFirst, icon, title, roadmap, strength, gap;
+
+  if (h >= 4) {
+    // Xuất sắc — CHRO level
+    icon = '🔭'; title = 'Tư duy CHRO rõ nét — Horizon Track là đúng chỗ';
+    firstCourse = 'K13 — Executive Presence & Ảnh Hưởng';
+    firstUrl = '/k13-executive-presence';
+    whyFirst = 'Bạn đạt ' + h + '/5 Horizon — điểm vào thẳng level CHRO. K13 sẽ đặt nền cho Executive Communication và Board-level thinking trước khi đi vào Culture, AI Strategy, và Stagility.';
+    roadmap = [
+      {k:'K13',n:'Executive Presence',url:'/k13-executive-presence',note:'Bắt đầu ngay'},
+      {k:'K16',n:'Stagility & Workforce Design ★',url:'/k16-workforce-stagility',note:'Flagship IP của TaHien'},
+      {k:'K18',n:'People Analytics+',url:'/k18-people-analytics-plus',note:'Kết thúc Horizon'},
+    ];
+    strength = 'Strategic thinking mạnh — biết cách translate HR thành business language';
+    gap = 'Đảm bảo execution chặt chẽ — CHRO không chỉ think, còn phải land';
+
+  } else if (g >= 4 || (g >= 3 && h >= 2)) {
+    // Growth mạnh, sẵn sàng Horizon
+    icon = '🌿'; title = 'Growth vững — đã sẵn sàng bước vào Horizon';
+    firstCourse = 'K13 — Executive Presence & Ảnh Hưởng';
+    firstUrl = '/k13-executive-presence';
+    whyFirst = 'Bạn đạt ' + g + '/5 Growth — tư duy Manager đã hình thành rõ. Thay vì lặp lại Growth, nhảy thẳng vào Horizon để challenge tư duy CHRO. K13 sẽ mở ra ngôn ngữ và tư thế executive.';
+    roadmap = [
+      {k:'K11',n:'Performance Mgmt · RevPAMH ★',url:'/k11-performance-revpamh',note:'Hoàn thiện Growth nếu chưa học'},
+      {k:'K13',n:'Executive Presence',url:'/k13-executive-presence',note:'Bắt đầu Horizon'},
+      {k:'K17',n:'Finance-HR Hybrid Nâng Cao ★',url:'/k17-finance-hr-advanced',note:'Ưu tiên cao'},
+    ];
+    strength = 'Manager-level thinking tốt — biết diagnose vấn đề và present data';
+    gap = 'Cần nâng ngôn ngữ board-room và strategic framing ở C-suite level';
+
+  } else if (f >= 4 && g >= 2) {
+    // Foundation xuất sắc, Growth khá — vào Growth
+    icon = '🌿'; title = 'Foundation xuất sắc — Growth Track đang chờ bạn';
+    firstCourse = 'K7 — Leadership Không Chức Danh';
+    firstUrl = '/k7-leadership-khong-chuc-danh';
+    whyFirst = 'Bạn đạt ' + f + '/5 Foundation — nền vững chắc. K7 mở đầu Growth với kỹ năng influence không authority — siêu năng lực của HRBP, đúng bước tiếp theo sau Foundation.';
+    roadmap = [
+      {k:'K7',n:'Leadership Không Chức Danh',url:'/k7-leadership-khong-chuc-danh',note:'Bắt đầu ngay'},
+      {k:'K8',n:'Finance-HR Hybrid ★',url:'/k8-finance-hr-hybrid',note:'Ưu tiên cao nhất'},
+      {k:'K12',n:'HR Analytics Cơ Bản',url:'/k12-hr-analytics',note:'Hoàn thiện Growth'},
+    ];
+    strength = 'Nền tảng HR vững — process, legal, và L&D fundamentals tốt';
+    gap = 'Cần phát triển strategic thinking và financial literacy để lên Manager level';
+
+  } else if (f >= 3) {
+    // Foundation ổn, cần củng cố
+    icon = '🌱'; title = 'Foundation khá tốt — vào Growth Track từ từ';
+
+    // Recommend specific Foundation gap course first
+    var gapCourse, gapUrl, gapNote;
+    if (f <= 3) {
+      gapCourse = 'K8 — Finance-HR Hybrid'; gapUrl = '/k8-finance-hr-hybrid';
+      gapNote = 'Gap phổ biến nhất của HR Manager — biết tài chính là bước nhảy lớn nhất';
+    } else {
+      gapCourse = 'K7 — Leadership Không Chức Danh'; gapUrl = '/k7-leadership-khong-chuc-danh';
+      gapNote = 'Bước đầu tiên của Growth Track';
+    }
+    firstCourse = gapCourse; firstUrl = gapUrl;
+    whyFirst = 'Bạn đạt ' + f + '/5 Foundation — đã có nền, nhưng Growth questions còn ' + g + '/5. Thay vì bắt đầu từ K1, nhảy thẳng vào phần bạn cần nhất: ' + gapNote + '.';
+    roadmap = [
+      {k:'K1-K6',n:'Hoàn thiện Foundation',url:'/k1-eq-selfmastery',note:'Nếu chưa học đủ'},
+      {k:'K8',n:'Finance-HR Hybrid ★',url:'/k8-finance-hr-hybrid',note:'Khóa có ROI cao nhất'},
+      {k:'K10',n:'HRBP Mindset',url:'/k10-hrbp-mindset',note:'Chuyển từ HR → Strategic HR'},
+    ];
+    strength = 'Hiểu HR fundamentals và có tư duy đặt câu hỏi đúng';
+    gap = 'Finance-HR literacy và strategic framing cần được xây dựng có hệ thống';
+
   } else {
-    icon = '🌿'; title = 'Growth Track phù hợp với bạn';
-    trackName = 'Growth Track 🌿 — K7 đến K12';
-    desc = 'Bạn có nền tảng tốt ở một số area nhưng vẫn có gaps ở tư duy strategic. Growth Track sẽ củng cố và nâng cấp toàn diện trước khi bước vào Horizon.';
-    ctaHref = '/k7-leadership-khong-chuc-danh'; cta = 'Bắt đầu từ K7 →';
+    // Mới bắt đầu hoặc Foundation yếu
+    icon = '🌱'; title = 'Foundation là nền móng — xây đúng từ đầu';
+    firstCourse = 'K1 — EQ & Self-Mastery';
+    firstUrl = '/k1-eq-selfmastery';
+    whyFirst = 'Bạn đạt ' + f + '/5 Foundation — đây là thời điểm lý tưởng để xây đúng từ đầu. K1 EQ không phải "soft" — đây là kỹ năng #1 phân biệt HR average và HR excellent theo nghiên cứu của TaHien qua 20 năm.';
+    roadmap = [
+      {k:'K1',n:'EQ & Self-Mastery',url:'/k1-eq-selfmastery',note:'Bắt đầu ngay — ~18 phút'},
+      {k:'K5',n:'Recruiting Cơ Bản',url:'/k5-recruiting-co-ban',note:'High-impact skill ngay'},
+      {k:'K6',n:'L&D Thực Chiến',url:'/k6-ld-thuc-chien',note:'Hoàn thiện Foundation'},
+    ];
+    strength = 'Đang ở giai đoạn học cách đặt câu hỏi đúng — quan trọng hơn là biết câu trả lời';
+    gap = 'Foundation HR thinking: EQ, data-driven decisions, và Labor Law fundamentals';
   }
 
+  // Render
   document.getElementById('result-icon').textContent = icon;
   document.getElementById('result-title').textContent = title;
-  document.getElementById('rec-track-name').textContent = trackName;
-  document.getElementById('rec-track-desc').textContent = desc;
-  document.getElementById('rec-cta').textContent = cta;
-  document.getElementById('rec-cta').href = ctaHref;
-  document.getElementById('result-label').textContent = 'điểm đúng / 15 câu · +' + (score * 5) + ' Giọt';
+  document.getElementById('rec-track-name').textContent = firstCourse;
+  document.getElementById('rec-track-desc').textContent = whyFirst;
+  document.getElementById('rec-strength').textContent = strength;
+  document.getElementById('rec-gap').textContent = gap;
+  document.getElementById('rec-cta').textContent = 'Bắt đầu: ' + firstCourse.split('—')[0].trim() + ' →';
+  document.getElementById('rec-cta').href = firstUrl;
 
-  // Save result
+  // Render roadmap
+  var rmEl = document.getElementById('rec-roadmap-items');
+  rmEl.innerHTML = '';
+  roadmap.forEach(function(item, i) {
+    var div = document.createElement('div');
+    div.style.cssText = 'display:flex;align-items:flex-start;gap:10px;padding:8px 0;' + (i < roadmap.length-1 ? 'border-bottom:1px solid var(--border);' : '');
+    div.innerHTML =
+      '<div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--navy2),var(--navy3));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--cyan);flex-shrink:0">' + (i+1) + '</div>' +
+      '<div><a href="' + item.url + '" style="font-size:13px;font-weight:700;color:var(--text);text-decoration:none;display:block">' + item.k + ' · ' + item.n + '</a><div style="font-size:11px;color:var(--muted);margin-top:2px">' + item.note + '</div></div>';
+    rmEl.appendChild(div);
+  });
+
+  // Save
   try {
     localStorage.setItem('diagnostic_score', score);
+    localStorage.setItem('diagnostic_track', icon === '🌱' ? 'foundation' : icon === '🌿' ? 'growth' : 'horizon');
+    localStorage.setItem('diagnostic_first_url', firstUrl);
     localStorage.setItem('diagnostic_done', 'true');
+    var g2 = parseInt(localStorage.getItem('pos_giot')||'0') + score * 5;
+    localStorage.setItem('pos_giot', g2);
   } catch(e) {}
 }
 
