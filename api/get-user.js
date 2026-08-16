@@ -20,7 +20,18 @@ module.exports = async function handler(req, res) {
     const db = getFirestore();
     const doc = await db.collection('users').doc(email).get();
     if (!doc.exists) return res.status(404).json({ error: 'User khong ton tai' });
-    return res.status(200).json({ success: true, user: doc.data() });
+    const d = doc.data();
+    // Chỉ trả các trường tiến độ mà giao diện cần — KHÔNG lộ city/role (nơi làm việc)
+    // hay các field nội bộ. email chính là tham số người gọi đã cung cấp nên echo lại
+    // không lộ thêm thông tin.
+    return res.status(200).json({ success: true, user: {
+      email: d.email || email,
+      name: d.name || '',
+      giot: d.giot || 0,
+      done: Array.isArray(d.done) ? d.done : [],
+      streak: d.streak || 0,
+      lastActive: d.lastActive || 0,
+    } });
   } catch (err) {
     return res.status(500).json({ error: 'Loi server' });
   }

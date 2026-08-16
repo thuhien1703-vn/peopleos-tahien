@@ -38,7 +38,9 @@ module.exports = async function handler(req, res) {
       const d = doc.data();
       return {
         rank: i + 1,
-        email: doc.id,
+        // Không trả email của người khác ra ngoài (chống thu thập danh bạ email).
+        // Chỉ đánh dấu dòng của chính người đang xem để highlight "(bạn)".
+        isMe: !!email && doc.id === email,
         name: d.name || 'Ẩn danh',
         giot: d.giot || 0,
         done: Array.isArray(d.done) ? d.done.length : 0,
@@ -50,7 +52,7 @@ module.exports = async function handler(req, res) {
     // Find current user rank if email provided
     let myRank = null;
     if (email) {
-      const meIdx = users.findIndex(u => u.email === email);
+      const meIdx = snap.docs.findIndex(doc => doc.id === email);
       if (meIdx >= 0) {
         myRank = meIdx + 1;
       } else {

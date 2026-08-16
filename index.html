@@ -1671,7 +1671,7 @@ function loadLeaderboard() {
                        rank === 2 ? '<span class="lb-rank silver">🥈</span>' :
                        rank === 3 ? '<span class="lb-rank bronze">🥉</span>' :
                        '<span class="lb-rank">' + rank + '</span>';
-        var isMe = myEmail && u.email === myEmail;
+        var isMe = !!u.isMe;
         var rowClass = isMe ? 'lb-row me' : 'lb-row';
         var initial = (u.name||'?').charAt(0).toUpperCase();
         html += '<div class="' + rowClass + '">' +
@@ -1689,7 +1689,7 @@ function loadLeaderboard() {
       // Sticky user row — show if user not in top 50
       if (_authUser) {
         var meRow=document.getElementById('lb-me-row');
-        var myInTop=d.users.some(function(u){return u.email===_authUser.email;});
+        var myInTop=d.users.some(function(u){return u.isMe;});
         if(meRow){
           meRow.style.display=myInTop?'none':'flex';
           if(!myInTop){
