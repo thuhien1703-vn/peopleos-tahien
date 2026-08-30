@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PeopleOS Learning Hub · by TaHien</title>
 <meta name="description" content="Từ HR Manager → CHRO. Không phải may mắn. Là hệ thống. Miễn phí · Gamified · Dành cho HR professionals Việt Nam">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://peopleos-tahien.vercel.app">
+<meta property="og:title" content="PeopleOS Learning Hub · by TaHien">
+<meta property="og:description" content="Từ HR Manager → CHRO. 18 khoá miễn phí cho HR professionals Việt Nam.">
+<meta property="og:image" content="https://peopleos-tahien.vercel.app/og-cover.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta property="og:locale" content="vi_VN">
+<meta name="twitter:card" content="summary_large_image">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -604,7 +613,6 @@ a.footer-link{text-decoration:none;}
 <!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stats-bar-inner">
-    <div class="stat-big"><div class="stat-big-num">👩‍💼 1,200+</div><div class="stat-big-label">HR Professionals</div></div>
 <!-- SEARCH BOX -->
 <div class="search-wrap">
   <input type="text" class="search-box" id="course-search"
@@ -648,7 +656,6 @@ a.footer-link{text-decoration:none;}
   </div>
 </div>
     <div class="stat-big"><div class="stat-big-num">📚 18</div><div class="stat-big-label">Khóa trong lộ trình</div></div>
-    <div class="stat-big"><div class="stat-big-num">🌐 30+</div><div class="stat-big-label">Tỉnh thành VN</div></div>
   </div>
 </div>
 
@@ -745,12 +752,12 @@ a.footer-link{text-decoration:none;}
 <!-- LEADERBOARD -->
 <div class="lb-section" id="leaderboard">
   <div class="wrap">
-    <div class="section-tag">BẢNG XẾP HẠNG</div>
-    <h2 class="section-h2">Bảng xếp hạng live</h2>
-    <p class="section-sub">Ai đang dẫn đầu Giọt ngay lúc này?</p>
+    <div class="section-tag">TIẾN ĐỘ</div>
+    <h2 class="section-h2">Lộ trình của bạn</h2>
+    <p class="section-sub">Theo dõi số khoá đã hoàn thành và Giọt tích luỹ.</p>
 
     <!-- Tab switcher -->
-    <div style="display:flex;gap:8px;margin-bottom:20px">
+    <div style="display:none;gap:8px;margin-bottom:20px">
       <button id="lb-tab-all" onclick="switchLBTab('all')"
         style="padding:8px 20px;border-radius:20px;border:1px solid var(--cyan);background:var(--cyan);color:var(--navy);font-weight:700;font-size:13px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif">
         🏆 Tất cả thời gian
@@ -762,7 +769,7 @@ a.footer-link{text-decoration:none;}
     </div>
 
     <div class="lb-grid">
-      <div class="lb-card">
+      <div class="lb-card" style="display:none">
         <div class="lb-topbar" id="lb-topbar-label">🏆 Top learners · Tất cả thời gian</div>
         <div id="lb-list"></div>
 
@@ -794,7 +801,7 @@ a.footer-link{text-decoration:none;}
         </div>
       </div>
     </div>
-    <div style="text-align:center;margin-top:16px">
+    <div style="display:none;text-align:center;margin-top:16px">
       <button class="btn-ghost">Xem bảng đầy đủ →</button>
     </div>
   </div>
@@ -813,8 +820,7 @@ a.footer-link{text-decoration:none;}
         <p class="founder-bio">Với gần 20 năm kinh nghiệm qua nhiều tập đoàn Đa ngành với nhiều vị trí khác nhau và gần 10 năm trong tập đoàn F&B lớn nhất Việt Nam (600+ nhà hàng, 20.000+ nhân viên), là người đầu tiên đưa Finance-HR Hybrid framework vào thực tiễn HR Việt Nam, TaHien tin rằng HR giỏi nhất là HR biết nói ngôn ngữ của CEO.</p>
         <div class="founder-stats">
           <div><div class="founder-stat-num">~20</div><div class="founder-stat-label">Năm kinh nghiệm</div></div>
-          <div><div class="founder-stat-num">600+</div><div class="founder-stat-label">Nhà hàng quản lý</div></div>
-          <div><div class="founder-stat-num">1,200+</div><div class="founder-stat-label">HR đã đào tạo</div></div>
+          <div><div class="founder-stat-num">600+</div><div class="founder-stat-label">Quy mô chuỗi</div></div>
         </div>
       </div>
     </div>
@@ -825,8 +831,8 @@ a.footer-link{text-decoration:none;}
 <div class="cta-section">
   <div style="max-width:600px;margin:0 auto">
     <h2 class="cta-h2">Sẵn sàng dẫn đầu?</h2>
-    <p class="cta-p">Cùng cộng đồng 1,200+ HR professionals Việt Nam — hoàn toàn miễn phí</p>
-    <p class="cta-sub">Đăng ký nhận thông báo khi có khóa học mới ra mắt.</p>
+    <p class="cta-p">Dành cho HR professionals Việt Nam — hoàn toàn miễn phí</p>
+    <p class="cta-sub">Để lại email để nhận: khoá học mới, bản mẫu và công cụ Finance-HR, và thông báo mỗi khi có số PeopleOS mới.</p>
     <div class="cta-row">
       <input class="cta-input" placeholder="email@congty.com" type="email">
       <button class="btn-primary" style="padding:12px 24px">Đăng ký</button>
@@ -1218,7 +1224,11 @@ function togglePath(key) {
 }
 
 // ── LEADERBOARD ───────────────────────────────────────────────
-function renderLB() {
+// GO 30/08: ham nay tro toi #lb-rows — phan tu KHONG ton tai trong DOM,
+// nen no nem TypeError va chan toan bo phan INIT phia sau (updateUI...).
+// Bang xep hang da an, khong con dung ham nay nua.
+function renderLB() { /* da go */ }
+function _renderLB_cu() {
   document.getElementById('lb-rows').innerHTML = LB.map((u,i) => `
     <div class="lb-row ${i===0?'gold-bg':''}">
       <div class="lb-rank">${u.medal||'#'+u.rank}</div>
@@ -1652,6 +1662,9 @@ function switchLBTab(tab) {
 }
 
 function loadLeaderboard() {
+  // GO 30/08: bang xep hang tam an cho toi khi co du nguoi hoc that.
+  // Khong goi /api/leaderboard nua de khong keo du lieu ra trang.
+  return;
   var list = document.getElementById('lb-list');
   if (!list) return;
   list.innerHTML = '<div class="lb-loading">Đang tải...</div>';
@@ -1808,5 +1821,7 @@ function hideSearch() {
 </div>
 
 
+<!-- Vercel Web Analytics (them 30/08) - can bat trong Vercel > Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
