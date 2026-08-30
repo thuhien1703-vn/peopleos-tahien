@@ -1046,11 +1046,11 @@ xp = savedXP;
 function save() {
   localStorage.setItem('pos_done', JSON.stringify([...done]));
   if(window.currentUser) window._syncCloud();
-  localStorage.setItem('pos_giot', giot);
+  localStorage.setItem('pos_giot', xp);  // sua 30/08: bien la 'xp', 'giot' chua bao gio duoc khai bao
 }
 
 function updateUI() {
-  const x = giot;
+  const x = xp;  // sua 30/08: bien la 'xp'; 'giot' la ten hien thi (Giot), khong phai bien
   const el_val = document.getElementById('xp-val');
   const el_hero = document.getElementById('hero-xp');
   const el_prog = document.getElementById('xp-prog');
