@@ -113,7 +113,7 @@
   ],
   "crons": [
     {
-      "path": "/api/weekly-digest?key=peopleos-weekly-2026",
+      "path": "/api/weekly-digest",
       "schedule": "0 8 * * 1"
     }
   ]
