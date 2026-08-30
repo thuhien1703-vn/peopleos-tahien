@@ -142,10 +142,14 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // Security: require secret key for cron calls
-  const authHeader = req.headers['authorization'] || '';
-  const cronSecret = process.env.CRON_SECRET || 'peopleos-weekly-2026';
-  if (!authHeader.includes(cronSecret) && req.query.key !== cronSecret) {
+  // Bao mat (sua 30/08): repo nay PUBLIC nen KHONG duoc de secret du phong trong ma nguon.
+  // Vercel tu gui header `Authorization: Bearer $CRON_SECRET` khi goi cron,
+  // nen khong con nhan key qua query string (query string bi ghi vao log).
+  const cronSecret = process.env.CRON_SECRET;
+  if (!cronSecret) {
+    return res.status(500).json({ error: 'CRON_SECRET chua duoc cau hinh' });
+  }
+  if (req.headers['authorization'] !== `Bearer ${cronSecret}`) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
